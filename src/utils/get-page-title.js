@@ -1,7 +1,7 @@
 import defaultSettings from '@/settings'
 import i18n from '@/lang'
 
-const title = defaultSettings.title || '上海灵娃MES系统'
+const title = defaultSettings.title || '库柏爱迪生国网系统'
 
 export default function getPageTitle(key) {
   const hasKey = i18n.te(`route.${key}`)

@@ -1,5 +1,5 @@
 module.exports = {
-  title: '上海灵娃MES系统',
+  title: '库柏爱迪生国网系统',
 
   /**
    * @type {boolean} true | false
