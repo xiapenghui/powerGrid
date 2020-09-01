@@ -81,33 +81,210 @@ export const constantRoutes = [{
 
 // 业务订单管理
 {
-  path: '/table',
+  path: '/BusinessData',
   component: Layout,
-  redirect: '/table/complex-table',
+  redirect: '/BusinessData/PurchaseIinformation',
   name: 'Table',
+  alwaysShow: true,
   meta: {
-    title: 'Table',
-    icon: 'table'
+    title: 'BusinessData',
+    icon: 'nested'
   },
   children: [
     {
-      path: 'dynamic-table',
-      component: () => import('@/views/table/dynamic-table/index'),
+      path: 'PurchaseIinformation',
+      component: () => import('@/views/BusinessData/PurchaseIinformation'),
       name: 'DynamicTable',
-      meta: { title: 'dynamicTable' }
+      meta: { title: 'PurchaseIinformation' }
     },
     {
-      path: 'inline-edit-table',
-      component: () => import('@/views/table/inline-edit-table'),
-      name: 'InlineEditTable',
-      meta: { title: 'inlineEditTable' }
+      path: 'SalesIinformation',
+      component: () => import('@/views/BusinessData/SalesIinformation'),
+      name: 'SalesIinformation',
+      meta: { title: 'SalesIinformation' }
     },
     {
-      path: 'complex-table',
-      component: () => import('@/views/table/complex-table'),
-      name: 'ComplexTable',
-      meta: { title: 'complexTable' }
+      path: 'MaintenanceInformation',
+      component: () => import('@/views/BusinessData/MaintenanceInformation'),
+      name: 'MaintenanceInformation',
+      meta: { title: 'MaintenanceInformation' }
+    },
+    {
+      path: 'WorkInformation',
+      component: () => import('@/views/BusinessData/WorkInformation'),
+      name: 'WorkInformation',
+      meta: { title: 'WorkInformation' }
+    },
+
+    {
+      path: 'SchedulingInformation',
+      component: () => import('@/views/BusinessData/SchedulingInformation'),
+      name: 'SchedulingInformation',
+      meta: { title: 'SchedulingInformation' }
+    },
+
+    {
+      path: 'ReportInformation',
+      component: () => import('@/views/BusinessData/ReportInformation'),
+      name: 'ReportInformation',
+      meta: { title: 'ReportInformation' }
+    },
+
+    {
+      path: 'KeyInformation',
+      component: () => import('@/views/BusinessData/KeyInformation'),
+      name: 'KeyInformation',
+      meta: { title: 'KeyInformation' }
+    },
+    {
+      path: 'IdInformation',
+      component: () => import('@/views/BusinessData/IdInformation'),
+      name: 'IdInformation',
+      meta: { title: 'IdInformation' }
+    },
+    {
+      path: 'SupplyInformation',
+      component: () => import('@/views/BusinessData/SupplyInformation'),
+      name: 'SupplyInformation',
+      meta: { title: 'SupplyInformation' }
+    },
+    {
+      path: 'SpareInventory',
+      component: () => import('@/views/BusinessData/SpareInventory'),
+      name: 'SpareInventory',
+      meta: { title: 'SpareInventory' }
+    },
+    {
+      path: 'FinishedInformation',
+      component: () => import('@/views/BusinessData/FinishedInformation'),
+      name: 'FinishedInformation',
+      meta: { title: 'FinishedInformation' }
     }
+  ]
+},
+
+// 检验检测数据
+{
+  path: '/InspectionData',
+  component: Layout,
+  redirect: '/InspectionData/ContactBox',
+  name: 'Table',
+  alwaysShow: true,
+  meta: {
+    title: 'InspectionData',
+    icon: 'nested'
+  },
+  children: [
+    {
+      path: 'ContactBox',
+      component: () => import('@/views/InspectionData/ContactBox'),
+      name: 'ContactBox',
+      meta: { title: 'ContactBox' }
+    },
+    {
+      path: 'CasingCabinet',
+      component: () => import('@/views/InspectionData/CasingCabinet'),
+      name: 'CasingCabinet',
+      meta: { title: 'CasingCabinet' }
+    },
+    {
+      path: 'StaticContact',
+      component: () => import('@/views/InspectionData/StaticContact'),
+      name: 'StaticContact',
+      meta: { title: 'StaticContact' }
+    },
+    {
+      path: 'PostInsulator',
+      component: () => import('@/views/InspectionData/PostInsulator'),
+      name: 'PostInsulator',
+      meta: { title: 'PostInsulator' }
+    },
+    {
+      path: 'CircuitTrolley',
+      component: () => import('@/views/InspectionData/CircuitTrolley'),
+      name: 'CircuitTrolley',
+      meta: { title: 'CircuitTrolley' }
+    },
+    {
+      path: 'CurrentTransformer',
+      component: () => import('@/views/InspectionData/CurrentTransformer'),
+      name: 'CurrentTransformer',
+      meta: { title: 'CurrentTransformer' }
+    },
+
+    {
+      path: 'VoltageTransformer',
+      component: () => import('@/views/InspectionData/VoltageTransformer'),
+      name: 'VoltageTransformer',
+      meta: { title: 'VoltageTransformer' }
+    },
+    {
+      path: 'LightningArrester',
+      component: () => import('@/views/InspectionData/LightningArrester'),
+      name: 'LightningArrester',
+      meta: { title: 'LightningArrester' }
+    },
+    {
+      path: 'ChargedDisplay',
+      component: () => import('@/views/InspectionData/ChargedDisplay'),
+      name: 'ChargedDisplay',
+      meta: { title: 'ChargedDisplay' }
+    },
+    {
+      path: 'FuseInformation',
+      component: () => import('@/views/InspectionData/FuseInformation'),
+      name: 'FuseInformation',
+      meta: { title: 'FuseInformation' }
+    },
+    {
+      path: 'BusInformation',
+      component: () => import('@/views/InspectionData/BusInformation'),
+      name: 'BusInformation',
+      meta: { title: 'BusInformation' }
+    },
+    {
+      path: 'CabinetMaterial',
+      component: () => import('@/views/InspectionData/CabinetMaterial'),
+      name: 'CabinetMaterial',
+      meta: { title: 'CabinetMaterial' }
+    },
+    {
+      path: 'ResistanceCircuit',
+      component: () => import('@/views/InspectionData/ResistanceCircuit'),
+      name: 'ResistanceCircuit',
+      meta: { title: 'ResistanceCircuit' }
+    },
+    {
+      path: 'MechanicalOperation',
+      component: () => import('@/views/InspectionData/MechanicalOperation'),
+      name: 'MechanicalOperation',
+      meta: { title: 'MechanicalOperation' }
+    },
+    {
+      path: 'MechanicalTest',
+      component: () => import('@/views/InspectionData/MechanicalTest'),
+      name: 'MechanicalTest',
+      meta: { title: 'MechanicalTest' }
+    },
+    {
+      path: 'WithstandTest',
+      component: () => import('@/views/InspectionData/WithstandTest'),
+      name: 'WithstandTest',
+      meta: { title: 'WithstandTest' }
+    },
+    {
+      path: 'InsulationTest',
+      component: () => import('@/views/InspectionData/InsulationTest'),
+      name: 'InsulationTest',
+      meta: { title: 'InsulationTest' }
+    },
+    {
+      path: 'ElectricalInterlock',
+      component: () => import('@/views/InspectionData/ElectricalInterlock'),
+      name: 'ElectricalInterlock',
+      meta: { title: 'ElectricalInterlock' }
+    }
+
   ]
 },
 
