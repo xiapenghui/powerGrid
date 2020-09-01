@@ -6,30 +6,36 @@ const tableRouter = {
   path: '/table',
   component: Layout,
   redirect: '/table/complex-table',
+  hidden: true,
   name: 'Table',
   meta: {
     title: 'Table',
     icon: 'table'
   },
-  children: [
-    {
-      path: 'dynamic-table',
-      component: () => import('@/views/table/dynamic-table/index'),
-      name: 'DynamicTable',
-      meta: { title: 'dynamicTable' }
-    },
-    {
-      path: 'inline-edit-table',
-      component: () => import('@/views/table/inline-edit-table'),
-      name: 'InlineEditTable',
-      meta: { title: 'inlineEditTable' }
-    },
-    {
-      path: 'complex-table',
-      component: () => import('@/views/table/complex-table'),
-      name: 'ComplexTable',
-      meta: { title: 'complexTable' }
+  children: [{
+    path: 'dynamic-table',
+    component: () => import('@/views/table/dynamic-table/index'),
+    name: 'DynamicTable',
+    meta: {
+      title: 'dynamicTable'
     }
+  },
+  {
+    path: 'inline-edit-table',
+    component: () => import('@/views/table/inline-edit-table'),
+    name: 'InlineEditTable',
+    meta: {
+      title: 'inlineEditTable'
+    }
+  },
+  {
+    path: 'complex-table',
+    component: () => import('@/views/table/complex-table'),
+    name: 'ComplexTable',
+    meta: {
+      title: 'complexTable'
+    }
+  }
   ]
 }
 export default tableRouter

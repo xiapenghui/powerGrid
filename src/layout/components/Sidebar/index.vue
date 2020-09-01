@@ -4,6 +4,7 @@
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
         :default-active="activeMenu"
+        :default-openeds="openeds"
         :collapse="isCollapse"
         :background-color="variables.menuBg"
         :text-color="variables.menuText"
@@ -48,6 +49,11 @@ export default {
     },
     isCollapse() {
       return !this.sidebar.opened
+    }
+  },
+  data() {
+    return {
+      openeds: ['/BusinessData', '/InspectionData']
     }
   }
 }

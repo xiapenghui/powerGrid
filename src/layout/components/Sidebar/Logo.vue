@@ -24,9 +24,9 @@ export default {
   },
   data() {
     return {
-      title: '库柏爱迪生国网项目',
-      logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
-      // logo: require('../../../assets/home/logo.png')
+      title: '库柏爱迪生国网系统',
+      // logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
+      logo: require('../../../assets/home/log.jpg')
     }
   }
 }
@@ -56,10 +56,10 @@ export default {
     width: 100%;
 
     & .sidebar-logo {
-      width: 32px;
+      width: 70px;
       height: 32px;
       vertical-align: middle;
-      margin-right: 12px;
+      margin-right: 8px;
     }
 
     & .sidebar-title {
