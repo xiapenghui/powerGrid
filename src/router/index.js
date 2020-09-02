@@ -88,7 +88,7 @@ export const constantRoutes = [{
   alwaysShow: true,
   meta: {
     title: 'BusinessData',
-    icon: 'nested'
+    icon: 'tab'
   },
   children: [{
     path: 'PurchaseIinformation',
@@ -193,7 +193,7 @@ export const constantRoutes = [{
 
   meta: {
     title: 'InspectionData',
-    icon: 'nested'
+    icon: 'tab'
   },
   children: [{
     path: 'ContactBox',

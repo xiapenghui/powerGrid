@@ -131,11 +131,11 @@
 </template>
 
 <script>
-import '../../styles/scrollbar.css';
-import '../../styles/commentBox.scss';
-import { deleteRole } from '@/api/role';
-import i18n from '@/lang';
-import Pagination from '@/components/Pagination'; // secondary package based on el-pagination
+import '../../styles/scrollbar.css'
+import '../../styles/commentBox.scss'
+import { deleteRole } from '@/api/role'
+import i18n from '@/lang'
+import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
   components: { Pagination },
@@ -170,29 +170,29 @@ export default {
       content4: this.$t('permission.ownerId'),
       content5: this.$t('permission.openId'),
       content6: this.$t('permission.dataSource')
-    };
+    }
   },
   computed: {},
   watch: {
     // 监听data属性中英文切换问题
     '$i18n.locale'() {
-      this.content1 = this.$t('permission.poItemIds');
-      this.content2 = this.$t('permission.productCode');
-      this.content3 = this.$t('permission.productName');
-      this.content4 = this.$t('permission.ownerId');
-      this.content5 = this.$t('permission.openId');
-      this.content6 = this.$t('permission.dataSource');
+      this.content1 = this.$t('permission.poItemIds')
+      this.content2 = this.$t('permission.productCode')
+      this.content3 = this.$t('permission.productName')
+      this.content4 = this.$t('permission.ownerId')
+      this.content5 = this.$t('permission.openId')
+      this.content6 = this.$t('permission.dataSource')
     }
   },
   created() {
     // Mock: get all routes and roles list from server
-    this.getList();
+    this.getList()
   },
   methods: {
     // 查询
     handleSearch() {
-      this.form.page = 1;
-      this.getList();
+      this.form.page = 1
+      this.getList()
     },
     // 重置
     handleReset() {
@@ -203,7 +203,7 @@ export default {
         showReviewer: false,
         page: 1,
         limit: 20
-      };
+      }
     },
 
     // 导出用户
@@ -220,29 +220,29 @@ export default {
             this.$t('permission.state'),
             this.$t('permission.user'),
             this.$t('permission.time')
-          ];
-          const filterVal = ['companyNo', 'name', 'title', 'department', 'company', 'description', 'state', 'user', 'time'];
-          const list = this.rolesList;
-          const data = this.formatJson(filterVal, list);
+          ]
+          const filterVal = ['companyNo', 'name', 'title', 'department', 'company', 'description', 'state', 'user', 'time']
+          const list = this.rolesList
+          const data = this.formatJson(filterVal, list)
           excel.export_json_to_excel({
             header: tHeader,
             data
-          });
-        });
+          })
+        })
       } else {
         this.$message({
           message: 'Please select at least one item',
           type: 'warning'
-        });
+        })
       }
     },
     // 导出用户
     formatJson(filterVal, jsonData) {
-      return jsonData.map(v => filterVal.map(j => v[j]));
+      return jsonData.map(v => filterVal.map(j => v[j]))
     },
     // 获取列表
     getList() {
-      this.listLoading = false;
+      this.listLoading = false
       // fetchList(this.listQuery).then(response => {
       //   this.list = response.data.items
       //   this.total = response.data.total
@@ -255,15 +255,16 @@ export default {
 
     i18n(routes) {
       const app = routes.map(route => {
-        route.title = i18n.t(`route.${route.title}`);
+        route.title = i18n.t(`route.${route.title}`)
         if (route.children) {
-          route.children = this.i18n(route.children);
+          route.children = this.i18n(route.children)
         }
-        return route;
-      });
-      return app;
+        return route
+      })
+      return app
     },
-
+    // 编辑
+    handleEdit() {},
     // 删除角色
     handleDelete({ $index, row }) {
       this.$confirm(this.$t('permission.errorInfo'), this.$t('permission.errorTitle'), {
@@ -271,20 +272,20 @@ export default {
         cancelButtonText: this.$t('permission.Cancel'),
         type: 'warning'
       })
-        .then(async () => {
-          await deleteRole(row.key);
-          this.rolesList.splice($index, 1);
+        .then(async() => {
+          await deleteRole(row.key)
+          this.rolesList.splice($index, 1)
           this.$message({
             type: 'success',
             message: 'Delete succed!'
-          });
+          })
         })
         .catch(err => {
-          console.error(err);
-        });
+          console.error(err)
+        })
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -292,29 +293,5 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-.avatar-uploader .el-upload {
-  border: 1px dashed #999999;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px;
-  text-align: center;
-  border: 1px dashed #999999;
-}
-.avatar {
-  width: 178px;
-  height: 178px;
-  display: block;
 }
 </style>

@@ -276,7 +276,27 @@ export default {
     MaterialSNInfo: '请输入成品序列号SAP',
     CircuitBreakerSN: '断路器编号',
     CircuitBreakerSNInfo: '请输入断路器出厂编号',
+
+    // 未翻译
     SaleOrg: '工厂',
+    purchaserHqCode: '采购方总部编码',
+    purchaserHqCodeInfo: '请输入采购方总部编码',
+    supplierCode: '供应商编码',
+    supplierCodeInfo: '请输入供应商编码',
+    supplierName: '供应商名称',
+    supplierNameInfo: '请输入供应商名称',
+    matName: '原材料名称',
+    matNameInfo: '请输入原材料名称',
+    matCode: '原材料编码',
+    matCodeInfo: '请输入原材料编码',
+    matNum: '原材料库存数量',
+    matUnit: '原材料单位',
+    matUnitInfo: '请输入原材料单位',
+    matDescription: '原材料描述',
+    matProdAddr: '原材料产地',
+    remark: '备注',
+    entityCode: '实物ID',
+    entityStatus: '实物生产状态',
 
     // 截止
     roles: '你的权限',
