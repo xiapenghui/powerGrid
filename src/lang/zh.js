@@ -270,11 +270,11 @@ export default {
     productUnit: '物质单位',
     productAmount: '物质数量',
     dataSourceCreateTime: '来源数据创建时间',
-    ContactNum: '合同编号',
+    ContactNum: '合同出厂编号',
     ContactNumInfo: '请输入合同出厂编号',
     MaterialSN: '成品序列号SAP',
     MaterialSNInfo: '请输入成品序列号SAP',
-    CircuitBreakerSN: '断路器编号',
+    CircuitBreakerSN: '断路器出厂s编号',
     CircuitBreakerSNInfo: '请输入断路器出厂编号',
 
     // 未翻译
@@ -297,6 +297,14 @@ export default {
     remark: '备注',
     entityCode: '实物ID',
     entityStatus: '实物生产状态',
+    SO_Num: '销售订单号码',
+    SO_NumInfo: '请输入销售订单号码',
+    MaterialSNs: '成品序列号',
+    MaterialSNInfos: '请输入成品序列号',
+    ContactNums: '合同出厂编号(常州)',
+    ContactNumInfos: '请输入合同出厂编号(常州)',
+    RawMaterialSN: '原材料CT/PT出厂编号',
+    RawMaterialSNInfo: '请输入原材料CT/PT出厂编号',
 
     // 截止
     roles: '你的权限',
@@ -371,7 +379,8 @@ export default {
     theme: '主题色',
     tagsView: '开启 Tags-View',
     fixedHeader: '固定 Header',
-    sidebarLogo: '侧边栏 Logo'
+    sidebarLogo: '侧边栏 Logo',
+    logo: '库柏爱迪生国网系统'
   }
 
 }
