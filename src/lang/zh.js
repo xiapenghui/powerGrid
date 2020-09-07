@@ -28,7 +28,8 @@ export default {
     ProductMmanagement: '产品信息维护',
     BomMangement: 'BOM信息维护',
     RouteMaintenance: '工艺路线维护',
-    // do
+
+    // 新项目
     BusinessData: '业务订单数据',
     PurchaseIinformation: '采购订单信息',
     SalesIinformation: '销售及项目信息',
@@ -252,7 +253,7 @@ export default {
     deleteCompany: '删除公司',
     companyNoInfo: '请输入公司编号',
 
-    // do
+    // 新项目
     poItemIds: '订单ID',
     poItemIdInfos: '请输入采供订单项目ID',
     productCode: '物质编码',
@@ -276,8 +277,6 @@ export default {
     MaterialSNInfo: '请输入成品序列号SAP',
     CircuitBreakerSN: '断路器出厂s编号',
     CircuitBreakerSNInfo: '请输入断路器出厂编号',
-
-    // 未翻译
     SaleOrg: '工厂',
     purchaserHqCode: '采购方总部编码',
     purchaserHqCodeInfo: '请输入采购方总部编码',
@@ -305,6 +304,38 @@ export default {
     ContactNumInfos: '请输入合同出厂编号(常州)',
     RawMaterialSN: '原材料CT/PT出厂编号',
     RawMaterialSNInfo: '请输入原材料CT/PT出厂编号',
+    // do
+    ipoType: '订单类型',
+    ipoNo: '生产订单号',
+    categoryCode: '品类编码',
+    subclassCode: '种类编码',
+    scheduleCode: '排产计划编码',
+    poItemIdId: '采购订单行项目id（供货单行项目id)',
+    dataType: '数据关联类型',
+    soItemNo: '销售订单行项目号',
+    materialsCode: '厂家物料编码',
+    materialsName: '厂家物料名称',
+    materialsUnit: '厂家物资单位',
+    materialsDesc: '厂家物料描述',
+    amount: '生产数量',
+    unit: '计量单位',
+    productIdGrpNo: '物资id分组',
+    productIdType: '物资id类型',
+    productModel: '产品型号',
+    planStartDate: '计划开始日期',
+    planFinishDate: '计划完成日期',
+    actualStartDate: '实际开始日期',
+    actualFinishDate: '实际完成日期',
+    plantName: '生产工厂名称',
+    workshopName: '生产车间名称',
+    ipoStatus: '生产订单状态',
+    center: '生产中心',
+    woNo: '生产工单编码',
+    materialsDescription: '厂家物料描述',
+    materialsBatch: '物料批次',
+    woStatus: '工单状态',
+    processRouteNo: '工艺路线编码',
+    modelSpec: '产品型号规格',
 
     // 截止
     roles: '你的权限',
