@@ -59,9 +59,40 @@
         </el-col>
       </el-row>
 
+      <el-row v-show="hidden" :gutter="20" style="margin-top:20px">
+        <el-col :span="6">
+          <el-col :span="8">
+            <el-tooltip class="item" effect="dark" :content="content4" placement="top-start">
+              <label class="radio-label">{{ $t('permission.ownerId') }}:</label>
+            </el-tooltip>
+          </el-col>
+          <el-col :span="16"><el-input v-model="form.ownerId" :placeholder="$t('permission.ownerIdInfo')" clearable /></el-col>
+        </el-col>
+
+        <el-col :span="6">
+          <el-col :span="8">
+            <el-tooltip class="item" effect="dark" :content="content5" placement="top-start">
+              <label class="radio-label">{{ $t('permission.openId') }}:</label>
+            </el-tooltip>
+          </el-col>
+          <el-col :span="16"><el-input v-model="form.openId" :placeholder="$t('permission.openIdInfo')" clearable /></el-col>
+        </el-col>
+
+        <el-col :span="6">
+          <el-col :span="8">
+            <el-tooltip class="item" effect="dark" :content="content6" placement="top-start">
+              <label class="radio-label">{{ $t('permission.dataSource') }}:</label>
+            </el-tooltip>
+          </el-col>
+          <el-col :span="16"><el-input v-model="form.dataSource" :placeholder="$t('permission.dataSourceInfo')" clearable /></el-col>
+        </el-col>
+      </el-row>
+
       <el-row class="center">
         <el-button type="primary" icon="el-icon-search" @click="handleSearch">{{ $t('permission.search') }}</el-button>
         <el-button type="danger" icon="el-icon-refresh" @click="handleReset">{{ $t('permission.reset') }}</el-button>
+        <el-button v-if="toggle" size="mini" circle @click="toggleBtn"><i class="el-icon-d-arrow-left" /></el-button>
+        <el-button v-if="!toggle" size="mini" circle @click="toggleBtn"><i class="el-icon-d-arrow-right" /></el-button>
       </el-row>
     </div>
 
@@ -69,7 +100,17 @@
       <el-button type="primary" icon="el-icon-document-remove" @click="handleExport">{{ $t('permission.exportOrder') }}</el-button>
     </div>
 
-    <el-table v-loading="listLoading" :data="rolesList" style="width: 100%" border>
+    <el-table
+      v-loading="listLoading"
+      :data="rolesList"
+      style="width: 100%"
+      border
+      element-loading-text="拼命加载中"
+      fit
+      highlight-current-row
+      @selection-change="handleSelectionChange"
+    >
+      <el-table-column type="selection" width="55" />
       <el-table-column align="center" :label="$t('permission.poItemId')" width="150" fixed sortable prop="key">
         <template slot-scope="scope">
           {{ scope.row.poItemId }}
@@ -163,7 +204,10 @@ export default {
         limit: 20
       },
       listLoading: true,
+      toggle: true,
+      hidden: false,
       total: 10,
+      downloadLoading: false,
       content1: this.$t('permission.poItemIds'),
       content2: this.$t('permission.productCode'),
       content3: this.$t('permission.productName'),
@@ -189,6 +233,11 @@ export default {
     this.getList()
   },
   methods: {
+    // 折叠搜索框
+    toggleBtn() {
+      this.hidden = !this.hidden
+      this.toggle = !this.toggle
+    },
     // 查询
     handleSearch() {
       this.form.page = 1
@@ -205,10 +254,14 @@ export default {
         limit: 20
       }
     },
-
+    // 多选
+    handleSelectionChange(val) {
+      this.multipleSelection = val
+    },
     // 导出用户
     handleExport() {
       if (this.rolesList.length) {
+        this.downloadLoading = true
         import('@/vendor/Export2Excel').then(excel => {
           const tHeader = [
             this.$t('permission.companyNo'),
