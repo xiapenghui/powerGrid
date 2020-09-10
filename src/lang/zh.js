@@ -275,7 +275,7 @@ export default {
     ContactNumInfo: '请输入合同出厂编号',
     MaterialSN: '成品序列号SAP',
     MaterialSNInfo: '请输入成品序列号SAP',
-    CircuitBreakerSN: '断路器出厂s编号',
+    CircuitBreakerSN: '断路器出厂编号',
     CircuitBreakerSNInfo: '请输入断路器出厂编号',
     SaleOrg: '工厂',
     purchaserHqCode: '采购方总部编码',
