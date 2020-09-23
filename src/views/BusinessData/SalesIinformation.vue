@@ -28,6 +28,15 @@
           </el-col>
           <el-col :span="16"><el-input v-model="form.productName" :placeholder="$t('permission.productNameInfo')" clearable /></el-col>
         </el-col>
+
+        <el-col :span="6">
+          <el-col :span="8">
+            <el-tooltip class="item" effect="dark" :content="content3" placement="top-start">
+              <label class="radio-label">{{ $t('permission.productName') }}:</label>
+            </el-tooltip>
+          </el-col>
+          <el-col :span="16"><el-input v-model="form.productName" :placeholder="$t('permission.productNameInfo')" clearable /></el-col>
+        </el-col>
       </el-row>
 
       <el-row :gutter="20" style="margin-top:20px">
@@ -56,6 +65,15 @@
             </el-tooltip>
           </el-col>
           <el-col :span="16"><el-input v-model="form.dataSource" :placeholder="$t('permission.dataSourceInfo')" clearable /></el-col>
+        </el-col>
+
+        <el-col :span="6">
+          <el-col :span="8">
+            <el-tooltip class="item" effect="dark" :content="content3" placement="top-start">
+              <label class="radio-label">{{ $t('permission.productName') }}:</label>
+            </el-tooltip>
+          </el-col>
+          <el-col :span="16"><el-input v-model="form.productName" :placeholder="$t('permission.productNameInfo')" clearable /></el-col>
         </el-col>
       </el-row>
 
@@ -97,6 +115,8 @@
     </div>
 
     <div class="rightBtn">
+      <el-button type="danger" icon="el-icon-delete" @click="deleteAll">{{ $t('permission.deleteAll') }}</el-button>
+      <el-button type="primary" icon="el-icon-check" @click="okAll">{{ $t('permission.okAll') }}</el-button>
       <el-button type="primary" icon="el-icon-document-remove" @click="handleExport">{{ $t('permission.exportOrder') }}</el-button>
     </div>
 
@@ -111,59 +131,162 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" />
-      <el-table-column align="center" :label="$t('permission.poItemId')" width="150" fixed sortable prop="key">
+      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="150" fixed sortable prop="key">
         <template slot-scope="scope">
-          {{ scope.row.poItemId }}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" :label="$t('permission.productCode')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.productCode }}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" :label="$t('permission.productName')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.productName }}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" :label="$t('permission.productUnit')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.productUnit }}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" :label="$t('permission.productAmount')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.productAmount }}
+          <span v-if="!scope.row.isEgdit">{{ scope.row.SaleOrg }}</span>
+          <el-input v-else v-model="scope.row.SaleOrg" />
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.ownerId')" width="150">
+      <el-table-column align="center" :label="$t('permission.status')" width="150">
         <template slot-scope="scope">
-          {{ scope.row.ownerId }}
+          <el-tag :type="scope.row.status" :style="{ color: scope.row.status === '未确认' ? '#FF5757' : '#13ce66' }">{{ scope.row.status }}</el-tag>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.openId')" prop="name" sortable width="250">
+      <el-table-column align="center" :label="$t('permission.upload')" width="150">
         <template slot-scope="scope">
-          {{ scope.row.openId }}
+          <el-tag :type="scope.row.upload" :style="{ color: scope.row.upload === '未上传' ? '#FF5757' : '#13ce66' }">{{ scope.row.upload }}</el-tag>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.purchaserHqCode')" width="150">
+        <template slot-scope="scope">
+          <span v-if="!scope.row.isEgdit">{{ scope.row.purchaserHqCode }}</span>
+          <el-input v-else v-model="scope.row.purchaserHqCode" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.soNo')" width="150">
+        <template slot-scope="scope">
+          <span v-if="!scope.row.isEgdit">{{ scope.row.soNo }}</span>
+          <el-input v-else v-model="scope.row.soNo" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.supplierCode')" width="150">
+        <template slot-scope="scope">
+          <span v-if="!scope.row.isEgdit">{{ scope.row.supplierCode }}</span>
+          <el-input v-else v-model="scope.row.supplierCode" />
+        </template>
+      </el-table-column>
+      <el-table-column align="center" :label="$t('permission.buyerCode')" width="150">
+        <template slot-scope="scope">
+          <span v-if="!scope.row.isEgdit">{{ scope.row.buyerCode }}</span>
+          <el-input v-else v-model="scope.row.buyerCode" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.buyerName')" width="150">
+        <template slot-scope="scope">
+          <span v-if="!scope.row.isEgdit">{{ scope.row.buyerName }}</span>
+          <el-input v-else v-model="scope.row.buyerName" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.buyerProvinceOther')" prop="name" sortable width="250">
+        <template slot-scope="scope">
+          <span v-if="!scope.row.isEgdit">{{ scope.row.buyerProvince }}</span>
+          <el-input v-else v-model="scope.row.buyerProvince" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.categoryCode')" width="200">
+        <template slot-scope="scope">
+          <span v-if="!scope.row.isEgdit">{{ scope.row.categoryCode }}</span>
+          <el-input v-else v-model="scope.row.categoryCode" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.subclassCode')" width="200">
+        <template slot-scope="scope">
+          <span v-if="!scope.row.isEgdit">{{ scope.row.subclassCode }}</span>
+          <el-input v-else v-model="scope.row.subclassCode" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.soStatus')" width="200">
+        <template slot-scope="scope">
+          <span v-if="!scope.row.isEgdit">{{ scope.row.soStatus }}</span>
+          <el-input v-else v-model="scope.row.soStatus" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.soItemNo')" width="200">
+        <template slot-scope="scope">
+          <span v-if="!scope.row.isEgdit">{{ scope.row.soItemNo }}</span>
+          <el-input v-else v-model="scope.row.soItemNo" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.poItemId')" width="200">
+        <template slot-scope="scope">
+          <span v-if="!scope.row.isEgdit">{{ scope.row.poItemId }}</span>
+          <el-input v-else v-model="scope.row.poItemId" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.productCode')" width="200">
+        <template slot-scope="scope">
+          <span v-if="!scope.row.isEgdit">{{ scope.row.productCode }}</span>
+          <el-input v-else v-model="scope.row.productCode" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.productName')" width="200">
+        <template slot-scope="scope">
+          <span v-if="!scope.row.isEgdit">{{ scope.row.productName }}</span>
+          <el-input v-else v-model="scope.row.productName" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.productUnit')" width="200">
+        <template slot-scope="scope">
+          <span v-if="!scope.row.isEgdit">{{ scope.row.productUnit }}</span>
+          <el-input v-else v-model="scope.row.productUnit" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.productAmount')" width="200">
+        <template slot-scope="scope">
+          <span v-if="!scope.row.isEgdit">{{ scope.row.productAmount }}</span>
+          <el-input v-else v-model="scope.row.productAmount" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.ownerId')" width="200">
+        <template slot-scope="scope">
+          <span v-if="!scope.row.isEgdit">{{ scope.row.ownerId }}</span>
+          <el-input v-else v-model="scope.row.ownerId" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.openId')" width="200">
+        <template slot-scope="scope">
+          <span v-if="!scope.row.isEgdit">{{ scope.row.openId }}</span>
+          <el-input v-else v-model="scope.row.openId" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.dataSource')" width="200">
         <template slot-scope="scope">
-          {{ scope.row.dataSource }}
+          <span v-if="!scope.row.isEgdit">{{ scope.row.dataSource }}</span>
+          <el-input v-else v-model="scope.row.dataSource" />
         </template>
       </el-table-column>
+
       <el-table-column align="center" :label="$t('permission.dataSourceCreateTime')" width="200">
         <template slot-scope="scope">
-          {{ scope.row.dataSourceCreateTime }}
+          <span v-if="!scope.row.isEgdit">{{ scope.row.dataSourceCreateTime }}</span>
+          <el-input v-else v-model="scope.row.dataSourceCreateTimes" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.operations')" fixed="right" width="200">
         <template slot-scope="scope">
-          <el-button type="primary" size="small" @click="handleEdit(scope)">{{ $t('table.edit') }}</el-button>
-          <el-button type="danger" size="small" @click="handleDelete(scope)">{{ $t('table.delete') }}</el-button>
+          <el-button v-if="!scope.row.isEgdit" type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">{{ $t('table.edit') }}</el-button>
+          <el-button v-else type="success" size="small" @click="editSuccess(scope.$index, scope.row)">{{ $t('table.editSuccess') }}</el-button>
+          <el-button type="danger" size="small" @click="handleDelete(scope.$index, scope.row)">{{ $t('table.delete') }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -182,26 +305,39 @@ export default {
   components: { Pagination },
   data() {
     return {
-      routes: [],
       rolesList: [
         {
-          poItemId: '',
-          productCode: '',
-          productName: '',
-          productUnit: '',
-          productAmount: '',
-          ownerId: '',
-          openId: '',
-          dataSource: '',
-          dataSourceCreateTime: ''
+          SaleOrg: '工程',
+          status: '未确认',
+          upload: '上传',
+          purchaserHqCode: '123',
+          soNo: '123',
+          supplierCode: '123',
+          buyerCode: '123',
+          buyerName: '小米',
+          buyerProvince: '河南',
+          categoryCode: '123',
+          subclassCode: '456',
+          soStatus: '已完成',
+          soItemNo: '000',
+          poItemId: '123',
+          productCode: '456',
+          productName: '手机',
+          productUnit: '个',
+          productAmount: '10',
+          ownerId: '小米公司',
+          openId: '小米公司',
+          dataSource: '小米公司',
+          dataSourceCreateTime: '2020-09-23'
         }
+
       ],
       form: {
         companyNo: '',
         companyName: '',
         showReviewer: false,
         page: 1,
-        limit: 20
+        limit: 10
       },
       listLoading: true,
       toggle: true,
@@ -229,7 +365,6 @@ export default {
     }
   },
   created() {
-    // Mock: get all routes and roles list from server
     this.getList()
   },
   methods: {
@@ -251,13 +386,22 @@ export default {
         companyName: '',
         showReviewer: false,
         page: 1,
-        limit: 20
+        limit: 10
       }
     },
     // 多选
     handleSelectionChange(val) {
       this.multipleSelection = val
     },
+    // 批量删除
+    deleteAll() {
+
+    },
+    // 批量确认
+    okAll() {
+
+    },
+
     // 导出用户
     handleExport() {
       if (this.rolesList.length) {
@@ -317,7 +461,22 @@ export default {
       return app
     },
     // 编辑
-    handleEdit() {},
+    handleEdit(index, row) {
+      this.$set(row, 'isEgdit', true)
+    },
+    // 编辑成功
+    editSuccess(index, row) {
+      if (row.poItemId === '') {
+        debugger
+        this.$message.error('采购订单项目ID输入错误！')
+        return
+      } else if (!row.productCode) {
+        this.$message.error('物质编码输入错误！')
+        return
+      }
+      this.$message.success('恭喜你，数据保存成功！')
+      this.$set(row, 'isEgdit', false)
+    },
     // 删除角色
     handleDelete({ $index, row }) {
       this.$confirm(this.$t('permission.errorInfo'), this.$t('permission.errorTitle'), {

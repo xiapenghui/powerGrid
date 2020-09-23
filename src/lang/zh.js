@@ -61,6 +61,7 @@ export default {
     WithstandTest: '整柜工频耐压试验',
     InsulationTest: '辅助回路绝缘试验',
     ElectricalInterlock: '电气联锁信息',
+    // do
 
     // 截止
 
@@ -304,7 +305,6 @@ export default {
     ContactNumInfos: '请输入合同出厂编号(常州)',
     RawMaterialSN: '原材料CT/PT出厂编号',
     RawMaterialSNInfo: '请输入原材料CT/PT出厂编号',
-    // do
     ipoType: '订单类型',
     ipoNo: '生产订单号',
     categoryCode: '品类编码',
@@ -426,6 +426,16 @@ export default {
     earthSwitchClosed: '只有当接地开关处于闭合状态时，才能打开电缆室门(0代表否，1代表是)',
     cableChamberDoorOpen: '电缆室门打开时，无法操作接地开关(0代表否，1代表是)',
     elementUnchargedGround: '只有当隔室的元件不带电并接地时，隔室的门或盖板才能打开(0代表否，1代表是)',
+    // DO
+    deleteAll: '批量删除',
+    okAll: '批量确认',
+    upload: '上传状态',
+    status: '状态',
+    soNo: '销售订单号',
+    buyerCode: '采购方公司编码',
+    buyerName: '采购方公司名称',
+    buyerProvinceOther: '采购方公司省份(不带省)',
+    soStatus: '销售订单状态',
 
     // 截止
     roles: '你的权限',
@@ -473,7 +483,8 @@ export default {
     draft: '草稿',
     delete: '删除',
     cancel: '取 消',
-    confirm: '确 定'
+    confirm: '确 定',
+    editSuccess: '保存'
   },
   example: {
     warning: '创建和编辑页面是不能被 keep-alive 缓存的，因为keep-alive 的 include 目前不支持根据路由来缓存，所以目前都是基于 component name 来进行缓存的。如果你想类似的实现缓存效果，可以使用 localStorage 等浏览器缓存方案。或者不要使用 keep-alive 的 include，直接缓存所有页面。详情见'

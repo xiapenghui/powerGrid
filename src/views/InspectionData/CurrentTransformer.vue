@@ -8,7 +8,7 @@
               <label class="radio-label">{{ $t('permission.purchaserHqCode') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="form.purchaserHqCode" :placeholder="$t('permission.purchaserHqCodeInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.purchaserHqCode" :placeholder="$t('permission.purchaserHqCodeInfo')" clearable /></el-col>
         </el-col>
 
         <el-col :span="6">
@@ -17,7 +17,7 @@
               <label class="radio-label">{{ $t('permission.supplierCode') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="form.supplierCode" :placeholder="$t('permission.supplierCodeInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.supplierCode" :placeholder="$t('permission.supplierCodeInfo')" clearable /></el-col>
         </el-col>
 
         <el-col :span="6">
@@ -26,7 +26,7 @@
               <label class="radio-label">{{ $t('permission.supplierName') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="form.supplierName" :placeholder="$t('permission.supplierNameInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.supplierName" :placeholder="$t('permission.supplierNameInfo')" clearable /></el-col>
         </el-col>
       </el-row>
 
@@ -37,7 +37,7 @@
               <label class="radio-label">{{ $t('permission.dataSource') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="form.dataSource" :placeholder="$t('permission.dataSourceInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.dataSource" :placeholder="$t('permission.dataSourceInfo')" clearable /></el-col>
         </el-col>
 
         <el-col :span="6">
@@ -46,7 +46,7 @@
               <label class="radio-label">{{ $t('permission.ownerId') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="form.ownerId" :placeholder="$t('permission.ownerIdInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.ownerId" :placeholder="$t('permission.ownerIdInfo')" clearable /></el-col>
         </el-col>
 
         <el-col :span="6">
@@ -55,7 +55,7 @@
               <label class="radio-label">{{ $t('permission.openId') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="form.openId" :placeholder="$t('permission.openIdInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.openId" :placeholder="$t('permission.openIdInfo')" clearable /></el-col>
         </el-col>
       </el-row>
 
@@ -66,132 +66,161 @@
     </div>
 
     <div class="rightBtn">
+      <el-button type="danger" icon="el-icon-delete" @click="deleteAll">{{ $t('permission.deleteAll') }}</el-button>
+      <el-button type="primary" icon="el-icon-check" @click="okAll">{{ $t('permission.okAll') }}</el-button>
       <el-button type="primary" icon="el-icon-document-remove" @click="handleExport">{{ $t('permission.exportOrder') }}</el-button>
     </div>
 
-    <el-table v-loading="listLoading" :data="rolesList" style="width: 100%" border>
-      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="150" fixed>
+    <el-table
+      v-loading="listLoading"
+      :data="rolesList"
+      style="width: 100%"
+      border
+      element-loading-text="拼命加载中"
+      fit
+      highlight-current-row
+      @selection-change="handleSelectionChange"
+    >
+      <el-table-column type="selection" width="55" />
+      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="150" fixed sortable prop="key">
         <template slot-scope="scope">
-          {{ scope.row.SaleOrg }}
+          <span v-if="!scope.row.isEgdit">{{ scope.row.SaleOrg }}</span>
+          <el-input v-else v-model="scope.row.SaleOrg" />
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.status')" width="150">
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.status" :style="{ color: scope.row.status === '未确认' ? '#FF5757' : '#13ce66' }">{{ scope.row.status }}</el-tag>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.upload')" width="150">
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.upload" :style="{ color: scope.row.upload === '未上传' ? '#FF5757' : '#13ce66' }">{{ scope.row.upload }}</el-tag>
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.standardVersion')" width="150">
         <template slot-scope="scope">
-          {{ scope.row.standardVersion }}
+          <span v-if="!scope.row.isEgdit">{{ scope.row.standardVersion }}</span>
+          <el-input v-else v-model="scope.row.standardVersion" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.supplierWorkNo')" width="150">
         <template slot-scope="scope">
-          {{ scope.row.supplierWorkNo }}
+          <span v-if="!scope.row.isEgdit">{{ scope.row.supplierWorkNo }}</span>
+          <el-input v-else v-model="scope.row.supplierWorkNo" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.supplierCodeOther')" width="150">
         <template slot-scope="scope">
-          {{ scope.row.supplierCode }}
+          <span v-if="!scope.row.isEgdit">{{ scope.row.supplierCode }}</span>
+          <el-input v-else v-model="scope.row.supplierCode" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.modelCode')" width="150">
         <template slot-scope="scope">
-          {{ scope.row.modelCode }}
+          <span v-if="!scope.row.isEgdit">{{ scope.row.modelCode }}</span>
+          <el-input v-else v-model="scope.row.modelCode" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.categoryType')" width="150">
         <template slot-scope="scope">
-          {{ scope.row.categoryType }}
+          <span v-if="!scope.row.isEgdit">{{ scope.row.categoryType }}</span>
+          <el-input v-else v-model="scope.row.categoryType" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.isAlarmData')" width="150">
         <template slot-scope="scope">
-          {{ scope.row.isAlarmData }}
+          <span v-if="!scope.row.isEgdit">{{ scope.row.isAlarmData }}</span>
+          <el-input v-else v-model="scope.row.isAlarmData" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.alarmItem')" width="150">
         <template slot-scope="scope">
-          {{ scope.row.alarmItem }}
+          <span v-if="!scope.row.isEgdit">{{ scope.row.alarmItem }}</span>
+          <el-input v-else v-model="scope.row.alarmItem" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.processType')" width="150">
         <template slot-scope="scope">
-          {{ scope.row.processType }}
+          <span v-if="!scope.row.isEgdit">{{ scope.row.processType }}</span>
+          <el-input v-else v-model="scope.row.processType" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.pdCode')" width="150">
         <template slot-scope="scope">
-          {{ scope.row.pdCode }}
+          <span v-if="!scope.row.isEgdit">{{ scope.row.pdCode }}</span>
+          <el-input v-else v-model="scope.row.pdCode" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.checkTime')" width="150">
         <template slot-scope="scope">
-          {{ scope.row.checkTime }}
+          <span v-if="!scope.row.isEgdit">{{ scope.row.checkTime }}</span>
+          <el-input v-else v-model="scope.row.checkTime" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.RawMaterialSNOther')" width="150">
         <template slot-scope="scope">
-          {{ scope.row.RawMaterialSN }}
+          <span v-if="!scope.row.isEgdit">{{ scope.row.RawMaterialSN }}</span>
+          <el-input v-else v-model="scope.row.RawMaterialSN" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.ratedCurrent')" width="200">
         <template slot-scope="scope">
-          {{ scope.row.ratedCurrent }}
+          <span v-if="!scope.row.isEgdit">{{ scope.row.ratedCurrent }}</span>
+          <el-input v-else v-model="scope.row.ratedCurrent" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.pressureValue')" width="200">
         <template slot-scope="scope">
-          {{ scope.row.pressureValue }}
+          <span v-if="!scope.row.isEgdit">{{ scope.row.pressureValue }}</span>
+          <el-input v-else v-model="scope.row.pressureValue" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.pressureTime')" width="200">
         <template slot-scope="scope">
-          {{ scope.row.pressureTime }}
+          <span v-if="!scope.row.isEgdit">{{ scope.row.pressureTime }}</span>
+          <el-input v-else v-model="scope.row.pressureTime" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.discharge')" width="200">
         <template slot-scope="scope">
-          {{ scope.row.discharge }}
+          <span v-if="!scope.row.isEgdit">{{ scope.row.discharge }}</span>
+          <el-input v-else v-model="scope.row.discharge" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.InspectionReportFile')" width="200">
         <template slot-scope="scope">
-          {{ scope.row.InspectionReportFile }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.InspectionReportFile')" width="200">
-        <template slot-scope="scope">
-          <!-- <img :src="scope.row.test" alt="" style="width: 5rem;5rem"> -->
-          <div class="demo-image__preview">
-            <el-image
-              style="width: 100px; height: 100px"
-              :src="scope.row.test"
-              :preview-src-list="srcList"
-            /></div>
+          <div class="demo-image__preview"><el-image style="width: 100px; height: 100px" :src="scope.row.InspectionReportFile" :preview-src-list="srcList" /></div>
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.operations')" fixed="right" width="200">
         <template slot-scope="scope">
-          <el-button type="primary" size="small" @click="handleEdit(scope)">{{ $t('table.edit') }}</el-button>
-          <el-button type="danger" size="small" @click="handleDelete(scope)">{{ $t('table.delete') }}</el-button>
+          <el-button v-if="!scope.row.isEgdit" type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">{{ $t('table.edit') }}</el-button>
+          <el-button v-else type="success" size="small" @click="editSuccess(scope.$index, scope.row)">{{ $t('table.editSuccess') }}</el-button>
+          <el-button type="danger" size="small" @click="handleDelete(scope.$index, scope.row)">{{ $t('table.delete') }}</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <pagination v-show="total > 0" :total="total" :page.sync="form.page" :limit.sync="form.limit" @pagination="getList" />
+    <pagination v-show="total > 0" :total="total" :current.sync="listQuery.current" :size.sync="listQuery.size" @pagination="getList" />
   </div>
 </template>
 
@@ -200,35 +229,46 @@ import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import { deleteRole } from '@/api/role'
 import i18n from '@/lang'
+import { electricCurrent } from '@/api/tenGrid'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-
+// import { fetchList } from '@/api/article'
 export default {
   components: { Pagination },
   data() {
     return {
-      routes: [],
-
       rolesList: [
         {
-          poItemId: '',
-          productCode: '',
-          productName: '',
-          productUnit: '',
-          productAmount: '',
-          ownerId: '',
-          openId: '',
-          dataSource: '',
-          dataSourceCreateTime: '',
-          test: 'https://wpimg.wallstcn.com/e4558086-631c-425c-9430-56ffb46e70b3'
+          SaleOrg: '0',
+          status: '确认',
+          upload: '上传',
+          standardVersion: '1',
+          supplierWorkNo: '2',
+          supplierCode: '3',
+          modelCode: '4',
+          categoryType: '5',
+          isAlarmData: '6',
+          alarmItem: '7',
+          processType: '8',
+          pdCode: '9',
+          checkTime: '10',
+          RawMaterialSN: '11',
+          ratedCurrent: '12',
+          pressureValue: '13',
+          pressureTime: '14',
+          discharge: '15',
+          InspectionReportFile: 'https://wpimg.wallstcn.com/e4558086-631c-425c-9430-56ffb46e70b3'
         }
       ],
       srcList: ['https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg', 'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'],
-      form: {
-        companyNo: '',
-        companyName: '',
-        showReviewer: false,
-        page: 1,
-        limit: 20
+      listQuery: {
+        purchaserHqCode: undefined,
+        supplierCode: undefined,
+        supplierName: undefined,
+        dataSource: undefined,
+        ownerId: undefined,
+        openId: undefined,
+        current: 1,
+        size: 10
       },
       listLoading: true,
       total: 10,
@@ -259,21 +299,24 @@ export default {
   methods: {
     // 查询
     handleSearch() {
-      this.form.page = 1
+      this.listQuery.current = 1
       this.getList()
     },
     // 重置
     handleReset() {
-      this.form = {
-        companyNo: '',
-        fullName: '',
-        companyName: '',
-        showReviewer: false,
-        page: 1,
-        limit: 20
+      this.listQuery = {
+        current: 1,
+        size: 10
       }
     },
-
+    // 多选
+    handleSelectionChange(val) {
+      this.multipleSelection = val
+    },
+    // 批量删除
+    deleteAll() {},
+    // 批量确认
+    okAll() {},
     // 导出用户
     handleExport() {
       if (this.rolesList.length) {
@@ -310,15 +353,13 @@ export default {
     },
     // 获取列表
     getList() {
-      this.listLoading = false
-      // fetchList(this.listQuery).then(response => {
-      //   this.list = response.data.items
-      //   this.total = response.data.total
-      //   // Just to simulate the time of the request
-      //   setTimeout(() => {
-      //     this.listLoading = false
-      //   }, 1.5 * 1000)
-      // })
+      this.listLoading = true
+      electricCurrent(this.listQuery).then(response => {
+        console.log('response', response)
+        this.rolesList = response.data.orders
+        this.total = response.data.total
+        this.listLoading = false
+      })
     },
 
     i18n(routes) {
@@ -332,7 +373,22 @@ export default {
       return app
     },
     // 编辑
-    handleEdit() {},
+    handleEdit(index, row) {
+      this.$set(row, 'isEgdit', true)
+    },
+    // 编辑成功
+    editSuccess(index, row) {
+      // if (row.poItemId === '') {
+      //   debugger
+      //   this.$message.error('采购订单项目ID输入错误！')
+      //   return
+      // } else if (!row.productCode) {
+      //   this.$message.error('物质编码输入错误！')
+      //   return
+      // }
+      // this.$message.success('恭喜你，数据保存成功！')
+      // this.$set(row, 'isEgdit', false)
+    },
     // 删除角色
     handleDelete({ $index, row }) {
       this.$confirm(this.$t('permission.errorInfo'), this.$t('permission.errorTitle'), {
