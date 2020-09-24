@@ -10,7 +10,7 @@
 
     .el-col-8 {
       text-align: right;
-      line-height: 35px;
+      line-height: 30px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -50,7 +50,7 @@
     border-color: #a744bf;
   }
 
-  /* .el-table ::v-deep .el-table__body-wrapper {
-    overflow: scroll;
-  } */
+  .el-table .el-table__empty-block .el-table__empty-text{
+    text-align: left;
+  }
 }

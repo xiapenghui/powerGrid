@@ -5,57 +5,28 @@
         <el-col :span="6">
           <el-col :span="8">
             <el-tooltip class="item" effect="dark" :content="content1" placement="top-start">
-              <label class="radio-label">{{ $t('permission.purchaserHqCode') }}:</label>
+              <label class="radio-label">{{ $t('permission.isConfirm') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="listQuery.purchaserHqCode" :placeholder="$t('permission.purchaserHqCodeInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.isConfirm" :placeholder="$t('permission.isConfirmInfo')" clearable /></el-col>
         </el-col>
 
         <el-col :span="6">
           <el-col :span="8">
             <el-tooltip class="item" effect="dark" :content="content2" placement="top-start">
-              <label class="radio-label">{{ $t('permission.supplierCode') }}:</label>
+              <label class="radio-label">{{ $t('permission.isUpload') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="listQuery.supplierCode" :placeholder="$t('permission.supplierCodeInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.isUpload" :placeholder="$t('permission.isUploadInfo')" clearable /></el-col>
         </el-col>
 
         <el-col :span="6">
           <el-col :span="8">
             <el-tooltip class="item" effect="dark" :content="content3" placement="top-start">
-              <label class="radio-label">{{ $t('permission.supplierName') }}:</label>
+              <label class="radio-label">{{ $t('permission.supplierWorkNo') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="listQuery.supplierName" :placeholder="$t('permission.supplierNameInfo')" clearable /></el-col>
-        </el-col>
-      </el-row>
-
-      <el-row :gutter="20" style="margin-top:20px">
-        <el-col :span="6">
-          <el-col :span="8">
-            <el-tooltip class="item" effect="dark" :content="content4" placement="top-start">
-              <label class="radio-label">{{ $t('permission.dataSource') }}:</label>
-            </el-tooltip>
-          </el-col>
-          <el-col :span="16"><el-input v-model="listQuery.dataSource" :placeholder="$t('permission.dataSourceInfo')" clearable /></el-col>
-        </el-col>
-
-        <el-col :span="6">
-          <el-col :span="8">
-            <el-tooltip class="item" effect="dark" :content="content5" placement="top-start">
-              <label class="radio-label">{{ $t('permission.ownerId') }}:</label>
-            </el-tooltip>
-          </el-col>
-          <el-col :span="16"><el-input v-model="listQuery.ownerId" :placeholder="$t('permission.ownerIdInfo')" clearable /></el-col>
-        </el-col>
-
-        <el-col :span="6">
-          <el-col :span="8">
-            <el-tooltip class="item" effect="dark" :content="content6" placement="top-start">
-              <label class="radio-label">{{ $t('permission.openId') }}:</label>
-            </el-tooltip>
-          </el-col>
-          <el-col :span="16"><el-input v-model="listQuery.openId" :placeholder="$t('permission.openIdInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.supplierWorkNo" :placeholder="$t('permission.supplierWorkNoInfo')" clearable /></el-col>
         </el-col>
       </el-row>
 
@@ -74,6 +45,7 @@
     <el-table
       v-loading="listLoading"
       :data="rolesList"
+      height="calc(100vh - 450px)"
       style="width: 100%"
       border
       element-loading-text="拼命加载中"
@@ -84,20 +56,20 @@
       <el-table-column type="selection" width="55" />
       <el-table-column align="center" :label="$t('permission.SaleOrg')" width="150" fixed sortable prop="key">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.SaleOrg }}</span>
-          <el-input v-else v-model="scope.row.SaleOrg" />
+          <span v-if="!scope.row.isEgdit">{{ scope.row.saleOrg }}</span>
+          <el-input v-else v-model="scope.row.saleOrg" />
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.status')" width="150">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :style="{ color: scope.row.status === '未确认' ? '#FF5757' : '#13ce66' }">{{ scope.row.status }}</el-tag>
+          <el-tag :type="scope.row.status" :style="{ color: scope.row.isConfirm === 0 ? '#FF5757' : '#13ce66' }">{{ scope.row.isConfirm === 0 ? '未更新' : '更新' }}</el-tag>
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.upload')" width="150">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.upload" :style="{ color: scope.row.upload === '未上传' ? '#FF5757' : '#13ce66' }">{{ scope.row.upload }}</el-tag>
+          <el-tag :type="scope.row.status" :style="{ color: scope.row.isUpload === 0 ? '#FF5757' : '#13ce66' }">{{ scope.row.isUpload === 0 ? '未上传' : '上传' }}</el-tag>
         </template>
       </el-table-column>
 
@@ -227,69 +199,62 @@
 <script>
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
-import { deleteRole } from '@/api/role'
 import i18n from '@/lang'
-import { electricCurrent } from '@/api/tenGrid'
+import { electricCurrent, electricDellte, electricEdit } from '@/api/tenGrid'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-// import { fetchList } from '@/api/article'
 export default {
   components: { Pagination },
   data() {
     return {
       rolesList: [
-        {
-          SaleOrg: '0',
-          status: '确认',
-          upload: '上传',
-          standardVersion: '1',
-          supplierWorkNo: '2',
-          supplierCode: '3',
-          modelCode: '4',
-          categoryType: '5',
-          isAlarmData: '6',
-          alarmItem: '7',
-          processType: '8',
-          pdCode: '9',
-          checkTime: '10',
-          RawMaterialSN: '11',
-          ratedCurrent: '12',
-          pressureValue: '13',
-          pressureTime: '14',
-          discharge: '15',
-          InspectionReportFile: 'https://wpimg.wallstcn.com/e4558086-631c-425c-9430-56ffb46e70b3'
-        }
+        // {
+        //   SaleOrg: '0',
+        //   status: '',
+        //   isConfirm: 0,
+        //   isUpload: 0,
+        //   standardVersion: '1',
+        //   supplierWorkNo: '2',
+        //   supplierCode: '3',
+        //   modelCode: '4',
+        //   categoryType: '5',
+        //   isAlarmData: '6',
+        //   alarmItem: '7',
+        //   processType: '8',
+        //   pdCode: '9',
+        //   checkTime: '10',
+        //   RawMaterialSN: '11',
+        //   ratedCurrent: '12',
+        //   pressureValue: '13',
+        //   pressureTime: '14',
+        //   discharge: '15',
+        //   InspectionReportFile: 'https://wpimg.wallstcn.com/e4558086-631c-425c-9430-56ffb46e70b3'
+        // }
       ],
       srcList: ['https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg', 'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'],
       listQuery: {
-        purchaserHqCode: undefined,
+        isConfirm: undefined,
         supplierCode: undefined,
-        supplierName: undefined,
-        dataSource: undefined,
-        ownerId: undefined,
-        openId: undefined,
+        supplierWorkNo: undefined,
         current: 1,
-        size: 10
+        size: 10,
+        date: {}
       },
       listLoading: true,
       total: 10,
-      content1: this.$t('permission.purchaserHqCode'),
-      content2: this.$t('permission.supplierCode'),
-      content3: this.$t('permission.supplierName'),
-      content4: this.$t('permission.dataSource'),
-      content5: this.$t('permission.ownerId'),
-      content6: this.$t('permission.openId')
+      ids: null,
+      selectedData: [], // 批量删除新数组
+      content1: this.$t('permission.isConfirm'),
+      content2: this.$t('permission.isUpload'),
+      content3: this.$t('permission.supplierWorkNo')
     }
   },
   computed: {},
   watch: {
     // 监听data属性中英文切换问题
     '$i18n.locale'() {
-      this.content1 = this.$t('permission.purchaserHqCode')
-      this.content2 = this.$t('permission.supplierCode')
-      this.content3 = this.$t('permission.supplierName')
-      this.content4 = this.$t('permission.dataSource')
-      this.content5 = this.$t('permission.ownerId')
-      this.content6 = this.$t('permission.openId')
+      this.content1 = this.$t('permission.isConfirm')
+      this.content2 = this.$t('permission.isUpload')
+      this.content3 = this.$t('permission.supplierWorkNo')
     }
   },
   created() {
@@ -311,10 +276,43 @@ export default {
     },
     // 多选
     handleSelectionChange(val) {
-      this.multipleSelection = val
+      this.selectedData = val
     },
     // 批量删除
-    deleteAll() {},
+    deleteAll() {
+      debugger
+      if (this.selectedData.length > 0) {
+        debugger
+        this.$confirm('此操作将永久删除记录, 是否继续?', '提示：' + '共选择 ' + this.selectedData.length + ' 条数据 !', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(() => {
+            const idList = []
+            this.selectedData.map(item => {
+              const newFeatid = item.id
+              idList.push(newFeatid)
+            })
+            var ids = { ids: idList.toString() }
+            electricDellte(JSON.stringify(ids)).then(res => {
+              if (res.code === 0) {
+                this.$message({
+                  type: 'success',
+                  message: '删除成功！'
+                })
+                this.rolesList()
+              }
+            })
+          })
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除'
+            })
+          })
+      }
+    },
     // 批量确认
     okAll() {},
     // 导出用户
@@ -356,7 +354,7 @@ export default {
       this.listLoading = true
       electricCurrent(this.listQuery).then(response => {
         console.log('response', response)
-        this.rolesList = response.data.orders
+        this.rolesList = response.data.records
         this.total = response.data.total
         this.listLoading = false
       })
@@ -388,25 +386,50 @@ export default {
       // }
       // this.$message.success('恭喜你，数据保存成功！')
       // this.$set(row, 'isEgdit', false)
-    },
-    // 删除角色
-    handleDelete({ $index, row }) {
-      this.$confirm(this.$t('permission.errorInfo'), this.$t('permission.errorTitle'), {
-        confirmButtonText: this.$t('permission.Confirm'),
-        cancelButtonText: this.$t('permission.Cancel'),
-        type: 'warning'
-      })
-        .then(async() => {
-          await deleteRole(row.key)
-          this.rolesList.splice($index, 1)
+      electricEdit(row).then(res => {
+        debugger
+        if (res.code === 200) {
           this.$message({
             type: 'success',
-            message: 'Delete succed!'
+            message: '编辑成功!'
           })
+          this.$set(row, 'isEgdit', false)
+        } else {
+          this.$message({
+            type: 'error',
+            message: '编辑失败!'
+          })
+        }
+      })
+    },
+    // 删除数据
+    handleDelete(index, row) {
+      if (this.rolesList.length > 0) {
+        debugger
+        this.$confirm('此操作将永久删除记录, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
         })
-        .catch(err => {
-          console.error(err)
-        })
+          .then(() => {
+            electricDellte({ ids: row.id }).then(res => {
+              debugger
+              if (res.code === 0) {
+                this.$message({
+                  type: 'success',
+                  message: '删除成功！'
+                })
+                this.getList()
+              }
+            })
+          })
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除'
+            })
+          })
+      }
     }
   }
 }

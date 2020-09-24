@@ -8,7 +8,7 @@
               <label class="radio-label">{{ $t('permission.poItemIds') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="form.poItemIds" :placeholder="$t('permission.poItemIdInfos')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.poItemIds" :placeholder="$t('permission.poItemIdInfos')" clearable /></el-col>
         </el-col>
 
         <el-col :span="6">
@@ -17,7 +17,7 @@
               <label class="radio-label">{{ $t('permission.productCode') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="form.productCode" :placeholder="$t('permission.productCodeInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.productCode" :placeholder="$t('permission.productCodeInfo')" clearable /></el-col>
         </el-col>
 
         <el-col :span="6">
@@ -26,7 +26,7 @@
               <label class="radio-label">{{ $t('permission.productName') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="form.productName" :placeholder="$t('permission.productNameInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.productName" :placeholder="$t('permission.productNameInfo')" clearable /></el-col>
         </el-col>
 
         <el-col :span="6">
@@ -35,7 +35,7 @@
               <label class="radio-label">{{ $t('permission.productName') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="form.productName" :placeholder="$t('permission.productNameInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.productName" :placeholder="$t('permission.productNameInfo')" clearable /></el-col>
         </el-col>
       </el-row>
 
@@ -46,7 +46,7 @@
               <label class="radio-label">{{ $t('permission.ownerId') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="form.ownerId" :placeholder="$t('permission.ownerIdInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.ownerId" :placeholder="$t('permission.ownerIdInfo')" clearable /></el-col>
         </el-col>
 
         <el-col :span="6">
@@ -55,7 +55,7 @@
               <label class="radio-label">{{ $t('permission.openId') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="form.openId" :placeholder="$t('permission.openIdInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.openId" :placeholder="$t('permission.openIdInfo')" clearable /></el-col>
         </el-col>
 
         <el-col :span="6">
@@ -64,7 +64,7 @@
               <label class="radio-label">{{ $t('permission.dataSource') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="form.dataSource" :placeholder="$t('permission.dataSourceInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.dataSource" :placeholder="$t('permission.dataSourceInfo')" clearable /></el-col>
         </el-col>
 
         <el-col :span="6">
@@ -73,7 +73,7 @@
               <label class="radio-label">{{ $t('permission.productName') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="form.productName" :placeholder="$t('permission.productNameInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.productName" :placeholder="$t('permission.productNameInfo')" clearable /></el-col>
         </el-col>
       </el-row>
 
@@ -84,7 +84,7 @@
               <label class="radio-label">{{ $t('permission.ownerId') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="form.ownerId" :placeholder="$t('permission.ownerIdInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.ownerId" :placeholder="$t('permission.ownerIdInfo')" clearable /></el-col>
         </el-col>
 
         <el-col :span="6">
@@ -93,7 +93,7 @@
               <label class="radio-label">{{ $t('permission.openId') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="form.openId" :placeholder="$t('permission.openIdInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.openId" :placeholder="$t('permission.openIdInfo')" clearable /></el-col>
         </el-col>
 
         <el-col :span="6">
@@ -102,7 +102,7 @@
               <label class="radio-label">{{ $t('permission.dataSource') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="form.dataSource" :placeholder="$t('permission.dataSourceInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.dataSource" :placeholder="$t('permission.dataSourceInfo')" clearable /></el-col>
         </el-col>
       </el-row>
 
@@ -290,15 +290,15 @@
         </template>
       </el-table-column>
     </el-table>
-    <pagination v-show="total > 0" :total="total" :page.sync="form.page" :limit.sync="form.limit" @pagination="getList" />
+    <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
   </div>
 </template>
 
 <script>
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
-import { deleteRole } from '@/api/role'
 import i18n from '@/lang'
+import { saleInfo, saleDellte, saleDellteAll } from '@/api/tenGrid'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
@@ -330,12 +330,14 @@ export default {
           dataSource: '小米公司',
           dataSourceCreateTime: '2020-09-23'
         }
-
       ],
-      form: {
-        companyNo: '',
-        companyName: '',
-        showReviewer: false,
+      listQuery: {
+        poItemIds: undefined,
+        productCode: undefined,
+        productName: undefined,
+        ownerId: undefined,
+        openId: undefined,
+        dataSource: undefined,
         page: 1,
         limit: 10
       },
@@ -344,6 +346,8 @@ export default {
       hidden: false,
       total: 10,
       downloadLoading: false,
+      featId: null,
+      selectedData: [], // 批量删除新数组
       content1: this.$t('permission.poItemIds'),
       content2: this.$t('permission.productCode'),
       content3: this.$t('permission.productName'),
@@ -375,16 +379,12 @@ export default {
     },
     // 查询
     handleSearch() {
-      this.form.page = 1
+      this.listQuery.page = 1
       this.getList()
     },
     // 重置
     handleReset() {
-      this.form = {
-        companyNo: '',
-        fullName: '',
-        companyName: '',
-        showReviewer: false,
+      this.listQuery = {
         page: 1,
         limit: 10
       }
@@ -395,12 +395,40 @@ export default {
     },
     // 批量删除
     deleteAll() {
-
+      if (this.selectedData.length > 0) {
+        this.$confirm('此操作将永久删除记录, 是否继续?', '提示：' + '共选择 ' + this.selectedData.length + ' 条数据 !', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(() => {
+            const idList = []
+            this.selectedData.map(item => {
+              const newFeatid = item.featid
+              idList.push(newFeatid)
+            })
+            var ids = { ids: idList.toString() }
+            saleDellteAll(JSON.stringify(ids)).then(res => {
+              var result = res.data.success
+              if (result === true) {
+                this.$message({
+                  type: 'success',
+                  message: '删除成功！'
+                })
+                this.listQueryData()
+              }
+            })
+          })
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除'
+            })
+          })
+      }
     },
     // 批量确认
-    okAll() {
-
-    },
+    okAll() {},
 
     // 导出用户
     handleExport() {
@@ -440,14 +468,13 @@ export default {
     // 获取列表
     getList() {
       this.listLoading = false
-      // fetchList(this.listQuery).then(response => {
-      //   this.list = response.data.items
-      //   this.total = response.data.total
-      //   // Just to simulate the time of the request
-      //   setTimeout(() => {
-      //     this.listLoading = false
-      //   }, 1.5 * 1000)
-      // })
+      saleInfo(this.listQuery).then(response => {
+        debugger
+        console.log('response', response)
+        this.rolesList = response.data.orders
+        this.total = response.data.total
+        this.listLoading = false
+      })
     },
 
     i18n(routes) {
@@ -477,7 +504,7 @@ export default {
       this.$message.success('恭喜你，数据保存成功！')
       this.$set(row, 'isEgdit', false)
     },
-    // 删除角色
+    // 删除数据
     handleDelete({ $index, row }) {
       this.$confirm(this.$t('permission.errorInfo'), this.$t('permission.errorTitle'), {
         confirmButtonText: this.$t('permission.Confirm'),
@@ -485,15 +512,22 @@ export default {
         type: 'warning'
       })
         .then(async() => {
-          await deleteRole(row.key)
-          this.rolesList.splice($index, 1)
-          this.$message({
-            type: 'success',
-            message: 'Delete succed!'
+          saleDellte({ featId: row.ids }).then(res => {
+            var result = res.data.success
+            if (result === true) {
+              this.$message({
+                type: 'success',
+                message: '删除成功！'
+              })
+              this.rolesList()
+            }
           })
         })
-        .catch(err => {
-          console.error(err)
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
         })
     }
   }

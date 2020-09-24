@@ -61,6 +61,7 @@ export default {
     WithstandTest: 'Withstand Test',
     InsulationTest: 'Insulation Test',
     ElectricalInterlock: 'Electrical Interlock',
+    productionList: 'Production Schedule',
     // 截止
 
     icons: 'Icons',

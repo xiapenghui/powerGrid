@@ -91,9 +91,17 @@ export const constantRoutes = [{
     icon: 'tab'
   },
   children: [{
+    path: 'productionList',
+    component: () => import('@/views/BusinessData/productionList'),
+    name: 'productionList',
+    meta: {
+      title: 'productionList'
+    }
+  },
+  {
     path: 'PurchaseIinformation',
     component: () => import('@/views/BusinessData/PurchaseIinformation'),
-    name: 'DynamicTable',
+    name: 'PurchaseIinformation',
     meta: {
       title: 'PurchaseIinformation'
     }

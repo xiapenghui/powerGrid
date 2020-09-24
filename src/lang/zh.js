@@ -62,6 +62,7 @@ export default {
     InsulationTest: '辅助回路绝缘试验',
     ElectricalInterlock: '电气联锁信息',
     // do
+    productionList: '生产总表',
 
     // 截止
 
@@ -430,12 +431,18 @@ export default {
     deleteAll: '批量删除',
     okAll: '批量确认',
     upload: '上传状态',
-    status: '状态',
+    status: '更新状态',
     soNo: '销售订单号',
     buyerCode: '采购方公司编码',
     buyerName: '采购方公司名称',
     buyerProvinceOther: '采购方公司省份(不带省)',
     soStatus: '销售订单状态',
+    ipoNoInfo: '请输入生产订单号',
+    isConfirm: '更新状态',
+    isConfirmInfo: '请输入更新状态',
+    isUpload: '上传状态',
+    isUploadInfo: '请输入上传状态',
+    supplierWorkNoInfo: '请输入供应商工单编号',
 
     // 截止
     roles: '你的权限',

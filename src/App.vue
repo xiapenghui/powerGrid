@@ -8,6 +8,9 @@ export default {
 }
 </script>
 <style>
+  #app{
+    overflow: hidden;
+  }
 .el-form-item__label {
   text-align: right !important;
 }
