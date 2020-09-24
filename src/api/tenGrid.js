@@ -1,20 +1,21 @@
-const newUrl = 'http://192.168.1.192:8888'
+const newUrl = 'http://120.53.4.153:8888'
 import request from '@/utils/request'
 // 电流互感器列表接口
-export function electricCurrent(query) {
+export function electricCurrent(query, data) {
   return request({
     url: newUrl + '/api/kvsc/ct/page',
     method: 'post',
-    params: query
+    params: query,
+    data
   })
 }
 
 // 电流互感器删除接口
-export function electricDellte(query) {
+export function electricDellte(data) {
   return request({
     url: newUrl + '/api/kvsc/ct/delete/ids',
     method: 'post',
-    params: query
+    data
   })
 }
 

@@ -236,13 +236,13 @@ export default {
         supplierCode: undefined,
         supplierWorkNo: undefined,
         current: 1,
-        size: 10,
-        date: {}
+        size: 10
       },
       listLoading: true,
       total: 10,
       ids: null,
       selectedData: [], // 批量删除新数组
+      searchDate: {},
       content1: this.$t('permission.isConfirm'),
       content2: this.$t('permission.isUpload'),
       content3: this.$t('permission.supplierWorkNo')
@@ -294,14 +294,14 @@ export default {
               const newFeatid = item.id
               idList.push(newFeatid)
             })
-            var ids = { ids: idList.toString() }
-            electricDellte(JSON.stringify(ids)).then(res => {
+
+            electricDellte(idList).then(res => {
               if (res.code === 0) {
                 this.$message({
                   type: 'success',
                   message: '删除成功！'
                 })
-                this.rolesList()
+                this.getList()
               }
             })
           })
@@ -352,7 +352,7 @@ export default {
     // 获取列表
     getList() {
       this.listLoading = true
-      electricCurrent(this.listQuery).then(response => {
+      electricCurrent(this.listQuery, this.searchDate).then(response => {
         console.log('response', response)
         this.rolesList = response.data.records
         this.total = response.data.total
@@ -412,7 +412,7 @@ export default {
           type: 'warning'
         })
           .then(() => {
-            electricDellte({ ids: row.id }).then(res => {
+            electricDellte([row.id]).then(res => {
               debugger
               if (res.code === 0) {
                 this.$message({
