@@ -37,11 +37,9 @@
 
 <script>
 import RightPanel from '@/components/RightPanel';
-import dialogVisible from '@/components/dialogVisible';
 import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components';
 import ResizeMixin from './mixin/ResizeHandler';
 import { mapState } from 'vuex';
-import UploadExcelComponent from '@/components/UploadExcel/index.vue';
 import axios from 'axios';
 export default {
   name: 'Layout',
@@ -52,8 +50,6 @@ export default {
     Settings,
     Sidebar,
     TagsView,
-    dialogVisible,
-    UploadExcelComponent
   },
   mixins: [ResizeMixin],
   data() {
