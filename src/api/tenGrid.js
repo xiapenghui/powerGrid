@@ -1,5 +1,17 @@
 const newUrl = 'http://120.53.4.153:8888'
 import request from '@/utils/request'
+
+
+
+// 表格导入接口
+export function uploadFile(data) {
+  return request({
+    url: newUrl + '/api/excel/upload',
+    method: 'post',
+    data
+  })
+}
+
 // 电流互感器列表接口
 export function electricCurrent(query, data) {
   return request({
@@ -29,13 +41,25 @@ export function electricEdit(data) {
 }
 
 // 电流互感器条件查询接口
-export function electricSecrch(query) {
+export function electricSecrch(query,data) {
   return request({
     url: newUrl + '/api/kvsc/ct/list',
     method: 'post',
-    params: query
+    params: query,
+    data
   })
 }
+
+// 电流互感器批量确认接口
+export function electricOk(data) {
+  return request({
+    url: newUrl + '/api/kvsc/ct/confirm/all',
+    method: 'post',
+    data
+  })
+}
+
+
 
 // 销售项目列表接口
 export function saleInfo(query) {

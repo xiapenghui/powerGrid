@@ -131,7 +131,10 @@ export default {
     theme: '换肤',
     size: '布局大小',
     words: '字体大小',
-    Chinese: '切换中英文'
+    Chinese: '切换中英文',
+    //do
+    improt:'导入文件',
+
 
   },
   login: {
@@ -431,15 +434,15 @@ export default {
     deleteAll: '批量删除',
     okAll: '批量确认',
     upload: '上传状态',
-    status: '更新状态',
+    status: '确认状态',
     soNo: '销售订单号',
     buyerCode: '采购方公司编码',
     buyerName: '采购方公司名称',
     buyerProvinceOther: '采购方公司省份(不带省)',
     soStatus: '销售订单状态',
     ipoNoInfo: '请输入生产订单号',
-    isConfirm: '更新状态',
-    isConfirmInfo: '请输入更新状态',
+    isConfirm: '确认状态',
+    isConfirmInfo: '请输入确认状态',
     isUpload: '上传状态',
     isUploadInfo: '请输入上传状态',
     supplierWorkNoInfo: '请输入供应商工单编号',
