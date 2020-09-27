@@ -1,4 +1,4 @@
-const newUrl = 'http://192.168.1.192:8888'
+const newUrl = 'http://120.53.4.153:8888'
 import request from '@/utils/request'
 
 // 表格解析接口
@@ -9,7 +9,7 @@ export function analysis() {
   })
 }
 
-// 电流互感器列表接口
+// 电流互感器列表-分页接口
 export function electricCurrent(query, data) {
   return request({
     url: newUrl + '/api/kvsc/ct/page',
@@ -37,15 +37,7 @@ export function electricEdit(data) {
   })
 }
 
-// 电流互感器条件查询接口
-export function electricSecrch(query,data) {
-  return request({
-    url: newUrl + '/api/kvsc/ct/list',
-    method: 'post',
-    params: query,
-    data
-  })
-}
+
 
 // 电流互感器批量确认接口
 export function electricOk(data) {
