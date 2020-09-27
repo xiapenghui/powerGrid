@@ -19,17 +19,25 @@
       <el-upload
         class="upload-demo"
         action="http://192.168.1.192:8888/api/excel/upload"
-        multiple
-        :limit="3"
+        :limit="1"
+        :before-upload="beforeAvatarUpload"
+        :on-success="handleAvatarSuccess"
+        :on-error="handleAvatarError"
         :auto-upload="true"
-        >
+      >
         <el-button size="small" type="primary">点击上传</el-button>
-        <div slot="tip" class="el-upload__tip">只能上传xls/xlsx文件，且不超过500kb</div>
+        <div slot="tip" class="el-upload__tip">
+          只能上传
+          <b>xls</b>
+          或者
+          <b>xlsx</b>
+          文件，且不超过2M
+        </div>
       </el-upload>
 
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="qqq">确 定</el-button>
+        <!-- <el-button @click="dialogVisible = false">取 消</el-button> -->
+        <el-button type="primary" @click="closeOk">解析</el-button>
       </span>
     </el-dialog>
   </div>
@@ -38,6 +46,7 @@
 <script>
 import RightPanel from '@/components/RightPanel';
 import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components';
+import { analysis } from '@/api/tenGrid';
 import ResizeMixin from './mixin/ResizeHandler';
 import { mapState } from 'vuex';
 import axios from 'axios';
@@ -49,12 +58,12 @@ export default {
     RightPanel,
     Settings,
     Sidebar,
-    TagsView,
+    TagsView
   },
   mixins: [ResizeMixin],
   data() {
     return {
-      dialogVisible: false,
+      dialogVisible: false
     };
   },
   computed: {
@@ -78,13 +87,40 @@ export default {
     handleClickOutside() {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false });
     },
+    //解析文件
+    closeOk() {
+      analysis().then(res => {
+        debugger;
+      });
+    },
+    //成功
+    handleAvatarSuccess(res, file) {
+      console.log('1',res)
+      if(res.code===200){
+        debugger
+          this.$message.success('上传成功！');
+      }
+    },
+    //失败
+    handleAvatarError(res, file) {
+       alert('2',res)
+      if(res.code===500){
+          this.$message.error('上传失败！');
+      }
+    },
+    beforeAvatarUpload(file) {
+      const isXLS = file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+      const isLt2M = file.size / 1024 / 1024 < 2;
 
-    qqq(){
-
-
+      if (!isXLS) {
+        this.$message.error('上传文件只能是xls或者xlsx格式！');
+      }
+      if (!isLt2M) {
+        this.$message.error('上传文件大小不能超过 2MB!');
+      }
+      return isXLS && isLt2M;
     },
     // 导入
-
 
     //关闭弹窗
     handleClose(done) {
@@ -94,7 +130,7 @@ export default {
         })
         .catch(_ => {});
     }
-  },
+  }
 };
 </script>
 

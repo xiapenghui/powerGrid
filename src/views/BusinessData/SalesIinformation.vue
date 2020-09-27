@@ -122,7 +122,8 @@
 
     <el-table
       v-loading="listLoading"
-      :data="rolesList"
+      :data="tableData"
+      :height="tableHeight"
       style="width: 100%"
       border
       element-loading-text="拼命加载中"
@@ -140,13 +141,17 @@
 
       <el-table-column align="center" :label="$t('permission.status')" width="150">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :style="{ color: scope.row.status === '未确认' ? '#FF5757' : '#13ce66' }">{{ scope.row.status }}</el-tag>
+          <el-tag :type="scope.row.status" :style="{ backgroundColor: scope.row.isConfirm === 0 ? '#FF5757' : '#13ce66' }">
+            {{ scope.row.isConfirm === 0 ? '未确认' : '确认' }}
+          </el-tag>
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.upload')" width="150">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.upload" :style="{ color: scope.row.upload === '未上传' ? '#FF5757' : '#13ce66' }">{{ scope.row.upload }}</el-tag>
+          <el-tag :type="scope.row.status" :style="{ backgroundColor: scope.row.isUpload === 0 ? '#FF5757' : '#13ce66' }">
+            {{ scope.row.isUpload === 0 ? '未上传' : '上传' }}
+          </el-tag>
         </template>
       </el-table-column>
 
@@ -290,47 +295,51 @@
         </template>
       </el-table-column>
     </el-table>
-    <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+    <pagination v-show="total > 0" :total="total" :page.sync="pagination.page" :limit.sync="pagination.limit" @pagination="getList" />
   </div>
 </template>
 
 <script>
-import '../../styles/scrollbar.css'
-import '../../styles/commentBox.scss'
-import i18n from '@/lang'
-import { saleInfo, saleDellte, saleDellteAll } from '@/api/tenGrid'
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-
+import '../../styles/scrollbar.css';
+import '../../styles/commentBox.scss';
+import i18n from '@/lang';
+import { saleList,saleDellte, saleEdit, saleSecrch, saleOk } from '@/api/tenGrid';
+import Pagination from '@/components/Pagination'; // secondary package based on el-pagination
+const fixHeight = 440;
 export default {
   components: { Pagination },
   data() {
     return {
-      rolesList: [
-        {
-          SaleOrg: '工程',
-          status: '未确认',
-          upload: '上传',
-          purchaserHqCode: '123',
-          soNo: '123',
-          supplierCode: '123',
-          buyerCode: '123',
-          buyerName: '小米',
-          buyerProvince: '河南',
-          categoryCode: '123',
-          subclassCode: '456',
-          soStatus: '已完成',
-          soItemNo: '000',
-          poItemId: '123',
-          productCode: '456',
-          productName: '手机',
-          productUnit: '个',
-          productAmount: '10',
-          ownerId: '小米公司',
-          openId: '小米公司',
-          dataSource: '小米公司',
-          dataSourceCreateTime: '2020-09-23'
-        }
+      tableData: [
+        // {
+        //   SaleOrg: '工程',
+        //   status: '未确认',
+        //   upload: '上传',
+        //   purchaserHqCode: '123',
+        //   soNo: '123',
+        //   supplierCode: '123',
+        //   buyerCode: '123',
+        //   buyerName: '小米',
+        //   buyerProvince: '河南',
+        //   categoryCode: '123',
+        //   subclassCode: '456',
+        //   soStatus: '已完成',
+        //   soItemNo: '000',
+        //   poItemId: '123',
+        //   productCode: '456',
+        //   productName: '手机',
+        //   productUnit: '个',
+        //   productAmount: '10',
+        //   ownerId: '小米公司',
+        //   openId: '小米公司',
+        //   dataSource: '小米公司',
+        //   dataSourceCreateTime: '2020-09-23'
+        // }
       ],
+      pagination: {
+      	current: 1,
+      	size: 10
+      },
       listQuery: {
         poItemIds: undefined,
         productCode: undefined,
@@ -338,102 +347,186 @@ export default {
         ownerId: undefined,
         openId: undefined,
         dataSource: undefined,
-        page: 1,
-        limit: 10
       },
       listLoading: true,
       toggle: true,
       hidden: false,
       total: 10,
       downloadLoading: false,
-      featId: null,
       selectedData: [], // 批量删除新数组
+      searchDate: {},
+      tableHeight: window.innerHeight - fixHeight, //表格高度
       content1: this.$t('permission.poItemIds'),
       content2: this.$t('permission.productCode'),
       content3: this.$t('permission.productName'),
       content4: this.$t('permission.ownerId'),
       content5: this.$t('permission.openId'),
       content6: this.$t('permission.dataSource')
-    }
+    };
   },
   computed: {},
   watch: {
+    //监听表格高度
+    tableHeight(val) {
+    	if (!this.timer) {
+    		this.tableHeight = val;
+    		this.timer = true;
+    		const that = this;
+    		setTimeout(function() {
+    			that.timer = false;
+    		}, 400);
+    	}
+    },
     // 监听data属性中英文切换问题
     '$i18n.locale'() {
-      this.content1 = this.$t('permission.poItemIds')
-      this.content2 = this.$t('permission.productCode')
-      this.content3 = this.$t('permission.productName')
-      this.content4 = this.$t('permission.ownerId')
-      this.content5 = this.$t('permission.openId')
-      this.content6 = this.$t('permission.dataSource')
+      this.content1 = this.$t('permission.poItemIds');
+      this.content2 = this.$t('permission.productCode');
+      this.content3 = this.$t('permission.productName');
+      this.content4 = this.$t('permission.ownerId');
+      this.content5 = this.$t('permission.openId');
+      this.content6 = this.$t('permission.dataSource');
     }
   },
   created() {
-    this.getList()
+    //监听表格高度
+    const that = this;
+    window.onresize = () => {
+    	return (() => {
+    		that.tableHeight = window.innerHeight - fixHeight;
+    	})();
+    };
+    this.getList();
   },
   methods: {
     // 折叠搜索框
     toggleBtn() {
-      this.hidden = !this.hidden
-      this.toggle = !this.toggle
+      this.hidden = !this.hidden;
+      this.toggle = !this.toggle;
     },
     // 查询
     handleSearch() {
-      this.listQuery.page = 1
-      this.getList()
+      this.listLoading = true;
+      saleSecrch(this.pagination, this.listQuery).then(res => {
+      	if (res.data.length > 0) {
+      		this.tableData = res.data;
+      		this.total = res.data.length;
+      		this.listLoading = false;
+      	} else {
+      		this.listQuery.current = 1;
+      		this.getList();
+      	}
+      });
     },
     // 重置
     handleReset() {
-      this.listQuery = {
+      this.pagination = {
         page: 1,
         limit: 10
-      }
+      };
     },
     // 多选
     handleSelectionChange(val) {
-      this.multipleSelection = val
+      this.multipleSelection = val;
+    },
+    // 删除数据
+    handleDelete(index, row) {
+    	if (this.tableData.length > 0) {
+    		this.$confirm('此操作将永久删除记录, 是否继续?', '提示', {
+    			confirmButtonText: '确定',
+    			cancelButtonText: '取消',
+    			type: 'warning'
+    		})
+    			.then(() => {
+    				saleDellte([row.id]).then(res => {
+    					if (res.code === 0) {
+    						this.$message({
+    							type: 'success',
+    							message: '删除成功！'
+    						});
+    						this.getList();
+    					}
+    				});
+    			})
+    			.catch(() => {
+    				this.$message({
+    					type: 'info',
+    					message: '已取消删除'
+    				});
+    			});
+    	}
     },
     // 批量删除
     deleteAll() {
       if (this.selectedData.length > 0) {
-        this.$confirm('此操作将永久删除记录, 是否继续?', '提示：' + '共选择 ' + this.selectedData.length + ' 条数据 !', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        })
-          .then(() => {
-            const idList = []
-            this.selectedData.map(item => {
-              const newFeatid = item.featid
-              idList.push(newFeatid)
-            })
-            var ids = { ids: idList.toString() }
-            saleDellteAll(JSON.stringify(ids)).then(res => {
-              var result = res.data.success
-              if (result === true) {
-                this.$message({
-                  type: 'success',
-                  message: '删除成功！'
-                })
-                this.listQueryData()
-              }
-            })
-          })
-          .catch(() => {
-            this.$message({
-              type: 'info',
-              message: '已取消删除'
-            })
-          })
+      	this.$confirm('此操作将永久删除记录, 是否继续?', '提示：' + '共选择 ' + this.selectedData.length + ' 条数据 !', {
+      		confirmButtonText: '确定',
+      		cancelButtonText: '取消',
+      		type: 'warning'
+      	})
+      		.then(() => {
+      			const idList = [];
+      			this.selectedData.map(item => {
+      				const newFeatid = item.id;
+      				idList.push(newFeatid);
+      			});
+
+      			saleDellte(idList).then(res => {
+      				if (res.code === 0) {
+      					this.$message({
+      						type: 'success',
+      						message: '删除成功！'
+      					});
+      					this.getList();
+      				}
+      			});
+      		})
+      		.catch(() => {
+      			this.$message({
+      				type: 'info',
+      				message: '已取消删除'
+      			});
+      		});
       }
     },
     // 批量确认
-    okAll() {},
+    okAll() {
+      if (this.selectedData.length > 0) {
+      	this.$confirm('此操作将批量确认, 是否继续?', '提示：' + '共选择 ' + this.selectedData.length + ' 条数据 !', {
+      		confirmButtonText: '确定',
+      		cancelButtonText: '取消',
+      		type: 'warning'
+      	})
+      		.then(() => {
+      			const newId = [];
+      			this.selectedData.map(item => {
+      				const newConfirm = item.isConfirm;
+      				if (newConfirm === 0) {
+      					newId.push(item.id);
+      				}
+      			});
+      			saleOk(newId).then(res => {
+      				if (res.code === 200) {
+      					this.$message({
+      						type: 'success',
+      						message: '操作成功！'
+      					});
+      					this.getList();
+      				}
+      			});
+      		})
+      		.catch(() => {
+      			this.$message({
+      				type: 'info',
+      				message: '已取消删除'
+      			});
+      		});
+      }
+    },
 
     // 导出用户
     handleExport() {
-      if (this.rolesList.length) {
-        this.downloadLoading = true
+      if (this.tableData.length) {
+        this.downloadLoading = true;
         import('@/vendor/Export2Excel').then(excel => {
           const tHeader = [
             this.$t('permission.companyNo'),
@@ -445,93 +538,79 @@ export default {
             this.$t('permission.state'),
             this.$t('permission.user'),
             this.$t('permission.time')
-          ]
-          const filterVal = ['companyNo', 'name', 'title', 'department', 'company', 'description', 'state', 'user', 'time']
-          const list = this.rolesList
-          const data = this.formatJson(filterVal, list)
+          ];
+          const filterVal = ['companyNo', 'name', 'title', 'department', 'company', 'description', 'state', 'user', 'time'];
+          const list = this.tableData;
+          const data = this.formatJson(filterVal, list);
           excel.export_json_to_excel({
             header: tHeader,
             data
-          })
-        })
+          });
+        });
       } else {
         this.$message({
           message: 'Please select at least one item',
           type: 'warning'
-        })
+        });
       }
     },
     // 导出用户
     formatJson(filterVal, jsonData) {
-      return jsonData.map(v => filterVal.map(j => v[j]))
+      return jsonData.map(v => filterVal.map(j => v[j]));
     },
     // 获取列表
     getList() {
-      this.listLoading = false
-      saleInfo(this.listQuery).then(response => {
-        debugger
-        console.log('response', response)
-        this.rolesList = response.data.orders
-        this.total = response.data.total
-        this.listLoading = false
-      })
+      this.listLoading = true;
+      saleList(this.listQuery, this.searchDate).then(res => {
+      	this.tableData = res.data.records;
+      	this.total = res.data.total;
+      	this.listLoading = false;
+      });
     },
 
     i18n(routes) {
       const app = routes.map(route => {
-        route.title = i18n.t(`route.${route.title}`)
+        route.title = i18n.t(`route.${route.title}`);
         if (route.children) {
-          route.children = this.i18n(route.children)
+          route.children = this.i18n(route.children);
         }
-        return route
-      })
-      return app
+        return route;
+      });
+      return app;
     },
     // 编辑
     handleEdit(index, row) {
-      this.$set(row, 'isEgdit', true)
+      this.$set(row, 'isEgdit', true);
     },
     // 编辑成功
     editSuccess(index, row) {
-      if (row.poItemId === '') {
-        debugger
-        this.$message.error('采购订单项目ID输入错误！')
-        return
-      } else if (!row.productCode) {
-        this.$message.error('物质编码输入错误！')
-        return
-      }
-      this.$message.success('恭喜你，数据保存成功！')
-      this.$set(row, 'isEgdit', false)
+      // if (row.poItemId === '') {
+      //   debugger;
+      //   this.$message.error('采购订单项目ID输入错误！');
+      //   return;
+      // } else if (!row.productCode) {
+      //   this.$message.error('物质编码输入错误！');
+      //   return;
+      // }
+      // this.$message.success('恭喜你，数据保存成功！');
+      // this.$set(row, 'isEgdit', false);
+      saleEdit(row).then(res => {
+      	if (res.code === 200) {
+      		this.$message({
+      			type: 'success',
+      			message: '编辑成功!'
+      		});
+      		this.$set(row, 'isEgdit', false);
+      	} else {
+      		this.$message({
+      			type: 'error',
+      			message: '编辑失败!'
+      		});
+      	}
+      });
     },
-    // 删除数据
-    handleDelete({ $index, row }) {
-      this.$confirm(this.$t('permission.errorInfo'), this.$t('permission.errorTitle'), {
-        confirmButtonText: this.$t('permission.Confirm'),
-        cancelButtonText: this.$t('permission.Cancel'),
-        type: 'warning'
-      })
-        .then(async() => {
-          saleDellte({ featId: row.ids }).then(res => {
-            var result = res.data.success
-            if (result === true) {
-              this.$message({
-                type: 'success',
-                message: '删除成功！'
-              })
-              this.rolesList()
-            }
-          })
-        })
-        .catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          })
-        })
-    }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

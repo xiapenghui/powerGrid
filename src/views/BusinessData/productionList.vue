@@ -35,13 +35,13 @@
 
     <el-table
       v-loading="listLoading"
-      :data="rolesList"
+      :data="tableData"
+       :height="tableHeight"
       style="width: 100%"
       border
       element-loading-text="拼命加载中"
       fit
       highlight-current-row
-      @cell-mouse-enter="getRowDatas"
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" />
@@ -54,13 +54,17 @@
 
       <el-table-column align="center" :label="$t('permission.status')" width="150">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :style="{ color: scope.row.status === '未确认' ? '#FF5757' : '#13ce66' }">{{ scope.row.status }}</el-tag>
+          <el-tag :type="scope.row.status" :style="{ backgroundColor: scope.row.isConfirm === 0 ? '#FF5757' : '#13ce66' }">
+          	{{ scope.row.isConfirm === 0 ? '未确认' : '确认' }}
+          </el-tag>
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.upload')" width="150">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.upload" :style="{ color: scope.row.upload === '未上传' ? '#FF5757' : '#13ce66' }">{{ scope.row.upload }}</el-tag>
+          <el-tag :type="scope.row.status" :style="{ backgroundColor: scope.row.isUpload === 0 ? '#FF5757' : '#13ce66' }">
+          	{{ scope.row.isUpload === 0 ? '未上传' : '上传' }}
+          </el-tag>
         </template>
       </el-table-column>
 
@@ -324,7 +328,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <pagination v-show="total > 0" :total="total" :current.sync="listQuery.current" :size.sync="listQuery.size" @pagination="getList" />
+    <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" />
   </div>
 </template>
 
@@ -332,52 +336,69 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { electricCurrent, electricDellte, electricDellteAll, electricEdit } from '@/api/tenGrid'
+import { productionList, productionDellte, productionEdit, productionSecrch, productionOk } from '@/api/tenGrid';
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+const fixHeight = 380;
 export default {
   components: { Pagination },
   data() {
     return {
-      rolesList: [
-        {
-          SaleOrg: '0',
-          status: '确认',
-          upload: '上传',
-          standardVersion: '1',
-          supplierWorkNo: '2',
-          supplierCode: '3',
-          modelCode: '4',
-          categoryType: '5',
-          isAlarmData: '6',
-          alarmItem: '7',
-          processType: '8',
-          pdCode: '9',
-          checkTime: '10',
-          RawMaterialSN: '11',
-          ratedCurrent: '12',
-          pressureValue: '13',
-          pressureTime: '14',
-          discharge: '15',
-          InspectionReportFile: 'https://wpimg.wallstcn.com/e4558086-631c-425c-9430-56ffb46e70b3'
-        }
+      tableData: [
+        // {
+        //   SaleOrg: '0',
+        //   status: '确认',
+        //   upload: '上传',
+        //   standardVersion: '1',
+        //   supplierWorkNo: '2',
+        //   supplierCode: '3',
+        //   modelCode: '4',
+        //   categoryType: '5',
+        //   isAlarmData: '6',
+        //   alarmItem: '7',
+        //   processType: '8',
+        //   pdCode: '9',
+        //   checkTime: '10',
+        //   RawMaterialSN: '11',
+        //   ratedCurrent: '12',
+        //   pressureValue: '13',
+        //   pressureTime: '14',
+        //   discharge: '15',
+        //   InspectionReportFile: 'https://wpimg.wallstcn.com/e4558086-631c-425c-9430-56ffb46e70b3'
+        // }
       ],
       srcList: ['https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg', 'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'],
-      listQuery: {
-        supplierName: undefined,
-        ipoNo: undefined,
+      pagination: {
         current: 1,
         size: 10
       },
+      listQuery: {
+        supplierName: undefined,
+        ipoNo: undefined,
+      },
       listLoading: true,
       total: 10,
-      featId: null,
+      ids: null,
       selectedData: [], // 批量删除新数组
+      searchDate: {},
+      selectedData: [], // 批量删除新数组
+      tableHeight: window.innerHeight - fixHeight, //表格高度
       content1: this.$t('permission.supplierName'),
       content2: this.$t('permission.ipoNo')
     }
   },
   computed: {},
   watch: {
+    //监听表格高度
+    tableHeight(val) {
+      if (!this.timer) {
+        this.tableHeight = val;
+        this.timer = true;
+        const that = this;
+        setTimeout(function() {
+          that.timer = false;
+        }, 400);
+      }
+    },
     // 监听data属性中英文切换问题
     '$i18n.locale'() {
       this.content1 = this.$t('permission.supplierName')
@@ -385,71 +406,106 @@ export default {
     }
   },
   created() {
-    // Mock: get all routes and roles list from server
+    //监听表格高度
+    const that = this;
+    window.onresize = () => {
+      return (() => {
+        that.tableHeight = window.innerHeight - fixHeight;
+      })();
+    };
     this.getList()
   },
   methods: {
     // 查询
     handleSearch() {
-      this.listQuery.current = 1
-      this.getList()
+     this.listLoading = true;
+     productionSecrch(this.pagination, this.listQuery).then(res => {
+       if (res.data.length > 0) {
+         this.tableData = res.data;
+         this.total = res.data.length;
+         this.listLoading = false;
+       } else {
+         this.listQuery.current = 1;
+         this.getList();
+       }
+     });
     },
     // 重置
     handleReset() {
-      this.listQuery = {
+      this.pagination = {
         current: 1,
         size: 10
-      }
-    },
-    getRowDatas(row) {
-      this.featId = row.id
+      };
     },
     // 多选
     handleSelectionChange(val) {
-      this.selectedData = val
+      this.selectedData = val;
+    },
+    // 删除数据
+    handleDelete(index, row) {
+    	if (this.tableData.length > 0) {
+    		this.$confirm('此操作将永久删除记录, 是否继续?', '提示', {
+    			confirmButtonText: '确定',
+    			cancelButtonText: '取消',
+    			type: 'warning'
+    		})
+    			.then(() => {
+    				productionDellte([row.id]).then(res => {
+    					if (res.code === 0) {
+    						this.$message({
+    							type: 'success',
+    							message: '删除成功！'
+    						});
+    						this.getList();
+    					}
+    				});
+    			})
+    			.catch(() => {
+    				this.$message({
+    					type: 'info',
+    					message: '已取消删除'
+    				});
+    			});
+    	}
     },
     // 批量删除
     deleteAll() {
-      debugger
       if (this.selectedData.length > 0) {
-        debugger
-        this.$confirm('此操作将永久删除记录, 是否继续?', '提示：' + '共选择 ' + this.selectedData.length + ' 条数据 !', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        })
-          .then(() => {
-            const idList = []
-            this.selectedData.map(item => {
-              const newFeatid = item.id
-              idList.push(newFeatid)
-            })
-            var ids = { ids: idList.toString() }
-            electricDellteAll(JSON.stringify(ids)).then(res => {
-              debugger
-              // var result = res.data.success
-              // if (result === true) {
-              //   this.$message({
-              //     type: 'success',
-              //     message: '删除成功！'
-              //   })
-              //   this.rolesList()
-              // }
-            })
-          })
-          .catch(() => {
-            this.$message({
-              type: 'info',
-              message: '已取消删除'
-            })
-          })
+      	this.$confirm('此操作将永久删除记录, 是否继续?', '提示：' + '共选择 ' + this.selectedData.length + ' 条数据 !', {
+      		confirmButtonText: '确定',
+      		cancelButtonText: '取消',
+      		type: 'warning'
+      	})
+      		.then(() => {
+      			const idList = [];
+      			this.selectedData.map(item => {
+      				const newFeatid = item.id;
+      				idList.push(newFeatid);
+      			});
+
+      			productionDellte(idList).then(res => {
+      				if (res.code === 0) {
+      					this.$message({
+      						type: 'success',
+      						message: '删除成功！'
+      					});
+      					this.getList();
+      				}
+      			});
+      		})
+      		.catch(() => {
+      			this.$message({
+      				type: 'info',
+      				message: '已取消删除'
+      			});
+      		});
       }
     },
     // 批量确认
     okAll() {},
     // 导出用户
     handleExport() {
-      if (this.rolesList.length) {
+      if (this.tableData.length) {
         import('@/vendor/Export2Excel').then(excel => {
           const tHeader = [
             this.$t('permission.companyNo'),
@@ -463,7 +519,7 @@ export default {
             this.$t('permission.time')
           ]
           const filterVal = ['companyNo', 'name', 'title', 'department', 'company', 'description', 'state', 'user', 'time']
-          const list = this.rolesList
+          const list = this.tableData
           const data = this.formatJson(filterVal, list)
           excel.export_json_to_excel({
             header: tHeader,
@@ -483,13 +539,12 @@ export default {
     },
     // 获取列表
     getList() {
-      this.listLoading = true
-      electricCurrent(this.listQuery).then(response => {
-        console.log('response', response)
-        this.rolesList = response.data.records
-        this.total = response.data.total
-        this.listLoading = false
-      })
+      this.listLoading = true;
+      productionList(this.listQuery, this.searchDate).then(res => {
+      	this.tableData = res.data.records;
+      	this.total = res.data.total;
+      	this.listLoading = false;
+      });
     },
 
     i18n(routes) {
@@ -518,55 +573,22 @@ export default {
       // }
       // this.$message.success('恭喜你，数据保存成功！')
       // this.$set(row, 'isEgdit', false)
-      debugger
-      electricEdit(JSON.stringify(row)).then(res => {
-        debugger
-        var result = res.data.result
-        if (result === true) {
-          this.$message({
-            type: 'success',
-            message: '编辑成功!'
-          })
-          this.$set(row, 'isEgdit', false)
-        } else {
-          this.$message({
-            type: 'error',
-            message: '编辑失败!'
-          })
-        }
-      })
+       productionEdit(row).then(res => {
+       	if (res.code === 200) {
+       		this.$message({
+       			type: 'success',
+       			message: '编辑成功!'
+       		});
+       		this.$set(row, 'isEgdit', false);
+       	} else {
+       		this.$message({
+       			type: 'error',
+       			message: '编辑失败!'
+       		});
+       	}
+       });
     },
-    // 删除角色
-    handleDelete(index, row) {
-      if (this.rolesList.length > 0) {
-        debugger
-        this.$confirm('此操作将永久删除记录, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        })
-          .then(() => {
-            debugger
-            electricDellte({ featId: row.id }).then(res => {
-              debugger
-              // var result = res.data.success
-              // if (result === true) {
-              //   this.$message({
-              //     type: 'success',
-              //     message: '删除成功！'
-              //   })
-              //   this.listQueryData()
-              // }
-            })
-          })
-          .catch(() => {
-            this.$message({
-              type: 'info',
-              message: '已取消删除'
-            })
-          })
-      }
-    }
+
   }
 }
 </script>
