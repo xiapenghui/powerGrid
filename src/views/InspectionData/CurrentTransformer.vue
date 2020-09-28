@@ -63,17 +63,13 @@
 
       <el-table-column align="center" :label="$t('permission.status')" width="150">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :style="{ backgroundColor: scope.row.isConfirm === 0 ? '#FF5757' : '#13ce66' }">
-            {{ scope.row.isConfirm === 0 ? '未确认' : '确认' }}
-          </el-tag>
+          <el-tag :type="scope.row.status" :class="[scope.row.isConfirm === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isConfirm === 0 ? '未确认' : '确认' }}</el-tag>
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.upload')" width="150">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :style="{ backgroundColor: scope.row.isUpload === 0 ? '#FF5757' : '#13ce66' }">
-            {{ scope.row.isUpload === 0 ? '未上传' : '上传' }}
-          </el-tag>
+          <el-tag :type="scope.row.status" :class="[scope.row.isUpload === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isUpload === 0 ? '未上传' : '上传' }}</el-tag>
         </template>
       </el-table-column>
 
@@ -84,7 +80,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.supplierWorkNo')" width="150">
+      <el-table-column align="center" :label="$t('permission.supplierWorkNo')" width="150" sortable prop="supplierWorkNo">
         <template slot-scope="scope">
           <span v-if="!scope.row.isEgdit">{{ scope.row.supplierWorkNo }}</span>
           <el-input v-else v-model="scope.row.supplierWorkNo" />
@@ -143,12 +139,7 @@
       <el-table-column align="center" :label="$t('permission.checkTime')" width="200">
         <template slot-scope="scope">
           <span v-if="!scope.row.isEgdit">{{ scope.row.checkTime }}</span>
-          <!-- <el-input v-else v-model="scope.row.checkTime" /> -->
-          <el-date-picker v-else
-          v-model="scope.row.checkTime |  dateFormat "
-          type="datetime"
-          placeholder="选择日期时间">
-          </el-date-picker>
+          <el-date-picker v-else v-model="scope.row.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
         </template>
       </el-table-column>
 
@@ -206,13 +197,12 @@
 </template>
 
 <script>
-import '../../styles/scrollbar.css';
-import '../../styles/commentBox.scss';
-import i18n from '@/lang';
-import { electricCurrent, electricDellte, electricEdit, electricOk } from '@/api/tenGrid';
-import Pagination from '@/components/Pagination'; // secondary package based on el-pagination
-import { getNowDate } from '@/api/tenGrid'
-const fixHeight = 380;
+import '../../styles/scrollbar.css'
+import '../../styles/commentBox.scss'
+import i18n from '@/lang'
+import { electricCurrent, electricDellte, electricEdit, electricOk } from '@/api/tenGrid'
+import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
+const fixHeight = 380
 export default {
   components: { Pagination },
   data() {
@@ -254,65 +244,64 @@ export default {
       listLoading: true,
       total: 10,
       selectedData: [], // 批量删除新数组
-      tableHeight: window.innerHeight - fixHeight, //表格高度
+      tableHeight: window.innerHeight - fixHeight, // 表格高度
       content1: this.$t('permission.isConfirm'),
       content2: this.$t('permission.isUpload'),
       content3: this.$t('permission.supplierWorkNo')
-    };
+    }
   },
   computed: {},
   watch: {
-    //监听表格高度
+    // 监听表格高度
     tableHeight(val) {
       if (!this.timer) {
-        this.tableHeight = val;
-        this.timer = true;
-        const that = this;
+        this.tableHeight = val
+        this.timer = true
+        const that = this
         setTimeout(function() {
-          that.timer = false;
-        }, 400);
+          that.timer = false
+        }, 400)
       }
     },
     // 监听data属性中英文切换问题
     '$i18n.locale'() {
-      this.content1 = this.$t('permission.isConfirm');
-      this.content2 = this.$t('permission.isUpload');
-      this.content3 = this.$t('permission.supplierWorkNo');
+      this.content1 = this.$t('permission.isConfirm')
+      this.content2 = this.$t('permission.isUpload')
+      this.content3 = this.$t('permission.supplierWorkNo')
     }
   },
   created() {
-    //监听表格高度
-    const that = this;
+    // 监听表格高度
+    const that = this
     window.onresize = () => {
       return (() => {
-        that.tableHeight = window.innerHeight - fixHeight;
-      })();
-    };
-    this.getList();
+        that.tableHeight = window.innerHeight - fixHeight
+      })()
+    }
+    this.getList()
   },
   methods: {
     // 查询
     handleSearch() {
-      this.pagination.current = 1;
-      this.getList();
+      this.pagination.current = 1
+      this.getList()
     },
     // 重置
     handleReset() {
-      debugger;
       this.listQuery = {
         isConfirm: undefined,
         isUpload: undefined,
         supplierWorkNo: undefined
-      };
+      }
       this.pagination = {
         current: 1,
         size: 10
-      };
-      this.getList();
+      }
+      this.getList()
     },
     // 多选
     handleSelectionChange(val) {
-      this.selectedData = val;
+      this.selectedData = val
     },
     // 删除数据
     handleDelete(index, row) {
@@ -328,17 +317,17 @@ export default {
                 this.$message({
                   type: 'success',
                   message: '删除成功！'
-                });
-                this.getList();
+                })
+                this.getList()
               }
-            });
+            })
           })
           .catch(() => {
             this.$message({
               type: 'info',
               message: '已取消删除'
-            });
-          });
+            })
+          })
       }
     },
     // 批量删除
@@ -350,27 +339,27 @@ export default {
           type: 'warning'
         })
           .then(() => {
-            const idList = [];
+            const idList = []
             this.selectedData.map(item => {
-              const newFeatid = item.id;
-              idList.push(newFeatid);
-            });
+              const newFeatid = item.id
+              idList.push(newFeatid)
+            })
             electricDellte(idList).then(res => {
               if (res.code === 0) {
                 this.$message({
                   type: 'success',
                   message: '删除成功！'
-                });
-                this.getList();
+                })
+                this.getList()
               }
-            });
+            })
           })
           .catch(() => {
             this.$message({
               type: 'info',
               message: '已取消删除'
-            });
-          });
+            })
+          })
       }
     },
     // 批量确认
@@ -382,29 +371,29 @@ export default {
           type: 'warning'
         })
           .then(() => {
-            const newId = [];
+            const newId = []
             this.selectedData.map(item => {
-              const newConfirm = item.isConfirm;
+              const newConfirm = item.isConfirm
               if (newConfirm === 0) {
-                newId.push(item.id);
+                newId.push(item.id)
               }
-            });
+            })
             electricOk(newId).then(res => {
               if (res.code === 200) {
                 this.$message({
                   type: 'success',
                   message: '操作成功！'
-                });
-                this.getList();
+                })
+                this.getList()
               }
-            });
+            })
           })
           .catch(() => {
             this.$message({
               type: 'info',
               message: '已取消删除'
-            });
-          });
+            })
+          })
       }
     },
     // 导出用户
@@ -421,50 +410,49 @@ export default {
             this.$t('permission.state'),
             this.$t('permission.user'),
             this.$t('permission.time')
-          ];
-          const filterVal = ['companyNo', 'name', 'title', 'department', 'company', 'description', 'state', 'user', 'time'];
-          const list = this.tableData;
-          const data = this.formatJson(filterVal, list);
+          ]
+          const filterVal = ['companyNo', 'name', 'title', 'department', 'company', 'description', 'state', 'user', 'time']
+          const list = this.tableData
+          const data = this.formatJson(filterVal, list)
           excel.export_json_to_excel({
             header: tHeader,
             data
-          });
-        });
+          })
+        })
       } else {
         this.$message({
           message: 'Please select at least one item',
           type: 'warning'
-        });
+        })
       }
     },
     // 导出用户
     formatJson(filterVal, jsonData) {
-      return jsonData.map(v => filterVal.map(j => v[j]));
+      return jsonData.map(v => filterVal.map(j => v[j]))
     },
     // 获取列表
     getList() {
-      debugger
-      this.listLoading = true;
+      this.listLoading = true
       electricCurrent(this.pagination, this.listQuery).then(res => {
-        this.tableData = res.data.records;
-        this.total = res.data.total;
-        this.listLoading = false;
-      });
+        this.tableData = res.data.records
+        this.total = res.data.total
+        this.listLoading = false
+      })
     },
 
     i18n(routes) {
       const app = routes.map(route => {
-        route.title = i18n.t(`route.${route.title}`);
+        route.title = i18n.t(`route.${route.title}`)
         if (route.children) {
-          route.children = this.i18n(route.children);
+          route.children = this.i18n(route.children)
         }
-        return route;
-      });
-      return app;
+        return route
+      })
+      return app
     },
     // 编辑
     handleEdit(index, row) {
-      this.$set(row, 'isEgdit', true);
+      this.$set(row, 'isEgdit', true)
     },
     // 编辑成功
     editSuccess(index, row) {
@@ -478,24 +466,23 @@ export default {
       // }
       // this.$message.success('恭喜你，数据保存成功！')
       // this.$set(row, 'isEgdit', false)
-      debugger;
       electricEdit(row).then(res => {
         if (res.code === 200) {
           this.$message({
             type: 'success',
             message: '编辑成功!'
-          });
-          this.$set(row, 'isEgdit', false);
+          })
+          this.$set(row, 'isEgdit', false)
         } else {
           this.$message({
             type: 'error',
             message: '编辑失败!'
-          });
+          })
         }
-      });
+      })
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

@@ -350,87 +350,6 @@ export const constantRoutes = [{
   }
 
   ]
-},
-
-// 基础数据
-{
-  path: '/BasicData',
-  component: Layout,
-  redirect: '/BasicData/OrganizationalManagement/CompanyMaintenance',
-  alwaysShow: true,
-  hidden: true,
-  name: 'BasicData',
-  meta: {
-    title: 'BasicData',
-    icon: 'nested'
-  },
-  // 物料信息管理模块
-  children: [
-    // 组织架构管理
-    {
-      path: 'OrganizationalManagement',
-      component: () => import('@/views/BasicData/OrganizationalManagement/index'), // Parent router-view
-      name: 'OrganizationalManagement',
-      meta: {
-        title: 'OrganizationalManagement'
-      },
-      redirect: '/BasicData/OrganizationalManagement/CompanyMaintenance',
-      children: [{
-        path: 'CompanyMaintenance',
-        component: () => import('@/views/BasicData/OrganizationalManagement/CompanyMaintenance'),
-        name: 'CompanyMaintenance',
-        meta: {
-          title: 'CompanyMaintenance'
-        }
-      },
-      {
-        path: 'DepartmentMaintenance',
-        component: () => import('@/views/BasicData/OrganizationalManagement/DepartmentMaintenance'),
-        name: 'DepartmentMaintenance',
-        meta: {
-          title: 'DepartmentMaintenance'
-        }
-      }
-      ]
-    },
-
-    // 生产信息管理
-    {
-      path: 'ProductionManagement',
-      component: () => import('@/views/BasicData/ProductionManagement/index'), // Parent router-view
-      name: 'ProductionManagement',
-      meta: {
-        title: 'ProductionManagement'
-      },
-      redirect: '/BasicData/ProductionManagement/LineMaintenance',
-      children: [{
-        path: 'LineMaintenance',
-        component: () => import('@/views/BasicData/ProductionManagement/LineMaintenance'),
-        name: 'LineMaintenance',
-        meta: {
-          title: 'LineMaintenance'
-        }
-      },
-      {
-        path: 'WorkMaintenance',
-        component: () => import('@/views/BasicData/ProductionManagement/WorkMaintenance'),
-        name: 'WorkMaintenance',
-        meta: {
-          title: 'WorkMaintenance'
-        }
-      },
-      {
-        path: 'ProcessMaintenance',
-        component: () => import('@/views/BasicData/ProductionManagement/ProcessMaintenance'),
-        name: 'ProcessMaintenance',
-        meta: {
-          title: 'ProcessMaintenance'
-        }
-      }
-      ]
-    }
-
-  ]
 }
 
 ]
@@ -450,7 +369,7 @@ export const asyncRoutes = [{
   meta: {
     title: 'SystemManagement',
     icon: 'lock',
-    roles: ['admin'] // you can set roles in root nav
+    roles: ['Admin'] // you can set roles in root nav
   },
   children: [{
     path: 'index',
@@ -458,7 +377,7 @@ export const asyncRoutes = [{
     name: 'RolePermission',
     meta: {
       title: 'rolePermission',
-      roles: ['admin']
+      roles: ['Admin']
     }
   },
   {
@@ -468,7 +387,7 @@ export const asyncRoutes = [{
     name: 'lookUser',
     meta: {
       title: 'lookUser',
-      roles: ['admin']
+      roles: ['Admin']
     }
   },
   {
@@ -477,7 +396,7 @@ export const asyncRoutes = [{
     name: 'userMangement',
     meta: {
       title: 'userMangement',
-      roles: ['admin']
+      roles: ['Admin']
     }
   }
   ]
@@ -521,7 +440,6 @@ tableRouter,
   component: Layout,
   redirect: '/excel/export-excel',
   name: 'Excel',
-  hidden: true,
   meta: {
     title: 'excel',
     icon: 'excel'

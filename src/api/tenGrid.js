@@ -5,7 +5,7 @@ import request from '@/utils/request'
 export function analysis() {
   return request({
     url: newUrl + '/api/excel/read',
-    method: 'get',
+    method: 'get'
   })
 }
 
@@ -37,19 +37,16 @@ export function electricEdit(data) {
   })
 }
 
-
-
 // 电流互感器批量确认接口
 export function electricOk(data) {
   return request({
-    url: newUrl + '/api/kvsc/ct/confirm/all',
+    url: newUrl + '/api/kvsc/ct/confirm/ids',
     method: 'post',
     data
   })
 }
 
-
-//生产总表
+// 生产总表
 // 生产总表列表接口
 export function productionList(query, data) {
   return request({
@@ -78,16 +75,6 @@ export function productionEdit(data) {
   })
 }
 
-// 生产总表条件查询接口
-export function productionSecrch(query,data) {
-  return request({
-    url: newUrl + '/api/kvsc/ct/list',
-    method: 'post',
-    params: query,
-    data
-  })
-}
-
 // 生产总表批量确认接口
 export function productionOk(data) {
   return request({
@@ -96,8 +83,6 @@ export function productionOk(data) {
     data
   })
 }
-
-
 
 // 销售项目列表
 // 销售项目列表接口
@@ -110,7 +95,7 @@ export function saleList(query, data) {
   })
 }
 
-// 生产总表删除接口
+// 销售项目删除接口
 export function saleDellte(data) {
   return request({
     url: newUrl + '/api/kvsc/ct/delete/ids',
@@ -119,7 +104,7 @@ export function saleDellte(data) {
   })
 }
 
-// 生产总表编辑保存接口
+// 销售项目编辑保存接口
 export function saleEdit(data) {
   return request({
     url: newUrl + '/api/kvsc/ct/update',
@@ -128,20 +113,48 @@ export function saleEdit(data) {
   })
 }
 
-// 生产总表条件查询接口
-export function saleSecrch(query,data) {
+// 销售项目批量确认接口
+export function saleOk(data) {
   return request({
-    url: newUrl + '/api/kvsc/ct/list',
+    url: newUrl + '/api/kvsc/ct/confirm/all',
+    method: 'post',
+    data
+  })
+}
+
+// 电压列表
+// 电压列表接口
+export function voltageList(query, data) {
+  return request({
+    url: newUrl + '/api/kvsc/vt/page',
     method: 'post',
     params: query,
     data
   })
 }
 
-// 生产总表批量确认接口
-export function saleOk(data) {
+// 电压删除接口
+export function voltageDellte(data) {
   return request({
-    url: newUrl + '/api/kvsc/ct/confirm/all',
+    url: newUrl + '/api/kvsc/vt/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 电压编辑保存接口
+export function voltageEdit(data) {
+  return request({
+    url: newUrl + '/api/kvsc/vt/update',
+    method: 'post',
+    data
+  })
+}
+
+// 电压批量确认接口
+export function voltageOk(data) {
+  return request({
+    url: newUrl + '/api/kvsc/vt/confirm/ids',
     method: 'post',
     data
   })
