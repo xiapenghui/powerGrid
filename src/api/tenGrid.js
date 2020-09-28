@@ -159,3 +159,155 @@ export function voltageOk(data) {
     data
   })
 }
+
+// 辅助回路绝缘测试列表
+// 辅助回路绝缘测试列表接口
+export function routerList(query, data) {
+  return request({
+    url: newUrl + '/api/kvsc/acit/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+// 辅助回路绝缘测试删除接口
+export function routerDellte(data) {
+  return request({
+    url: newUrl + '/api/kvsc/acit/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 辅助回路绝缘测试编辑保存接口
+export function routerEdit(data) {
+  return request({
+    url: newUrl + '/api/kvsc/acit/update',
+    method: 'post',
+    data
+  })
+}
+
+// 辅助回路绝缘测试批量确认接口
+export function routerOk(data) {
+  return request({
+    url: newUrl + '/api/kvsc/acit/confirm/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 电气连锁列表
+//  电气连锁列表接口
+export function electricalList(query, data) {
+  return request({
+    url: newUrl + '/api/kvsc/ei/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+//  电气连锁删除接口
+export function electricalDellte(data) {
+  return request({
+    url: newUrl + '/api/kvsc/ei/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+//  电气连锁编辑保存接口
+export function electricalEdit(data) {
+  return request({
+    url: newUrl + '/api/kvsc/ei/update',
+    method: 'post',
+    data
+  })
+}
+
+//  电气连锁批量确认接口
+export function electricalOk(data) {
+  return request({
+    url: newUrl + '/api/kvsc/ei/confirm/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 整柜工频耐压试验列表
+//  整柜工频耐压试验列表接口
+export function fcpwvtList(query, data) {
+  return request({
+    url: newUrl + '/api/kvsc/fcpfwvt/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+//  整柜工频耐压试验删除接口
+export function fcpwvtDellte(data) {
+  return request({
+    url: newUrl + '/api/kvsc/fcpfwvt/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 整柜工频耐压试验编辑保存接口
+export function fcpwvtEdit(data) {
+  return request({
+    url: newUrl + '/api/kvsc/fcpfwvt/update',
+    method: 'post',
+    data
+  })
+}
+
+//  整柜工频耐压试验批量确认接口
+export function fcpwvtOk(data) {
+  return request({
+    url: newUrl + '/api/kvsc/fcpfwvt/confirm/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 主回路电阻值列表
+// 主回路电阻值列表接口
+export function mcrList(query, data) {
+  return request({
+    url: newUrl + '/api/kvsc/mcr/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+//  主回路电阻值删除接口
+export function mcrDellte(data) {
+  return request({
+    url: newUrl + '/api/kvsc/mcr/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 主回路电阻值编辑保存接口
+export function mcrEdit(data) {
+  return request({
+    url: newUrl + '/api/kvsc/mcr/update',
+    method: 'post',
+    data
+  })
+}
+
+//  主回路电阻值批量确认接口
+export function mcrOk(data) {
+  return request({
+    url: newUrl + '/api/kvsc/mcr/confirm/ids',
+    method: 'post',
+    data
+  })
+}

@@ -85,7 +85,8 @@
       <el-table-column type="selection" width="55" />
       <el-table-column align="center" :label="$t('permission.SaleOrg')" width="150" fixed>
         <template slot-scope="scope">
-          {{ scope.row.SaleOrg }}
+          <span v-if="!scope.row.isEgdit">{{ scope.row.SaleOrg }}</span>
+          <el-input v-else v-model="scope.row.SaleOrg" />
         </template>
       </el-table-column>
 
@@ -221,7 +222,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <pagination v-show="total > 0" :total="total" :page.sync="pagination.page" :limit.sync="pagination.limit" @pagination="getList" />
+    <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" />
   </div>
 </template>
 
@@ -497,16 +498,6 @@ export default {
       // }
       // this.$message.success('恭喜你，数据保存成功！')
       // this.$set(row, 'isEgdit', false)
-      // const newCheckTime = row.checkTime
-      // const date = new Date(newCheckTime)
-      // const y = date.getFullYear()
-      // const m = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
-      // const d = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
-      // const h = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
-      // const min = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
-      // const s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
-      // const aa = y + '-' + m + '-' + d + ' ' + h + ':' + min + ':' + s
-      // console.log(aa)
       voltageEdit(row).then(res => {
         if (res.code === 200) {
           this.$message({
