@@ -44,7 +44,7 @@
       highlight-current-row
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55" />
+      <el-table-column type="selection"  align="center" width="55" />
       <el-table-column align="center" :label="$t('permission.SaleOrg')" width="150" fixed sortable prop="key">
         <template slot-scope="scope">
           <span v-if="!scope.row.isEgdit">{{ scope.row.saleOrg }}</span>
@@ -463,7 +463,7 @@ export default {
     			.catch(() => {
     				this.$message({
     					type: 'info',
-    					message: '已取消删除'
+    					 message: this.$t('table.deleteError')
     				});
     			});
     	}
@@ -496,7 +496,7 @@ export default {
       		.catch(() => {
       			this.$message({
       				type: 'info',
-      				message: '已取消删除'
+      				 message: this.$t('table.deleteError')
       			});
       		});
       }
@@ -577,13 +577,13 @@ export default {
        	if (res.code === 200) {
        		this.$message({
        			type: 'success',
-       			message: '编辑成功!'
+       			message: this.$t('table.editSuc')
        		});
        		this.$set(row, 'isEgdit', false);
        	} else {
        		this.$message({
        			type: 'error',
-       			message: '编辑失败!'
+       			message: this.$t('table.editErr')('table.editErr')
        		});
        	}
        });

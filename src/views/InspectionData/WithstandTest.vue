@@ -82,7 +82,7 @@
       highlight-current-row
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55" />
+      <el-table-column type="selection"  align="center" width="55" />
       <el-table-column align="center" :label="$t('permission.SaleOrg')" width="150" fixed>
         <template slot-scope="scope">
           <span v-if="!scope.row.isEgdit">{{ scope.row.SaleOrg }}</span>
@@ -364,9 +364,9 @@ export default {
     // 删除数据
     handleDelete(index, row) {
       if (this.tableData.length > 0) {
-        this.$confirm('此操作将永久删除记录, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+       this.$confirm(this.$t('table.deleteInfo'), this.$t('table.Tips'), {
+          confirmButtonText: this.$t('table.confirm'),
+         cancelButtonText: this.$t('table.cancel'),
           type: 'warning'
         })
           .then(() => {
@@ -374,7 +374,7 @@ export default {
               if (res.code === 0) {
                 this.$message({
                   type: 'success',
-                  message: '删除成功！'
+                  message: this.$t('table.deleteSuccess')
                 })
                 this.getList()
               }
@@ -383,7 +383,7 @@ export default {
           .catch(() => {
             this.$message({
               type: 'info',
-              message: '已取消删除'
+               message: this.$t('table.deleteError')
             })
           })
       }
@@ -391,9 +391,9 @@ export default {
     // 批量删除
     deleteAll() {
       if (this.selectedData.length > 0) {
-        this.$confirm('此操作将永久删除记录, 是否继续?', '提示：' + '共选择 ' + this.selectedData.length + ' 条数据 !', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(this.$t('table.okInfo'), this.$t('table.Tips') + this.$t('table.total') + this.selectedData.length + this.$t('table.dataInfo'), {
+          confirmButtonText: this.$t('table.confirm'),
+         cancelButtonText: this.$t('table.cancel'),
           type: 'warning'
         })
           .then(() => {
@@ -406,7 +406,7 @@ export default {
               if (res.code === 0) {
                 this.$message({
                   type: 'success',
-                  message: '删除成功！'
+                  message: this.$t('table.deleteSuccess')
                 })
                 this.getList()
               }
@@ -415,7 +415,7 @@ export default {
           .catch(() => {
             this.$message({
               type: 'info',
-              message: '已取消删除'
+               message: this.$t('table.deleteError')
             })
           })
       }
@@ -423,9 +423,9 @@ export default {
     // 批量确认
     okAll() {
       if (this.selectedData.length > 0) {
-        this.$confirm('此操作将批量确认, 是否继续?', '提示：' + '共选择 ' + this.selectedData.length + ' 条数据 !', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+         this.$confirm(this.$t('table.okInfo'), this.$t('table.Tips') + this.$t('table.total') + this.selectedData.length + this.$t('table.dataInfo'), {
+          confirmButtonText: this.$t('table.confirm'),
+         cancelButtonText: this.$t('table.cancel'),
           type: 'warning'
         })
           .then(() => {
@@ -440,7 +440,7 @@ export default {
               if (res.code === 200) {
                 this.$message({
                   type: 'success',
-                  message: '操作成功！'
+                  message: this.$t('table.operationSuccess')
                 })
                 this.getList()
               }
@@ -449,7 +449,7 @@ export default {
           .catch(() => {
             this.$message({
               type: 'info',
-              message: '已取消删除'
+               message: this.$t('table.deleteError')
             })
           })
       }
@@ -528,13 +528,13 @@ export default {
         if (res.code === 200) {
           this.$message({
             type: 'success',
-            message: '编辑成功!'
+            message: this.$t('table.editSuc')
           })
           this.$set(row, 'isEgdit', false)
         } else {
           this.$message({
             type: 'error',
-            message: '编辑失败!'
+            message: this.$t('table.editErr')('table.editErr')
           })
         }
       })
