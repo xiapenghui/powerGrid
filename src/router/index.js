@@ -207,6 +207,7 @@ export const constantRoutes = [{
     path: 'ContactBox',
     component: () => import('@/views/InspectionData/ContactBox'),
     name: 'ContactBox',
+    hidden: true,
     meta: {
       title: 'ContactBox'
     }
@@ -215,6 +216,7 @@ export const constantRoutes = [{
     path: 'CasingCabinet',
     component: () => import('@/views/InspectionData/CasingCabinet'),
     name: 'CasingCabinet',
+    hidden: true,
     meta: {
       title: 'CasingCabinet'
     }
@@ -223,6 +225,7 @@ export const constantRoutes = [{
     path: 'StaticContact',
     component: () => import('@/views/InspectionData/StaticContact'),
     name: 'StaticContact',
+    hidden: true,
     meta: {
       title: 'StaticContact'
     }
@@ -231,6 +234,7 @@ export const constantRoutes = [{
     path: 'PostInsulator',
     component: () => import('@/views/InspectionData/PostInsulator'),
     name: 'PostInsulator',
+    hidden: true,
     meta: {
       title: 'PostInsulator'
     }
@@ -239,6 +243,7 @@ export const constantRoutes = [{
     path: 'CircuitTrolley',
     component: () => import('@/views/InspectionData/CircuitTrolley'),
     name: 'CircuitTrolley',
+    hidden: true,
     meta: {
       title: 'CircuitTrolley'
     }
@@ -264,6 +269,7 @@ export const constantRoutes = [{
     path: 'LightningArrester',
     component: () => import('@/views/InspectionData/LightningArrester'),
     name: 'LightningArrester',
+    hidden: true,
     meta: {
       title: 'LightningArrester'
     }
@@ -272,6 +278,7 @@ export const constantRoutes = [{
     path: 'ChargedDisplay',
     component: () => import('@/views/InspectionData/ChargedDisplay'),
     name: 'ChargedDisplay',
+    hidden: true,
     meta: {
       title: 'ChargedDisplay'
     }
@@ -280,6 +287,7 @@ export const constantRoutes = [{
     path: 'FuseInformation',
     component: () => import('@/views/InspectionData/FuseInformation'),
     name: 'FuseInformation',
+    hidden: true,
     meta: {
       title: 'FuseInformation'
     }
@@ -288,6 +296,7 @@ export const constantRoutes = [{
     path: 'BusInformation',
     component: () => import('@/views/InspectionData/BusInformation'),
     name: 'BusInformation',
+    hidden: true,
     meta: {
       title: 'BusInformation'
     }
@@ -319,6 +328,7 @@ export const constantRoutes = [{
   {
     path: 'MechanicalTest',
     component: () => import('@/views/InspectionData/MechanicalTest'),
+    hidden: true,
     name: 'MechanicalTest',
     meta: {
       title: 'MechanicalTest'
@@ -439,6 +449,7 @@ tableRouter,
   path: '/excel',
   component: Layout,
   redirect: '/excel/export-excel',
+  hidden: true,
   name: 'Excel',
   meta: {
     title: 'excel',
