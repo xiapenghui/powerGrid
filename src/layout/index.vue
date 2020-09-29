@@ -12,8 +12,8 @@
     </div>
 
     <!-- //导入文件 -->
-    <el-button type="primary" @click="dialogVisible = true" size="mini" style="position: absolute;top: 10px; right: 260px;z-index: 9;">
-      <i class="el-icon-folder-checked"></i>
+    <el-button type="primary" size="mini" style="position: absolute;top: 10px; right: 260px;z-index: 9;" @click="dialogVisible = true">
+      <i class="el-icon-folder-checked" />
     </el-button>
     <el-dialog title="文件上传" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
       <el-upload
@@ -44,12 +44,12 @@
 </template>
 
 <script>
-import RightPanel from '@/components/RightPanel';
-import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components';
-import { analysis } from '@/api/tenGrid';
-import ResizeMixin from './mixin/ResizeHandler';
-import { mapState } from 'vuex';
-import axios from 'axios';
+import RightPanel from '@/components/RightPanel'
+import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components'
+import { analysis } from '@/api/tenGrid'
+import ResizeMixin from './mixin/ResizeHandler'
+import { mapState } from 'vuex'
+import axios from 'axios'
 export default {
   name: 'Layout',
   components: {
@@ -64,7 +64,7 @@ export default {
   data() {
     return {
       dialogVisible: false
-    };
+    }
   },
   computed: {
     ...mapState({
@@ -80,58 +80,58 @@ export default {
         openSidebar: this.sidebar.opened,
         withoutAnimation: this.sidebar.withoutAnimation,
         mobile: this.device === 'mobile'
-      };
+      }
     }
   },
   methods: {
     handleClickOutside() {
-      this.$store.dispatch('app/closeSideBar', { withoutAnimation: false });
+      this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
     },
-    //解析文件
+    // 解析文件
     closeOk() {
       analysis().then(res => {
-        debugger;
-      });
-    },
-    //成功
-    handleAvatarSuccess(res, file) {
-      console.log('1',res)
-      if(res.code===200){
         debugger
-          this.$message.success('上传成功！');
+      })
+    },
+    // 成功
+    handleAvatarSuccess(res, file) {
+      console.log('1', res)
+      if (res.code === 200) {
+        debugger
+        this.$message.success('上传成功！')
       }
     },
-    //失败
+    // 失败
     handleAvatarError(res, file) {
-       alert('2',res)
-      if(res.code===500){
-          this.$message.error('上传失败！');
+      alert('2', res)
+      if (res.code === 500) {
+        this.$message.error('上传失败！')
       }
     },
     beforeAvatarUpload(file) {
-      const isXLS = file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-      const isLt2M = file.size / 1024 / 1024 < 2;
+      const isXLS = file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      const isLt2M = file.size / 1024 / 1024 < 2
 
       if (!isXLS) {
-        this.$message.error('上传文件只能是xls或者xlsx格式！');
+        this.$message.error('上传文件只能是xls或者xlsx格式！')
       }
       if (!isLt2M) {
-        this.$message.error('上传文件大小不能超过 2MB!');
+        this.$message.error('上传文件大小不能超过 2MB!')
       }
-      return isXLS && isLt2M;
+      return isXLS && isLt2M
     },
     // 导入
 
-    //关闭弹窗
+    // 关闭弹窗
     handleClose(done) {
       this.$confirm('确认关闭？')
         .then(_ => {
-          done();
+          done()
         })
-        .catch(_ => {});
+        .catch(_ => {})
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

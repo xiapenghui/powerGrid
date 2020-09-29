@@ -369,7 +369,7 @@ export const asyncRoutes = [{
   meta: {
     title: 'SystemManagement',
     icon: 'lock',
-    roles: ['Admin'] // you can set roles in root nav
+    roles: ['admin'] // you can set roles in root nav
   },
   children: [{
     path: 'index',
@@ -377,7 +377,7 @@ export const asyncRoutes = [{
     name: 'RolePermission',
     meta: {
       title: 'rolePermission',
-      roles: ['Admin']
+      roles: ['admin']
     }
   },
   {
@@ -387,7 +387,7 @@ export const asyncRoutes = [{
     name: 'lookUser',
     meta: {
       title: 'lookUser',
-      roles: ['Admin']
+      roles: ['admin']
     }
   },
   {
@@ -396,7 +396,7 @@ export const asyncRoutes = [{
     name: 'userMangement',
     meta: {
       title: 'userMangement',
-      roles: ['Admin']
+      roles: ['admin']
     }
   }
   ]
