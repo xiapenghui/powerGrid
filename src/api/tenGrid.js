@@ -1,5 +1,5 @@
 // const newUrl = 'http://120.53.4.153:8888'
-const newUrl = 'http://192.168.1.192:8888'
+const newUrl = 'http://39.101.166.244:8888'
 import request from '@/utils/request'
 
 // 表格解析接口
@@ -232,6 +232,82 @@ export function mcrEdit(data) {
 export function mcrOk(data) {
   return request({
     url: newUrl + '/api/kvsc/mcr/confirm/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 机械操作列表
+// 机械操作列表接口
+export function moList(query, data) {
+  return request({
+    url: newUrl + '/api/kvsc/mo/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+// 机械操作删除接口
+export function moDellte(data) {
+  return request({
+    url: newUrl + '/api/kvsc/mo/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 机械操作编辑保存接口
+export function moEdit(data) {
+  return request({
+    url: newUrl + '/api/kvsc/mo/update',
+    method: 'post',
+    data
+  })
+}
+
+//  机械操作批量确认接口
+export function moOk(data) {
+  return request({
+    url: newUrl + '/api/kvsc/mo/confirm/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 机械特性试验列表
+// 机械特性试验列表接口
+export function mctList(query, data) {
+  return request({
+    url: newUrl + '/api/kvsc/mct/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+// 机械特性试验删除接口
+export function mctDellte(data) {
+  return request({
+    url: newUrl + '/api/kvsc/mct/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 机械特性试验编辑保存接口
+export function mctEdit(data) {
+  return request({
+    url: newUrl + '/api/kvsc/mct/update',
+    method: 'post',
+    data
+  })
+}
+
+//  机械特性试验批量确认接口
+export function mctOk(data) {
+  return request({
+    url: newUrl + '/api/kvsc/mct/confirm/ids',
     method: 'post',
     data
   })

@@ -15,29 +15,25 @@
     <el-button type="primary" size="mini" style="position: absolute;top: 10px; right: 260px;z-index: 9;" @click="dialogVisible = true">
       <i class="el-icon-folder-checked" />
     </el-button>
-    <el-dialog title="文件上传" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+    <el-dialog :title="newTitle" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
       <el-upload
         class="upload-demo"
-        action="http://192.168.1.192:8888/api/excel/upload"
+        action="http://39.101.166.244:8888/api/excel/upload"
         :limit="1"
         :before-upload="beforeAvatarUpload"
         :on-success="handleAvatarSuccess"
         :on-error="handleAvatarError"
         :auto-upload="true"
       >
-        <el-button size="small" type="primary">点击上传</el-button>
+        <el-button size="small" type="primary">{{ $t('table.clickUp') }}</el-button>
         <div slot="tip" class="el-upload__tip">
-          只能上传
-          <b>xls</b>
-          或者
-          <b>xlsx</b>
-          文件，且不超过2M
+          {{ $t('table.onlyUpload') }}<b> {{ $t('table.xls') }}</b>{{ $t('table.or') }}<b> {{ $t('table.xlsx') }}</b>{{ $t('table.fileSize') }}
         </div>
       </el-upload>
 
       <span slot="footer" class="dialog-footer">
         <!-- <el-button @click="dialogVisible = false">取 消</el-button> -->
-        <el-button type="primary" @click="closeOk">解析</el-button>
+        <el-button type="primary" @click="closeOk">{{ $t('table.closeOk') }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -48,8 +44,8 @@ import RightPanel from '@/components/RightPanel'
 import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components'
 import { analysis } from '@/api/tenGrid'
 import ResizeMixin from './mixin/ResizeHandler'
+import i18n from '@/lang'
 import { mapState } from 'vuex'
-import axios from 'axios'
 export default {
   name: 'Layout',
   components: {
@@ -63,7 +59,8 @@ export default {
   mixins: [ResizeMixin],
   data() {
     return {
-      dialogVisible: false
+      dialogVisible: false,
+      newTitle: this.$t('table.upData')
     }
   },
   computed: {
@@ -83,6 +80,12 @@ export default {
       }
     }
   },
+  watch: {
+    // 监听data属性中英文切换问题
+    '$i18n.locale'() {
+      this.newTitle = this.$t('table.upData')
+    }
+  },
   methods: {
     handleClickOutside() {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
@@ -97,26 +100,25 @@ export default {
     handleAvatarSuccess(res, file) {
       console.log('1', res)
       if (res.code === 200) {
-        debugger
-        this.$message.success('上传成功！')
+        this.$message.success(this.$t('table.upSuccess'))
       }
     },
     // 失败
     handleAvatarError(res, file) {
-      alert('2', res)
-      if (res.code === 500) {
-        this.$message.error('上传失败！')
+      debugger
+      if (res.code === 500 && res.type === 'error') {
+        this.$message.error(this.$t('table.upError'))
       }
     },
     beforeAvatarUpload(file) {
-      const isXLS = file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      const isXLS = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       const isLt2M = file.size / 1024 / 1024 < 2
 
       if (!isXLS) {
-        this.$message.error('上传文件只能是xls或者xlsx格式！')
+        this.$message.error(this.$t('table.errorOne'))
       }
       if (!isLt2M) {
-        this.$message.error('上传文件大小不能超过 2MB!')
+        this.$message.error(this.$t('table.errorTwo'))
       }
       return isXLS && isLt2M
     },
@@ -124,12 +126,23 @@ export default {
 
     // 关闭弹窗
     handleClose(done) {
-      this.$confirm('确认关闭？')
+      this.$confirm(this.$t('table.okClose'))
         .then(_ => {
           done()
         })
         .catch(_ => {})
+    },
+    i18n(routes) {
+      const app = routes.map(route => {
+        route.title = i18n.t(`route.${route.title}`)
+        if (route.children) {
+          route.children = this.i18n(route.children)
+        }
+        return route
+      })
+      return app
     }
+
   }
 }
 </script>

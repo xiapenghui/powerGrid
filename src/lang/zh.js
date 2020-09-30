@@ -412,7 +412,7 @@ export default {
     delete: '删除',
     cancel: '取 消',
     confirm: '确 定',
-    // do
+
     editSuccess: '保存',
     deleteInfo: '此操作将永久删除数据, 是否继续?',
     deleteSuccess: '删除成功！',
@@ -424,7 +424,21 @@ export default {
     operationSuccess: '操作成功',
     operationError: '已取消确认',
     editSuc: '编辑成功',
-    editErr: '编辑失败'
+    editErr: '编辑失败',
+    // do
+    upData: '文件上传',
+    closeOk: '解析',
+    clickUp: '点击上传',
+    onlyUpload: '只能上传',
+    xls: 'xls',
+    xlsx: 'xlsx',
+    or: '或者',
+    fileSize: '文件,且不超过2M',
+    upSuccess: '上传成功！',
+    upError: '上传失败！',
+    errorOne: '上传文件只能是xls或者xlsx格式！',
+    errorTwo: '上传文件大小不能超过 2MB!',
+    okClose: '确认关闭？'
 
   },
   example: {

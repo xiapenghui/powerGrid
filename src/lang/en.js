@@ -367,7 +367,6 @@ export default {
     roles: 'Your roles',
     switchRoles: 'Switch roles',
     tips: 'In some cases, using v-permission will have no effect. For example: Element-UI  el-tab or el-table-column and other scenes that dynamically render dom. You can only do this with v-if.',
-
     confirm: 'Confirm',
     cancel: 'Cancel'
   },
@@ -422,7 +421,21 @@ export default {
     operationSuccess: 'The operation was successful',
     operationError: 'Confirmation cancelled',
     editSuc: 'Edit succeeded',
-    editErr: 'Edit failed'
+    editErr: 'Edit failed',
+    // do
+    upData: 'File upload',
+    closeOk: 'parsing',
+    clickUp: 'Click on the upload',
+    onlyUpload: 'Can only upload',
+    xls: 'xls',
+    xlsx: 'xlsx',
+    or: 'or',
+    fileSize: 'File,And not more than 2M',
+    upSuccess: 'Uploaded Successfully！',
+    upError: 'Upload Failed！',
+    errorOne: 'Upload files can only be in XLS or XLSX format！',
+    errorTwo: 'Upload file size must not exceed 2MB!',
+    okClose: 'Confirm the shut down？'
 
   },
   example: {

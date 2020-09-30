@@ -305,6 +305,7 @@ export const constantRoutes = [{
     path: 'CabinetMaterial',
     component: () => import('@/views/InspectionData/CabinetMaterial'),
     name: 'CabinetMaterial',
+    hidden: true,
     meta: {
       title: 'CabinetMaterial'
     }
@@ -328,7 +329,6 @@ export const constantRoutes = [{
   {
     path: 'MechanicalTest',
     component: () => import('@/views/InspectionData/MechanicalTest'),
-    hidden: true,
     name: 'MechanicalTest',
     meta: {
       title: 'MechanicalTest'
