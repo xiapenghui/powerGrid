@@ -36,7 +36,7 @@
     <el-table
       v-loading="listLoading"
       :data="tableData"
-       :height="tableHeight"
+      :height="tableHeight"
       style="width: 100%"
       border
       element-loading-text="拼命加载中"
@@ -44,7 +44,7 @@
       highlight-current-row
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection"  align="center" width="55" />
+      <el-table-column type="selection" align="center" width="55" />
       <el-table-column align="center" :label="$t('permission.SaleOrg')" width="150" fixed sortable prop="key">
         <template slot-scope="scope">
           <span v-if="!scope.row.isEgdit">{{ scope.row.saleOrg }}</span>
@@ -54,17 +54,13 @@
 
       <el-table-column align="center" :label="$t('permission.status')" width="150">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :style="{ backgroundColor: scope.row.isConfirm === 0 ? '#FF5757' : '#13ce66' }">
-          	{{ scope.row.isConfirm === 0 ? '未确认' : '确认' }}
-          </el-tag>
+          <el-tag :type="scope.row.status" :class="[scope.row.isConfirm === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isConfirm === 0 ? '未确认' : '确认' }}</el-tag>
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.upload')" width="150">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :style="{ backgroundColor: scope.row.isUpload === 0 ? '#FF5757' : '#13ce66' }">
-          	{{ scope.row.isUpload === 0 ? '未上传' : '上传' }}
-          </el-tag>
+          <el-tag :type="scope.row.status" :class="[scope.row.isUpload === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isUpload === 0 ? '未上传' : '上传' }}</el-tag>
         </template>
       </el-table-column>
 
@@ -89,7 +85,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.supplierName')" width="150">
+      <el-table-column align="center" :label="$t('permission.supplierName')" width="300">
         <template slot-scope="scope">
           <span v-if="!scope.row.isEgdit">{{ scope.row.supplierName }}</span>
           <el-input v-else v-model="scope.row.supplierName" />
@@ -336,9 +332,9 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { productionList, productionDellte, productionEdit, productionSecrch, productionOk } from '@/api/tenGrid';
+import { productionList, productionDellte, productionEdit, productionOk } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-const fixHeight = 380;
+const fixHeight = 380
 export default {
   components: { Pagination },
   data() {
@@ -373,30 +369,27 @@ export default {
       },
       listQuery: {
         supplierName: undefined,
-        ipoNo: undefined,
+        ipoNo: undefined
       },
       listLoading: true,
       total: 10,
-      ids: null,
       selectedData: [], // 批量删除新数组
-      searchDate: {},
-      selectedData: [], // 批量删除新数组
-      tableHeight: window.innerHeight - fixHeight, //表格高度
+      tableHeight: window.innerHeight - fixHeight, // 表格高度
       content1: this.$t('permission.supplierName'),
       content2: this.$t('permission.ipoNo')
     }
   },
   computed: {},
   watch: {
-    //监听表格高度
+    // 监听表格高度
     tableHeight(val) {
       if (!this.timer) {
-        this.tableHeight = val;
-        this.timer = true;
-        const that = this;
+        this.tableHeight = val
+        this.timer = true
+        const that = this
         setTimeout(function() {
-          that.timer = false;
-        }, 400);
+          that.timer = false
+        }, 400)
       }
     },
     // 监听data属性中英文切换问题
@@ -406,103 +399,133 @@ export default {
     }
   },
   created() {
-    //监听表格高度
-    const that = this;
+    // 监听表格高度
+    const that = this
     window.onresize = () => {
       return (() => {
-        that.tableHeight = window.innerHeight - fixHeight;
-      })();
-    };
+        that.tableHeight = window.innerHeight - fixHeight
+      })()
+    }
     this.getList()
   },
   methods: {
     // 查询
     handleSearch() {
-     this.listLoading = true;
-     productionSecrch(this.pagination, this.listQuery).then(res => {
-       if (res.data.length > 0) {
-         this.tableData = res.data;
-         this.total = res.data.length;
-         this.listLoading = false;
-       } else {
-         this.listQuery.current = 1;
-         this.getList();
-       }
-     });
+      this.pagination.current = 1
+      this.getList()
     },
     // 重置
     handleReset() {
+      this.listQuery = {
+        supplierName: undefined,
+        ipoNo: undefined
+      }
       this.pagination = {
         current: 1,
         size: 10
-      };
+      }
+      this.getList()
     },
     // 多选
     handleSelectionChange(val) {
-      this.selectedData = val;
+      this.selectedData = val
     },
+
     // 删除数据
     handleDelete(index, row) {
-    	if (this.tableData.length > 0) {
-    		this.$confirm('此操作将永久删除记录, 是否继续?', '提示', {
-    			confirmButtonText: '确定',
-    			cancelButtonText: '取消',
-    			type: 'warning'
-    		})
-    			.then(() => {
-    				productionDellte([row.id]).then(res => {
-    					if (res.code === 0) {
-    						this.$message({
-    							type: 'success',
-    							message: '删除成功！'
-    						});
-    						this.getList();
-    					}
-    				});
-    			})
-    			.catch(() => {
-    				this.$message({
-    					type: 'info',
-    					 message: this.$t('table.deleteError')
-    				});
-    			});
-    	}
+      debugger
+      if (this.tableData.length > 0) {
+        this.$confirm(this.$t('table.deleteInfo'), this.$t('table.Tips'), {
+          confirmButtonText: this.$t('table.confirm'),
+          cancelButtonText: this.$t('table.cancel'),
+          type: 'warning'
+        })
+          .then(() => {
+            productionDellte([row.id]).then(res => {
+              debugger
+              if (res.code === 0) {
+                this.$message({
+                  type: 'success',
+                  message: this.$t('table.deleteSuccess')
+                })
+                this.getList()
+              }
+            })
+          })
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: this.$t('table.deleteError')
+            })
+          })
+      }
     },
     // 批量删除
     deleteAll() {
       if (this.selectedData.length > 0) {
-      	this.$confirm('此操作将永久删除记录, 是否继续?', '提示：' + '共选择 ' + this.selectedData.length + ' 条数据 !', {
-      		confirmButtonText: '确定',
-      		cancelButtonText: '取消',
-      		type: 'warning'
-      	})
-      		.then(() => {
-      			const idList = [];
-      			this.selectedData.map(item => {
-      				const newFeatid = item.id;
-      				idList.push(newFeatid);
-      			});
-
-      			productionDellte(idList).then(res => {
-      				if (res.code === 0) {
-      					this.$message({
-      						type: 'success',
-      						message: '删除成功！'
-      					});
-      					this.getList();
-      				}
-      			});
-      		})
-      		.catch(() => {
-      			this.$message({
-      				type: 'info',
-      				 message: this.$t('table.deleteError')
-      			});
-      		});
+        this.$confirm(this.$t('table.deleteInfo'), this.$t('table.Tips') + this.$t('table.total') + this.selectedData.length + this.$t('table.dataInfo'), {
+          confirmButtonText: this.$t('table.confirm'),
+          cancelButtonText: this.$t('table.cancel'),
+          type: 'warning'
+        })
+          .then(() => {
+            const idList = []
+            this.selectedData.map(item => {
+              const newFeatid = item.id
+              idList.push(newFeatid)
+            })
+            productionDellte(idList).then(res => {
+              if (res.code === 0) {
+                this.$message({
+                  type: 'success',
+                  message: this.$t('table.deleteSuccess')
+                })
+                this.getList()
+              }
+            })
+          })
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: this.$t('table.deleteError')
+            })
+          })
       }
     },
     // 批量确认
-    okAll() {},
+    okAll() {
+      if (this.selectedData.length > 0) {
+        this.$confirm(this.$t('table.okInfo'), this.$t('table.Tips') + this.$t('table.total') + this.selectedData.length + this.$t('table.dataInfo'), {
+          confirmButtonText: this.$t('table.confirm'),
+          cancelButtonText: this.$t('table.cancel'),
+          type: 'warning'
+        })
+          .then(() => {
+            const newId = []
+            this.selectedData.map(item => {
+              const newConfirm = item.isConfirm
+              if (newConfirm === 0) {
+                newId.push(item.id)
+              }
+            })
+            productionOk(newId).then(res => {
+              if (res.code === 200) {
+                this.$message({
+                  type: 'success',
+                  message: this.$t('table.operationSuccess')
+                })
+                this.getList()
+              }
+            })
+          })
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: this.$t('table.operationError')
+            })
+          })
+      }
+    },
     // 导出用户
     handleExport() {
       if (this.tableData.length) {
@@ -539,12 +562,12 @@ export default {
     },
     // 获取列表
     getList() {
-      this.listLoading = true;
-      productionList(this.listQuery, this.searchDate).then(res => {
-      	this.tableData = res.data.records;
-      	this.total = res.data.total;
-      	this.listLoading = false;
-      });
+      this.listLoading = true
+      productionList(this.pagination, this.listQuery).then(res => {
+        this.tableData = res.data.records
+        this.total = res.data.total
+        this.listLoading = false
+      })
     },
 
     i18n(routes) {
@@ -563,8 +586,9 @@ export default {
     },
     // 编辑成功
     editSuccess(index, row) {
+      debugger
       // if (row.poItemId === '') {
-      //   debugger
+      //
       //   this.$message.error('采购订单项目ID输入错误！')
       //   return
       // } else if (!row.productCode) {
@@ -573,22 +597,22 @@ export default {
       // }
       // this.$message.success('恭喜你，数据保存成功！')
       // this.$set(row, 'isEgdit', false)
-       productionEdit(row).then(res => {
-       	if (res.code === 200) {
-       		this.$message({
-       			type: 'success',
-       			message: this.$t('table.editSuc')
-       		});
-       		this.$set(row, 'isEgdit', false);
-       	} else {
-       		this.$message({
-       			type: 'error',
-       			message: this.$t('table.editErr')('table.editErr')
-       		});
-       	}
-       });
-    },
-
+      productionEdit(row).then(res => {
+        debugger
+        if (res.code === 200) {
+          this.$message({
+            type: 'success',
+            message: this.$t('table.editSuc')
+          })
+          this.$set(row, 'isEgdit', false)
+        } else {
+          this.$message({
+            type: 'error',
+            message: this.$t('table.editErr')
+          })
+        }
+      })
+    }
   }
 }
 </script>
