@@ -50,7 +50,7 @@
 
     <div class="rightBtn">
       <el-button type="primary" icon="el-icon-circle-plus-outline" @click="handleAddUser">{{ $t('permission.addUser') }}</el-button>
-      <el-button type="primary" icon="el-icon-document-remove" @click="handleExportUser">{{ $t('permission.exportUser') }}</el-button>
+      <el-button type="primary" icon="el-icon-document-remove" style="display: none;" @click="handleExportUser">{{ $t('permission.exportUser') }}</el-button>
     </div>
 
     <el-table v-loading="listLoading" :data="rolesList" style="width: 100%" border>

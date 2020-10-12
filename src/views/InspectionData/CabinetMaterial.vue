@@ -45,7 +45,7 @@
       </el-row>
     </div>
     <div class="rightBtn">
-      <el-button type="primary" icon="el-icon-document-remove" @click="handleExport">{{ $t('permission.exportOrder') }}</el-button>
+      <el-button type="primary" icon="el-icon-document-remove" style="display: none;" @click="handleExport">{{ $t('permission.exportOrder') }}</el-button>
     </div>
 
     <el-table v-loading="listLoading" :data="rolesList" style="width: 100%" border>
