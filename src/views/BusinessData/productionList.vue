@@ -58,9 +58,27 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.upload')" width="150">
+      <el-table-column align="center" :label="$t('permission.isUploadProd')" width="150">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :class="[scope.row.isUpload === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isUpload === 0 ? '未上传' : '上传' }}</el-tag>
+          <el-tag :type="scope.row.status" :class="[scope.row.isUploadProd === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isUploadProd === 0 ? '未上传' : '上传' }}</el-tag>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.isUploadWo')" width="150">
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.status" :class="[scope.row.isUploadWo === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isUploadWo === 0 ? '未上传' : '上传' }}</el-tag>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.isUploadSd')" width="150">
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.status" :class="[scope.row.isUploadSd === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isUploadSd === 0 ? '未上传' : '上传' }}</el-tag>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.isUploadPw')" width="150">
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.status" :class="[scope.row.isUploadPw === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isUploadPw === 0 ? '未上传' : '上传' }}</el-tag>
         </template>
       </el-table-column>
 
@@ -564,6 +582,7 @@ export default {
     getList() {
       this.listLoading = true
       productionList(this.pagination, this.listQuery).then(res => {
+        debugger
         this.tableData = res.data.records
         this.total = res.data.total
         this.listLoading = false

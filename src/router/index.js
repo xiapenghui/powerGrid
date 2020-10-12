@@ -384,6 +384,7 @@ export const asyncRoutes = [{
   children: [{
     path: 'index',
     component: () => import('@/views/SystemManagement/index'),
+    hidden: true,
     name: 'RolePermission',
     meta: {
       title: 'rolePermission',

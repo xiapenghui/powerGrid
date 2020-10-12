@@ -141,19 +141,15 @@
 
       <el-table-column align="center" :label="$t('permission.status')" width="150">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :style="{ backgroundColor: scope.row.isConfirm === 0 ? '#FF5757' : '#13ce66' }">
-            {{ scope.row.isConfirm === 0 ? '未确认' : '确认' }}
-          </el-tag>
+          <el-tag :type="scope.row.status" :class="[scope.row.isConfirm === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isConfirm === 0 ? '未确认' : '确认' }}</el-tag>
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.upload')" width="150">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :style="{ backgroundColor: scope.row.isUpload === 0 ? '#FF5757' : '#13ce66' }">
-            {{ scope.row.isUpload === 0 ? '未上传' : '上传' }}
-          </el-tag>
+          <el-tag :type="scope.row.status" :class="[scope.row.isUpload === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isUpload === 0 ? '未上传' : '上传' }}</el-tag>
         </template>
-      </el-table-column>
+      </el-table-column>s
 
       <el-table-column align="center" :label="$t('permission.purchaserHqCode')" width="150">
         <template slot-scope="scope">
