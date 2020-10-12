@@ -30,6 +30,7 @@
     <div class="rightBtn">
       <el-button type="danger" icon="el-icon-delete" @click="deleteAll">{{ $t('permission.deleteAll') }}</el-button>
       <el-button type="primary" icon="el-icon-check" @click="okAll">{{ $t('permission.okAll') }}</el-button>
+      <el-button type="primary" icon="el-icon-check" @click="okUpload">上传国网</el-button>
       <el-button type="primary" icon="el-icon-document-remove" style="display: none;" @click="handleExport">{{ $t('permission.exportOrder') }}</el-button>
     </div>
 
@@ -338,7 +339,8 @@
         <template slot-scope="scope">
           <el-button v-if="!scope.row.isEgdit" type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">{{ $t('table.edit') }}</el-button>
           <el-button v-else type="success" size="small" @click="editSuccess(scope.$index, scope.row)">{{ $t('table.editSuccess') }}</el-button>
-          <el-button type="danger" size="small" @click="handleDelete(scope.$index, scope.row)">{{ $t('table.delete') }}</el-button>
+          <!-- <el-button type="danger" size="small" @click="handleDelete(scope.$index, scope.row)">{{ $t('table.delete') }}</el-button> -->
+          <el-button type="warning" size="small" @click="handleDelete(scope.$index, scope.row)">日志</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -350,7 +352,7 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { productionList, productionDellte, productionEdit, productionOk } from '@/api/business'
+import { productionList, productionDellte, productionEdit, productionOk, isUpload } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 const fixHeight = 380
 export default {
@@ -451,32 +453,34 @@ export default {
 
     // 删除数据
     handleDelete(index, row) {
-      debugger
-      if (this.tableData.length > 0) {
-        this.$confirm(this.$t('table.deleteInfo'), this.$t('table.Tips'), {
-          confirmButtonText: this.$t('table.confirm'),
-          cancelButtonText: this.$t('table.cancel'),
-          type: 'warning'
-        })
-          .then(() => {
-            productionDellte([row.id]).then(res => {
-              debugger
-              if (res.code === 0) {
-                this.$message({
-                  type: 'success',
-                  message: this.$t('table.deleteSuccess')
-                })
-                this.getList()
-              }
-            })
-          })
-          .catch(() => {
-            this.$message({
-              type: 'info',
-              message: this.$t('table.deleteError')
-            })
-          })
-      }
+      this.$message({
+        type: 'error',
+        message: '功能暂未开通！'
+      })
+      // if (this.tableData.length > 0) {
+      //   this.$confirm(this.$t('table.deleteInfo'), this.$t('table.Tips'), {
+      //     confirmButtonText: this.$t('table.confirm'),
+      //     cancelButtonText: this.$t('table.cancel'),
+      //     type: 'warning'
+      //   })
+      //     .then(() => {
+      //       productionDellte([row.id]).then(res => {
+      //         if (res.code === 0) {
+      //           this.$message({
+      //             type: 'success',
+      //             message: this.$t('table.deleteSuccess')
+      //           })
+      //           this.getList()
+      //         }
+      //       })
+      //     })
+      //     .catch(() => {
+      //       this.$message({
+      //         type: 'info',
+      //         message: this.$t('table.deleteError')
+      //       })
+      //     })
+      // }
     },
     // 批量删除
     deleteAll() {
@@ -628,6 +632,19 @@ export default {
           this.$message({
             type: 'error',
             message: this.$t('table.editErr')
+          })
+        }
+      })
+    },
+    // 上传
+    okUpload() {
+      debugger
+      isUpload().then(res => {
+        if (res.code === 200) {
+          this.getList()
+          this.$message({
+            type: 'success',
+            message: '上传成功！'
           })
         }
       })

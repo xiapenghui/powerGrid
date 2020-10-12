@@ -40,6 +40,14 @@ export function productionOk(data) {
   })
 }
 
+// 生产总表文件上传接口
+export function isUpload() {
+  return request({
+    url: newUrl + '/api/eip/prod/upload',
+    method: 'get'
+  })
+}
+
 // 销售项目列表
 // 销售项目列表接口
 export function saleList(query, data) {
