@@ -34,7 +34,7 @@
 
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">{{ $t('login.logIn') }}</el-button>
 
-      <div style="position:relative">
+      <!-- <div style="position:relative">
         <div class="tips">
           <span>{{ $t('login.username') }} : admin</span>
           <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
@@ -43,7 +43,7 @@
           <span style="margin-right:18px;">{{ $t('login.username') }} : editor</span>
           <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
         </div>
-      </div>
+      </div> -->
     </el-form>
   </div>
 </template>
@@ -73,7 +73,7 @@ export default {
     return {
       loginForm: {
         username: 'admin',
-        password: '111111'
+        password: '123456'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -214,11 +214,11 @@ $light_gray: #eee;
 .login-container {
   min-height: 100%;
   width: 100%;
-  // background-color: $bg;
-  // background-image: linear-gradient(to right, #1a68ad, #889aa4);
-  background-image: url(../../assets/home/bg.gif);
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: $bg;
+  background-image: linear-gradient(to right, #1a68ad, #4ea962);
+  // background-image: url(../../assets/home/bg.gif);
+  // background-repeat: no-repeat;
+  // background-size: cover;
   overflow: hidden;
 
   .login-form {

@@ -53,7 +53,7 @@
       highlight-current-row
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection"  align="center" width="55" />
+      <el-table-column type="selection" align="center" width="55" />
       <el-table-column align="center" :label="$t('permission.SaleOrg')" width="150" fixed sortable prop="key">
         <template slot-scope="scope">
           <span v-if="!scope.row.isEgdit">{{ scope.row.saleOrg }}</span>

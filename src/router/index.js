@@ -101,6 +101,7 @@ export const constantRoutes = [{
   {
     path: 'PurchaseIinformation',
     component: () => import('@/views/BusinessData/PurchaseIinformation'),
+    hidden: true,
     name: 'PurchaseIinformation',
     meta: {
       title: 'PurchaseIinformation'
@@ -373,7 +374,6 @@ export const asyncRoutes = [{
   path: '/SystemManagement',
   component: Layout,
   redirect: '/SystemManagement/index',
-  hidden: true,
   alwaysShow: true, // will always show the root menu
   name: 'Permission',
   meta: {
