@@ -118,6 +118,7 @@ export const constantRoutes = [{
   {
     path: 'MaintenanceInformation',
     component: () => import('@/views/BusinessData/MaintenanceInformation'),
+    hidden: true,
     name: 'MaintenanceInformation',
     meta: {
       title: 'MaintenanceInformation'
@@ -126,6 +127,7 @@ export const constantRoutes = [{
   {
     path: 'WorkInformation',
     component: () => import('@/views/BusinessData/WorkInformation'),
+    hidden: true,
     name: 'WorkInformation',
     meta: {
       title: 'WorkInformation'
@@ -135,6 +137,7 @@ export const constantRoutes = [{
   {
     path: 'SchedulingInformation',
     component: () => import('@/views/BusinessData/SchedulingInformation'),
+    hidden: true,
     name: 'SchedulingInformation',
     meta: {
       title: 'SchedulingInformation'
@@ -144,6 +147,7 @@ export const constantRoutes = [{
   {
     path: 'ReportInformation',
     component: () => import('@/views/BusinessData/ReportInformation'),
+    hidden: true,
     name: 'ReportInformation',
     meta: {
       title: 'ReportInformation'

@@ -15,7 +15,7 @@
     <el-button type="primary" size="mini" style="position: absolute;top: 10px; right: 260px;z-index: 9;" @click="dialogVisible = true">
       <i class="el-icon-folder-checked" />
     </el-button>
-    <el-dialog :title="newTitle" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+    <el-dialog :title="newTitle" :visible.sync="dialogVisible" width="30%">
       <el-upload
         class="upload-demo"
         action="http://39.101.166.244:8888/api/excel/upload"
@@ -98,7 +98,6 @@ export default {
     },
     // 成功
     handleAvatarSuccess(res, file) {
-      console.log('1', res)
       if (res.code === 200) {
         this.$message.success(this.$t('table.upSuccess'))
       }
@@ -121,16 +120,6 @@ export default {
         this.$message.error(this.$t('table.errorTwo'))
       }
       return isXLS && isLt2M
-    },
-    // 导入
-
-    // 关闭弹窗
-    handleClose(done) {
-      this.$confirm(this.$t('table.okClose'))
-        .then(_ => {
-          done()
-        })
-        .catch(_ => {})
     },
     i18n(routes) {
       const app = routes.map(route => {
