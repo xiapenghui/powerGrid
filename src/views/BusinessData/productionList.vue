@@ -431,6 +431,14 @@ export default {
     // 查询
     handleSearch() {
       this.pagination.current = 1
+      // const searchOne = this.listQuery.supplierName
+      // const searchTwo = this.listQuery.ipoNo
+      // debugger
+      // if (
+      //   (searchOne === '' && searchTwo === '') || (searchOne === '' && searchTwo === undefined) || (searchOne === undefined && searchTwo === '') || (searchOne === undefined && searchTwo === undefined)
+      // ) {
+      //   this.getList()
+      // }
       this.getList()
     },
     // 重置
@@ -551,6 +559,7 @@ export default {
     getList() {
       this.listLoading = true
       productionList(this.pagination, this.listQuery).then(res => {
+        debugger
         this.tableData = res.data.records
         this.total = res.data.total
         this.listLoading = false

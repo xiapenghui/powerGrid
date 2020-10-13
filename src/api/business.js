@@ -1,5 +1,5 @@
-// const newUrl = 'http://192.168.1.192:8888'
-const newUrl = 'http://39.101.166.244:8888'
+const newUrl = 'http://192.168.1.192:8888'
+// const newUrl = 'http://39.101.166.244:8888'
 import request from '@/utils/request'
 
 // 生产总表
@@ -80,7 +80,7 @@ export function saleEdit(data) {
 // 销售项目批量确认接口
 export function saleOk(data) {
   return request({
-    url: newUrl + '/api/eip/so/confirm/all',
+    url: newUrl + '/api/eip/so/confirm/ids',
     method: 'post',
     data
   })

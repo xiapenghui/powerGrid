@@ -38,8 +38,8 @@
       <el-table-column type="selection" align="center" width="55" fixed />
       <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.SaleOrg }}</span>
-          <el-input v-else v-model="scope.row.SaleOrg" />
+          <span v-if="!scope.row.isEgdit">{{ scope.row.saleOrg }}</span>
+          <el-input v-else v-model="scope.row.saleOrg" />
         </template>
       </el-table-column>
 
@@ -299,7 +299,7 @@ export default {
     },
     // 多选
     handleSelectionChange(val) {
-      this.multipleSelection = val
+      this.selectedData = val
     },
     // 删除数据
     handleDelete(index, row) {
@@ -334,6 +334,7 @@ export default {
     },
     // 批量删除
     deleteAll() {
+      debugger
       if (this.selectedData.length > 0) {
         this.$confirm(this.$t('table.deleteInfo'), this.$t('table.Tips') + this.$t('table.total') + this.selectedData.length + this.$t('table.dataInfo'), {
           confirmButtonText: this.$t('table.confirm'),
@@ -367,6 +368,7 @@ export default {
     },
     // 批量确认
     okAll() {
+      debugger
       if (this.selectedData.length > 0) {
         this.$confirm(this.$t('table.okInfo'), this.$t('table.Tips') + this.$t('table.total') + this.selectedData.length + this.$t('table.dataInfo'), {
           confirmButtonText: this.$t('table.confirm'),
@@ -437,7 +439,6 @@ export default {
     },
     // 获取列表
     getList() {
-      debugger
       this.listLoading = true
       saleList(this.pagination, this.listQuery).then(res => {
         this.tableData = res.data.records
@@ -473,7 +474,6 @@ export default {
       // this.$message.success('恭喜你，数据保存成功！');
       // this.$set(row, 'isEgdit', false);
       saleEdit(row).then(res => {
-        debugger
         if (res.code === 200) {
           this.$message({
             type: 'success',
@@ -492,12 +492,12 @@ export default {
     okUpload() {
       saleUpload().then(res => {
         if (res.code === 200) {
-          this.getList()
           this.$message({
             type: 'success',
             message: '上传成功！'
           })
         }
+        this.getList()
       })
     }
   }
