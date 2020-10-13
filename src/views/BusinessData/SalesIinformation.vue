@@ -284,6 +284,9 @@ export default {
     // 查询
     handleSearch() {
       this.pagination.current = 1
+      if (this.listQuery.soNo === '') {
+        this.listQuery.soNo = undefined
+      }
       this.getList()
     },
     // 重置
