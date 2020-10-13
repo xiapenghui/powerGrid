@@ -153,7 +153,7 @@
 <script>
 import '../../styles/commentBox.scss'
 import '../../styles/scrollbar.css'
-import { deleteRole } from '@/api/role'
+// import { deleteRole } from '@/api/role'
 import i18n from '@/lang'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
@@ -364,22 +364,22 @@ export default {
     },
     // 删除角色
     handleDelete({ $index, row }) {
-      this.$confirm(this.$t('permission.errorInfo'), this.$t('permission.errorTitle'), {
-        confirmButtonText: this.$t('permission.Confirm'),
-        cancelButtonText: this.$t('permission.Cancel'),
-        type: 'warning'
-      })
-        .then(async() => {
-          await deleteRole(row.key)
-          this.rolesList.splice($index, 1)
-          this.$message({
-            type: 'success',
-            message: 'Delete succed!'
-          })
-        })
-        .catch(err => {
-          console.error(err)
-        })
+      // this.$confirm(this.$t('permission.errorInfo'), this.$t('permission.errorTitle'), {
+      //   confirmButtonText: this.$t('permission.Confirm'),
+      //   cancelButtonText: this.$t('permission.Cancel'),
+      //   type: 'warning'
+      // })
+      //   .then(async() => {
+      //     await deleteRole(row.key)
+      //     this.rolesList.splice($index, 1)
+      //     this.$message({
+      //       type: 'success',
+      //       message: 'Delete succed!'
+      //     })
+      //   })
+      //   .catch(err => {
+      //     console.error(err)
+      //   })
     },
 
     async confirmRole() {

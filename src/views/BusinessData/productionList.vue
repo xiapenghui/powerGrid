@@ -19,19 +19,23 @@
           </el-col>
           <el-col :span="16"><el-input v-model="listQuery.ipoNo" :placeholder="$t('permission.ipoNoInfo')" clearable /></el-col>
         </el-col>
+
+        <el-col :span="6">
+          <el-button type="primary" icon="el-icon-search" @click="handleSearch">{{ $t('permission.search') }}</el-button>
+          <el-button type="danger" icon="el-icon-refresh" @click="handleReset">{{ $t('permission.reset') }}</el-button>
+        </el-col>
       </el-row>
 
-      <el-row class="center">
+      <!-- <el-row class="center">
         <el-button type="primary" icon="el-icon-search" @click="handleSearch">{{ $t('permission.search') }}</el-button>
         <el-button type="danger" icon="el-icon-refresh" @click="handleReset">{{ $t('permission.reset') }}</el-button>
-      </el-row>
+      </el-row> -->
     </div>
 
     <div class="rightBtn">
       <el-button type="danger" icon="el-icon-delete" @click="deleteAll">{{ $t('permission.deleteAll') }}</el-button>
       <el-button type="primary" icon="el-icon-check" @click="okAll">{{ $t('permission.okAll') }}</el-button>
-      <el-button type="primary" icon="el-icon-check" @click="okUpload">上传国网</el-button>
-      <el-button type="primary" icon="el-icon-document-remove" style="display: none;" @click="handleExport">{{ $t('permission.exportOrder') }}</el-button>
+      <el-button type="primary" icon="el-icon-upload2" @click="okUpload">上传国网</el-button>
     </div>
 
     <el-table
@@ -354,7 +358,7 @@ import '../../styles/commentBox.scss'
 import i18n from '@/lang'
 import { productionList, productionDellte, productionEdit, productionOk, isUpload } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-const fixHeight = 380
+const fixHeight = 320
 export default {
   components: { Pagination },
   data() {
@@ -548,45 +552,10 @@ export default {
           })
       }
     },
-    // 导出用户
-    handleExport() {
-      if (this.tableData.length) {
-        import('@/vendor/Export2Excel').then(excel => {
-          const tHeader = [
-            this.$t('permission.companyNo'),
-            this.$t('permission.companyName'),
-            this.$t('permission.title'),
-            this.$t('permission.department'),
-            this.$t('permission.company'),
-            this.$t('permission.description'),
-            this.$t('permission.state'),
-            this.$t('permission.user'),
-            this.$t('permission.time')
-          ]
-          const filterVal = ['companyNo', 'name', 'title', 'department', 'company', 'description', 'state', 'user', 'time']
-          const list = this.tableData
-          const data = this.formatJson(filterVal, list)
-          excel.export_json_to_excel({
-            header: tHeader,
-            data
-          })
-        })
-      } else {
-        this.$message({
-          message: 'Please select at least one item',
-          type: 'warning'
-        })
-      }
-    },
-    // 导出用户
-    formatJson(filterVal, jsonData) {
-      return jsonData.map(v => filterVal.map(j => v[j]))
-    },
     // 获取列表
     getList() {
       this.listLoading = true
       productionList(this.pagination, this.listQuery).then(res => {
-        debugger
         this.tableData = res.data.records
         this.total = res.data.total
         this.listLoading = false
@@ -609,7 +578,6 @@ export default {
     },
     // 编辑成功
     editSuccess(index, row) {
-      debugger
       // if (row.poItemId === '') {
       //
       //   this.$message.error('采购订单项目ID输入错误！')
@@ -621,7 +589,6 @@ export default {
       // this.$message.success('恭喜你，数据保存成功！')
       // this.$set(row, 'isEgdit', false)
       productionEdit(row).then(res => {
-        debugger
         if (res.code === 200) {
           this.$message({
             type: 'success',
@@ -638,7 +605,6 @@ export default {
     },
     // 上传
     okUpload() {
-      debugger
       isUpload().then(res => {
         if (res.code === 200) {
           this.getList()
