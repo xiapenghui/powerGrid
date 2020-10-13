@@ -351,7 +351,7 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { productionList, productionDellte, productionEdit, productionOk, isUpload } from '@/api/business'
+import { productionList, productionDellte, productionEdit, productionOk, productionUpload } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 const fixHeight = 320
 export default {
@@ -431,12 +431,7 @@ export default {
     // 查询
     handleSearch() {
       this.pagination.current = 1
-
-      if (this.listQuery === '') {
-        debugger
-      } else {
-        this.getList()
-      }
+      this.getList()
     },
     // 重置
     handleReset() {
@@ -446,7 +441,7 @@ export default {
       }
       this.pagination = {
         current: 1,
-        size: 10
+        size: 50
       }
       this.getList()
     },
@@ -605,7 +600,7 @@ export default {
     },
     // 上传
     okUpload() {
-      isUpload().then(res => {
+      productionUpload().then(res => {
         if (res.code === 200) {
           this.getList()
           this.$message({

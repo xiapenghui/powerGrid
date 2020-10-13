@@ -178,7 +178,7 @@ export default {
     imgSize: '上传头像图片大小不能超过 5MB',
 
     // 新项目
-    poItemIds: '订单ID',
+    poItemIds: '销售订单号',
     poItemIdInfos: '请输入采供订单项目ID',
     productCode: '物质编码',
     productCodeInfo: '请输入物质编码',

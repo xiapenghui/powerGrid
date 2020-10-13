@@ -93,7 +93,12 @@ export default {
     // 解析文件
     closeOk() {
       analysis().then(res => {
-        debugger
+        if (res.code === 200) {
+          this.$message.success('恭喜你，解析成功！')
+          this.dialogVisible = false
+        } else {
+          this.$message.error('抱歉，解析失败！')
+        }
       })
     },
     // 成功
@@ -104,7 +109,6 @@ export default {
     },
     // 失败
     handleAvatarError(res, file) {
-      debugger
       if (res.code === 500 && res.type === 'error') {
         this.$message.error(this.$t('table.upError'))
       }

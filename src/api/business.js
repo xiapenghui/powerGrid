@@ -40,8 +40,8 @@ export function productionOk(data) {
   })
 }
 
-// 生产总表文件上传接口
-export function isUpload() {
+// 生产总表上传接口
+export function productionUpload() {
   return request({
     url: newUrl + '/api/eip/prod/upload',
     method: 'get'
@@ -83,5 +83,13 @@ export function saleOk(data) {
     url: newUrl + '/api/eip/so/confirm/all',
     method: 'post',
     data
+  })
+}
+
+// 销售订单上传接口
+export function saleUpload() {
+  return request({
+    url: newUrl + '/api/eip/so/upload',
+    method: 'get'
   })
 }

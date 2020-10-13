@@ -176,7 +176,7 @@ export default {
     imgSize: 'The Size Of The Uploaded Picture Cannot Exceed  5MB',
 
     // 新项目
-    poItemIds: 'Order ID',
+    poItemIds: 'Sales Order Number',
     poItemIdInfos: 'Please Enter Purchase Order Item ID',
     productCode: 'Material Code',
     productCodeInfo: 'Please Input The Material Code',
