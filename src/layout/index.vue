@@ -15,8 +15,15 @@
     <el-button type="primary" size="mini" style="position: absolute;top: 10px; right: 260px;z-index: 9;" @click="dialogVisible = true">
       <i class="el-icon-folder-checked" />
     </el-button>
-    <el-dialog :title="newTitle" :visible.sync="dialogVisible" width="30%">
+    <el-dialog
+      :title="newTitle"
+      :visible.sync="dialogVisible"
+      :close-on-click-modal="false"
+      width="30%"
+    >
+      <!-- action="http://39.101.166.244:8888/api/excel/upload" -->
       <el-upload
+        v-loading="loading"
         class="upload-demo"
         action="http://39.101.166.244:8888/api/excel/upload"
         :limit="1"
@@ -60,6 +67,7 @@ export default {
   data() {
     return {
       dialogVisible: false,
+      loading: false,
       newTitle: this.$t('table.upData')
     }
   },
@@ -92,9 +100,11 @@ export default {
     },
     // 解析文件
     closeOk() {
+      this.loading = true
       analysis().then(res => {
         if (res.code === 200) {
           this.$message.success('恭喜你，解析成功！')
+          this.loading = false
           this.dialogVisible = false
         } else {
           this.$message.error('抱歉，解析失败！')

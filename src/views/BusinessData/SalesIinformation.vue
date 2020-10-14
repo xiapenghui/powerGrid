@@ -19,9 +19,9 @@
     </div>
     <div class="rightBtn">
       <el-button type="danger" icon="el-icon-delete" @click="deleteAll">{{ $t('permission.deleteAll') }}</el-button>
-      <el-button type="primary" icon="el-icon-check" @click="okAll">{{ $t('permission.okAll') }}</el-button>
+      <el-button type="success" icon="el-icon-check" @click="okAll">{{ $t('permission.okAll') }}</el-button>
       <el-button type="primary" icon="el-icon-upload2" @click="okUpload">上传国网</el-button>
-      <el-button type="primary" icon="el-icon-document-remove" style="display: none;" @click="handleExport">{{ $t('permission.exportOrder') }}</el-button>
+      <el-button type="primary" icon="el-icon-download" @click="okImprot">导入文件</el-button>
     </div>
 
     <el-table
@@ -212,6 +212,24 @@
       <!-- <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" /> -->
     </el-dialog>
 
+    <el-dialog title="导入文件" :visible.sync="dialogVisible" width="30%">
+      <!-- action="http://192.168.1.192:8888/api/eip/so/import/file" -->
+      <el-upload
+        class="upload-demo"
+        action="http://39.101.166.244:8888/api/eip/so/import/file"
+        :limit="1"
+        :before-upload="beforeAvatarUpload"
+        :on-success="handleAvatarSuccess"
+        :on-error="handleAvatarError"
+        :auto-upload="true"
+      >
+        <el-button size="small" type="primary">{{ $t('table.clickUp') }}</el-button>
+        <div slot="tip" class="el-upload__tip">
+          {{ $t('table.onlyUpload') }}<b> {{ $t('table.xls') }}</b>{{ $t('table.or') }}<b> {{ $t('table.xlsx') }}</b>{{ $t('table.fileSize') }}
+        </div>
+      </el-upload>
+    </el-dialog>
+
     <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" />
   </div>
 </template>
@@ -266,7 +284,8 @@ export default {
       downloadLoading: false,
       selectedData: [], // 批量删除新数组
       tableHeight: window.innerHeight - fixHeight, // 表格高度
-      dialogTableVisible: false,
+      dialogTableVisible: false, // 日志弹出框
+      dialogVisible: false, // 文件上传弹出框
       content1: this.$t('permission.poItemIds')
     }
   },
@@ -522,7 +541,6 @@ export default {
     // 上传
     okUpload() {
       saleUpload().then(res => {
-        debugger
         if (res.code === 200) {
           this.$message({
             type: 'success',
@@ -531,6 +549,37 @@ export default {
         }
         this.getList()
       })
+    },
+    // 文件导入
+    okImprot() {
+      this.dialogVisible = true
+    },
+    // 成功
+    handleAvatarSuccess(res, file) {
+      if (res.code === 200) {
+        debugger
+        this.$message.success(this.$t('table.upSuccess'))
+        this.dialogVisible = false
+        this.getList()
+      }
+    },
+    // 失败
+    handleAvatarError(res, file) {
+      if (res.code === 500 && res.type === 'error') {
+        this.$message.error(this.$t('table.upError'))
+      }
+    },
+    beforeAvatarUpload(file) {
+      const isXLS = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      const isLt2M = file.size / 1024 / 1024 < 2
+
+      if (!isXLS) {
+        this.$message.error(this.$t('table.errorOne'))
+      }
+      if (!isLt2M) {
+        this.$message.error(this.$t('table.errorTwo'))
+      }
+      return isXLS && isLt2M
     }
   }
 }

@@ -1,5 +1,13 @@
+#app {
+  .el-dialog__body {
+    padding: 10px 20px;
+    .el-upload__tip {
+      margin-top: 10px;
+    }
+  }
+}
 .app-container {
-  .el-button{
+  .el-button {
     padding: 8px 10px;
   }
   .search {
