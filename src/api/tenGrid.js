@@ -1,5 +1,5 @@
-// const newUrl = 'http://192.168.1.192:8888'
-const newUrl = 'http://39.101.166.244:8888'
+const newUrl = 'http://192.168.1.192:8888'
+// const newUrl = 'http://39.101.166.244:8888'
 import request from '@/utils/request'
 
 // 表格解析接口

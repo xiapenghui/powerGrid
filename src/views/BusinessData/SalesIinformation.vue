@@ -192,10 +192,26 @@
         <template slot-scope="scope">
           <el-button v-if="!scope.row.isEgdit" type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">{{ $t('table.edit') }}</el-button>
           <el-button v-else type="success" size="small" @click="editSuccess(scope.$index, scope.row)">{{ $t('table.editSuccess') }}</el-button>
-          <el-button type="warning" size="small" @click="handleDelete(scope.$index, scope.row)">日志</el-button>
+          <el-button type="warning" size="small" @click="clickLogs(scope.$index, scope.row)">日志</el-button>
         </template>
       </el-table-column>
     </el-table>
+
+    <el-dialog title="日志信息" :visible.sync="dialogTableVisible">
+      <el-table
+        border
+        style="width: 100%"
+        height="50vh"
+        :data="gridData"
+      >
+        <el-table-column property="username" label="操作人" width="100" align="center" />
+        <el-table-column property="createTime" label="操作时间" width="150" align="center" />
+        <el-table-column property="message" label="日志消息" width="150" align="center" />
+        <el-table-column property="responseBody" label="相应消息" align="center" />
+      </el-table>
+      <!-- <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" /> -->
+    </el-dialog>
+
     <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" />
   </div>
 </template>
@@ -204,7 +220,7 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { saleList, saleDellte, saleEdit, saleOk, saleUpload } from '@/api/business'
+import { saleList, saleDellte, saleEdit, saleOk, saleUpload, saleLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 const fixHeight = 320
 export default {
@@ -237,6 +253,7 @@ export default {
         //   dataSourceCreateTime: '2020-09-23'
         // }
       ],
+      gridData: [], // 日志信息
       pagination: {
         current: 1,
         size: 50
@@ -249,6 +266,7 @@ export default {
       downloadLoading: false,
       selectedData: [], // 批量删除新数组
       tableHeight: window.innerHeight - fixHeight, // 表格高度
+      dialogTableVisible: false,
       content1: this.$t('permission.poItemIds')
     }
   },
@@ -305,39 +323,51 @@ export default {
       this.selectedData = val
     },
     // 删除数据
-    handleDelete(index, row) {
-      this.$message({
-        type: 'error',
-        message: '功能暂未开通！'
+    // handleDelete(index, row) {
+    //   this.$message({
+    //     type: 'error',
+    //     message: '功能暂未开通！'
+    //   })
+    //   if (this.tableData.length > 0) {
+    //     this.$confirm(this.$t('table.deleteInfo'), this.$t('table.Tips'), {
+    //       confirmButtonText: this.$t('table.confirm'),
+    //       cancelButtonText: this.$t('table.cancel'),
+    //       type: 'warning'
+    //     })
+    //       .then(() => {
+    //         saleDellte([row.id]).then(res => {
+    //           if (res.code === 0) {
+    //             this.$message({
+    //               type: 'success',
+    //               message: this.$t('table.deleteSuccess')
+    //             })
+    //             this.getList()
+    //           }
+    //         })
+    //       })
+    //       .catch(() => {
+    //         this.$message({
+    //           type: 'info',
+    //           message: this.$t('table.deleteError')
+    //         })
+    //       })
+    //   }
+    // },
+
+    // 点击日志
+    clickLogs(index, row) {
+      saleLogs({ dataId: row.id }).then(res => {
+        if (res.data.length > 0) {
+          this.dialogTableVisible = true
+          this.gridData = res.data
+        } else {
+          this.dialogTableVisible = false
+          this.$message('此条数据暂无操作日志！')
+        }
       })
-      // if (this.tableData.length > 0) {
-      //   this.$confirm(this.$t('table.deleteInfo'), this.$t('table.Tips'), {
-      //     confirmButtonText: this.$t('table.confirm'),
-      //     cancelButtonText: this.$t('table.cancel'),
-      //     type: 'warning'
-      //   })
-      //     .then(() => {
-      //       saleDellte([row.id]).then(res => {
-      //         if (res.code === 0) {
-      //           this.$message({
-      //             type: 'success',
-      //             message: this.$t('table.deleteSuccess')
-      //           })
-      //           this.getList()
-      //         }
-      //       })
-      //     })
-      //     .catch(() => {
-      //       this.$message({
-      //         type: 'info',
-      //         message: this.$t('table.deleteError')
-      //       })
-      //     })
-      // }
     },
     // 批量删除
     deleteAll() {
-      debugger
       if (this.selectedData.length > 0) {
         this.$confirm(this.$t('table.deleteInfo'), this.$t('table.Tips') + this.$t('table.total') + this.selectedData.length + this.$t('table.dataInfo'), {
           confirmButtonText: this.$t('table.confirm'),
@@ -345,7 +375,6 @@ export default {
           type: 'warning'
         })
           .then(() => {
-            debugger
             const idList = []
             this.selectedData.map(item => {
               const newFeatid = item.id
@@ -371,7 +400,6 @@ export default {
     },
     // 批量确认
     okAll() {
-      debugger
       if (this.selectedData.length > 0) {
         this.$confirm(this.$t('table.okInfo'), this.$t('table.Tips') + this.$t('table.total') + this.selectedData.length + this.$t('table.dataInfo'), {
           confirmButtonText: this.$t('table.confirm'),
@@ -494,6 +522,7 @@ export default {
     // 上传
     okUpload() {
       saleUpload().then(res => {
+        debugger
         if (res.code === 200) {
           this.$message({
             type: 'success',

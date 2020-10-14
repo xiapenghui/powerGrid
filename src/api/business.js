@@ -1,5 +1,6 @@
-// const newUrl = 'http://192.168.1.192:8888'
-const newUrl = 'http://39.101.166.244:8888'
+
+const newUrl = 'http://192.168.1.192:8888'
+// const newUrl = 'http://39.101.166.244:8888'
 import request from '@/utils/request'
 
 // 生产总表
@@ -48,6 +49,15 @@ export function productionUpload() {
   })
 }
 
+// 生产总表日志查询接口
+export function productionLogs(data) {
+  return request({
+    url: newUrl + '/api/eip/prod/logs',
+    method: 'post',
+    data
+  })
+}
+
 // 销售项目列表
 // 销售项目列表接口
 export function saleList(query, data) {
@@ -91,5 +101,14 @@ export function saleUpload() {
   return request({
     url: newUrl + '/api/eip/so/upload',
     method: 'get'
+  })
+}
+
+// 销售订单日志查询接口
+export function saleLogs(data) {
+  return request({
+    url: newUrl + '/api/eip/so/logs',
+    method: 'post',
+    data
   })
 }

@@ -339,10 +339,20 @@
           <el-button v-if="!scope.row.isEgdit" type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">{{ $t('table.edit') }}</el-button>
           <el-button v-else type="success" size="small" @click="editSuccess(scope.$index, scope.row)">{{ $t('table.editSuccess') }}</el-button>
           <!-- <el-button type="danger" size="small" @click="handleDelete(scope.$index, scope.row)">{{ $t('table.delete') }}</el-button> -->
-          <el-button type="warning" size="small" @click="handleDelete(scope.$index, scope.row)">日志</el-button>
+          <el-button type="warning" size="small" @click="clickLogs(scope.$index, scope.row)">日志</el-button>
         </template>
       </el-table-column>
     </el-table>
+
+    <el-dialog title="日志信息" :visible.sync="dialogTableVisible">
+      <el-table border style="width: 100%" height="50vh" :data="gridData">
+        <el-table-column property="username" label="操作人" width="100" align="center" />
+        <el-table-column property="createTime" label="操作时间" width="150" align="center" />
+        <el-table-column property="message" label="日志消息" width="150" align="center" />
+        <el-table-column property="responseBody" label="相应消息" align="center" />
+      </el-table>
+      <!-- <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" /> -->
+    </el-dialog>
     <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" />
   </div>
 </template>
@@ -351,7 +361,7 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { productionList, productionDellte, productionEdit, productionOk, productionUpload } from '@/api/business'
+import { productionList, productionDellte, productionEdit, productionOk, productionUpload, productionLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 const fixHeight = 320
 export default {
@@ -381,6 +391,7 @@ export default {
         //   InspectionReportFile: 'https://wpimg.wallstcn.com/e4558086-631c-425c-9430-56ffb46e70b3'
         // }
       ],
+      gridData: [], // 日志信息
       srcList: ['https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg', 'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'],
       pagination: {
         current: 1,
@@ -394,6 +405,7 @@ export default {
       total: 10,
       selectedData: [], // 批量删除新数组
       tableHeight: window.innerHeight - fixHeight, // 表格高度
+      dialogTableVisible: false,
       content1: this.$t('permission.supplierName'),
       content2: this.$t('permission.ipoNo')
     }
@@ -457,36 +469,50 @@ export default {
     },
 
     // 删除数据
-    handleDelete(index, row) {
-      this.$message({
-        type: 'error',
-        message: '功能暂未开通！'
+    // handleDelete(index, row) {
+    //   this.$message({
+    //     type: 'error',
+    //     message: '功能暂未开通！'
+    //   });
+    //   if (this.tableData.length > 0) {
+    //     this.$confirm(this.$t('table.deleteInfo'), this.$t('table.Tips'), {
+    //       confirmButtonText: this.$t('table.confirm'),
+    //       cancelButtonText: this.$t('table.cancel'),
+    //       type: 'warning'
+    //     })
+    //       .then(() => {
+    //         productionDellte([row.id]).then(res => {
+    //           if (res.code === 0) {
+    //             this.$message({
+    //               type: 'success',
+    //               message: this.$t('table.deleteSuccess')
+    //             })
+    //             this.getList()
+    //           }
+    //         })
+    //       })
+    //       .catch(() => {
+    //         this.$message({
+    //           type: 'info',
+    //           message: this.$t('table.deleteError')
+    //         })
+    //       })
+    //   }
+    // },
+
+    // 点击日志
+    clickLogs(index, row) {
+      productionLogs({ dataId: row.id }).then(res => {
+        if (res.data.length > 0) {
+          this.dialogTableVisible = true
+          this.gridData = res.data
+        } else {
+          this.dialogTableVisible = false
+          this.$message('此条数据暂无操作日志！')
+        }
       })
-      // if (this.tableData.length > 0) {
-      //   this.$confirm(this.$t('table.deleteInfo'), this.$t('table.Tips'), {
-      //     confirmButtonText: this.$t('table.confirm'),
-      //     cancelButtonText: this.$t('table.cancel'),
-      //     type: 'warning'
-      //   })
-      //     .then(() => {
-      //       productionDellte([row.id]).then(res => {
-      //         if (res.code === 0) {
-      //           this.$message({
-      //             type: 'success',
-      //             message: this.$t('table.deleteSuccess')
-      //           })
-      //           this.getList()
-      //         }
-      //       })
-      //     })
-      //     .catch(() => {
-      //       this.$message({
-      //         type: 'info',
-      //         message: this.$t('table.deleteError')
-      //       })
-      //     })
-      // }
     },
+
     // 批量删除
     deleteAll() {
       if (this.selectedData.length > 0) {
@@ -608,12 +634,12 @@ export default {
     okUpload() {
       productionUpload().then(res => {
         if (res.code === 200) {
-          this.getList()
           this.$message({
             type: 'success',
             message: '上传成功！'
           })
         }
+        this.getList()
       })
     }
   }
