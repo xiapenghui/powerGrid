@@ -2,14 +2,14 @@
   <div class="app-container">
     <div class="search">
       <el-row :gutter="20">
-        <el-col :span="6">
+        <!-- <el-col :span="6">
           <el-col :span="8">
             <el-tooltip class="item" effect="dark" :content="content1" placement="top-start">
               <label class="radio-label">{{ $t('permission.supplierName') }}:</label>
             </el-tooltip>
           </el-col>
           <el-col :span="16"><el-input v-model="listQuery.supplierName" :placeholder="$t('permission.supplierNameInfo')" clearable /></el-col>
-        </el-col>
+        </el-col> -->
 
         <el-col :span="6">
           <el-col :span="8">
@@ -418,7 +418,7 @@ export default {
         size: 50
       },
       listQuery: {
-        supplierName: undefined,
+        // supplierName: undefined,
         ipoNo: undefined
       },
       listLoading: true,
@@ -427,7 +427,7 @@ export default {
       tableHeight: window.innerHeight - fixHeight, // 表格高度
       dialogTableVisible: false, // 日志弹出框
       dialogVisible: false, // 文件上传弹出框
-      content1: this.$t('permission.supplierName'),
+      // content1: this.$t('permission.supplierName'),
       content2: this.$t('permission.ipoNo')
     }
   },
@@ -446,7 +446,7 @@ export default {
     },
     // 监听data属性中英文切换问题
     '$i18n.locale'() {
-      this.content1 = this.$t('permission.supplierName')
+      // this.content1 = this.$t('permission.supplierName')
       this.content2 = this.$t('permission.ipoNo')
     }
   },
@@ -464,9 +464,9 @@ export default {
     // 查询
     handleSearch() {
       this.pagination.current = 1
-      if (this.listQuery.supplierName === '') {
-        this.listQuery.supplierName = undefined
-      }
+      // if (this.listQuery.supplierName === '') {
+      //   this.listQuery.supplierName = undefined
+      // }
       if (this.listQuery.ipoNo === '') {
         this.listQuery.ipoNo = undefined
       }
@@ -475,7 +475,7 @@ export default {
     // 重置
     handleReset() {
       this.listQuery = {
-        supplierName: undefined,
+        // supplierName: undefined,
         ipoNo: undefined
       }
       this.pagination = {
@@ -602,6 +602,7 @@ export default {
     },
     // 获取列表
     getList() {
+      debugger
       this.listLoading = true
       productionList(this.pagination, this.listQuery).then(res => {
         this.tableData = res.data.records
@@ -609,7 +610,6 @@ export default {
         this.listLoading = false
       })
     },
-
     i18n(routes) {
       const app = routes.map(route => {
         route.title = i18n.t(`route.${route.title}`)
