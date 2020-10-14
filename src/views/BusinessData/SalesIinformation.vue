@@ -198,25 +198,29 @@
     </el-table>
 
     <el-dialog title="日志信息" :visible.sync="dialogTableVisible">
-      <el-table
-        border
-        style="width: 100%"
-        height="50vh"
-        :data="gridData"
-      >
+      <el-table border style="width: 100%" height="50vh" :data="gridData">
         <el-table-column property="username" label="操作人" width="100" align="center" />
         <el-table-column property="createTime" label="操作时间" width="150" align="center" />
         <el-table-column property="message" label="日志消息" width="150" align="center" />
-        <el-table-column property="responseBody" label="相应消息" align="center" />
+        <!-- <el-table-column property="levelString" label="状态" align="center" />s -->
+        <el-table-column label="状态" width="150" align="center">k
+          <template slot-scope="scope">
+            <el-tag :type="scope.row.levelString" :class="[scope.row.levelString === 'ERROR' ? 'classRed' : 'classGreen']">
+              {{ scope.row.levelString === 'ERROR' ? '错误' : '成功' }}
+            </el-tag>
+          </template>
+        </el-table-column>
+
+        <el-table-column property="responseBody" label="响应消息" />
       </el-table>
-      <!-- <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" /> -->
+      <!-- <pagination v-show="total > 0" :total="totalS" :current.sync="pagination.currentS" :size.sync="pagination.sizeS" @pagination="getListS" /> -->
     </el-dialog>
 
     <el-dialog title="导入文件" :visible.sync="dialogVisible" width="30%">
       <!-- action="http://192.168.1.192:8888/api/eip/so/import/file" -->
       <el-upload
         class="upload-demo"
-        action="http://39.101.166.244:8888/api/eip/so/import/file"
+        :action="this.GLOBAL.BASE_URL + '/api/eip/so/import/file'"
         :limit="1"
         :before-upload="beforeAvatarUpload"
         :on-success="handleAvatarSuccess"
@@ -225,11 +229,14 @@
       >
         <el-button size="small" type="primary">{{ $t('table.clickUp') }}</el-button>
         <div slot="tip" class="el-upload__tip">
-          {{ $t('table.onlyUpload') }}<b> {{ $t('table.xls') }}</b>{{ $t('table.or') }}<b> {{ $t('table.xlsx') }}</b>{{ $t('table.fileSize') }}
+          {{ $t('table.onlyUpload') }}
+          <b>{{ $t('table.xls') }}</b>
+          {{ $t('table.or') }}
+          <b>{{ $t('table.xlsx') }}</b>
+          {{ $t('table.fileSize') }}
         </div>
       </el-upload>
     </el-dialog>
-
     <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" />
   </div>
 </template>
@@ -238,7 +245,7 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { saleList, saleDellte, saleEdit, saleOk, saleUpload, saleLogs } from '@/api/business'
+import { saleList, saleDellte, saleEdit, saleOk, saleUpload, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 const fixHeight = 320
 export default {
@@ -375,10 +382,10 @@ export default {
 
     // 点击日志
     clickLogs(index, row) {
-      saleLogs({ dataId: row.id }).then(res => {
-        if (res.data.length > 0) {
+      allLogs(this.pagination, { dataId: row.id }).then(res => {
+        if (res.data.records.length > 0) {
           this.dialogTableVisible = true
-          this.gridData = res.data
+          this.gridData = res.data.records
         } else {
           this.dialogTableVisible = false
           this.$message('此条数据暂无操作日志！')

@@ -48,15 +48,6 @@ export function productionUpload() {
   })
 }
 
-// 生产总表日志查询接口
-export function productionLogs(data) {
-  return request({
-    url: newUrl + '/api/eip/prod/logs',
-    method: 'post',
-    data
-  })
-}
-
 // 销售项目列表
 // 销售项目列表接口
 export function saleList(query, data) {
@@ -103,11 +94,12 @@ export function saleUpload() {
   })
 }
 
-// 销售订单日志查询接口
-export function saleLogs(data) {
+// 所有日志查询接口
+export function allLogs(query, data) {
   return request({
-    url: newUrl + '/api/eip/so/logs',
+    url: newUrl + '/sys/logs/dataId',
     method: 'post',
+    params: query,
     data
   })
 }

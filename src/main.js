@@ -20,6 +20,14 @@ import './permission' // permission control
 
 import * as filters from './filters' // global filters
 
+import axios from 'axios'
+Vue.prototype.$ajax = axios
+
+// 设置全局变量
+import global_ from '../src/api/Base.vue'
+Vue.prototype.GLOBAL = global_
+axios.defaults.baseURL = global_.BASE_URL
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
