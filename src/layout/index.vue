@@ -25,7 +25,7 @@
       <el-upload
         v-loading="loading"
         class="upload-demo"
-        action="http://39.101.166.244:8888/api/excel/upload"
+        :action="this.GLOBAL.BASE_URL + '/api/excel/upload'"
         :limit="1"
         :before-upload="beforeAvatarUpload"
         :on-success="handleAvatarSuccess"

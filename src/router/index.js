@@ -173,6 +173,7 @@ export const constantRoutes = [{
   {
     path: 'SupplyInformation',
     component: () => import('@/views/BusinessData/SupplyInformation'),
+    hidden: true,
     name: 'SupplyInformation',
     meta: {
       title: 'SupplyInformation'

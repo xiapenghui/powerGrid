@@ -2,14 +2,6 @@
   <div class="app-container">
     <div class="search">
       <el-row :gutter="20">
-        <!-- <el-col :span="6">
-          <el-col :span="8">
-            <el-tooltip class="item" effect="dark" :content="content1" placement="top-start">
-              <label class="radio-label">{{ $t('permission.supplierName') }}:</label>
-            </el-tooltip>
-          </el-col>
-          <el-col :span="16"><el-input v-model="listQuery.supplierName" :placeholder="$t('permission.supplierNameInfo')" clearable /></el-col>
-        </el-col> -->
 
         <el-col :span="6">
           <el-col :span="8">
@@ -18,6 +10,26 @@
             </el-tooltip>
           </el-col>
           <el-col :span="16"><el-input v-model="listQuery.ipoNo" :placeholder="$t('permission.ipoNoInfo')" clearable /></el-col>
+        </el-col>
+
+        <el-col :span="6">
+          <el-col :span="8">
+            <el-tooltip class="item" effect="dark" placement="top-start">
+              <label class="radio-label">确认状态:</label>
+            </el-tooltip>
+          </el-col>
+          <el-col :span="16">
+            <!-- <el-input v-model="listQuery.ipoNo" :placeholder="$t('permission.ipoNoInfo')" clearable /> -->
+            <!-- <el-select v-model="listQuery.status" placeholder="请选择">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select> -->
+
+          </el-col>
         </el-col>
 
         <el-col :span="6">
@@ -362,11 +374,10 @@
         </el-table-column>
         <el-table-column property="responseBody" label="响应消息" />
       </el-table>
-      <!-- <pagination v-show="total > 0" :total="totalS" :current.sync="pagination.currentS" :size.sync="pagination.sizeS" @pagination="getListS" /> -->
+      <!-- <pagination v-show="total > 0" :total="totalS" :current.sync="paginationS.currentS" :size.sync="paginationS.sizeS" @pagination="getList" /> -->
     </el-dialog>
 
     <el-dialog title="导入文件" :visible.sync="dialogVisible" width="30%">
-      <!-- action="http://192.168.1.192:8888/api/eip/prod/import/file" -->
       <el-upload
         class="upload-demo"
         :action="this.GLOBAL.BASE_URL + '/api/eip/prod/import/file'"
@@ -431,12 +442,17 @@ export default {
         current: 1,
         size: 50
       },
+      paginationS: {
+        currentS: 1,
+        sizeS: 50
+      },
       listQuery: {
         // supplierName: undefined,
         ipoNo: undefined
       },
       listLoading: true,
       total: 10,
+      totalS: 10,
       selectedData: [], // 批量删除新数组
       tableHeight: window.innerHeight - fixHeight, // 表格高度
       dialogTableVisible: false, // 日志弹出框
@@ -537,7 +553,7 @@ export default {
 
     // 点击日志
     clickLogs(index, row) {
-      allLogs(this.pagination, { dataId: row.id }).then(res => {
+      allLogs(this.paginationS, { dataId: row.id }).then(res => {
         debugger
         if (res.data.records.length > 0) {
           this.dialogTableVisible = true
