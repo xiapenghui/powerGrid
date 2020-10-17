@@ -4,9 +4,20 @@
     .el-upload__tip {
       margin-top: 10px;
     }
+    .demo-ruleForm {
+      display: flex;
+      justify-content: space-between;
+      .boxLeft,
+      .boxRight {
+        width: 46%;
+      }
+    }
   }
 }
 .app-container {
+  .el-dialog{
+    margin-top: 5vh !important;
+  }
   .el-button {
     padding: 5px 10px;
   }
@@ -14,7 +25,6 @@
     border: 1px solid #dfe6ec;
     padding: 20px 0;
     border-radius: 5px;
-
     label {
       font-weight: 500;
     }

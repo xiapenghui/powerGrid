@@ -2,7 +2,6 @@
   <div class="app-container">
     <div class="search">
       <el-row :gutter="20">
-
         <el-col :span="6">
           <el-col :span="8">
             <el-tooltip class="item" effect="dark" :content="content2" placement="top-start">
@@ -14,9 +13,7 @@
 
         <el-col :span="6">
           <el-col :span="8">
-            <el-tooltip class="item" effect="dark" placement="top-start">
-              <label class="radio-label">确认状态:</label>
-            </el-tooltip>
+            <el-tooltip class="item" effect="dark" placement="top-start"><label class="radio-label">确认状态:</label></el-tooltip>
           </el-col>
           <el-col :span="16">
             <!-- <el-input v-model="listQuery.ipoNo" :placeholder="$t('permission.ipoNoInfo')" clearable /> -->
@@ -28,7 +25,6 @@
                   :value="item.value">
                 </el-option>
               </el-select> -->
-
           </el-col>
         </el-col>
 
@@ -60,8 +56,7 @@
       <el-table-column type="selection" align="center" width="55" fixed />
       <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.saleOrg }}</span>
-          <el-input v-else v-model="scope.row.saleOrg" />
+          {{ scope.row.saleOrg }}
         </template>
       </el-table-column>
 
@@ -73,9 +68,7 @@
 
       <el-table-column align="center" :label="$t('permission.isUploadProd')" width="100">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :class="[scope.row.isUploadProd === 0 ? 'classRed' : 'classGreen']">
-            {{ scope.row.isUploadProd === 0 ? '未上传' : '上传' }}
-          </el-tag>
+          <el-tag :type="scope.row.status" :class="[scope.row.isUploadProd === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isUploadProd === 0 ? '未上传' : '上传' }}</el-tag>
         </template>
       </el-table-column>
 
@@ -99,272 +92,287 @@
 
       <el-table-column align="center" :label="$t('permission.purchaserHqCode')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.purchaserHqCode }}</span>
-          <el-input v-else v-model="scope.row.purchaserHqCode" />
+          {{ scope.row.purchaserHqCode }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.ipoType')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.ipoType }}</span>
-          <el-input v-else v-model="scope.row.ipoType" />
+          {{ scope.row.ipoType }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.supplierCode')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.supplierCode }}</span>
-          <el-input v-else v-model="scope.row.supplierCode" />
+          {{ scope.row.supplierCode }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.supplierName')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.supplierName }}</span>
-          <el-input v-else v-model="scope.row.supplierName" />
+          {{ scope.row.supplierName }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.ipoNo')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.ipoNo }}</span>
-          <el-input v-else v-model="scope.row.ipoNo" />
+          {{ scope.row.ipoNo }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.categoryCode')" width="130">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.categoryCode }}</span>
-          <el-input v-else v-model="scope.row.categoryCode" />
+          {{ scope.row.categoryCode }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.subclassCode')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.subclassCode }}</span>
-          <el-input v-else v-model="scope.row.subclassCode" />
+          {{ scope.row.subclassCode }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.scheduleCode')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.scheduleCode }}</span>
-          <el-input v-else v-model="scope.row.scheduleCode" />
+          {{ scope.row.scheduleCode }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.poItemId')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.poItemId }}</span>
-          <el-input v-else v-model="scope.row.poItemId" />
+          {{ scope.row.poItemId }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.dataType')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.dataType }}</span>
-          <el-input v-else v-model="scope.row.dataType" />
+          {{ scope.row.dataType }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.soItemNo')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.soItemNo }}</span>
-          <el-input v-else v-model="scope.row.soItemNo" />
+          {{ scope.row.soItemNo }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.materialsCode')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.materialsCode }}</span>
-          <el-input v-else v-model="scope.row.materialsCode" />
+          {{ scope.row.materialsCode }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.materialsName')" :show-overflow-tooltip="true" width="200">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.materialsName }}</span>
-          <el-input v-else v-model="scope.row.materialsName" />
+          {{ scope.row.materialsName }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.materialsUnit')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.materialsUnit }}</span>
-          <el-input v-else v-model="scope.row.materialsUnit" />
+          {{ scope.row.materialsUnit }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.materialsDesc')" :show-overflow-tooltip="true" width="200">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.materialsDesc }}</span>
-          <el-input v-else v-model="scope.row.materialsDesc" />
+          {{ scope.row.materialsDesc }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.amount')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.amount }}</span>
-          <el-input v-else v-model="scope.row.amount" />
+          {{ scope.row.amount }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.unit')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.unit }}</span>
-          <el-input v-else v-model="scope.row.unit" />
+          {{ scope.row.unit }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.productIdGrpNo')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.productIdGrpNo }}</span>
-          <el-input v-else v-model="scope.row.productIdGrpNo" />
+          {{ scope.row.productIdGrpNo }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.productIdType')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.productIdType }}</span>
-          <el-input v-else v-model="scope.row.productIdType" />
+          {{ scope.row.productIdType }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.productModel')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.productModel }}</span>
-          <el-input v-else v-model="scope.row.productModel" />
+          {{ scope.row.productModel }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.planStartDate')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.planStartDate }}</span>
-          <el-input v-else v-model="scope.row.planStartDate" />
+          {{ scope.row.planStartDate }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.planFinishDate')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.planFinishDate }}</span>
-          <el-input v-else v-model="scope.row.planFinishDate" />
+          {{ scope.row.planFinishDate }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.actualStartDate')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.actualStartDate }}</span>
-          <el-input v-else v-model="scope.row.actualStartDate" />
+          {{ scope.row.actualStartDate }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.actualFinishDate')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.actualFinishDate }}</span>
-          <el-input v-else v-model="scope.row.actualFinishDate" />
+          {{ scope.row.actualFinishDate }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.plantName')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.plantName }}</span>
-          <el-input v-else v-model="scope.row.plantName" />
+          {{ scope.row.plantName }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.workshopName')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.workshopName }}</span>
-          <el-input v-else v-model="scope.row.workshopName" />
+          {{ scope.row.workshopName }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.ipoStatus')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.ipoStatus }}</span>
-          <el-input v-else v-model="scope.row.ipoStatus" />
+          {{ scope.row.ipoStatus }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.center')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.center }}</span>
-          <el-input v-else v-model="scope.row.center" />
+          {{ scope.row.center }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.dataSource')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.dataSource }}</span>
-          <el-input v-else v-model="scope.row.dataSource" />
+          {{ scope.row.dataSource }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.dataSourceCreateTime')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.dataSourceCreateTime }}</span>
-          <el-input v-else v-model="scope.row.dataSourceCreateTime" />
+          {{ scope.row.dataSourceCreateTime }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.ownerId')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.ownerId }}</span>
-          <el-input v-else v-model="scope.row.ownerId" />
+          {{ scope.row.ownerId }}>
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.openId')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.openId }}</span>
-          <el-input v-else v-model="scope.row.openId" />
+          {{ scope.row.openId }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.woStatus')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.woStatus }}</span>
-          <el-input v-else v-model="scope.row.woStatus" />
+          {{ scope.row.woStatus }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.dueDate')" width="180">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.dueDate }}</span>
-          <el-input v-else v-model="scope.row.dueDate" />
+          {{ scope.row.dueDate }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.processCode')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.processCode }}</span>
-          <el-input v-else v-model="scope.row.processCode" />
+          {{ scope.row.processCode }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.processName')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.processName }}</span>
-          <el-input v-else v-model="scope.row.processName" />
+          {{ scope.row.processName }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.operations')" fixed="right" width="180">
+      <el-table-column align="center" :label="$t('permission.operations')" fixed="right" width="150">
         <template slot-scope="scope">
-          <el-button v-if="!scope.row.isEgdit" type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">{{ $t('table.edit') }}</el-button>
-          <el-button v-else type="success" size="small" @click="editSuccess(scope.$index, scope.row)">{{ $t('table.editSuccess') }}</el-button>
+          <el-button type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">{{ $t('table.edit') }}</el-button>
           <!-- <el-button type="danger" size="small" @click="handleDelete(scope.$index, scope.row)">{{ $t('table.delete') }}</el-button> -->
           <el-button type="warning" size="small" @click="clickLogs(scope.$index, scope.row)">日志</el-button>
         </template>
       </el-table-column>
     </el-table>
 
+    <!-- 编辑弹窗 -->
+    <el-dialog title="编辑信息" :visible.sync="dialogFormVisible">
+      <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
+        <div class="boxLeft">
+          <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
+          <el-form-item label="订单类型" prop="ipoType"><el-input v-model="ruleForm.ipoType" /></el-form-item>
+          <el-form-item label="供应商名称" prop="supplierName"><el-input v-model="ruleForm.supplierName" /></el-form-item>
+          <el-form-item label="品类编码" prop="categoryCode"><el-input v-model="ruleForm.categoryCode" /></el-form-item>
+          <el-form-item label="排产计划编码" prop="scheduleCode"><el-input v-model="ruleForm.scheduleCode" /></el-form-item>
+          <el-form-item label="数据关联类型"><el-input v-model="ruleForm.dataType" /></el-form-item>
+          <el-form-item label="厂家物料编码" prop="materialsCode"><el-input v-model="ruleForm.materialsCode" /></el-form-item>
+          <el-form-item label="厂家物资单位" prop="materialsUnit"><el-input v-model="ruleForm.materialsUnit" /></el-form-item>
+          <el-form-item label="生产数量" prop="amount"><el-input v-model="ruleForm.amount" /></el-form-item>
+          <el-form-item label="物资id分组"><el-input v-model="ruleForm.productIdGrpNo" /></el-form-item>
+          <el-form-item label="产品型号"><el-input v-model="ruleForm.productModel" /></el-form-item>
+          <el-form-item label="计划开始日期" prop="planStartDate"><el-input v-model="ruleForm.planStartDate" /></el-form-item>
+          <el-form-item label="实际开始日期"><el-input v-model="ruleForm.actualStartDate" /></el-form-item>
+          <el-form-item label="生产工厂名称"><el-input v-model="ruleForm.plantName" /></el-form-item>
+          <el-form-item label="生产中心"><el-input v-model="ruleForm.center" /></el-form-item>
+          <el-form-item label="来源数据创建时间"><el-input v-model="ruleForm.dataSourceCreateTime" /></el-form-item>
+          <el-form-item label="数据可见方"><el-input v-model="ruleForm.openId" /></el-form-item>
+          <el-form-item label="交付日期（最后日期，底线）" prop="dueDate"><el-input v-model="ruleForm.dueDate" /></el-form-item>
+          <el-form-item label="工序名称" prop="processName"><el-input v-model="ruleForm.processName" /></el-form-item>
+        </div>
+        <div class="boxRight">
+          <el-form-item label="采购方总部编码" prop="purchaserHqCode"><el-input v-model="ruleForm.purchaserHqCode" /></el-form-item>
+          <el-form-item label="供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
+          <el-form-item label="生产订单号" prop="ipoNo"><el-input v-model="ruleForm.ipoNo" /></el-form-item>
+          <el-form-item label="种类编码" prop="subclassCode"><el-input v-model="ruleForm.subclassCode" /></el-form-item>
+          <el-form-item label="采购订单行项目id" prop="poItemId"><el-input v-model="ruleForm.poItemId" /></el-form-item>
+          <el-form-item label="销售订单行项目号"><el-input v-model="ruleForm.soItemNo" /></el-form-item>
+          <el-form-item label="厂家物料名称" prop="materialsName"><el-input v-model="ruleForm.materialsName" /></el-form-item>
+          <el-form-item label="厂家物料描述" prop="materialsDesc"><el-input v-model="ruleForm.materialsDesc" /></el-form-item>
+          <el-form-item label="计量单位" prop="unit"><el-input v-model="ruleForm.unit" /></el-form-item>
+          <el-form-item label="物资id类型"><el-input v-model="ruleForm.productIdType" /></el-form-item>
+          <el-form-item label="生产订单状态" prop="ipoStatus"><el-input v-model="ruleForm.ipoStatus" /></el-form-item>
+          <el-form-item label="计划完成日期" prop="planFinishDate"><el-input v-model="ruleForm.planFinishDate" /></el-form-item>
+          <el-form-item label="实际完成日期"><el-input v-model="ruleForm.actualFinishDate" /></el-form-item>
+          <el-form-item label="生产车间名称" prop="workshopName"><el-input v-model="ruleForm.workshopName" /></el-form-item>
+          <el-form-item label="数据来源" prop="dataSource"><el-input v-model="ruleForm.dataSource" /></el-form-item>
+          <el-form-item label="数据拥有方"><el-input v-model="ruleForm.ownerId" /></el-form-item>
+          <el-form-item label="工单状态 " prop="woStatus"><el-input v-model="ruleForm.woStatus" /></el-form-item>
+          <el-form-item label="工序号 " prop="processCode"><el-input v-model="ruleForm.processCode" /></el-form-item>
+        </div>
+      </el-form>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+      </div>
+    </el-dialog>
+
+    <!-- 日志弹出框 -->
     <el-dialog title="日志信息" :visible.sync="dialogTableVisible">
       <el-table border style="width: 100%" height="50vh" :data="gridData">
         <el-table-column property="username" label="操作人" width="100" align="center" />
         <el-table-column property="createTime" label="操作时间" width="150" align="center" />
         <el-table-column property="message" label="日志消息" width="150" align="center" />
-        <!-- <el-table-column property="levelString" label="状态" align="center" />s -->
         <el-table-column label="状态" width="150" align="center">
           <template slot-scope="scope">
             <el-tag :type="scope.row.levelString" :class="[scope.row.levelString === 'ERROR' ? 'classRed' : 'classGreen']">
@@ -437,26 +445,50 @@ export default {
         // }
       ],
       gridData: [], // 日志信息
+      // 编辑弹窗
+      ruleForm: {},
       srcList: ['https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg', 'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'],
       pagination: {
         current: 1,
         size: 50
-      },
-      paginationS: {
-        currentS: 1,
-        sizeS: 50
       },
       listQuery: {
         // supplierName: undefined,
         ipoNo: undefined
       },
       listLoading: true,
+      editLoading: false, // 编辑loading
       total: 10,
-      totalS: 10,
       selectedData: [], // 批量删除新数组
       tableHeight: window.innerHeight - fixHeight, // 表格高度
       dialogTableVisible: false, // 日志弹出框
       dialogVisible: false, // 文件上传弹出框
+      dialogFormVisible: false, // 编辑弹出框
+      rules: {
+        saleOrg: [{ required: true, message: '请输入工厂', trigger: 'blur' }],
+        purchaserHqCode: [{ required: true, message: '请输入采购方总部编码', trigger: 'blur' }],
+        ipoType: [{ required: true, message: '请输入采购方总部编码', trigger: 'blur' }],
+        supplierCode: [{ required: true, message: '请输入订单类型', trigger: 'blur' }],
+        supplierName: [{ required: true, message: '请输入供应商编码', trigger: 'blur' }],
+        ipoNo: [{ required: true, message: '请输入采购方总部编码', trigger: 'blur' }],
+        categoryCode: [{ required: true, message: '请输入品类编码', trigger: 'blur' }],
+        subclassCode: [{ required: true, message: '请输入种类编码', trigger: 'blur' }],
+        scheduleCode: [{ required: true, message: '请输入排产计划编码', trigger: 'blur' }],
+        poItemId: [{ required: true, message: '请输入采购订单行项目id', trigger: 'blur' }],
+        materialsCode: [{ required: true, message: '请输入厂家物料编码', trigger: 'blur' }],
+        materialsName: [{ required: true, message: '请输入厂家物料名称', trigger: 'blur' }],
+        materialsUnit: [{ required: true, message: '请输入厂家物资单位', trigger: 'blur' }],
+        materialsDesc: [{ required: true, message: '请输入厂家物料描述', trigger: 'blur' }],
+        amount: [{ required: true, message: '请输入生产数量', trigger: 'blur' }],
+        unit: [{ required: true, message: '请输入计量单位', trigger: 'blur' }],
+        planStartDate: [{ required: true, message: '请输入计划开始日期', trigger: 'blur' }],
+        planFinishDate: [{ required: true, message: '请输入计划完成日期', trigger: 'blur' }],
+        dataSource: [{ required: true, message: '请输入数据来源', trigger: 'blur' }],
+        woStatus: [{ required: true, message: '请输入工单状态', trigger: 'blur' }],
+        dueDate: [{ required: true, message: '请输入交付日期（最后日期，底线）', trigger: 'blur' }],
+        processCode: [{ required: true, message: '请输入工序号', trigger: 'blur' }],
+        processName: [{ required: true, message: '请输入工序名称', trigger: 'blur' }]
+      },
       // content1: this.$t('permission.supplierName'),
       content2: this.$t('permission.ipoNo')
     }
@@ -518,7 +550,6 @@ export default {
     handleSelectionChange(val) {
       this.selectedData = val
     },
-
     // 删除数据
     // handleDelete(index, row) {
     //   this.$message({
@@ -553,8 +584,7 @@ export default {
 
     // 点击日志
     clickLogs(index, row) {
-      allLogs(this.paginationS, { dataId: row.id }).then(res => {
-        debugger
+      allLogs(this.pagination, { dataId: row.id }).then(res => {
         if (res.data.records.length > 0) {
           this.dialogTableVisible = true
           this.gridData = res.data.records
@@ -652,7 +682,30 @@ export default {
     },
     // 编辑
     handleEdit(index, row) {
-      this.$set(row, 'isEgdit', true)
+      this.dialogFormVisible = true
+      this.ruleForm = JSON.parse(JSON.stringify(row))
+    },
+    // 编辑成功
+    submitForm(formName) {
+      this.editLoading = true
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          productionEdit(this.ruleForm).then(res => {
+            if (res.code === 200) {
+              this.$message({
+                type: 'success',
+                message: this.$t('table.editSuc')
+              })
+              this.editLoading = false
+              this.dialogFormVisible = false
+              this.getList()
+            }
+          })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     },
     // 编辑成功
     editSuccess(index, row) {
@@ -666,20 +719,6 @@ export default {
       // }
       // this.$message.success('恭喜你，数据保存成功！')
       // this.$set(row, 'isEgdit', false)
-      productionEdit(row).then(res => {
-        if (res.code === 200) {
-          this.$message({
-            type: 'success',
-            message: this.$t('table.editSuc')
-          })
-          this.$set(row, 'isEgdit', false)
-        } else {
-          this.$message({
-            type: 'error',
-            message: this.$t('table.editErr')
-          })
-        }
-      })
     },
     // 上传
     okUpload() {
@@ -729,8 +768,8 @@ export default {
 
 <style lang="scss" scoped>
 ::v-deep .el-form-item__label {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

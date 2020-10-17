@@ -217,7 +217,6 @@
     </el-dialog>
 
     <el-dialog title="导入文件" :visible.sync="dialogVisible" width="30%">
-      <!-- action="http://192.168.1.192:8888/api/eip/so/import/file" -->
       <el-upload
         class="upload-demo"
         :action="this.GLOBAL.BASE_URL + '/api/eip/so/import/file'"
