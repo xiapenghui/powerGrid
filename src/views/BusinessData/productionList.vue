@@ -16,19 +16,22 @@
             <el-tooltip class="item" effect="dark" placement="top-start"><label class="radio-label">确认状态:</label></el-tooltip>
           </el-col>
           <el-col :span="16">
-            <!-- <el-input v-model="listQuery.ipoNo" :placeholder="$t('permission.ipoNoInfo')" clearable /> -->
-            <!-- <el-select v-model="listQuery.status" placeholder="请选择">
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select> -->
+            <el-select v-model="listQuery.status" placeholder="请选择">
+              <el-option v-for="item in statusList" :key="item.value" :label="item.label" :value="item.value" />
+            </el-select>
           </el-col>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :span="8">
+          <el-col :span="6">
+            <el-tooltip class="item" effect="dark" placement="top-start"><label class="radio-label">导入时间:</label></el-tooltip>
+          </el-col>
+          <el-col :span="18">
+            <el-date-picker v-model="listQuery.improtTime" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" />
+          </el-col>
+        </el-col>
+
+        <el-col :span="4">
           <el-button type="primary" icon="el-icon-search" @click="handleSearch">{{ $t('permission.search') }}</el-button>
           <el-button type="danger" icon="el-icon-refresh" @click="handleReset">{{ $t('permission.reset') }}</el-button>
         </el-col>
@@ -62,7 +65,7 @@
 
       <el-table-column align="center" :label="$t('permission.status')" width="100">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :class="[scope.row.isConfirm === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isConfirm === 0 ? '未确认' : '确认' }}</el-tag>
+          <el-tag :type="scope.row.status" :class="[scope.row.isConfirm === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isConfirm === 0 ? '未确认' : '已确认' }}</el-tag>
         </template>
       </el-table-column>
 
@@ -310,7 +313,7 @@
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">{{ $t('table.edit') }}</el-button>
           <!-- <el-button type="danger" size="small" @click="handleDelete(scope.$index, scope.row)">{{ $t('table.delete') }}</el-button> -->
-          <el-button type="warning" size="small" @click="clickLogs(scope.$index, scope.row)">日志</el-button>
+          <el-button type="warning" size="small" @click="clickLogs(scope.row)">日志</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -376,22 +379,7 @@
     </el-dialog>
 
     <!-- 日志弹出框 -->
-    <el-dialog title="日志信息" :visible.sync="dialogTableVisible">
-      <el-table border style="width: 100%" height="50vh" :data="gridData">
-        <el-table-column property="username" label="操作人" width="100" align="center" />
-        <el-table-column property="createTime" label="操作时间" width="150" align="center" />
-        <el-table-column property="message" label="日志消息" width="150" align="center" />
-        <el-table-column label="状态" width="150" align="center">
-          <template slot-scope="scope">
-            <el-tag :type="scope.row.levelString" :class="[scope.row.levelString === 'ERROR' ? 'classRed' : 'classGreen']">
-              {{ scope.row.levelString === 'ERROR' ? '错误' : '成功' }}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column property="responseBody" label="响应消息" />
-      </el-table>
-      <!-- <pagination v-show="total > 0" :total="totalS" :current.sync="paginationS.currentS" :size.sync="paginationS.sizeS" @pagination="getList" /> -->
-    </el-dialog>
+    <log-dialog :is-show="dialogTableVisible" :log-total="logTotal" :pagination-log="paginationLog" :data="gridData" @pageChange="getLogList" @closeLog="closeLog" />
 
     <!-- 上传文件弹窗 -->
     <el-dialog title="导入文件" :visible.sync="dialogVisible" width="30%">
@@ -425,11 +413,18 @@ import '../../styles/commentBox.scss'
 import i18n from '@/lang'
 import { productionList, productionDellte, productionEdit, productionOk, productionUpload, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import logDialog from '@/components/logDialog' // 日志封装
 const fixHeight = 320
 export default {
-  components: { Pagination },
+  components: { Pagination, logDialog },
   data() {
     return {
+      paginationLog: {
+        current: 1,
+        size: 10
+      },
+      logTotal: 0,
+      logId: {},
       tableData: [],
       gridData: [], // 日志信息
       ruleForm: {}, // 编辑弹窗
@@ -439,8 +434,9 @@ export default {
         size: 50
       },
       listQuery: {
-        // supplierName: undefined,
-        ipoNo: undefined
+        ipoNo: undefined,
+        status: undefined,
+        improtTime: undefined
       },
       listLoading: true,
       editLoading: false, // 编辑loading
@@ -452,6 +448,16 @@ export default {
       dialogFormVisible: false, // 编辑弹出框
       // content1: this.$t('permission.supplierName'),
       content2: this.$t('permission.ipoNo'),
+      statusList: [
+        {
+          value: '0',
+          label: '未确认'
+        },
+        {
+          value: '1',
+          label: '已确认'
+        }
+      ],
       rules: {
         saleOrg: [{ required: true, message: '请输入工厂', trigger: 'blur' }],
         purchaserHqCode: [{ required: true, message: '请输入采购方总部编码', trigger: 'blur' }],
@@ -512,9 +518,9 @@ export default {
     // 查询
     handleSearch() {
       this.pagination.current = 1
-      // if (this.listQuery.supplierName === '') {
-      //   this.listQuery.supplierName = undefined
-      // }
+      if (this.listQuery.status === '') {
+        this.listQuery.status = undefined
+      }
       if (this.listQuery.ipoNo === '') {
         this.listQuery.ipoNo = undefined
       }
@@ -523,7 +529,7 @@ export default {
     // 重置
     handleReset() {
       this.listQuery = {
-        // supplierName: undefined,
+        status: undefined,
         ipoNo: undefined
       }
       this.pagination = {
@@ -569,18 +575,27 @@ export default {
     // },
 
     // 点击日志
-    clickLogs(index, row) {
-      allLogs(this.pagination, { dataId: row.id }).then(res => {
+    clickLogs(row) {
+      this.logId = row
+      allLogs(this.paginationLog, { dataId: row.id }).then(res => {
         if (res.data.records.length > 0) {
           this.dialogTableVisible = true
           this.gridData = res.data.records
+          this.logTotal = res.data.total
         } else {
           this.dialogTableVisible = false
           this.$message('此条数据暂无操作日志！')
         }
       })
     },
-
+    // 日志分页
+    getLogList(val) {
+      this.paginationLog = val
+      this.clickLogs(this.logId)
+    },
+    closeLog() {
+      this.dialogTableVisible = false
+    },
     // 批量删除
     deleteAll() {
       if (this.selectedData.length > 0) {
