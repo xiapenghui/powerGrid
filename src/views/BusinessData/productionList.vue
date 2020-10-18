@@ -330,13 +330,19 @@
           <el-form-item label="生产数量" prop="amount"><el-input v-model="ruleForm.amount" /></el-form-item>
           <el-form-item label="物资id分组"><el-input v-model="ruleForm.productIdGrpNo" /></el-form-item>
           <el-form-item label="产品型号"><el-input v-model="ruleForm.productModel" /></el-form-item>
-          <el-form-item label="计划开始日期" prop="planStartDate"><el-input v-model="ruleForm.planStartDate" /></el-form-item>
-          <el-form-item label="实际开始日期"><el-input v-model="ruleForm.actualStartDate" /></el-form-item>
+          <el-form-item label="计划开始日期" prop="planStartDate">
+            <el-date-picker v-model="ruleForm.planStartDate" type="date" placeholder="选择日期" value-format="yyyy-MM-dd" />
+          </el-form-item>
+          <el-form-item label="实际开始日期"><el-date-picker v-model="ruleForm.actualStartDate" type="date" placeholder="选择日期" value-format="yyyy-MM-dd" /></el-form-item>
           <el-form-item label="生产工厂名称"><el-input v-model="ruleForm.plantName" /></el-form-item>
           <el-form-item label="生产中心"><el-input v-model="ruleForm.center" /></el-form-item>
-          <el-form-item label="来源数据创建时间"><el-input v-model="ruleForm.dataSourceCreateTime" /></el-form-item>
+          <el-form-item label="来源数据创建时间">
+            <el-date-picker v-model="ruleForm.dataSourceCreateTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+          </el-form-item>
           <el-form-item label="数据可见方"><el-input v-model="ruleForm.openId" /></el-form-item>
-          <el-form-item label="交付日期（最后日期，底线）" prop="dueDate"><el-input v-model="ruleForm.dueDate" /></el-form-item>
+          <el-form-item label="交付日期（最后日期，底线）" prop="dueDate">
+            <el-date-picker v-model="ruleForm.dueDate" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+          </el-form-item>
           <el-form-item label="工序名称" prop="processName"><el-input v-model="ruleForm.processName" /></el-form-item>
         </div>
         <div class="boxRight">
@@ -351,8 +357,10 @@
           <el-form-item label="计量单位" prop="unit"><el-input v-model="ruleForm.unit" /></el-form-item>
           <el-form-item label="物资id类型"><el-input v-model="ruleForm.productIdType" /></el-form-item>
           <el-form-item label="生产订单状态" prop="ipoStatus"><el-input v-model="ruleForm.ipoStatus" /></el-form-item>
-          <el-form-item label="计划完成日期" prop="planFinishDate"><el-input v-model="ruleForm.planFinishDate" /></el-form-item>
-          <el-form-item label="实际完成日期"><el-input v-model="ruleForm.actualFinishDate" /></el-form-item>
+          <el-form-item label="计划完成日期" prop="planFinishDate">
+            <el-date-picker v-model="ruleForm.planFinishDate" type="date" placeholder="选择日期" value-format="yyyy-MM-dd" />
+          </el-form-item>
+          <el-form-item label="实际完成日期"><el-date-picker v-model="ruleForm.actualFinishDate" type="date" placeholder="选择日期" value-format="yyyy-MM-dd" /></el-form-item>
           <el-form-item label="生产车间名称" prop="workshopName"><el-input v-model="ruleForm.workshopName" /></el-form-item>
           <el-form-item label="数据来源" prop="dataSource"><el-input v-model="ruleForm.dataSource" /></el-form-item>
           <el-form-item label="数据拥有方"><el-input v-model="ruleForm.ownerId" /></el-form-item>
@@ -385,6 +393,7 @@
       <!-- <pagination v-show="total > 0" :total="totalS" :current.sync="paginationS.currentS" :size.sync="paginationS.sizeS" @pagination="getList" /> -->
     </el-dialog>
 
+    <!-- 上传文件弹窗 -->
     <el-dialog title="导入文件" :visible.sync="dialogVisible" width="30%">
       <el-upload
         class="upload-demo"
@@ -421,32 +430,9 @@ export default {
   components: { Pagination },
   data() {
     return {
-      tableData: [
-        // {
-        //   SaleOrg: '0',
-        //   status: '确认',
-        //   upload: '上传',
-        //   standardVersion: '1',
-        //   supplierWorkNo: '2',
-        //   supplierCode: '3',
-        //   modelCode: '4',
-        //   categoryType: '5',
-        //   isAlarmData: '6',
-        //   alarmItem: '7',
-        //   processType: '8',
-        //   pdCode: '9',
-        //   checkTime: '10',
-        //   RawMaterialSN: '11',
-        //   ratedCurrent: '12',
-        //   pressureValue: '13',
-        //   pressureTime: '14',
-        //   discharge: '15',
-        //   InspectionReportFile: 'https://wpimg.wallstcn.com/e4558086-631c-425c-9430-56ffb46e70b3'
-        // }
-      ],
+      tableData: [],
       gridData: [], // 日志信息
-      // 编辑弹窗
-      ruleForm: {},
+      ruleForm: {}, // 编辑弹窗
       srcList: ['https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg', 'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'],
       pagination: {
         current: 1,
@@ -464,13 +450,15 @@ export default {
       dialogTableVisible: false, // 日志弹出框
       dialogVisible: false, // 文件上传弹出框
       dialogFormVisible: false, // 编辑弹出框
+      // content1: this.$t('permission.supplierName'),
+      content2: this.$t('permission.ipoNo'),
       rules: {
         saleOrg: [{ required: true, message: '请输入工厂', trigger: 'blur' }],
         purchaserHqCode: [{ required: true, message: '请输入采购方总部编码', trigger: 'blur' }],
-        ipoType: [{ required: true, message: '请输入采购方总部编码', trigger: 'blur' }],
-        supplierCode: [{ required: true, message: '请输入订单类型', trigger: 'blur' }],
-        supplierName: [{ required: true, message: '请输入供应商编码', trigger: 'blur' }],
-        ipoNo: [{ required: true, message: '请输入采购方总部编码', trigger: 'blur' }],
+        ipoType: [{ required: true, message: '请输入订单类型', trigger: 'blur' }],
+        supplierCode: [{ required: true, message: '请输入供应商编码', trigger: 'blur' }],
+        supplierName: [{ required: true, message: '请输入供应商名称', trigger: 'blur' }],
+        ipoNo: [{ required: true, message: '请输入生产订单号', trigger: 'blur' }],
         categoryCode: [{ required: true, message: '请输入品类编码', trigger: 'blur' }],
         subclassCode: [{ required: true, message: '请输入种类编码', trigger: 'blur' }],
         scheduleCode: [{ required: true, message: '请输入排产计划编码', trigger: 'blur' }],
@@ -488,9 +476,7 @@ export default {
         dueDate: [{ required: true, message: '请输入交付日期（最后日期，底线）', trigger: 'blur' }],
         processCode: [{ required: true, message: '请输入工序号', trigger: 'blur' }],
         processName: [{ required: true, message: '请输入工序名称', trigger: 'blur' }]
-      },
-      // content1: this.$t('permission.supplierName'),
-      content2: this.$t('permission.ipoNo')
+      }
     }
   },
   computed: {},
@@ -706,19 +692,6 @@ export default {
           return false
         }
       })
-    },
-    // 编辑成功
-    editSuccess(index, row) {
-      // if (row.poItemId === '') {
-      //
-      //   this.$message.error('采购订单项目ID输入错误！')
-      //   return
-      // } else if (!row.productCode) {
-      //   this.$message.error('物质编码输入错误！')
-      //   return
-      // }
-      // this.$message.success('恭喜你，数据保存成功！')
-      // this.$set(row, 'isEgdit', false)
     },
     // 上传
     okUpload() {

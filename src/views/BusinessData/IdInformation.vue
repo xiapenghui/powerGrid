@@ -8,7 +8,7 @@
               <label class="radio-label">{{ $t('permission.purchaserHqCode') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="form.purchaserHqCode" :placeholder="$t('permission.purchaserHqCodeInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.purchaserHqCode" :placeholder="$t('permission.purchaserHqCodeInfo')" clearable /></el-col>
         </el-col>
 
         <el-col :span="6">
@@ -17,7 +17,7 @@
               <label class="radio-label">{{ $t('permission.supplierCode') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="form.supplierCode" :placeholder="$t('permission.supplierCodeInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.supplierCode" :placeholder="$t('permission.supplierCodeInfo')" clearable /></el-col>
         </el-col>
 
         <el-col :span="6">
@@ -26,252 +26,425 @@
               <label class="radio-label">{{ $t('permission.supplierName') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="form.supplierName" :placeholder="$t('permission.supplierNameInfo')" clearable /></el-col>
-        </el-col>
-      </el-row>
-
-      <el-row :gutter="20" style="margin-top:20px">
-        <el-col :span="6">
-          <el-col :span="8">
-            <el-tooltip class="item" effect="dark" :content="content4" placement="top-start">
-              <label class="radio-label">{{ $t('permission.dataSource') }}:</label>
-            </el-tooltip>
-          </el-col>
-          <el-col :span="16"><el-input v-model="form.dataSource" :placeholder="$t('permission.dataSourceInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.supplierName" :placeholder="$t('permission.supplierNameInfo')" clearable /></el-col>
         </el-col>
 
         <el-col :span="6">
-          <el-col :span="8">
-            <el-tooltip class="item" effect="dark" :content="content5" placement="top-start">
-              <label class="radio-label">{{ $t('permission.ownerId') }}:</label>
-            </el-tooltip>
-          </el-col>
-          <el-col :span="16"><el-input v-model="form.ownerId" :placeholder="$t('permission.ownerIdInfo')" clearable /></el-col>
+          <el-button type="primary" icon="el-icon-search" @click="handleSearch">{{ $t('permission.search') }}</el-button>
+          <el-button type="danger" icon="el-icon-refresh" @click="handleReset">{{ $t('permission.reset') }}</el-button>
         </el-col>
-
-        <el-col :span="6">
-          <el-col :span="8">
-            <el-tooltip class="item" effect="dark" :content="content6" placement="top-start">
-              <label class="radio-label">{{ $t('permission.openId') }}:</label>
-            </el-tooltip>
-          </el-col>
-          <el-col :span="16"><el-input v-model="form.openId" :placeholder="$t('permission.openIdInfo')" clearable /></el-col>
-        </el-col>
-      </el-row>
-
-      <el-row class="center">
-        <el-button type="primary" icon="el-icon-search" @click="handleSearch">{{ $t('permission.search') }}</el-button>
-        <el-button type="danger" icon="el-icon-refresh" @click="handleReset">{{ $t('permission.reset') }}</el-button>
       </el-row>
     </div>
 
     <div class="rightBtn">
-      <el-button type="primary" icon="el-icon-document-remove" style="display: none;" @click="handleExport">{{ $t('permission.exportOrder') }}</el-button>
+      <el-button type="danger" icon="el-icon-delete" @click="deleteAll">{{ $t('permission.deleteAll') }}</el-button>
+      <el-button type="success" icon="el-icon-check" @click="okAll">{{ $t('permission.okAll') }}</el-button>
+      <el-button type="primary" icon="el-icon-upload2" @click="okUpload">上传国网</el-button>
+      <el-button type="primary" icon="el-icon-download" @click="okImprot">导入文件</el-button>
     </div>
 
-    <el-table v-loading="listLoading" :data="rolesList" style="width: 100%" border>
-      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="150" fixed>
+    <el-table
+      v-loading="listLoading"
+      :data="tableData"
+      :height="tableHeight"
+      style="width: 100%"
+      border
+      element-loading-text="拼命加载中"
+      fit
+      highlight-current-row
+      @selection-change="handleSelectionChange"
+    >
+      <el-table-column type="selection" align="center" width="55" fixed />
+      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
         <template slot-scope="scope">
-          {{ scope.row.SaleOrg }}
+          {{ scope.row.saleOrg }}
         </template>
       </el-table-column>
-      <el-table-column align="center" :label="$t('permission.purchaserHqCode')" width="150">
+
+      <el-table-column align="center" :label="$t('permission.status')" width="100">
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.status" :class="[scope.row.isConfirm === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isConfirm === 0 ? '未确认' : '确认' }}</el-tag>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.upload')" width="100">
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.status" :class="[scope.row.isUpload === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isUpload === 0 ? '未上传' : '上传' }}</el-tag>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.purchaserHqCode')" width="120">
         <template slot-scope="scope">
           {{ scope.row.purchaserHqCode }}
         </template>
       </el-table-column>
-      <el-table-column align="center" :label="$t('permission.supplierCode')" width="150">
+      <el-table-column align="center" :label="$t('permission.supplierCode')" width="120">
         <template slot-scope="scope">
           {{ scope.row.supplierCode }}
         </template>
       </el-table-column>
-      <el-table-column align="center" :label="$t('permission.supplierName')" width="150">
+      <el-table-column align="center" :label="$t('permission.supplierName')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.supplierName }}
         </template>
       </el-table-column>
-      <el-table-column align="center" :label="$t('permission.entityCode')" width="150">
+      <el-table-column align="center" :label="$t('permission.entityCode')" width="120">
         <template slot-scope="scope">
           {{ scope.row.entityCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.poItemId')" width="150">
+      <el-table-column align="center" :label="$t('permission.poItemId')" width="120">
         <template slot-scope="scope">
           {{ scope.row.poItemId }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.entityStatus')" width="150">
+      <el-table-column align="center" :label="$t('permission.entityStatus')" width="120">
         <template slot-scope="scope">
           {{ scope.row.entityStatus }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.dataSource')" width="200">
+      <el-table-column align="center" :label="$t('permission.dataSource')" width="120">
         <template slot-scope="scope">
           {{ scope.row.dataSource }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.dataSourceCreateTime')" width="200">
+      <el-table-column align="center" :label="$t('permission.dataSourceCreateTime')" width="150">
         <template slot-scope="scope">
           {{ scope.row.dataSourceCreateTime }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.remark')" width="200">
+      <el-table-column align="center" :label="$t('permission.remark')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.remark }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.ownerId')" width="200">
+      <el-table-column align="center" :label="$t('permission.ownerId')" width="120">
         <template slot-scope="scope">
           {{ scope.row.ownerId }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.openId')" width="200">
+      <el-table-column align="center" :label="$t('permission.openId')" width="120">
         <template slot-scope="scope">
           {{ scope.row.openId }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.operations')" fixed="right" width="200">
+      <el-table-column align="center" :label="$t('permission.operations')" fixed="right" width="150">
         <template slot-scope="scope">
-          <el-button type="primary" size="small" @click="handleEdit(scope)">{{ $t('table.edit') }}</el-button>
-          <el-button type="danger" size="small" @click="handleDelete(scope)">{{ $t('table.delete') }}</el-button>
+          <el-button type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">{{ $t('table.edit') }}</el-button>
+          <!-- <el-button type="danger" size="small" @click="handleDelete(scope.$index, scope.row)">{{ $t('table.delete') }}</el-button> -->
+          <el-button type="warning" size="small" @click="clickLogs(scope.$index, scope.row)">日志</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <pagination v-show="total > 0" :total="total" :page.sync="form.page" :limit.sync="form.limit" @pagination="getList" />
+
+    <!-- 编辑弹窗 -->
+    <el-dialog title="编辑信息" :visible.sync="dialogFormVisible">
+      <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
+        <div class="boxLeft">
+          <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
+          <el-form-item label="供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
+          <el-form-item label="实物ID" prop="entityCode"><el-input v-model="ruleForm.entityCode" /></el-form-item>
+          <el-form-item label="实物生产状态" prop="entityStatus"><el-input v-model="ruleForm.entityStatus" /></el-form-item>
+          <el-form-item label="备注"><el-input v-model="ruleForm.entityStatus" /></el-form-item>
+          <el-form-item label="数据可见方"><el-input v-model="ruleForm.openId" /></el-form-item>
+        </div>
+        <div class="boxRight">
+          <el-form-item label="采购方总部编码" prop="purchaserHqCode"><el-input v-model="ruleForm.purchaserHqCode" /></el-form-item>
+          <el-form-item label="供应商名称" prop="supplierName"><el-input v-model="ruleForm.supplierName" /></el-form-item>
+          <el-form-item label="采购订单行项目id" prop="poItemId"><el-input v-model="ruleForm.poItemId" /></el-form-item>
+          <el-form-item label="数据来源" prop="dataSource"><el-input v-model="ruleForm.dataSource" /></el-form-item>
+          <el-form-item label="来源数据创建时间" prop="dataSourceCreateTime">
+            <el-date-picker v-model="ruleForm.dataSourceCreateTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+          </el-form-item>
+          <el-form-item label="数据拥有方"><el-input v-model="ruleForm.ownerId" /></el-form-item>
+        </div>
+      </el-form>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+      </div>
+    </el-dialog>
+
+    <!-- 日志弹出框 -->
+    <el-dialog title="日志信息" :visible.sync="dialogTableVisible">
+      <el-table border style="width: 100%" height="50vh" :data="gridData">
+        <el-table-column property="username" label="操作人" width="100" align="center" />
+        <el-table-column property="createTime" label="操作时间" width="150" align="center" />
+        <el-table-column property="message" label="日志消息" width="150" align="center" />
+        <el-table-column label="状态" width="150" align="center">
+          <template slot-scope="scope">
+            <el-tag :type="scope.row.levelString" :class="[scope.row.levelString === 'ERROR' ? 'classRed' : 'classGreen']">
+              {{ scope.row.levelString === 'ERROR' ? '错误' : '成功' }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column property="responseBody" label="响应消息" />
+      </el-table>
+      <!-- <pagination v-show="total > 0" :total="totalS" :current.sync="paginationS.currentS" :size.sync="paginationS.sizeS" @pagination="getList" /> -->
+    </el-dialog>
+
+    <!-- 上传文件弹窗 -->
+    <el-dialog title="导入文件" :visible.sync="dialogVisible" width="30%">
+      <el-upload
+        class="upload-demo"
+        :action="this.GLOBAL.BASE_URL + '/api/eip/pid/import/file'"
+        :limit="1"
+        :before-upload="beforeAvatarUpload"
+        :on-success="handleAvatarSuccess"
+        :on-error="handleAvatarError"
+        :auto-upload="true"
+      >
+        <el-button size="small" type="primary">{{ $t('table.clickUp') }}</el-button>
+        <div slot="tip" class="el-upload__tip">
+          {{ $t('table.onlyUpload') }}
+          <b>{{ $t('table.xls') }}</b>
+          {{ $t('table.or') }}
+          <b>{{ $t('table.xlsx') }}</b>
+          {{ $t('table.fileSize') }}
+        </div>
+      </el-upload>
+    </el-dialog>
+
+    <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" />
   </div>
 </template>
 
 <script>
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
-import { deleteRole } from '@/api/role'
 import i18n from '@/lang'
+import { pidList, pidDellte, pidEdit, pidOk, pidUpload, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-
+const fixHeight = 320
 export default {
   components: { Pagination },
   data() {
     return {
-      routes: [],
-      rolesList: [
-        {
-          poItemId: '',
-          productCode: '',
-          productName: '',
-          productUnit: '',
-          productAmount: '',
-          ownerId: '',
-          openId: '',
-          dataSource: '',
-          dataSourceCreateTime: ''
-        }
-      ],
-      form: {
-        companyNo: '',
-        companyName: '',
-        showReviewer: false,
-        page: 1,
-        limit: 20
+      tableData: [],
+      gridData: [], // 日志信息
+      ruleForm: {}, // 编辑弹窗
+      srcList: ['https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg', 'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'],
+      pagination: {
+        current: 1,
+        size: 50
+      },
+      listQuery: {
+        // supplierName: undefined,
+        ipoNo: undefined
       },
       listLoading: true,
+      editLoading: false, // 编辑loading
       total: 10,
+      selectedData: [], // 批量删除新数组
+      tableHeight: window.innerHeight - fixHeight, // 表格高度
+      dialogTableVisible: false, // 日志弹出框
+      dialogVisible: false, // 文件上传弹出框
+      dialogFormVisible: false, // 编辑弹出框
       content1: this.$t('permission.purchaserHqCode'),
       content2: this.$t('permission.supplierCode'),
       content3: this.$t('permission.supplierName'),
-      content4: this.$t('permission.dataSource'),
-      content5: this.$t('permission.ownerId'),
-      content6: this.$t('permission.openId')
+      rules: {
+        saleOrg: [{ required: true, message: '请输入工厂', trigger: 'blur' }],
+        purchaserHqCode: [{ required: true, message: '请输入采购方总部编码', trigger: 'blur' }],
+        supplierCode: [{ required: true, message: '请输入供应商编码', trigger: 'blur' }],
+        supplierName: [{ required: true, message: '请输入供应商名称', trigger: 'blur' }],
+        entityCode: [{ required: true, message: '请输入实物ID', trigger: 'blur' }],
+        poItemId: [{ required: true, message: '请输入采购订单行项目id', trigger: 'blur' }],
+        entityStatus: [{ required: true, message: '请输入实物生产状态', trigger: 'blur' }],
+        dataSource: [{ required: true, message: '请输入数据来源', trigger: 'blur' }],
+        dataSourceCreateTime: [{ required: true, message: '请输入来源数据创建时间', trigger: 'blur' }]
+      }
     }
   },
   computed: {},
   watch: {
+    // 监听表格高度
+    tableHeight(val) {
+      if (!this.timer) {
+        this.tableHeight = val
+        this.timer = true
+        const that = this
+        setTimeout(function() {
+          that.timer = false
+        }, 400)
+      }
+    },
     // 监听data属性中英文切换问题
     '$i18n.locale'() {
       this.content1 = this.$t('permission.purchaserHqCode')
       this.content2 = this.$t('permission.supplierCode')
       this.content3 = this.$t('permission.supplierName')
-      this.content4 = this.$t('permission.dataSource')
-      this.content5 = this.$t('permission.ownerId')
-      this.content6 = this.$t('permission.openId')
     }
   },
   created() {
-    // Mock: get all routes and roles list from server
+    // 监听表格高度
+    const that = this
+    window.onresize = () => {
+      return (() => {
+        that.tableHeight = window.innerHeight - fixHeight
+      })()
+    }
     this.getList()
   },
   methods: {
     // 查询
     handleSearch() {
-      this.form.page = 1
+      this.pagination.current = 1
+      // if (this.listQuery.supplierName === '') {
+      //   this.listQuery.supplierName = undefined
+      // }
+      if (this.listQuery.ipoNo === '') {
+        this.listQuery.ipoNo = undefined
+      }
       this.getList()
     },
     // 重置
+    // 重置
     handleReset() {
-      this.form = {
-        companyNo: '',
-        fullName: '',
-        companyName: '',
-        showReviewer: false,
-        page: 1,
-        limit: 20
+      this.listQuery = {
+        // supplierName: undefined,
+        ipoNo: undefined
       }
+      this.pagination = {
+        current: 1,
+        size: 50
+      }
+      this.getList()
     },
 
-    // 导出用户
-    handleExport() {
-      if (this.rolesList.length) {
-        import('@/vendor/Export2Excel').then(excel => {
-          const tHeader = [
-            this.$t('permission.companyNo'),
-            this.$t('permission.companyName'),
-            this.$t('permission.title'),
-            this.$t('permission.department'),
-            this.$t('permission.company'),
-            this.$t('permission.description'),
-            this.$t('permission.state'),
-            this.$t('permission.user'),
-            this.$t('permission.time')
-          ]
-          const filterVal = ['companyNo', 'name', 'title', 'department', 'company', 'description', 'state', 'user', 'time']
-          const list = this.rolesList
-          const data = this.formatJson(filterVal, list)
-          excel.export_json_to_excel({
-            header: tHeader,
-            data
-          })
-        })
-      } else {
-        this.$message({
-          message: 'Please select at least one item',
+    // 多选
+    handleSelectionChange(val) {
+      this.selectedData = val
+    },
+    // 删除数据
+    // handleDelete(index, row) {
+    //   this.$message({
+    //     type: 'error',
+    //     message: '功能暂未开通！'
+    //   });
+    //   if (this.tableData.length > 0) {
+    //     this.$confirm(this.$t('table.deleteInfo'), this.$t('table.Tips'), {
+    //       confirmButtonText: this.$t('table.confirm'),
+    //       cancelButtonText: this.$t('table.cancel'),
+    //       type: 'warning'
+    //     })
+    //       .then(() => {
+    //         pidDellte([row.id]).then(res => {
+    //           if (res.code === 0) {
+    //             this.$message({
+    //               type: 'success',
+    //               message: this.$t('table.deleteSuccess')
+    //             })
+    //             this.getList()
+    //           }
+    //         })
+    //       })
+    //       .catch(() => {
+    //         this.$message({
+    //           type: 'info',
+    //           message: this.$t('table.deleteError')
+    //         })
+    //       })
+    //   }
+    // },
+
+    // 点击日志
+    clickLogs(index, row) {
+      allLogs(this.pagination, { dataId: row.id }).then(res => {
+        if (res.data.records.length > 0) {
+          this.dialogTableVisible = true
+          this.gridData = res.data.records
+        } else {
+          this.dialogTableVisible = false
+          this.$message('此条数据暂无操作日志！')
+        }
+      })
+    },
+
+    // 批量删除
+    deleteAll() {
+      if (this.selectedData.length > 0) {
+        this.$confirm(this.$t('table.deleteInfo'), this.$t('table.Tips') + this.$t('table.total') + this.selectedData.length + this.$t('table.dataInfo'), {
+          confirmButtonText: this.$t('table.confirm'),
+          cancelButtonText: this.$t('table.cancel'),
           type: 'warning'
         })
+          .then(() => {
+            const idList = []
+            this.selectedData.map(item => {
+              const newFeatid = item.id
+              idList.push(newFeatid)
+            })
+            pidDellte(idList).then(res => {
+              if (res.code === 0) {
+                this.$message({
+                  type: 'success',
+                  message: this.$t('table.deleteSuccess')
+                })
+                this.getList()
+              }
+            })
+          })
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: this.$t('table.deleteError')
+            })
+          })
       }
     },
-    // 导出用户
-    formatJson(filterVal, jsonData) {
-      return jsonData.map(v => filterVal.map(j => v[j]))
+    // 批量确认
+    okAll() {
+      if (this.selectedData.length > 0) {
+        this.$confirm(this.$t('table.okInfo'), this.$t('table.Tips') + this.$t('table.total') + this.selectedData.length + this.$t('table.dataInfo'), {
+          confirmButtonText: this.$t('table.confirm'),
+          cancelButtonText: this.$t('table.cancel'),
+          type: 'warning'
+        })
+          .then(() => {
+            const newId = []
+            this.selectedData.map(item => {
+              const newConfirm = item.isConfirm
+              if (newConfirm === 0) {
+                newId.push(item.id)
+              }
+            })
+            pidOk(newId).then(res => {
+              if (res.code === 200) {
+                this.$message({
+                  type: 'success',
+                  message: this.$t('table.operationSuccess')
+                })
+                this.getList()
+              }
+            })
+          })
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: this.$t('table.operationError')
+            })
+          })
+      }
     },
     // 获取列表
     getList() {
-      this.listLoading = false
-      // fetchList(this.listQuery).then(response => {
-      //   this.list = response.data.items
-      //   this.total = response.data.total
-      //   // Just to simulate the time of the request
-      //   setTimeout(() => {
-      //     this.listLoading = false
-      //   }, 1.5 * 1000)
-      // })
+      this.listLoading = true
+      pidList(this.pagination, this.listQuery).then(res => {
+        this.tableData = res.data.records
+        this.total = res.data.total
+        this.listLoading = false
+      })
     },
-
     i18n(routes) {
       const app = routes.map(route => {
         route.title = i18n.t(`route.${route.title}`)
@@ -283,25 +456,73 @@ export default {
       return app
     },
     // 编辑
-    handleEdit() {},
-    // 删除角色
-    handleDelete({ $index, row }) {
-      this.$confirm(this.$t('permission.errorInfo'), this.$t('permission.errorTitle'), {
-        confirmButtonText: this.$t('permission.Confirm'),
-        cancelButtonText: this.$t('permission.Cancel'),
-        type: 'warning'
+    handleEdit(index, row) {
+      this.dialogFormVisible = true
+      this.ruleForm = JSON.parse(JSON.stringify(row))
+    },
+    // 编辑成功
+    submitForm(formName) {
+      this.editLoading = true
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          pidEdit(this.ruleForm).then(res => {
+            if (res.code === 200) {
+              this.$message({
+                type: 'success',
+                message: this.$t('table.editSuc')
+              })
+              this.editLoading = false
+              this.dialogFormVisible = false
+              this.getList()
+            }
+          })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
       })
-        .then(async() => {
-          await deleteRole(row.key)
-          this.rolesList.splice($index, 1)
+    },
+    // 上传
+    okUpload() {
+      pidUpload().then(res => {
+        if (res.code === 200) {
           this.$message({
             type: 'success',
-            message: 'Delete succed!'
+            message: '上传成功！'
           })
-        })
-        .catch(err => {
-          console.error(err)
-        })
+        }
+        this.getList()
+      })
+    },
+    // 文件导入
+    okImprot() {
+      this.dialogVisible = true
+    },
+    // 成功
+    handleAvatarSuccess(res, file) {
+      if (res.code === 200) {
+        this.$message.success(this.$t('table.upSuccess'))
+        this.dialogVisible = false
+        this.getList()
+      }
+    },
+    // 失败
+    handleAvatarError(res, file) {
+      if (res.code === 500 && res.type === 'error') {
+        this.$message.error(this.$t('table.upError'))
+      }
+    },
+    beforeAvatarUpload(file) {
+      const isXLS = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      const isLt2M = file.size / 1024 / 1024 < 2
+
+      if (!isXLS) {
+        this.$message.error(this.$t('table.errorOne'))
+      }
+      if (!isLt2M) {
+        this.$message.error(this.$t('table.errorTwo'))
+      }
+      return isXLS && isLt2M
     }
   }
 }
@@ -313,5 +534,4 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
 </style>

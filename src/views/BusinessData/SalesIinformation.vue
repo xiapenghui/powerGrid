@@ -10,7 +10,6 @@
           </el-col>
           <el-col :span="16"><el-input v-model="listQuery.soNo" :placeholder="$t('permission.poItemIdInfos')" clearable /></el-col>
         </el-col>
-
         <el-col :span="6">
           <el-button type="primary" icon="el-icon-search" @click="handleSearch">{{ $t('permission.search') }}</el-button>
           <el-button type="danger" icon="el-icon-refresh" @click="handleReset">{{ $t('permission.reset') }}</el-button>
@@ -38,8 +37,7 @@
       <el-table-column type="selection" align="center" width="55" fixed />
       <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.saleOrg }}</span>
-          <el-input v-else v-model="scope.row.saleOrg" />
+          {{ scope.row.saleOrg }}
         </template>
       </el-table-column>
 
@@ -54,137 +52,117 @@
           <el-tag :type="scope.row.status" :class="[scope.row.isUpload === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isUpload === 0 ? '未上传' : '上传' }}</el-tag>
         </template>
       </el-table-column>
-      s
 
       <el-table-column align="center" :label="$t('permission.purchaserHqCode')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.purchaserHqCode }}</span>
-          <el-input v-else v-model="scope.row.purchaserHqCode" />
+          {{ scope.row.purchaserHqCode }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.soNo')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.soNo }}</span>
-          <el-input v-else v-model="scope.row.soNo" />
+          {{ scope.row.soNo }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.supplierCode')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.supplierCode }}</span>
-          <el-input v-else v-model="scope.row.supplierCode" />
+          {{ scope.row.supplierCode }}
         </template>
       </el-table-column>
       <el-table-column align="center" :label="$t('permission.buyerCode')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.buyerCode }}</span>
-          <el-input v-else v-model="scope.row.buyerCode" />
+          {{ scope.row.buyerCode }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.buyerName')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.buyerName }}</span>
-          <el-input v-else v-model="scope.row.buyerName" />
+          {{ scope.row.buyerName }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.buyerProvinceOther')" width="160">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.buyerProvince }}</span>
-          <el-input v-else v-model="scope.row.buyerProvince" />
+          {{ scope.row.buyerProvince }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.categoryCode')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.categoryCode }}</span>
-          <el-input v-else v-model="scope.row.categoryCode" />
+          {{ scope.row.categoryCode }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.subclassCode')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.subclassCode }}</span>
-          <el-input v-else v-model="scope.row.subclassCode" />
+          {{ scope.row.subclassCode }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.soStatus')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.soStatus }}</span>
-          <el-input v-else v-model="scope.row.soStatus" />
+          {{ scope.row.soStatus }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.soItemNo')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.soItemNo }}</span>
-          <el-input v-else v-model="scope.row.soItemNo" />
+          {{ scope.row.soItemNo }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.poItemId')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.poItemId }}</span>
-          <el-input v-else v-model="scope.row.poItemId" />
+          {{ scope.row.poItemId }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.productCode')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.productCode }}</span>
-          <el-input v-else v-model="scope.row.productCode" />
+          {{ scope.row.productCode }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.productName')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.productName }}</span>
-          <el-input v-else v-model="scope.row.productName" />
+          {{ scope.row.productName }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.productUnit')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.productUnit }}</span>
-          <el-input v-else v-model="scope.row.productUnit" />
+          {{ scope.row.productUnit }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.productAmount')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.productAmount }}</span>
-          <el-input v-else v-model="scope.row.productAmount" />
+          {{ scope.row.productAmount }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.ownerId')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.ownerId }}</span>
-          <el-input v-else v-model="scope.row.ownerId" />
+          {{ scope.row.ownerId }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.openId')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.openId }}</span>
-          <el-input v-else v-model="scope.row.openId" />
+          {{ scope.row.openId }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.dataSource')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.dataSource }}</span>
-          <el-input v-else v-model="scope.row.dataSource" />
+          {{ scope.row.dataSource }}>
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.dataSourceCreateTime')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.dataSourceCreateTime }}</span>
-          <el-input v-else v-model="scope.row.dataSourceCreateTimes" />
+          {{ scope.row.dataSourceCreateTime }}
         </template>
       </el-table-column>
 
@@ -197,12 +175,51 @@
       </el-table-column>
     </el-table>
 
+    <!-- 编辑弹窗 -->
+    <el-dialog title="编辑信息" :visible.sync="dialogFormVisible">
+      <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
+        <div class="boxLeft">
+          <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
+          <el-form-item label="销售订单号" prop="ipoType"><el-input v-model="ruleForm.soNo" /></el-form-item>
+          <el-form-item label="供应商编码" prop="ipoType"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
+          <el-form-item label="采购方公司名称" prop="buyerName"><el-input v-model="ruleForm.buyerName" /></el-form-item>
+          <el-form-item label="品类编码" prop="categoryCode"><el-input v-model="ruleForm.categoryCode" /></el-form-item>
+          <el-form-item label="销售订单状态"><el-input v-model="ruleForm.soStatus" /></el-form-item>
+          <el-form-item label="采购订单号" prop="poNo"><el-input v-model="ruleForm.poNo" /></el-form-item>
+          <el-form-item label="物资编码" prop="productCode"><el-input v-model="ruleForm.productCode" /></el-form-item>
+          <el-form-item label="物资单位" prop="productUnit"><el-input v-model="ruleForm.productUnit" /></el-form-item>
+          <el-form-item label="数据拥有方" prop="ownerId"><el-input v-model="ruleForm.ownerId" /></el-form-item>
+          <el-form-item label="数据来源" prop="dataSource"><el-input v-model="ruleForm.dataSource" /></el-form-item>
+        </div>
+        <div class="boxRight">
+          <el-form-item label="采购方总部编码" prop="purchaserHqCode"><el-input v-model="ruleForm.purchaserHqCode" /></el-form-item>
+          <el-form-item label="供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
+          <el-form-item label="采购方公司编码"><el-input v-model="ruleForm.buyerCode" /></el-form-item>
+          <el-form-item label="采购方公司省份"><el-input v-model="ruleForm.buyerProvince" /></el-form-item>
+          <el-form-item label="种类编码" prop="subclassCode"><el-input v-model="ruleForm.subclassCode" /></el-form-item>
+          <el-form-item label="销售订单行项目号" prop="soItemNo"><el-input v-model="ruleForm.soItemNo" /></el-form-item>
+          <el-form-item label="采购订单行项目id" prop="poItemId"><el-input v-model="ruleForm.poItemId" /></el-form-item>
+          <el-form-item label="物资名称" prop="productName"><el-input v-model="ruleForm.productName" /></el-form-item>
+          <el-form-item label="物资数量" prop="productAmount"><el-input v-model="ruleForm.productAmount" /></el-form-item>
+          <el-form-item label="数据可见方"><el-input v-model="ruleForm.openId" /></el-form-item>
+          <el-form-item label="来源数据创建时间 " prop="dataSourceCreateTime">
+            <el-date-picker v-model="ruleForm.dataSourceCreateTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+          </el-form-item>
+        </div>
+      </el-form>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+      </div>
+    </el-dialog>
+
+    <!-- 日志弹窗 -->
     <el-dialog title="日志信息" :visible.sync="dialogTableVisible">
       <el-table border style="width: 100%" height="50vh" :data="gridData">
         <el-table-column property="username" label="操作人" width="100" align="center" />
         <el-table-column property="createTime" label="操作时间" width="150" align="center" />
         <el-table-column property="message" label="日志消息" width="150" align="center" />
-        <!-- <el-table-column property="levelString" label="状态" align="center" />s -->
         <el-table-column label="状态" width="150" align="center">k
           <template slot-scope="scope">
             <el-tag :type="scope.row.levelString" :class="[scope.row.levelString === 'ERROR' ? 'classRed' : 'classGreen']">
@@ -251,33 +268,9 @@ export default {
   components: { Pagination },
   data() {
     return {
-      tableData: [
-        // {
-        //   SaleOrg: '工程',
-        //   status: '未确认',
-        //   upload: '上传',
-        //   purchaserHqCode: '123',
-        //   soNo: '123',
-        //   supplierCode: '123',
-        //   buyerCode: '123',
-        //   buyerName: '小米',
-        //   buyerProvince: '河南',
-        //   categoryCode: '123',
-        //   subclassCode: '456',
-        //   soStatus: '已完成',
-        //   soItemNo: '000',
-        //   poItemId: '123',
-        //   productCode: '456',
-        //   productName: '手机',
-        //   productUnit: '个',
-        //   productAmount: '10',
-        //   ownerId: '小米公司',
-        //   openId: '小米公司',
-        //   dataSource: '小米公司',
-        //   dataSourceCreateTime: '2020-09-23'
-        // }
-      ],
+      tableData: [],
       gridData: [], // 日志信息
+      ruleForm: {}, // 编辑弹窗
       pagination: {
         current: 1,
         size: 50
@@ -286,13 +279,33 @@ export default {
         soNo: undefined
       },
       listLoading: true,
+      editLoading: false, // 编辑loading
       total: 10,
       downloadLoading: false,
       selectedData: [], // 批量删除新数组
       tableHeight: window.innerHeight - fixHeight, // 表格高度
       dialogTableVisible: false, // 日志弹出框
       dialogVisible: false, // 文件上传弹出框
-      content1: this.$t('permission.poItemIds')
+      dialogFormVisible: false, // 编辑弹出框
+      content1: this.$t('permission.poItemIds'),
+      rules: {
+        saleOrg: [{ required: true, message: '请输入工厂', trigger: 'blur' }],
+        purchaserHqCode: [{ required: true, message: '请输入采购方总部编码', trigger: 'blur' }],
+        soNo: [{ required: true, message: '请输入销售订单号', trigger: 'blur' }],
+        supplierCode: [{ required: true, message: '请输入供应商编码', trigger: 'blur' }],
+        buyerName: [{ required: true, message: '请输入采购方公司名称', trigger: 'blur' }],
+        categoryCode: [{ required: true, message: '请输入品类编码', trigger: 'blur' }],
+        subclassCode: [{ required: true, message: '请输入种类编码', trigger: 'blur' }],
+        soItemNo: [{ required: true, message: '请输入销售订单行项目号', trigger: 'blur' }],
+        poNo: [{ required: true, message: '请输入采购订单号', trigger: 'blur' }],
+        poItemId: [{ required: true, message: '请输入采购订单行项目ID', trigger: 'blur' }],
+        productCode: [{ required: true, message: '请输入物资编码', trigger: 'blur' }],
+        productName: [{ required: true, message: '请输入物资名称', trigger: 'blur' }],
+        productUnit: [{ required: true, message: '请输入物资单位', trigger: 'blur' }],
+        productAmount: [{ required: true, message: '请输入物资数量', trigger: 'blur' }],
+        dataSource: [{ required: true, message: '请输入数据来源', trigger: 'blur' }],
+        dataSourceCreateTime: [{ required: true, message: '请输入来源数据创建时间', trigger: 'blur' }]
+      }
     }
   },
   computed: {},
@@ -515,35 +528,32 @@ export default {
     },
     // 编辑
     handleEdit(index, row) {
-      this.$set(row, 'isEgdit', true)
+      this.dialogFormVisible = true
+      this.ruleForm = JSON.parse(JSON.stringify(row))
     },
     // 编辑成功
-    editSuccess(index, row) {
-      // if (row.poItemId === '') {
-      //   debugger;
-      //   this.$message.error('采购订单项目ID输入错误！');
-      //   return;
-      // } else if (!row.productCode) {
-      //   this.$message.error('物质编码输入错误！');
-      //   return;
-      // }
-      // this.$message.success('恭喜你，数据保存成功！');
-      // this.$set(row, 'isEgdit', false);
-      saleEdit(row).then(res => {
-        if (res.code === 200) {
-          this.$message({
-            type: 'success',
-            message: this.$t('table.editSuc')
+    submitForm(formName) {
+      this.editLoading = true
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          saleEdit(this.ruleForm).then(res => {
+            if (res.code === 200) {
+              this.$message({
+                type: 'success',
+                message: this.$t('table.editSuc')
+              })
+              this.editLoading = false
+              this.dialogFormVisible = false
+              this.getList()
+            }
           })
-          this.$set(row, 'isEgdit', false)
         } else {
-          this.$message({
-            type: 'error',
-            message: this.$t('table.editErr')('table.editErr')
-          })
+          console.log('error submit!!')
+          return false
         }
       })
     },
+
     // 上传
     okUpload() {
       saleUpload().then(res => {

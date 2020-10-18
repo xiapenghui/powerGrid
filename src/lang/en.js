@@ -192,6 +192,7 @@ export default {
     poItemId: 'Purchase Order Items ID',
     productUnit: 'Physical Unit',
     productAmount: 'Material Quantity',
+    purchaseName: 'Purchaser company name',
     dataSourceCreateTime: 'Source Data Creation Time',
     ContactNum: 'Contract Number',
     ContactNumInfo: 'Please Enter The Contract Factory Number',
