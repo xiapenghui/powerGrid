@@ -26,23 +26,25 @@
               end-placeholder="结束日期"
             />
           </el-col> -->
-          <el-date-picker
-            v-model="pagination.startTime"
-            type="date"
-            :editable="false"
-            prefix-icon="el-icon-caret-bottom"
-            value-format="yyyy-MM-dd"
-            :clearable="false"
-          />
-          <span style="padding: 0 3px">~</span>
-          <el-date-picker
-            v-model="pagination.endTime"
-            type="date"
-            :editable="false"
-            prefix-icon="el-icon-caret-bottom"
-            value-format="yyyy-MM-dd"
-            :clearable="false"
-          />
+          <el-col :span="18">
+            <el-col :span="10">
+              <el-date-picker
+                v-model="pagination.startTime"
+                type="date"
+                value-format="yyyy-MM-dd"
+              />
+            </el-col>
+            <el-col :span="2">~</el-col>
+            <el-col :span="10">
+              <el-date-picker
+                v-model="pagination.endTime"
+                type="date"
+                value-format="yyyy-MM-dd"
+                :clearable="false"
+              />
+            </el-col>
+
+          </el-col>
         </el-col>
 
         <el-col :span="4">
@@ -606,6 +608,7 @@ export default {
     getList() {
       this.listLoading = true
       productionList(this.pagination, this.listQuery).then(res => {
+        debugger
         this.tableData = res.data.records
         this.total = res.data.total
         this.listLoading = false
