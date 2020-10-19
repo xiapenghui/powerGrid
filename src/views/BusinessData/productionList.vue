@@ -13,7 +13,7 @@
 
         <el-col :span="8">
           <el-col :span="4">
-            <el-tooltip class="item" effect="dark" placement="top-start"><label class="radio-label">导入时间:</label></el-tooltip>
+            <el-tooltip class="item" effect="dark" placement="top-start"><label class="radio-label">创建时间:</label></el-tooltip>
           </el-col>
           <el-col :span="18">
             <el-date-picker
@@ -24,6 +24,7 @@
               range-separator="至"
               start-placeholder="开始日期"
               end-placeholder="结束日期"
+              :clearable="false"
               @change="importChange"
             />
           </el-col>
@@ -449,12 +450,12 @@ export default {
       pagination: {
         current: 1,
         size: 50,
-        startTime: '2020-08-01',
-        endTime: '2020-10-01'
+        startTime: '',
+        endTime: ''
       },
       listQuery: {
         ipoNo: undefined,
-        importDate: ['2020-10-01', '2020-10-19']
+        importDate: []
       },
       listLoading: true,
       editLoading: false, // 编辑loading
@@ -466,16 +467,6 @@ export default {
       dialogFormVisible: false, // 编辑弹出框
       // content1: this.$t('permission.supplierName'),
       content2: this.$t('permission.ipoNo'),
-      statusList: [
-        {
-          value: '0',
-          label: '未确认'
-        },
-        {
-          value: '1',
-          label: '已确认'
-        }
-      ],
       rules: {
         saleOrg: [{ required: true, message: '请输入工厂', trigger: 'blur' }],
         purchaserHqCode: [{ required: true, message: '请输入采购方总部编码', trigger: 'blur' }],
@@ -518,6 +509,13 @@ export default {
         }, 400)
       }
     },
+    'listQuery.importDate': {
+      handler(val) {
+        this.pagination.startTime = val[0] + ' 00:00:00'
+        this.pagination.endTime = val[1] + ' 23:59:59'
+      },
+      deep: true
+    },
     // 监听data属性中英文切换问题
     '$i18n.locale'() {
       // this.content1 = this.$t('permission.supplierName')
@@ -527,8 +525,8 @@ export default {
   created() {
     this.listQuery.importDate[0] = this.$moment(new Date())
       .subtract(1, 'months')
-      .format('YYYY-MM-DD')
-    this.listQuery.importDate[1] = this.$moment(new Date()).format('YYYY-MM-DD')
+      .format('YYYY-MM-DD 00:00:00')
+    this.listQuery.importDate[1] = this.$moment(new Date()).format('YYYY-MM-DD 23:59:59')
     this.pagination.startTime = this.listQuery.importDate[0]
     this.pagination.endTime = this.listQuery.importDate[1]
     // 监听表格高度
@@ -542,11 +540,8 @@ export default {
   },
   methods: {
     importChange(val) {
-      console.log('val', val)
       this.listQuery.importDate[0] = val[0]
       this.listQuery.importDate[1] = val[1]
-      this.pagination.startTime = this.listQuery.importDate[0]
-      this.pagination.endTime = this.listQuery.importDate[1]
     },
     // 查询
     handleSearch() {
@@ -559,7 +554,13 @@ export default {
     // 重置
     handleReset() {
       this.listQuery = {
-        ipoNo: undefined
+        ipoNo: undefined,
+        importDate: [
+          this.$moment(new Date())
+            .subtract(1, 'months')
+            .format('YYYY-MM-DD'),
+          this.$moment(new Date()).format('YYYY-MM-DD')
+        ]
       }
       this.pagination = {
         current: 1,
@@ -631,7 +632,6 @@ export default {
     getList() {
       this.listLoading = true
       productionList(this.pagination, this.listQuery).then(res => {
-        debugger
         this.tableData = res.data.records
         this.total = res.data.total
         this.listLoading = false
