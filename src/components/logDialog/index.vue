@@ -25,7 +25,7 @@ export default {
   props: {
     isShow: {
       type: Boolean,
-      default: true
+      default: false
     },
     data: {
       type: Array,
@@ -54,7 +54,6 @@ export default {
       this.$emit('pageChange', val)
     },
     onClose() {
-      console.log('关闭')
       this.$emit('closeLog')
     }
   }

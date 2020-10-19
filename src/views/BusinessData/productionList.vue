@@ -419,12 +419,13 @@ export default {
   components: { Pagination, logDialog },
   data() {
     return {
+      // 日志分页
       paginationLog: {
         current: 1,
         size: 10
       },
       logTotal: 0,
-      logId: {},
+      logId: {}, // 日志行数据
       tableData: [],
       gridData: [], // 日志信息
       ruleForm: {}, // 编辑弹窗
@@ -593,6 +594,7 @@ export default {
       this.paginationLog = val
       this.clickLogs(this.logId)
     },
+    //  关闭日志弹窗
     closeLog() {
       this.dialogTableVisible = false
     },
@@ -613,7 +615,7 @@ export default {
             productionDellte(idList).then(res => {
               if (res.code === 0) {
                 this.$message({
-                  type: 'success',
+                  type: 'sucscess',
                   message: this.$t('table.deleteSuccess')
                 })
                 this.getList()

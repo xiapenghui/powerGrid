@@ -166,7 +166,7 @@
         <template slot-scope="scope">
           <el-button v-if="!scope.row.isEgdit" type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">{{ $t('table.edit') }}</el-button>
           <el-button v-else type="success" size="small" @click="editSuccess(scope.$index, scope.row)">{{ $t('table.editSuccess') }}</el-button>
-          <el-button type="warning" size="small" @click="clickLogs(scope.$index, scope.row)">日志</el-button>
+          <el-button type="warning" size="small" @click="clickLogs(scope.row)">日志</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -205,24 +205,7 @@
     </el-dialog>
 
     <!-- 日志弹窗 -->
-    <el-dialog title="日志信息" :visible.sync="dialogTableVisible">
-      <el-table border style="width: 100%" height="50vh" :data="gridData">
-        <el-table-column property="username" label="操作人" width="100" align="center" />
-        <el-table-column property="createTime" label="操作时间" width="150" align="center" />
-        <el-table-column property="message" label="日志消息" width="150" align="center" />
-        <el-table-column label="状态" width="150" align="center">
-          k
-          <template slot-scope="scope">
-            <el-tag :type="scope.row.levelString" :class="[scope.row.levelString === 'ERROR' ? 'classRed' : 'classGreen']">
-              {{ scope.row.levelString === 'ERROR' ? '错误' : '成功' }}
-            </el-tag>
-          </template>
-        </el-table-column>
-
-        <el-table-column property="responseBody" label="响应消息" />
-      </el-table>
-      <!-- <pagination v-show="total > 0" :total="totalS" :current.sync="pagination.currentS" :size.sync="pagination.sizeS" @pagination="getListS" /> -->
-    </el-dialog>
+    <log-dialog :is-show="dialogTableVisible" :log-total="logTotal" :pagination-log="paginationLog" :data="gridData" @pageChange="getLogList" @closeLog="closeLog" />
 
     <el-dialog title="导入文件" :visible.sync="dialogVisible" width="30%">
       <el-upload
@@ -254,11 +237,19 @@ import '../../styles/commentBox.scss'
 import i18n from '@/lang'
 import { piList, piDellte, piEdit, piOk, piUpload, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import logDialog from '@/components/logDialog' // 日志封装
 const fixHeight = 320
 export default {
-  components: { Pagination },
+  components: { Pagination, logDialog },
   data() {
     return {
+      // 日志分页
+      paginationLog: {
+        current: 1,
+        size: 10
+      },
+      logTotal: 0,
+      logId: {}, // 日志行数据
       tableData: [],
       gridData: [], // 日志信息
       ruleForm: {}, // 编辑弹窗
@@ -384,16 +375,27 @@ export default {
     // },
 
     // 点击日志
-    clickLogs(index, row) {
-      allLogs(this.pagination, { dataId: row.id }).then(res => {
+    clickLogs(row) {
+      this.logId = row
+      allLogs(this.paginationLog, { dataId: row.id }).then(res => {
         if (res.data.records.length > 0) {
           this.dialogTableVisible = true
           this.gridData = res.data.records
+          this.logTotal = res.data.total
         } else {
           this.dialogTableVisible = false
           this.$message('此条数据暂无操作日志！')
         }
       })
+    },
+    // 日志分页
+    getLogList(val) {
+      this.paginationLog = val
+      this.clickLogs(this.logId)
+    },
+    //  关闭日志弹窗
+    closeLog() {
+      this.dialogTableVisible = false
     },
     // 批量删除
     deleteAll() {
