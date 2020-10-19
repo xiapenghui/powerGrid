@@ -54,127 +54,99 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" align="center" width="55" />
-      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="150" fixed sortable prop="key">
-        <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.saleOrg }}</span>
-          <el-input v-else v-model="scope.row.saleOrg" />
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.status')" width="150">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :class="[scope.row.isConfirm === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isConfirm === 0 ? '未确认' : '确认' }}</el-tag>
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.upload')" width="150">
+      <el-table-column align="center" :label="$t('permission.upload')" width="100">
         <template slot-scope="scope">
           <el-tag :type="scope.row.status" :class="[scope.row.isUpload === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isUpload === 0 ? '未上传' : '上传' }}</el-tag>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.standardVersion')" width="150">
+      <el-table-column align="center" :label="$t('permission.standardVersion')" width="180">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.standardVersion }}</span>
-          <el-input v-else v-model="scope.row.standardVersion" />
+          {{ scope.row.standardVersion }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.supplierWorkNo')" width="150" sortable prop="supplierWorkNo">
+      <el-table-column align="center" :label="$t('permission.supplierWorkNo')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.supplierWorkNo }}</span>
-          <el-input v-else v-model="scope.row.supplierWorkNo" />
+          {{ scope.row.supplierWorkNo }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.supplierCodeOther')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.supplierCode }}</span>
-          <el-input v-else v-model="scope.row.supplierCode" />
+          {{ scope.row.supplierCode }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.modelCode')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.modelCode }}</span>
-          <el-input v-else v-model="scope.row.modelCode" />
+          {{ scope.row.modelCode }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.categoryType')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.categoryType }}</span>
-          <el-input v-else v-model="scope.row.categoryType" />
+          {{ scope.row.categoryType }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.isAlarmData')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.isAlarmData }}</span>
-          <el-input v-else v-model="scope.row.isAlarmData" />
+          {{ scope.row.isAlarmData }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.alarmItem')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.alarmItem }}</span>
-          <el-input v-else v-model="scope.row.alarmItem" />
+          {{ scope.row.alarmItem }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.processType')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.processType }}</span>
-          <el-input v-else v-model="scope.row.processType" />
+          {{ scope.row.processType }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.pdCode')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.pdCode }}</span>
-          <el-input v-else v-model="scope.row.pdCode" />
+          {{ scope.row.pdCode }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.checkTime')" width="200">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.checkTime }}</span>
-          <el-date-picker v-else v-model="scope.row.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+          {{ scope.row.checkTime }}</span>
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.RawMaterialSNOther')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.RawMaterialSN }}</span>
-          <el-input v-else v-model="scope.row.RawMaterialSN" />
+          {{ scope.row.RawMaterialSN }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.ratedCurrent')" width="200">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.ratedCurrent }}</span>
-          <el-input v-else v-model="scope.row.ratedCurrent" />
+          {{ scope.row.ratedCurrent }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.pressureValue')" width="200">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.pressureValue }}</span>
-          <el-input v-else v-model="scope.row.pressureValue" />
+          {{ scope.row.pressureValue }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.pressureTime')" width="200">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.pressureTime }}</span>
-          <el-input v-else v-model="scope.row.pressureTime" />
+          {{ scope.row.pressureTime }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.discharge')" width="200">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.discharge }}</span>
-          <el-input v-else v-model="scope.row.discharge" />
+          {{ scope.row.discharge }}
         </template>
       </el-table-column>
 

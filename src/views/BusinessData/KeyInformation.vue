@@ -55,15 +55,10 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" align="center" width="55" fixed />
-      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
-        <template slot-scope="scope">
-          {{ scope.row.saleOrg }}
-        </template>
-      </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.status')" width="100">
+      <el-table-column align="center" label="创建时间" width="150">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :class="[scope.row.isConfirm === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isConfirm === 0 ? '未确认' : '确认' }}</el-tag>
+          {{ scope.row.createTime }}
         </template>
       </el-table-column>
 
@@ -73,21 +68,6 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.purchaserHqCode')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.purchaserHqCode }}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" :label="$t('permission.supplierCode')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.supplierCode }}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" :label="$t('permission.supplierName')" width="200" :show-overflow-tooltip="true">
-        <template slot-scope="scope">
-          {{ scope.row.supplierName }}
-        </template>
-      </el-table-column>
       <el-table-column align="center" :label="$t('permission.matName')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.matName }}
@@ -124,6 +104,40 @@
         </template>
       </el-table-column>
 
+      <el-table-column align="center" :label="$t('permission.itemBatchCode')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.itemBatchCode }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.itemProductAmount')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.itemProductAmount }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
+        <template slot-scope="scope">
+          {{ scope.row.saleOrg }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.purchaserHqCode')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.purchaserHqCode }}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" :label="$t('permission.supplierCode')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.supplierCode }}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" :label="$t('permission.supplierName')" width="200" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          {{ scope.row.supplierName }}
+        </template>
+      </el-table-column>
+
       <el-table-column align="center" :label="$t('permission.dataSource')" width="120">
         <template slot-scope="scope">
           {{ scope.row.dataSource }}
@@ -154,6 +168,18 @@
         </template>
       </el-table-column>
 
+      <el-table-column align="center" :label="$t('permission.dataSourceCreateTime')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.itemDataSourceCreatetime }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.remark')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.itemRemark }}
+        </template>
+      </el-table-column>
+
       <el-table-column align="center" :label="$t('permission.operations')" fixed="right" width="150">
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">{{ $t('table.edit') }}</el-button>
@@ -173,8 +199,10 @@
           <el-form-item label="原材料库存数量" prop="matNum"><el-input v-model="ruleForm.matNum" /></el-form-item>
           <el-form-item label="原材料描述"><el-input v-model="ruleForm.matDescription" /></el-form-item>
           <el-form-item label="数据来源" prop="dataSource"><el-input v-model="ruleForm.dataSource" /></el-form-item>
+          <el-form-item label="入库批次号" prop="itemBatchCode"><el-input v-model="ruleForm.itemBatchCode" /></el-form-item>
           <el-form-item label="备注" prop="remark"><el-input v-model="ruleForm.remark" /></el-form-item>
           <el-form-item label="数据可见方"><el-input v-model="ruleForm.openId" /></el-form-item>
+          <el-form-item label="来源数据创建时间" prop="itemDataSourceCreatetime"><el-input v-model="ruleForm.itemDataSourceCreatetime" /></el-form-item>
         </div>
         <div class="boxRight">
           <el-form-item label="采购方总部编码" prop="purchaserHqCode"><el-input v-model="ruleForm.purchaserHqCode" /></el-form-item>
@@ -182,10 +210,12 @@
           <el-form-item label="原材料编码" prop="matCode"><el-input v-model="ruleForm.matCode" /></el-form-item>
           <el-form-item label="原材料单位" prop="matUnit"><el-input v-model="ruleForm.matUnit" /></el-form-item>
           <el-form-item label="原材料产地"><el-input v-model="ruleForm.matProdAddr" /></el-form-item>
+          <el-form-item label="当前入库批次库存剩余数量" prop="itemProductAmount"><el-input v-model="ruleForm.itemProductAmount" /></el-form-item>
           <el-form-item label="来源数据创建时间" prop="dataSourceCreateTime">
             <el-date-picker v-model="ruleForm.dataSourceCreateTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
           </el-form-item>
           <el-form-item label="数据拥有方"><el-input v-model="ruleForm.ownerId" /></el-form-item>
+          <el-form-item label="备注"><el-input v-model="ruleForm.itemRemark" /></el-form-item>
         </div>
       </el-form>
 
@@ -219,7 +249,6 @@
         </div>
       </el-upload>
     </el-dialog>
-
     <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" />
   </div>
 </template>
@@ -276,7 +305,9 @@ export default {
         matNum: [{ required: true, message: '请输入原材料库存数量', trigger: 'blur' }],
         matUnit: [{ required: true, message: '请输入原材料单位', trigger: 'blur' }],
         dataSource: [{ required: true, message: '请输入数据来源', trigger: 'blur' }],
-        dataSourceCreateTime: [{ required: true, message: '请输入来源数据创建时间', trigger: 'blur' }]
+        dataSourceCreateTime: [{ required: true, message: '请输入来源数据创建时间', trigger: 'blur' }],
+        itemBatchCode: [{ required: true, message: '请输入入库批次号', trigger: 'blur' }],
+        itemProductAmount: [{ required: true, message: '请输入当前入库批次库存剩余数量', trigger: 'blur' }]
       }
     }
   },

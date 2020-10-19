@@ -55,40 +55,15 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" align="center" width="55" fixed />
-      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
+      <el-table-column align="center" label="创建时间" width="150">
         <template slot-scope="scope">
-          {{ scope.row.saleOrg }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.status')" width="100">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :class="[scope.row.isConfirm === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isConfirm === 0 ? '未确认' : '确认' }}</el-tag>
+          {{ scope.row.createTime }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.upload')" width="100">
         <template slot-scope="scope">
           <el-tag :type="scope.row.status" :class="[scope.row.isUpload === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isUpload === 0 ? '未上传' : '上传' }}</el-tag>
-        </template>
-      </el-table-column>
-
-      s
-      <el-table-column align="center" :label="$t('permission.purchaserHqCode')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.purchaserHqCode }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.supplierCode')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.supplierCode }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.supplierName')" width="200" :show-overflow-tooltip="true">
-        <template slot-scope="scope">
-          {{ scope.row.supplierName }}
         </template>
       </el-table-column>
 
@@ -116,6 +91,42 @@
         </template>
       </el-table-column>
 
+      <el-table-column align="center" :label="$t('permission.ItemProductLot')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.ItemProductLot }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.ItemProductAmount')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.ItemProductAmount }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
+        <template slot-scope="scope">
+          {{ scope.row.saleOrg }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.purchaserHqCode')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.purchaserHqCode }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.supplierCode')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.supplierCode }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.supplierName')" width="200" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          {{ scope.row.supplierName }}
+        </template>
+      </el-table-column>
+
       <el-table-column align="center" :label="$t('permission.dataSource')" width="120">
         <template slot-scope="scope">
           {{ scope.row.dataSource }}
@@ -140,15 +151,21 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.productLot')" width="120">
+      <el-table-column align="center" :label="$t('permission.remark')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
-          {{ scope.row.productLot }}
+          {{ scope.row.remark }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.dataSourceCreateTime')" width="200" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          {{ scope.row.itemDataSourceCreatetime }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.remark')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
-          {{ scope.row.remark }}
+          {{ scope.row.itemRemark }}
         </template>
       </el-table-column>
 
@@ -171,7 +188,9 @@
           <el-form-item label="备品备件库存剩余数量" prop="productAmount"><el-input v-model="ruleForm.productAmount" /></el-form-item>
           <el-form-item label="数据来源" prop="dataSource"><el-input v-model="ruleForm.dataSource" /></el-form-item>
           <el-form-item label="数据拥有方"><el-input v-model="ruleForm.ownerId" /></el-form-item>
-          <el-form-item label="批次号" prop="productLot"><el-input v-model="ruleForm.productLot" /></el-form-item>
+          <el-form-item label="批次号" prop="ItemProductLot"><el-input v-model="ruleForm.ItemProductLot" /></el-form-item>
+          <el-form-item label="来源数据创建时间" prop="itemDataSourceCreatetime"><el-input v-model="ruleForm.itemDataSourceCreatetime" /></el-form-item>
+
         </div>
         <div class="boxRight">
           <el-form-item label="采购方总部编码" prop="purchaserHqCode"><el-input v-model="ruleForm.purchaserHqCode" /></el-form-item>
@@ -183,6 +202,7 @@
           </el-form-item>
           <el-form-item label="数据可见方"><el-input v-model="ruleForm.openId" /></el-form-item>
           <el-form-item label="备注"><el-input v-model="ruleForm.entityStatus" /></el-form-item>
+          <el-form-item label="备注"><el-input v-model="ruleForm.itemRemark" /></el-form-item>
         </div>
       </el-form>
 
@@ -274,7 +294,8 @@ export default {
         productUnit: [{ required: true, message: '请输入计量单位', trigger: 'blur' }],
         dataSource: [{ required: true, message: '请输入数据来源', trigger: 'blur' }],
         dataSourceCreateTime: [{ required: true, message: '请输入来源数据创建时间', trigger: 'blur' }],
-        productLot: [{ required: true, message: '请输批次号', trigger: 'blur' }]
+        ItemProductLot: [{ required: true, message: '请输入批次号', trigger: 'blur' }],
+        itemDataSourceCreatetime: [{ required: true, message: '请输入来源数据创建时间', trigger: 'blur' }]
       }
     }
   },

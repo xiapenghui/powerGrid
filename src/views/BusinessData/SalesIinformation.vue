@@ -35,9 +35,10 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" align="center" width="55" fixed />
-      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
+
+      <el-table-column align="center" label="创建时间" width="150">
         <template slot-scope="scope">
-          {{ scope.row.saleOrg }}
+          {{ scope.row.createTime }}
         </template>
       </el-table-column>
 
@@ -53,26 +54,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.purchaserHqCode')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.purchaserHqCode }}
-        </template>
-      </el-table-column>
-
       <el-table-column align="center" :label="$t('permission.soNo')" width="120">
         <template slot-scope="scope">
           {{ scope.row.soNo }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.supplierCode')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.supplierCode }}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" :label="$t('permission.buyerCode')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.buyerCode }}
         </template>
       </el-table-column>
 
@@ -82,33 +66,15 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.buyerProvinceOther')" width="160">
-        <template slot-scope="scope">
-          {{ scope.row.buyerProvince }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.categoryCode')" width="100">
-        <template slot-scope="scope">
-          {{ scope.row.categoryCode }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.subclassCode')" width="100">
-        <template slot-scope="scope">
-          {{ scope.row.subclassCode }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.soStatus')" width="100">
-        <template slot-scope="scope">
-          {{ scope.row.soStatus }}
-        </template>
-      </el-table-column>
-
       <el-table-column align="center" :label="$t('permission.soItemNo')" width="120">
         <template slot-scope="scope">
           {{ scope.row.soItemNo }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.poNo')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.poNo }}
         </template>
       </el-table-column>
 
@@ -142,6 +108,66 @@
         </template>
       </el-table-column>
 
+      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
+        <template slot-scope="scope">
+          {{ scope.row.saleOrg }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.purchaserHqCode')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.purchaserHqCode }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.supplierCode')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.supplierCode }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.buyerCode')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.buyerCode }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.buyerProvinceOther')" width="160">
+        <template slot-scope="scope">
+          {{ scope.row.buyerProvince }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.categoryCode')" width="100">
+        <template slot-scope="scope">
+          {{ scope.row.categoryCode }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.subclassCode')" width="100">
+        <template slot-scope="scope">
+          {{ scope.row.subclassCode }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.dataSource')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.dataSource }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.dataSourceCreateTime')" width="150">
+        <template slot-scope="scope">
+          {{ scope.row.dataSourceCreateTime }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.soStatus')" width="100">
+        <template slot-scope="scope">
+          {{ scope.row.soStatus }}
+        </template>
+      </el-table-column>
+
       <el-table-column align="center" :label="$t('permission.ownerId')" width="120">
         <template slot-scope="scope">
           {{ scope.row.ownerId }}
@@ -151,18 +177,6 @@
       <el-table-column align="center" :label="$t('permission.openId')" width="120">
         <template slot-scope="scope">
           {{ scope.row.openId }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.dataSource')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.dataSource }}>
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.dataSourceCreateTime')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.dataSourceCreateTime }}
         </template>
       </el-table-column>
 

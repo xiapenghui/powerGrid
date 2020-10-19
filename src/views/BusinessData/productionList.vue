@@ -12,10 +12,10 @@
         </el-col>
 
         <el-col :span="8">
-          <el-col :span="6">
+          <el-col :span="4">
             <el-tooltip class="item" effect="dark" placement="top-start"><label class="radio-label">导入时间:</label></el-tooltip>
           </el-col>
-          <!-- <el-col :span="18">
+          <el-col :span="18">
             <el-date-picker
               v-model="listQuery.importDate"
               format="yyyy-MM-dd"
@@ -24,26 +24,8 @@
               range-separator="至"
               start-placeholder="开始日期"
               end-placeholder="结束日期"
+              @change="importChange"
             />
-          </el-col> -->
-          <el-col :span="18">
-            <el-col :span="10">
-              <el-date-picker
-                v-model="pagination.startTime"
-                type="date"
-                value-format="yyyy-MM-dd"
-              />
-            </el-col>
-            <el-col :span="2">~</el-col>
-            <el-col :span="10">
-              <el-date-picker
-                v-model="pagination.endTime"
-                type="date"
-                value-format="yyyy-MM-dd"
-                :clearable="false"
-              />
-            </el-col>
-
           </el-col>
         </el-col>
 
@@ -72,9 +54,10 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" align="center" width="55" fixed />
-      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
+
+      <el-table-column align="center" label="创建时间" width="150">
         <template slot-scope="scope">
-          {{ scope.row.saleOrg }}
+          {{ scope.row.createTime }}
         </template>
       </el-table-column>
 
@@ -101,6 +84,82 @@
           <el-tag :type="scope.row.status" :class="[scope.row.isUploadPw === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isUploadPw === 0 ? '未上传' : '上传' }}</el-tag>
         </template>
       </el-table-column>
+      <el-table-column align="center" :label="$t('permission.soNo')" width="100">
+        <template slot-scope="scope">
+          {{ scope.row.soNo }}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" :label="$t('permission.soItemNo')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.soItemNo }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.ipoNo')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.ipoNo }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.materialsCode')" width="150">
+        <template slot-scope="scope">
+          {{ scope.row.materialsCode }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.materialsName')" :show-overflow-tooltip="true" width="200">
+        <template slot-scope="scope">
+          {{ scope.row.materialsName }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.amount')" width="100">
+        <template slot-scope="scope">
+          {{ scope.row.amount }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.unit')" width="100">
+        <template slot-scope="scope">
+          {{ scope.row.unit }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.planStartDate')" width="150">
+        <template slot-scope="scope">
+          {{ scope.row.planStartDate }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.planFinishDate')" width="150">
+        <template slot-scope="scope">
+          {{ scope.row.planFinishDate }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.actualStartDate')" width="150">
+        <template slot-scope="scope">
+          {{ scope.row.actualStartDate }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.actualFinishDate')" width="150">
+        <template slot-scope="scope">
+          {{ scope.row.actualFinishDate }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.woStatus')" width="100">
+        <template slot-scope="scope">
+          {{ scope.row.woStatus }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
+        <template slot-scope="scope">
+          {{ scope.row.saleOrg }}
+        </template>
+      </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.purchaserHqCode')" width="120">
         <template slot-scope="scope">
@@ -123,12 +182,6 @@
       <el-table-column align="center" :label="$t('permission.supplierName')" width="150">
         <template slot-scope="scope">
           {{ scope.row.supplierName }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.ipoNo')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.ipoNo }}
         </template>
       </el-table-column>
 
@@ -162,24 +215,6 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.soItemNo')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.soItemNo }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.materialsCode')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.materialsCode }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.materialsName')" :show-overflow-tooltip="true" width="200">
-        <template slot-scope="scope">
-          {{ scope.row.materialsName }}
-        </template>
-      </el-table-column>
-
       <el-table-column align="center" :label="$t('permission.materialsUnit')" width="100">
         <template slot-scope="scope">
           {{ scope.row.materialsUnit }}
@@ -189,18 +224,6 @@
       <el-table-column align="center" :label="$t('permission.materialsDesc')" :show-overflow-tooltip="true" width="200">
         <template slot-scope="scope">
           {{ scope.row.materialsDesc }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.amount')" width="100">
-        <template slot-scope="scope">
-          {{ scope.row.amount }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.unit')" width="100">
-        <template slot-scope="scope">
-          {{ scope.row.unit }}
         </template>
       </el-table-column>
 
@@ -219,30 +242,6 @@
       <el-table-column align="center" :label="$t('permission.productModel')" width="100">
         <template slot-scope="scope">
           {{ scope.row.productModel }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.planStartDate')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.planStartDate }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.planFinishDate')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.planFinishDate }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.actualStartDate')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.actualStartDate }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.actualFinishDate')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.actualFinishDate }}
         </template>
       </el-table-column>
 
@@ -294,12 +293,6 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.woStatus')" width="100">
-        <template slot-scope="scope">
-          {{ scope.row.woStatus }}
-        </template>
-      </el-table-column>
-
       <el-table-column align="center" :label="$t('permission.dueDate')" width="180">
         <template slot-scope="scope">
           {{ scope.row.dueDate }}
@@ -315,6 +308,18 @@
       <el-table-column align="center" :label="$t('permission.processName')" width="100">
         <template slot-scope="scope">
           {{ scope.row.processName }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.buyerProvince')" width="100">
+        <template slot-scope="scope">
+          {{ scope.row.buyerProvince }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.planPeriod')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.planPeriod }}
         </template>
       </el-table-column>
 
@@ -356,6 +361,7 @@
             <el-date-picker v-model="ruleForm.dueDate" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
           </el-form-item>
           <el-form-item label="工序名称" prop="processName"><el-input v-model="ruleForm.processName" /></el-form-item>
+          <el-form-item label="客户所属省份" prop="buyerProvince"><el-input v-model="ruleForm.buyerProvince" /></el-form-item>
         </div>
         <div class="boxRight">
           <el-form-item label="采购方总部编码" prop="purchaserHqCode"><el-input v-model="ruleForm.purchaserHqCode" /></el-form-item>
@@ -378,6 +384,7 @@
           <el-form-item label="数据拥有方"><el-input v-model="ruleForm.ownerId" /></el-form-item>
           <el-form-item label="工单状态 " prop="woStatus"><el-input v-model="ruleForm.woStatus" /></el-form-item>
           <el-form-item label="工序号 " prop="processCode"><el-input v-model="ruleForm.processCode" /></el-form-item>
+          <el-form-item label="计划工期（天数） " prop="planPeriod"><el-input v-model="ruleForm.planPeriod" /></el-form-item>
         </div>
       </el-form>
 
@@ -446,7 +453,8 @@ export default {
         endTime: '2020-10-01'
       },
       listQuery: {
-        ipoNo: undefined
+        ipoNo: undefined,
+        importDate: ['2020-10-01', '2020-10-19']
       },
       listLoading: true,
       editLoading: false, // 编辑loading
@@ -491,7 +499,9 @@ export default {
         woStatus: [{ required: true, message: '请输入工单状态', trigger: 'blur' }],
         dueDate: [{ required: true, message: '请输入交付日期（最后日期，底线）', trigger: 'blur' }],
         processCode: [{ required: true, message: '请输入工序号', trigger: 'blur' }],
-        processName: [{ required: true, message: '请输入工序名称', trigger: 'blur' }]
+        processName: [{ required: true, message: '请输入工序名称', trigger: 'blur' }],
+        buyerProvince: [{ required: true, message: '请输入工序名称', trigger: 'blur' }],
+        planPeriod: [{ required: true, message: '请输入客户所属省份', trigger: 'blur' }]
       }
     }
   },
@@ -515,6 +525,12 @@ export default {
     }
   },
   created() {
+    this.listQuery.importDate[0] = this.$moment(new Date())
+      .subtract(1, 'months')
+      .format('YYYY-MM-DD')
+    this.listQuery.importDate[1] = this.$moment(new Date()).format('YYYY-MM-DD')
+    this.pagination.startTime = this.listQuery.importDate[0]
+    this.pagination.endTime = this.listQuery.importDate[1]
     // 监听表格高度
     const that = this
     window.onresize = () => {
@@ -525,6 +541,13 @@ export default {
     this.getList()
   },
   methods: {
+    importChange(val) {
+      console.log('val', val)
+      this.listQuery.importDate[0] = val[0]
+      this.listQuery.importDate[1] = val[1]
+      this.pagination.startTime = this.listQuery.importDate[0]
+      this.pagination.endTime = this.listQuery.importDate[1]
+    },
     // 查询
     handleSearch() {
       this.pagination.current = 1
