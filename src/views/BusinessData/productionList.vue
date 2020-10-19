@@ -436,7 +436,7 @@ export default {
       },
       listQuery: {
         ipoNo: undefined,
-        status: undefined,
+        isConfirm: undefined,
         improtTime: undefined
       },
       listLoading: true,
