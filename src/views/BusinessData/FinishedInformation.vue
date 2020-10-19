@@ -238,7 +238,7 @@ import i18n from '@/lang'
 import { piList, piDellte, piEdit, piOk, piUpload, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import logDialog from '@/components/logDialog' // 日志封装
-const fixHeight = 320
+const fixHeight = 280
 export default {
   components: { Pagination, logDialog },
   data() {

@@ -90,111 +90,111 @@ export const constantRoutes = [{
     title: 'BusinessData',
     icon: 'tab'
   },
-  children: [{
-    path: 'productionList',
-    component: () => import('@/views/BusinessData/productionList'),
-    name: 'productionList',
-    meta: {
-      title: 'productionList'
-    }
-  },
-  {
-    path: 'PurchaseIinformation',
-    component: () => import('@/views/BusinessData/PurchaseIinformation'),
-    hidden: true,
-    name: 'PurchaseIinformation',
-    meta: {
-      title: 'PurchaseIinformation'
-    }
-  },
-  {
-    path: 'SalesIinformation',
-    component: () => import('@/views/BusinessData/SalesIinformation'),
-    name: 'SalesIinformation',
-    meta: {
-      title: 'SalesIinformation'
-    }
-  },
-  {
-    path: 'MaintenanceInformation',
-    component: () => import('@/views/BusinessData/MaintenanceInformation'),
-    hidden: true,
-    name: 'MaintenanceInformation',
-    meta: {
-      title: 'MaintenanceInformation'
-    }
-  },
-  {
-    path: 'WorkInformation',
-    component: () => import('@/views/BusinessData/WorkInformation'),
-    hidden: true,
-    name: 'WorkInformation',
-    meta: {
-      title: 'WorkInformation'
-    }
-  },
+  children: [
+    {
+      path: 'PurchaseIinformation',
+      component: () => import('@/views/BusinessData/PurchaseIinformation'),
+      name: 'PurchaseIinformation',
+      meta: {
+        title: 'PurchaseIinformation'
+      }
+    },
+    {
+      path: 'productionList',
+      component: () => import('@/views/BusinessData/productionList'),
+      name: 'productionList',
+      meta: {
+        title: 'productionList'
+      }
+    },
+    {
+      path: 'SalesIinformation',
+      component: () => import('@/views/BusinessData/SalesIinformation'),
+      name: 'SalesIinformation',
+      meta: {
+        title: 'SalesIinformation'
+      }
+    },
+    {
+      path: 'MaintenanceInformation',
+      component: () => import('@/views/BusinessData/MaintenanceInformation'),
+      hidden: true,
+      name: 'MaintenanceInformation',
+      meta: {
+        title: 'MaintenanceInformation'
+      }
+    },
+    {
+      path: 'WorkInformation',
+      component: () => import('@/views/BusinessData/WorkInformation'),
+      hidden: true,
+      name: 'WorkInformation',
+      meta: {
+        title: 'WorkInformation'
+      }
+    },
 
-  {
-    path: 'SchedulingInformation',
-    component: () => import('@/views/BusinessData/SchedulingInformation'),
-    hidden: true,
-    name: 'SchedulingInformation',
-    meta: {
-      title: 'SchedulingInformation'
-    }
-  },
+    {
+      path: 'SchedulingInformation',
+      component: () => import('@/views/BusinessData/SchedulingInformation'),
+      hidden: true,
+      name: 'SchedulingInformation',
+      meta: {
+        title: 'SchedulingInformation'
+      }
+    },
 
-  {
-    path: 'ReportInformation',
-    component: () => import('@/views/BusinessData/ReportInformation'),
-    hidden: true,
-    name: 'ReportInformation',
-    meta: {
-      title: 'ReportInformation'
-    }
-  },
+    {
+      path: 'ReportInformation',
+      component: () => import('@/views/BusinessData/ReportInformation'),
+      hidden: true,
+      name: 'ReportInformation',
+      meta: {
+        title: 'ReportInformation'
+      }
+    },
 
-  {
-    path: 'KeyInformation',
-    component: () => import('@/views/BusinessData/KeyInformation'),
-    name: 'KeyInformation',
-    meta: {
-      title: 'KeyInformation'
+    {
+      path: 'KeyInformation',
+      component: () => import('@/views/BusinessData/KeyInformation'),
+      name: 'KeyInformation',
+      meta: {
+        title: 'KeyInformation'
+      }
+    },
+    {
+      path: 'IdInformation',
+      component: () => import('@/views/BusinessData/IdInformation'),
+      name: 'IdInformation',
+      meta: {
+        title: 'IdInformation'
+      }
+    },
+    {
+      path: 'SupplyInformation',
+      component: () => import('@/views/BusinessData/SupplyInformation'),
+      hidden: true,
+      name: 'SupplyInformation',
+      meta: {
+        title: 'SupplyInformation'
+      }
+    },
+    {
+      path: 'SpareInventory',
+      component: () => import('@/views/BusinessData/SpareInventory'),
+      name: 'SpareInventory',
+      meta: {
+        title: 'SpareInventory'
+      }
+    },
+    {
+      path: 'FinishedInformation',
+      component: () => import('@/views/BusinessData/FinishedInformation'),
+      name: 'FinishedInformation',
+      meta: {
+        title: 'FinishedInformation'
+      }
     }
-  },
-  {
-    path: 'IdInformation',
-    component: () => import('@/views/BusinessData/IdInformation'),
-    name: 'IdInformation',
-    meta: {
-      title: 'IdInformation'
-    }
-  },
-  {
-    path: 'SupplyInformation',
-    component: () => import('@/views/BusinessData/SupplyInformation'),
-    hidden: true,
-    name: 'SupplyInformation',
-    meta: {
-      title: 'SupplyInformation'
-    }
-  },
-  {
-    path: 'SpareInventory',
-    component: () => import('@/views/BusinessData/SpareInventory'),
-    name: 'SpareInventory',
-    meta: {
-      title: 'SpareInventory'
-    }
-  },
-  {
-    path: 'FinishedInformation',
-    component: () => import('@/views/BusinessData/FinishedInformation'),
-    name: 'FinishedInformation',
-    meta: {
-      title: 'FinishedInformation'
-    }
-  }
   ]
 },
 

@@ -125,6 +125,7 @@ export default {
 }
 
 .handle-button {
+  display: none;
   width: 48px;
   height: 48px;
   position: absolute;

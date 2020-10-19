@@ -21,6 +21,9 @@
   .el-button {
     padding: 5px 10px;
   }
+  .el-button--small{
+    padding: 3px 10px;
+  }
   .search {
     border: 1px solid #dfe6ec;
     padding: 20px 0;
@@ -58,7 +61,7 @@
 
   .rightBtn {
     text-align: left;
-    margin: 15px 0 15px 0;
+    margin: 10px 0 10px 0;
     .handleImport {
       display: inline-block;
       margin-left: 10px;

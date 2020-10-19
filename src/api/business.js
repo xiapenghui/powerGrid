@@ -287,3 +287,14 @@ export function piUpload() {
     method: 'get'
   })
 }
+
+// 采购订单信息列表
+//  采购订单信息列表接口
+export function poList(query, data) {
+  return request({
+    url: newUrl + '/api/eip/po/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}

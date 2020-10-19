@@ -11,24 +11,38 @@
           <el-col :span="16"><el-input v-model="listQuery.ipoNo" :placeholder="$t('permission.ipoNoInfo')" clearable /></el-col>
         </el-col>
 
-        <el-col :span="6">
-          <el-col :span="8">
-            <el-tooltip class="item" effect="dark" placement="top-start"><label class="radio-label">确认状态:</label></el-tooltip>
-          </el-col>
-          <el-col :span="16">
-            <el-select v-model="listQuery.status" placeholder="请选择">
-              <el-option v-for="item in statusList" :key="item.value" :label="item.label" :value="item.value" />
-            </el-select>
-          </el-col>
-        </el-col>
-
         <el-col :span="8">
           <el-col :span="6">
             <el-tooltip class="item" effect="dark" placement="top-start"><label class="radio-label">导入时间:</label></el-tooltip>
           </el-col>
-          <el-col :span="18">
-            <el-date-picker v-model="listQuery.improtTime" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" />
-          </el-col>
+          <!-- <el-col :span="18">
+            <el-date-picker
+              v-model="listQuery.importDate"
+              format="yyyy-MM-dd"
+              value-format="yyyy-MM-dd"
+              type="daterange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+            />
+          </el-col> -->
+          <el-date-picker
+            v-model="pagination.startTime"
+            type="date"
+            :editable="false"
+            prefix-icon="el-icon-caret-bottom"
+            value-format="yyyy-MM-dd"
+            :clearable="false"
+          />
+          <span style="padding: 0 3px">~</span>
+          <el-date-picker
+            v-model="pagination.endTime"
+            type="date"
+            :editable="false"
+            prefix-icon="el-icon-caret-bottom"
+            value-format="yyyy-MM-dd"
+            :clearable="false"
+          />
         </el-col>
 
         <el-col :span="4">
@@ -40,7 +54,6 @@
 
     <div class="rightBtn">
       <el-button type="danger" icon="el-icon-delete" @click="deleteAll">{{ $t('permission.deleteAll') }}</el-button>
-      <el-button type="success" icon="el-icon-check" @click="okAll">{{ $t('permission.okAll') }}</el-button>
       <el-button type="primary" icon="el-icon-upload2" @click="okUpload">上传国网</el-button>
       <el-button type="primary" icon="el-icon-download" @click="okImprot">导入文件</el-button>
     </div>
@@ -60,12 +73,6 @@
       <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
         <template slot-scope="scope">
           {{ scope.row.saleOrg }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.status')" width="100">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :class="[scope.row.isConfirm === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isConfirm === 0 ? '未确认' : '已确认' }}</el-tag>
         </template>
       </el-table-column>
 
@@ -275,7 +282,7 @@
 
       <el-table-column align="center" :label="$t('permission.ownerId')" width="100">
         <template slot-scope="scope">
-          {{ scope.row.ownerId }}>
+          {{ scope.row.ownerId }}
         </template>
       </el-table-column>
 
@@ -411,10 +418,10 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { productionList, productionDellte, productionEdit, productionOk, productionUpload, allLogs } from '@/api/business'
+import { productionList, productionDellte, productionEdit, productionUpload, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import logDialog from '@/components/logDialog' // 日志封装
-const fixHeight = 320
+const fixHeight = 280
 export default {
   components: { Pagination, logDialog },
   data() {
@@ -432,12 +439,12 @@ export default {
       srcList: ['https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg', 'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'],
       pagination: {
         current: 1,
-        size: 50
+        size: 50,
+        startTime: '2020-08-01',
+        endTime: '2020-10-01'
       },
       listQuery: {
-        ipoNo: undefined,
-        isConfirm: undefined,
-        improtTime: undefined
+        ipoNo: undefined
       },
       listLoading: true,
       editLoading: false, // 编辑loading
@@ -519,9 +526,6 @@ export default {
     // 查询
     handleSearch() {
       this.pagination.current = 1
-      if (this.listQuery.status === '') {
-        this.listQuery.status = undefined
-      }
       if (this.listQuery.ipoNo === '') {
         this.listQuery.ipoNo = undefined
       }
@@ -530,7 +534,6 @@ export default {
     // 重置
     handleReset() {
       this.listQuery = {
-        status: undefined,
         ipoNo: undefined
       }
       this.pagination = {
@@ -543,37 +546,6 @@ export default {
     handleSelectionChange(val) {
       this.selectedData = val
     },
-    // 删除数据
-    // handleDelete(index, row) {
-    //   this.$message({
-    //     type: 'error',
-    //     message: '功能暂未开通！'
-    //   });
-    //   if (this.tableData.length > 0) {
-    //     this.$confirm(this.$t('table.deleteInfo'), this.$t('table.Tips'), {
-    //       confirmButtonText: this.$t('table.confirm'),
-    //       cancelButtonText: this.$t('table.cancel'),
-    //       type: 'warning'
-    //     })
-    //       .then(() => {
-    //         productionDellte([row.id]).then(res => {
-    //           if (res.code === 0) {
-    //             this.$message({
-    //               type: 'success',
-    //               message: this.$t('table.deleteSuccess')
-    //             })
-    //             this.getList()
-    //           }
-    //         })
-    //       })
-    //       .catch(() => {
-    //         this.$message({
-    //           type: 'info',
-    //           message: this.$t('table.deleteError')
-    //         })
-    //       })
-    //   }
-    // },
 
     // 点击日志
     clickLogs(row) {
@@ -626,40 +598,6 @@ export default {
             this.$message({
               type: 'info',
               message: this.$t('table.deleteError')
-            })
-          })
-      }
-    },
-    // 批量确认
-    okAll() {
-      if (this.selectedData.length > 0) {
-        this.$confirm(this.$t('table.okInfo'), this.$t('table.Tips') + this.$t('table.total') + this.selectedData.length + this.$t('table.dataInfo'), {
-          confirmButtonText: this.$t('table.confirm'),
-          cancelButtonText: this.$t('table.cancel'),
-          type: 'warning'
-        })
-          .then(() => {
-            const newId = []
-            this.selectedData.map(item => {
-              const newConfirm = item.isConfirm
-              if (newConfirm === 0) {
-                newId.push(item.id)
-              }
-            })
-            productionOk(newId).then(res => {
-              if (res.code === 200) {
-                this.$message({
-                  type: 'success',
-                  message: this.$t('table.operationSuccess')
-                })
-                this.getList()
-              }
-            })
-          })
-          .catch(() => {
-            this.$message({
-              type: 'info',
-              message: this.$t('table.operationError')
             })
           })
       }
