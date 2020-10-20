@@ -112,7 +112,7 @@ export default {
 
   },
   login: {
-    title: '库柏爱迪生国网系统登录',
+    title: '库柏爱迪生国网系统',
     logIn: '登录',
     username: '账号',
     password: '密码',
