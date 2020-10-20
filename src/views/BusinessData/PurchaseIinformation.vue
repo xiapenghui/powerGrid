@@ -4,30 +4,29 @@
       <el-row :gutter="20">
         <el-col :span="6">
           <el-col :span="8">
-            <el-tooltip class="item" effect="dark" :content="content2" placement="top-start">
-              <label class="radio-label">{{ $t('permission.ipoNo') }}:</label>
+            <el-tooltip class="item" effect="dark" :content="content1" placement="top-start">
+              <label class="radio-label">{{ $t('permission.poNo') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="listQuery.ipoNo" :placeholder="$t('permission.ipoNoInfo')" clearable /></el-col>
-        </el-col>
-
-        <el-col :span="6">
-          <el-col :span="8">
-            <el-tooltip class="item" effect="dark" placement="top-start"><label class="radio-label">确认状态:</label></el-tooltip>
-          </el-col>
-          <el-col :span="16">
-            <el-select v-model="listQuery.isConfirm" placeholder="请选择">
-              <el-option v-for="item in statusList" :key="item.value" :label="item.label" :value="item.value" />
-            </el-select>
-          </el-col>
+          <el-col :span="16"><el-input v-model="listQuery.poNo" :placeholder="$t('permission.poNo')" clearable /></el-col>
         </el-col>
 
         <el-col :span="8">
-          <el-col :span="6">
-            <el-tooltip class="item" effect="dark" placement="top-start"><label class="radio-label">导入时间:</label></el-tooltip>
+          <el-col :span="4">
+            <el-tooltip class="item" effect="dark" placement="top-start"><label class="radio-label">创建时间:</label></el-tooltip>
           </el-col>
           <el-col :span="18">
-            <el-date-picker v-model="listQuery.improtTime" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" />
+            <el-date-picker
+              v-model="listQuery.importDate"
+              format="yyyy-MM-dd"
+              value-format="yyyy-MM-dd"
+              type="daterange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              :clearable="false"
+              @change="importChange"
+            />
           </el-col>
         </el-col>
 
@@ -37,21 +36,8 @@
         </el-col>
       </el-row>
     </div>
-
-    <div class="rightBtn">
-      <el-button type="primary" icon="el-icon-download">下载表格</el-button>
-    </div>
-
-    <el-table
-      v-loading="listLoading"
-      :data="tableData"
-      :height="tableHeight"
-      style="width: 100%"
-      border
-      element-loading-text="拼命加载中"
-      fit
-      highlight-current-row
-    >
+    <div class="rightBtn"><el-button type="primary" icon="el-icon-download" @click="download">下载数据</el-button></div>
+    <el-table v-loading="listLoading" :data="tableData" :height="tableHeight" style="width: 100%" border element-loading-text="拼命加载中" fit highlight-current-row>
       <el-table-column align="center" :label="$t('permission.poNo')" width="120">
         <template slot-scope="scope">
           {{ scope.row.poNo }}
@@ -220,7 +206,6 @@
         </template>
       </el-table-column>
     </el-table>
-
     <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" />
   </div>
 </template>
@@ -229,7 +214,7 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { poList } from '@/api/business'
+import { poList, poDown } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 const fixHeight = 280
 export default {
@@ -239,28 +224,18 @@ export default {
       tableData: [],
       pagination: {
         current: 1,
-        size: 50
+        size: 50,
+        startTime: '',
+        endTime: ''
       },
       listQuery: {
-        ipoNo: undefined,
-        isConfirm: undefined,
-        improtTime: undefined
+        poNo: undefined,
+        importDate: []
       },
       listLoading: true,
       total: 10,
       tableHeight: window.innerHeight - fixHeight, // 表格高度
-      // content1: this.$t('permission.supplierName'),
-      content2: this.$t('permission.ipoNo'),
-      statusList: [
-        {
-          value: '0',
-          label: '未确认'
-        },
-        {
-          value: '1',
-          label: '已确认'
-        }
-      ]
+      content1: this.$t('permission.poNo')
     }
   },
   computed: {},
@@ -276,13 +251,26 @@ export default {
         }, 400)
       }
     },
+    'listQuery.importDate': {
+      handler(val) {
+        this.pagination.startTime = val[0] + ' 00:00:00'
+        this.pagination.endTime = val[1] + ' 23:59:59'
+      },
+      deep: true
+    },
     // 监听data属性中英文切换问题
     '$i18n.locale'() {
-      // this.content1 = this.$t('permission.supplierName')
-      this.content2 = this.$t('permission.ipoNo')
+      this.content1 = this.$t('permission.poNo')
     }
   },
   created() {
+    // 搜索框初始化开始结束时间
+    this.listQuery.importDate[0] = this.$moment(new Date())
+      .subtract(1, 'months')
+      .format('YYYY-MM-DD 00:00:00')
+    this.listQuery.importDate[1] = this.$moment(new Date()).format('YYYY-MM-DD 23:59:59')
+    this.pagination.startTime = this.listQuery.importDate[0]
+    this.pagination.endTime = this.listQuery.importDate[1]
     // 监听表格高度
     const that = this
     window.onresize = () => {
@@ -293,22 +281,29 @@ export default {
     this.getList()
   },
   methods: {
+    // 改变搜索框开始结束时间触发
+    importChange(val) {
+      this.listQuery.importDate[0] = val[0]
+      this.listQuery.importDate[1] = val[1]
+    },
     // 查询
     handleSearch() {
       this.pagination.current = 1
-      if (this.listQuery.status === '') {
-        this.listQuery.status = undefined
-      }
-      if (this.listQuery.ipoNo === '') {
-        this.listQuery.ipoNo = undefined
+      if (this.listQuery.poNo === '') {
+        this.listQuery.poNo = undefined
       }
       this.getList()
     },
     // 重置
     handleReset() {
       this.listQuery = {
-        status: undefined,
-        ipoNo: undefined
+        poNo: undefined,
+        importDate: [
+          this.$moment(new Date())
+            .subtract(1, 'months')
+            .format('YYYY-MM-DD'),
+          this.$moment(new Date()).format('YYYY-MM-DD')
+        ]
       }
       this.pagination = {
         current: 1,
@@ -320,7 +315,6 @@ export default {
     getList() {
       this.listLoading = true
       poList(this.pagination, this.listQuery).then(res => {
-        debugger
         this.tableData = res.data.records
         this.total = res.data.total
         this.listLoading = false
@@ -335,7 +329,14 @@ export default {
         return route
       })
       return app
+    },
+    // 下载数据
+    download() {
+      poDown().then(res => {
+        debugger
+      })
     }
+
   }
 }
 </script>

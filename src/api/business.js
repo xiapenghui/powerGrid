@@ -1,5 +1,5 @@
-// const newUrl = 'http://192.168.1.192:8888'
-const newUrl = 'http://39.101.166.244:8888'
+const newUrl = 'http://192.168.1.192:8888'
+// const newUrl = 'http://39.101.166.244:8888'
 import request from '@/utils/request'
 
 // 所有日志查询接口
@@ -296,5 +296,13 @@ export function poList(query, data) {
     method: 'post',
     params: query,
     data
+  })
+}
+
+//  采购订单信息列表接口
+export function poDown() {
+  return request({
+    url: newUrl + '/api/eip/po/page',
+    method: 'get'
   })
 }

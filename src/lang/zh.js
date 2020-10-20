@@ -112,7 +112,7 @@ export default {
 
   },
   login: {
-    title: '系统登录',
+    title: '库柏爱迪生国网系统登录',
     logIn: '登录',
     username: '账号',
     password: '密码',
@@ -291,7 +291,7 @@ export default {
     dataSourceCreatetime: '来源数据创建时间',
     productCodeOther: '产成品编码',
     productNameOther: '产成品名称',
-    poNo: '国网采购订单号',
+    poNo: '采购订单编码',
     batchCodeOther: '入库批次号',
     productAmountOther: '当前入库批次库存剩余数量',
     standardVersion: '采集规范版本号，默认:1',
@@ -394,6 +394,12 @@ export default {
     matMedName: '物资中类名称',
     matMinName: '物资小类名称',
     modifyTime: '更新时间',
+    ItemProductLot: '批次号',
+    ItemProductAmount: '备品备件库存剩余数量',
+    itemBatchCode: '入库批次号',
+    itemProductAmount: '当前入库批次库存剩余数量',
+    itemPoNo: '国网采购订单号',
+    itemPurchaseName: '采购方公司名称',
 
     // 截止
     roles: '你的权限',

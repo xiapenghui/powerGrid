@@ -108,7 +108,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.materialsName')" :show-overflow-tooltip="true" width="200">
+      <el-table-column align="center" :label="$t('permission.materialsName')" width="200">
         <template slot-scope="scope">
           {{ scope.row.materialsName }}
         </template>
@@ -222,7 +222,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.materialsDesc')" :show-overflow-tooltip="true" width="200">
+      <el-table-column align="center" :label="$t('permission.materialsDesc')" width="200">
         <template slot-scope="scope">
           {{ scope.row.materialsDesc }}
         </template>
@@ -523,6 +523,7 @@ export default {
     }
   },
   created() {
+    // 搜索框初始化开始结束时间
     this.listQuery.importDate[0] = this.$moment(new Date())
       .subtract(1, 'months')
       .format('YYYY-MM-DD 00:00:00')
@@ -539,6 +540,7 @@ export default {
     this.getList()
   },
   methods: {
+    // 改变搜索框开始结束时间触发
     importChange(val) {
       this.listQuery.importDate[0] = val[0]
       this.listQuery.importDate[1] = val[1]
@@ -632,6 +634,7 @@ export default {
     getList() {
       this.listLoading = true
       productionList(this.pagination, this.listQuery).then(res => {
+        debugger
         this.tableData = res.data.records
         this.total = res.data.total
         this.listLoading = false
@@ -669,7 +672,11 @@ export default {
             }
           })
         } else {
-          console.log('error submit!!')
+          this.editLoading = false
+          this.$message({
+            type: 'error',
+            message: '必填项不能为空'
+          })
           return false
         }
       })

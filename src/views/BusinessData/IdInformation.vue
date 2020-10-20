@@ -5,31 +5,32 @@
         <el-col :span="6">
           <el-col :span="8">
             <el-tooltip class="item" effect="dark" :content="content1" placement="top-start">
-              <label class="radio-label">{{ $t('permission.purchaserHqCode') }}:</label>
+              <label class="radio-label">{{ $t('permission.entityCode') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="listQuery.purchaserHqCode" :placeholder="$t('permission.purchaserHqCodeInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.entityCode" :placeholder="$t('permission.entityCode')" clearable /></el-col>
         </el-col>
 
-        <el-col :span="6">
-          <el-col :span="8">
-            <el-tooltip class="item" effect="dark" :content="content2" placement="top-start">
-              <label class="radio-label">{{ $t('permission.supplierCode') }}:</label>
-            </el-tooltip>
+        <el-col :span="8">
+          <el-col :span="4">
+            <el-tooltip class="item" effect="dark" placement="top-start"><label class="radio-label">创建时间:</label></el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="listQuery.supplierCode" :placeholder="$t('permission.supplierCodeInfo')" clearable /></el-col>
-        </el-col>
-
-        <el-col :span="6">
-          <el-col :span="8">
-            <el-tooltip class="item" effect="dark" :content="content3" placement="top-start">
-              <label class="radio-label">{{ $t('permission.supplierName') }}:</label>
-            </el-tooltip>
+          <el-col :span="18">
+            <el-date-picker
+              v-model="listQuery.importDate"
+              format="yyyy-MM-dd"
+              value-format="yyyy-MM-dd"
+              type="daterange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              :clearable="false"
+              @change="importChange"
+            />
           </el-col>
-          <el-col :span="16"><el-input v-model="listQuery.supplierName" :placeholder="$t('permission.supplierNameInfo')" clearable /></el-col>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :span="4">
           <el-button type="primary" icon="el-icon-search" @click="handleSearch">{{ $t('permission.search') }}</el-button>
           <el-button type="danger" icon="el-icon-refresh" @click="handleReset">{{ $t('permission.reset') }}</el-button>
         </el-col>
@@ -38,7 +39,6 @@
 
     <div class="rightBtn">
       <el-button type="danger" icon="el-icon-delete" @click="deleteAll">{{ $t('permission.deleteAll') }}</el-button>
-      <el-button type="success" icon="el-icon-check" @click="okAll">{{ $t('permission.okAll') }}</el-button>
       <el-button type="primary" icon="el-icon-upload2" @click="okUpload">上传国网</el-button>
       <el-button type="primary" icon="el-icon-download" @click="okImprot">导入文件</el-button>
     </div>
@@ -55,21 +55,40 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" align="center" width="55" fixed />
-      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
-        <template slot-scope="scope">
-          {{ scope.row.saleOrg }}
-        </template>
-      </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.status')" width="100">
+      <el-table-column align="center" label="创建时间" width="150">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :class="[scope.row.isConfirm === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isConfirm === 0 ? '未确认' : '确认' }}</el-tag>
+          {{ scope.row.createTime }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.upload')" width="100">
         <template slot-scope="scope">
           <el-tag :type="scope.row.status" :class="[scope.row.isUpload === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isUpload === 0 ? '未上传' : '上传' }}</el-tag>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.entityCode')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.entityCode }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.poItemId')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.poItemId }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.entityStatus')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.entityStatus }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
+        <template slot-scope="scope">
+          {{ scope.row.saleOrg }}
         </template>
       </el-table-column>
 
@@ -86,23 +105,6 @@
       <el-table-column align="center" :label="$t('permission.supplierName')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.supplierName }}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" :label="$t('permission.entityCode')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.entityCode }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.poItemId')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.poItemId }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.entityStatus')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.entityStatus }}
         </template>
       </el-table-column>
 
@@ -207,7 +209,7 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { pidList, pidDellte, pidEdit, pidOk, pidUpload, allLogs } from '@/api/business'
+import { pidList, pidDellte, pidEdit, pidUpload, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import logDialog from '@/components/logDialog' // 日志封装
 const fixHeight = 280
@@ -228,11 +230,13 @@ export default {
       srcList: ['https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg', 'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'],
       pagination: {
         current: 1,
-        size: 50
+        size: 50,
+        startTime: '',
+        endTime: ''
       },
       listQuery: {
-        // supplierName: undefined,
-        ipoNo: undefined
+        entityCode: undefined,
+        importDate: []
       },
       listLoading: true,
       editLoading: false, // 编辑loading
@@ -242,9 +246,7 @@ export default {
       dialogTableVisible: false, // 日志弹出框
       dialogVisible: false, // 文件上传弹出框
       dialogFormVisible: false, // 编辑弹出框
-      content1: this.$t('permission.purchaserHqCode'),
-      content2: this.$t('permission.supplierCode'),
-      content3: this.$t('permission.supplierName'),
+      content1: this.$t('permission.entityCode'),
       rules: {
         saleOrg: [{ required: true, message: '请输入工厂', trigger: 'blur' }],
         purchaserHqCode: [{ required: true, message: '请输入采购方总部编码', trigger: 'blur' }],
@@ -271,14 +273,26 @@ export default {
         }, 400)
       }
     },
+    'listQuery.importDate': {
+      handler(val) {
+        this.pagination.startTime = val[0] + ' 00:00:00'
+        this.pagination.endTime = val[1] + ' 23:59:59'
+      },
+      deep: true
+    },
     // 监听data属性中英文切换问题
     '$i18n.locale'() {
-      this.content1 = this.$t('permission.purchaserHqCode')
-      this.content2 = this.$t('permission.supplierCode')
-      this.content3 = this.$t('permission.supplierName')
+      this.content1 = this.$t('permission.entityCode')
     }
   },
   created() {
+    // 搜索框初始化开始结束时间
+    this.listQuery.importDate[0] = this.$moment(new Date())
+      .subtract(1, 'months')
+      .format('YYYY-MM-DD 00:00:00')
+    this.listQuery.importDate[1] = this.$moment(new Date()).format('YYYY-MM-DD 23:59:59')
+    this.pagination.startTime = this.listQuery.importDate[0]
+    this.pagination.endTime = this.listQuery.importDate[1]
     // 监听表格高度
     const that = this
     window.onresize = () => {
@@ -289,22 +303,29 @@ export default {
     this.getList()
   },
   methods: {
+    // 改变搜索框开始结束时间触发
+    importChange(val) {
+      this.listQuery.importDate[0] = val[0]
+      this.listQuery.importDate[1] = val[1]
+    },
     // 查询
     handleSearch() {
       this.pagination.current = 1
-      // if (this.listQuery.supplierName === '') {
-      //   this.listQuery.supplierName = undefined
-      // }
-      if (this.listQuery.ipoNo === '') {
-        this.listQuery.ipoNo = undefined
+      if (this.listQuery.entityCode === '') {
+        this.listQuery.entityCode = undefined
       }
       this.getList()
     },
     // 重置
     handleReset() {
       this.listQuery = {
-        // supplierName: undefined,
-        ipoNo: undefined
+        entityCode: undefined,
+        importDate: [
+          this.$moment(new Date())
+            .subtract(1, 'months')
+            .format('YYYY-MM-DD'),
+          this.$moment(new Date()).format('YYYY-MM-DD')
+        ]
       }
       this.pagination = {
         current: 1,
@@ -363,7 +384,7 @@ export default {
         }
       })
     },
-    // 日志分页s
+    // 日志分页
     getLogList(val) {
       this.paginationLog = val
       this.clickLogs(this.logId)
@@ -400,40 +421,6 @@ export default {
             this.$message({
               type: 'info',
               message: this.$t('table.deleteError')
-            })
-          })
-      }
-    },
-    // 批量确认
-    okAll() {
-      if (this.selectedData.length > 0) {
-        this.$confirm(this.$t('table.okInfo'), this.$t('table.Tips') + this.$t('table.total') + this.selectedData.length + this.$t('table.dataInfo'), {
-          confirmButtonText: this.$t('table.confirm'),
-          cancelButtonText: this.$t('table.cancel'),
-          type: 'warning'
-        })
-          .then(() => {
-            const newId = []
-            this.selectedData.map(item => {
-              const newConfirm = item.isConfirm
-              if (newConfirm === 0) {
-                newId.push(item.id)
-              }
-            })
-            pidOk(newId).then(res => {
-              if (res.code === 200) {
-                this.$message({
-                  type: 'success',
-                  message: this.$t('table.operationSuccess')
-                })
-                this.getList()
-              }
-            })
-          })
-          .catch(() => {
-            this.$message({
-              type: 'info',
-              message: this.$t('table.operationError')
             })
           })
       }
@@ -479,7 +466,11 @@ export default {
             }
           })
         } else {
-          console.log('error submit!!')
+          this.editLoading = false
+          this.$message({
+            type: 'error',
+            message: '必填项不能为空'
+          })
           return false
         }
       })
