@@ -2,6 +2,16 @@
 const newUrl = 'http://39.101.166.244:8888'
 import request from '@/utils/request'
 
+// 所有日志查询接口
+export function allLogs(query, data) {
+  return request({
+    url: newUrl + '/sys/logs/dataId',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
 // 表格解析接口
 export function analysis() {
   return request({

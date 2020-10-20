@@ -400,6 +400,16 @@ export default {
     itemProductAmount: '当前入库批次库存剩余数量',
     itemPoNo: '国网采购订单号',
     itemPurchaseName: '采购方公司名称',
+    putCenterTime: '入数采中心时间',
+    pressureTimeUn: '耐压持续额定时间(s)',
+    dischargeUn: '额定局放量(pC)',
+    dischargeA: 'A相局放量',
+    dischargeB: 'B相局放量',
+    dischargeC: 'C相局放量',
+    imageFileUrl: '（电流互感器）检验报告附件',
+    pressureValueUn: '一次耐压额定值(kV)',
+    imageFileUrlOther: '（电压互感器）检验报告附件',
+    ratedVoltage: '一次额定电压(kV)',
 
     // 截止
     roles: '你的权限',

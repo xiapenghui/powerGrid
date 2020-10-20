@@ -30,7 +30,7 @@
           </el-col>
         </el-col>
 
-        <el-col :span="4">
+         <el-col :span="4" class="textLeft">
           <el-button type="primary" icon="el-icon-search" @click="handleSearch">{{ $t('permission.search') }}</el-button>
           <el-button type="danger" icon="el-icon-refresh" @click="handleReset">{{ $t('permission.reset') }}</el-button>
         </el-col>

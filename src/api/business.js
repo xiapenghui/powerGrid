@@ -302,7 +302,7 @@ export function poList(query, data) {
 //  采购订单信息列表接口
 export function poDown() {
   return request({
-    url: newUrl + '/api/eip/po/page',
+    url: newUrl + '/api/eip/po/down',
     method: 'get'
   })
 }

@@ -104,7 +104,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.serialNumber')" width="120">
+      <el-table-column align="center" :label="$t('permission.serialNumber')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.serialNumber }}
         </template>
@@ -128,7 +128,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.prjName')" :show-overflow-tooltip="true" width="200">
+      <el-table-column align="center" :label="$t('permission.prjName')" :show-overflow-tooltip="true" width="150">
         <template slot-scope="scope">
           {{ scope.row.prjName }}
         </template>
@@ -200,7 +200,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.modifyTime')" width="120">
+      <el-table-column align="center" :label="$t('permission.modifyTime')" width="150">
         <template slot-scope="scope">
           {{ scope.row.modifyTime }}
         </template>
@@ -266,7 +266,7 @@ export default {
   created() {
     // 搜索框初始化开始结束时间
     this.listQuery.importDate[0] = this.$moment(new Date())
-      .subtract(1, 'months')
+      .subtract(5, 'months')
       .format('YYYY-MM-DD 00:00:00')
     this.listQuery.importDate[1] = this.$moment(new Date()).format('YYYY-MM-DD 23:59:59')
     this.pagination.startTime = this.listQuery.importDate[0]
@@ -333,10 +333,23 @@ export default {
     // 下载数据
     download() {
       poDown().then(res => {
-        debugger
+        this.listLoading = true
+        if (res.code === 200) {
+          this.getList()
+          this.$message({
+            type: 'success',
+            message: '下载成功!'
+          })
+          this.listLoading = false
+        } else {
+          this.$message({
+            type: 'error',
+            message: '下载失败!'
+          })
+        }
+        this.listLoading = false
       })
     }
-
   }
 }
 </script>
