@@ -5,70 +5,42 @@
         <el-col :span="6">
           <el-col :span="8">
             <el-tooltip class="item" effect="dark" :content="content1" placement="top-start">
-              <label class="radio-label">{{ $t('permission.purchaserHqCode') }}:</label>
+              <label class="radio-label">{{ $t('permission.supplierWorkNo') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="listQuery.purchaserHqCode" :placeholder="$t('permission.purchaserHqCodeInfo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.supplierWorkNo" :placeholder="$t('permission.supplierWorkNo')" clearable /></el-col>
         </el-col>
 
-        <el-col :span="6">
-          <el-col :span="8">
-            <el-tooltip class="item" effect="dark" :content="content2" placement="top-start">
-              <label class="radio-label">{{ $t('permission.supplierCode') }}:</label>
-            </el-tooltip>
+        <el-col :span="8">
+          <el-col :span="4">
+            <el-tooltip class="item" effect="dark" placement="top-start"><label class="radio-label">创建时间:</label></el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="listQuery.supplierCode" :placeholder="$t('permission.supplierCodeInfo')" clearable /></el-col>
-        </el-col>
-
-        <el-col :span="6">
-          <el-col :span="8">
-            <el-tooltip class="item" effect="dark" :content="content3" placement="top-start">
-              <label class="radio-label">{{ $t('permission.supplierName') }}:</label>
-            </el-tooltip>
+          <el-col :span="18">
+            <el-date-picker
+              v-model="listQuery.importDate"
+              format="yyyy-MM-dd"
+              value-format="yyyy-MM-dd"
+              type="daterange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              :clearable="false"
+              @change="importChange"
+            />
           </el-col>
-          <el-col :span="16"><el-input v-model="listQuery.supplierName" :placeholder="$t('permission.supplierNameInfo')" clearable /></el-col>
-        </el-col>
-      </el-row>
-
-      <el-row :gutter="20" style="margin-top:20px">
-        <el-col :span="6">
-          <el-col :span="8">
-            <el-tooltip class="item" effect="dark" :content="content4" placement="top-start">
-              <label class="radio-label">{{ $t('permission.dataSource') }}:</label>
-            </el-tooltip>
-          </el-col>
-          <el-col :span="16"><el-input v-model="listQuery.dataSource" :placeholder="$t('permission.dataSourceInfo')" clearable /></el-col>
         </el-col>
 
-        <el-col :span="6">
-          <el-col :span="8">
-            <el-tooltip class="item" effect="dark" :content="content5" placement="top-start">
-              <label class="radio-label">{{ $t('permission.ownerId') }}:</label>
-            </el-tooltip>
-          </el-col>
-          <el-col :span="16"><el-input v-model="listQuery.ownerId" :placeholder="$t('permission.ownerIdInfo')" clearable /></el-col>
+        <el-col :span="4" class="textLeft">
+          <el-button type="primary" icon="el-icon-search" @click="handleSearch">{{ $t('permission.search') }}</el-button>
+          <el-button type="danger" icon="el-icon-refresh" @click="handleReset">{{ $t('permission.reset') }}</el-button>
         </el-col>
-
-        <el-col :span="6">
-          <el-col :span="8">
-            <el-tooltip class="item" effect="dark" :content="content6" placement="top-start">
-              <label class="radio-label">{{ $t('permission.openId') }}:</label>
-            </el-tooltip>
-          </el-col>
-          <el-col :span="16"><el-input v-model="listQuery.openId" :placeholder="$t('permission.openIdInfo')" clearable /></el-col>
-        </el-col>
-      </el-row>
-
-      <el-row class="center">
-        <el-button type="primary" icon="el-icon-search" @click="handleSearch">{{ $t('permission.search') }}</el-button>
-        <el-button type="danger" icon="el-icon-refresh" @click="handleReset">{{ $t('permission.reset') }}</el-button>
       </el-row>
     </div>
 
     <div class="rightBtn">
       <el-button type="danger" icon="el-icon-delete" @click="deleteAll">{{ $t('permission.deleteAll') }}</el-button>
-      <el-button type="primary" icon="el-icon-check" @click="okAll">{{ $t('permission.okAll') }}</el-button>
-      <el-button type="primary" icon="el-icon-document-remove" style="display: none;" @click="handleExport">{{ $t('permission.exportOrder') }}</el-button>
+      <el-button type="primary" icon="el-icon-upload2" @click="okUpload">上传国网</el-button>
+      <el-button type="primary" icon="el-icon-download" @click="okImprot">导入文件</el-button>
     </div>
 
     <el-table
@@ -82,174 +54,224 @@
       highlight-current-row
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection"  align="center" width="55" />
-      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="150" fixed>
+      <el-table-column type="selection" align="center" width="55" fixed />
+
+      <el-table-column align="center" label="创建时间" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.saleOrg }}</span>
-          <el-input v-else v-model="scope.row.saleOrg" />
+          {{ scope.row.createTime }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.status')" width="150">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :class="[scope.row.isConfirm === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isConfirm === 0 ? '未确认' : '确认' }}</el-tag>
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.upload')" width="150">
+      <el-table-column align="center" :label="$t('permission.upload')" width="100">
         <template slot-scope="scope">
           <el-tag :type="scope.row.status" :class="[scope.row.isUpload === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isUpload === 0 ? '未上传' : '上传' }}</el-tag>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.standardVersion')" width="150">
+      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.standardVersion }}</span>
-          <el-input v-else v-model="scope.row.standardVersion" />
+          {{ scope.row.saleOrg }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.standardVersion')" width="160">
+        <template slot-scope="scope">
+          {{ scope.row.standardVersion }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.supplierWorkNo')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.supplierWorkNo }}</span>
-          <el-input v-else v-model="scope.row.supplierWorkNo" />
+          {{ scope.row.supplierWorkNo }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.supplierCodeOther')" width="150">
+      <el-table-column align="center" :label="$t('permission.supplierCodeOther')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.supplierCode }}</span>
-          <el-input v-else v-model="scope.row.supplierCode" />
+          {{ scope.row.supplierCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.modelCode')" width="150">
+      <el-table-column align="center" :label="$t('permission.modelCode')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.modelCode }}</span>
-          <el-input v-else v-model="scope.row.modelCode" />
+          {{ scope.row.modelCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.categoryType')" width="150">
+      <el-table-column align="center" :label="$t('permission.categoryType')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.categoryType }}</span>
-          <el-input v-else v-model="scope.row.categoryType" />
+          {{ scope.row.categoryType }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.factoryCode')" width="150">
+      <el-table-column align="center" :label="$t('permission.factoryCode')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.factoryCode }}</span>
-          <el-input v-else v-model="scope.row.factoryCode" />
+          {{ scope.row.factoryCode }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.supplierSupportId')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.supplierSupportId }}</span>
-          <el-input v-else v-model="scope.row.supplierSupportId" />
+          {{ scope.row.supplierSupportId }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.productModelOther')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.productModel }}</span>
-          <el-input v-else v-model="scope.row.productModel" />
+          {{ scope.row.productModel }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.equipmentName')" width="150">
+      <el-table-column align="center" :label="$t('permission.equipmentName')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.equipmentName }}</span>
-          <el-input v-else v-model="scope.row.equipmentName" />
+          {{ scope.row.equipmentName }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.equipmentUniqueCode')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.equipmentUniqueCode }}</span>
-          <el-input v-else v-model="scope.row.equipmentUniqueCode" />
+          {{ scope.row.equipmentUniqueCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.isAlarmData')" width="150">
+      <el-table-column align="center" :label="$t('permission.isAlarmData')" width="200">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.isAlarmData }}</span>
-          <el-input v-else v-model="scope.row.isAlarmData" />
+          {{ scope.row.isAlarmData }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.alarmItem')" width="200">
+      <el-table-column align="center" :label="$t('permission.alarmItem')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.alarmItem }}</span>
-          <el-input v-else v-model="scope.row.alarmItem" />
+          {{ scope.row.alarmItem }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.processTypeThree')" width="200">
+      <el-table-column align="center" :label="$t('permission.processTypeThree')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.processType }}</span>
-          <el-input v-else v-model="scope.row.processType" />
+          {{ scope.row.processType }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.pdCodeOther')" width="200">
+      <el-table-column align="center" :label="$t('permission.pdCodeOther')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.pdCode }}</span>
-          <el-input v-else v-model="scope.row.pdCode" />
+          {{ scope.row.pdCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.checkTime')" width="200">
+      <el-table-column align="center" :label="$t('permission.checkTime')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.checkTime }}</span>
-          <el-input v-else v-model="scope.row.checkTime" />
+          {{ scope.row.checkTime }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.SO_Num')" width="200">
+      <el-table-column align="center" :label="$t('permission.putCenterTime')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.SO_Num }}</span>
-          <el-input v-else v-model="scope.row.SO_Num" />
+          {{ scope.row.putCenterTime }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.ContactNums')" width="200">
+      <el-table-column align="center" :label="$t('permission.ContactNums')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.ContactNum }}</span>
-          <el-input v-else v-model="scope.row.ContactNum" />
+          {{ scope.row.ContactNum }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.MaterialSNs')" width="200">
+      <el-table-column align="center" :label="$t('permission.MaterialSNs')" width="150">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.MaterialSNs }}</span>
-          <el-input v-else v-model="scope.row.MaterialSNs" />
+          {{ scope.row.materialSN }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.pressureValueTwo')" width="200">
+      <el-table-column align="center" :label="$t('permission.pressureValueUnOther')" width="120">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.pressureValue }}</span>
-          <el-input v-else v-model="scope.row.pressureValue" />
+          {{ scope.row.pressureValueUn }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.pressureTime')" width="200">
+      <el-table-column align="center" :label="$t('permission.pressureValueTwo')" width="180">
         <template slot-scope="scope">
-          <span v-if="!scope.row.isEgdit">{{ scope.row.pressureTime }}</span>
-          <el-input v-else v-model="scope.row.pressureTime" />
+          {{ scope.row.pressureValue }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.operations')" fixed="right" width="200">
+      <el-table-column align="center" :label="$t('permission.pressureTime')" width="150">
         <template slot-scope="scope">
-          <el-button v-if="!scope.row.isEgdit" type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">{{ $t('table.edit') }}</el-button>
-          <el-button v-else type="success" size="small" @click="editSuccess(scope.$index, scope.row)">{{ $t('table.editSuccess') }}</el-button>
-          <el-button type="danger" size="small" @click="handleDelete(scope.$index, scope.row)">{{ $t('table.delete') }}</el-button>
+          {{ scope.row.pressureTime }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.operations')" fixed="right" width="150">
+        <template slot-scope="scope">
+          <el-button type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">{{ $t('table.edit') }}</el-button>
+          <el-button type="warning" size="small" @click="clickLogs(scope.row)">日志</el-button>
         </template>
       </el-table-column>
     </el-table>
+
+    <!-- 编辑弹窗 -->
+    <el-dialog title="编辑信息" :visible.sync="dialogFormVisible">
+      <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
+        <div class="boxLeft">
+          <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
+          <el-form-item label="供应商工单编号" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" /></el-form-item>
+          <el-form-item label="规格型号编码" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
+          <el-form-item label="厂区编号"><el-input v-model="ruleForm.factoryCode" /></el-form-item>
+          <el-form-item label="供应商产品厂内编号" prop="productModel"><el-input v-model="ruleForm.productModel" /></el-form-item>
+          <el-form-item label="生产设备唯一识别号" prop="equipmentUniqueCode"><el-input v-model="ruleForm.equipmentUniqueCode" /></el-form-item>
+          <el-form-item label="是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
+          <el-form-item label="感知过程" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
+          <el-form-item label="采集时间" prop="checkTime">
+            <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+          </el-form-item>
+          <el-form-item label="合同出厂编号(常州)" prop="contactNum"><el-input v-model="ruleForm.contactNum" /></el-form-item>
+          <el-form-item label="额定耐压值(kV)" prop="pressureValueUn"><el-input v-model="ruleForm.pressureValueUn" /></el-form-item>
+        </div>
+        <div class="boxRight">
+          <el-form-item label="采集规范版本号" prop="standardVersion"><el-input v-model="ruleForm.standardVersion" /></el-form-item>
+          <el-form-item label="国网侧供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
+          <el-form-item label="物资品类类型" prop="categoryType"><el-input v-model="ruleForm.categoryType" /></el-form-item>
+          <el-form-item label="供应商产品编号"><el-input v-model="ruleForm.supplierSupportId" /></el-form-item>
+          <el-form-item label="生产设备名称" prop="equipmentName"><el-input v-model="ruleForm.equipmentName" /></el-form-item>
+          <el-form-item label="告警项"><el-input v-model="ruleForm.alarmItem" /></el-form-item>
+          <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
+          <el-form-item label="入数采中心时间" prop="putCenterTime">
+            <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+          </el-form-item>
+          <el-form-item label="成品序列号" prop="materialSN"><el-input v-model="ruleForm.materialSN" /></el-form-item>
+          <el-form-item label="耐压值（二次耐压值）" prop="pressureValue"><el-input v-model="ruleForm.pressureValue" /></el-form-item>
+          <el-form-item label="耐压持续时间(s)" prop="pressureTime"><el-input v-model="ruleForm.pressureTime" /></el-form-item>
+        </div>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+      </div>
+    </el-dialog>
+
+    <!-- 日志弹出框 -->
+    <log-dialog :is-show="dialogTableVisible" :log-total="logTotal" :pagination-log="paginationLog" :data="gridData" @pageChange="getLogList" @closeLog="closeLog" />
+
+    <!-- 上传文件弹窗 -->
+    <el-dialog title="导入文件" :visible.sync="dialogVisible" width="30%">
+      <el-upload
+        class="upload-demo"
+        :action="this.GLOBAL.BASE_URL + '/api/kvsc/ct/import/file'"
+        :limit="1"
+        :before-upload="beforeAvatarUpload"
+        :on-success="handleAvatarSuccess"
+        :on-error="handleAvatarError"
+        :auto-upload="true"
+      >
+        <el-button size="small" type="primary">{{ $t('table.clickUp') }}</el-button>
+        <div slot="tip" class="el-upload__tip">
+          {{ $t('table.onlyUpload') }}
+          <b>{{ $t('table.xls') }}</b>
+          {{ $t('table.or') }}
+          <b>{{ $t('table.xlsx') }}</b>
+          {{ $t('table.fileSize') }}
+        </div>
+      </el-upload>
+    </el-dialog>
     <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" />
   </div>
 </template>
@@ -258,48 +280,65 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { routerList, routerDellte, routerEdit, routerOk } from '@/api/tenGrid'
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-const fixHeight = 450
+import { routerList, routerDellte, routerEdit, allLogs } from '@/api/tenGrid'
+import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
+import logDialog from '@/components/logDialog' // 日志封装
+const fixHeight = 280
 export default {
-  components: { Pagination },
+  components: { Pagination, logDialog },
   data() {
     return {
-      tableData: [
-        // {
-        //   poItemId: '',
-        //   productCode: '',
-        //   productName: '',
-        //   productUnit: '',
-        //   productAmount: '',
-        //   ownerId: '',
-        //   openId: '',
-        //   dataSource: '',
-        //   dataSourceCreateTime: ''
-        // }
-      ],
-      pagination: {
+      // 日志分页
+      paginationLog: {
         current: 1,
         size: 10
       },
+      logTotal: 0,
+      logId: {}, // 日志行数据
+      tableData: [],
+      gridData: [], // 日志信息
+      ruleForm: {}, // 编辑弹窗
+      srcList: ['https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg', 'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'],
+      pagination: {
+        current: 1,
+        size: 50,
+        startTime: '',
+        endTime: ''
+      },
       listQuery: {
-        purchaserHqCode: undefined,
-        supplierCode: undefined,
-        supplierName: undefined,
-        dataSource: undefined,
-        ownerId: undefined,
-        openId: undefined
+        supplierWorkNo: undefined,
+        importDate: []
       },
       listLoading: true,
+      editLoading: false, // 编辑loading
       total: 10,
       selectedData: [], // 批量删除新数组
       tableHeight: window.innerHeight - fixHeight, // 表格高度
-      content1: this.$t('permission.purchaserHqCode'),
-      content2: this.$t('permission.supplierCode'),
-      content3: this.$t('permission.supplierName'),
-      content4: this.$t('permission.dataSource'),
-      content5: this.$t('permission.ownerId'),
-      content6: this.$t('permission.openId')
+      dialogTableVisible: false, // 日志弹出框
+      dialogVisible: false, // 文件上传弹出框
+      dialogFormVisible: false, // 编辑弹出框
+      content1: this.$t('permission.supplierWorkNo'),
+      rules: {
+        saleOrg: [{ required: true, message: '请输入工厂', trigger: 'blur' }],
+        standardVersion: [{ required: true, message: '请输入采集规范版本号', trigger: 'blur' }],
+        supplierWorkNo: [{ required: true, message: '请输入供应商工单编号', trigger: 'blur' }],
+        supplierCode: [{ required: true, message: '请输入国网侧供应商编码', trigger: 'blur' }],
+        modelCode: [{ required: true, message: '请输入规格型号编码', trigger: 'blur' }],
+        categoryType: [{ required: true, message: '请输入物资品类类型', trigger: 'blur' }],
+        productModel: [{ required: true, message: '请输入供应商产品厂内编号', trigger: 'blur' }],
+        equipmentName: [{ required: true, message: '请输入生产设备名称', trigger: 'blur' }],
+        equipmentUniqueCode: [{ required: true, message: '请输入生产设备唯一识别号', trigger: 'blur' }],
+        processType: [{ required: true, message: '请输入感知过程', trigger: 'blur' }],
+        pdCode: [{ required: true, message: '请输入工序', trigger: 'blur' }],
+        checkTime: [{ required: true, message: '请输入采集时间', trigger: 'blur' }],
+        putCenterTime: [{ required: true, message: '请输入入数采中心时间', trigger: 'blur' }],
+        contactNum: [{ required: true, message: '请输入断路器出厂编号', trigger: 'blur' }],
+        materialSN: [{ required: true, message: '请输入成品序列号', trigger: 'blur' }],
+        pressureValueUn: [{ required: true, message: '请输入额定值', trigger: 'blur' }],
+        pressureValue: [{ required: true, message: '请输入耐压值（二次耐压值）', trigger: 'blur' }],
+        pressureTime: [{ required: true, message: '请输入耐压持续时间', trigger: 'blur' }]
+
+      }
     }
   },
   computed: {},
@@ -315,17 +354,26 @@ export default {
         }, 400)
       }
     },
+    'listQuery.importDate': {
+      handler(val) {
+        this.pagination.startTime = val[0] + ' 00:00:00'
+        this.pagination.endTime = val[1] + ' 23:59:59'
+      },
+      deep: true
+    },
     // 监听data属性中英文切换问题
     '$i18n.locale'() {
-      this.content1 = this.$t('permission.purchaserHqCode')
-      this.content2 = this.$t('permission.supplierCode')
-      this.content3 = this.$t('permission.supplierName')
-      this.content4 = this.$t('permission.dataSource')
-      this.content5 = this.$t('permission.ownerId')
-      this.content6 = this.$t('permission.openId')
+      this.content1 = this.$t('permission.supplierWorkNo')
     }
   },
   created() {
+    // 搜索框初始化开始结束时间
+    this.listQuery.importDate[0] = this.$moment(new Date())
+      .subtract(1, 'months')
+      .format('YYYY-MM-DD 00:00:00')
+    this.listQuery.importDate[1] = this.$moment(new Date()).format('YYYY-MM-DD 23:59:59')
+    this.pagination.startTime = this.listQuery.importDate[0]
+    this.pagination.endTime = this.listQuery.importDate[1]
     // 监听表格高度
     const that = this
     window.onresize = () => {
@@ -336,63 +384,72 @@ export default {
     this.getList()
   },
   methods: {
+    // 改变搜索框开始结束时间触发
+    importChange(val) {
+      this.listQuery.importDate[0] = val[0]
+      this.listQuery.importDate[1] = val[1]
+    },
     // 查询
     handleSearch() {
       this.pagination.current = 1
+      if (this.listQuery.supplierWorkNo === '') {
+        this.listQuery.supplierWorkNo = undefined
+      }
       this.getList()
     },
     // 重置
     handleReset() {
       this.listQuery = {
-        purchaserHqCode: undefined,
-        supplierCode: undefined,
-        supplierName: undefined,
-        dataSource: undefined,
-        ownerId: undefined,
-        openId: undefined
+        supplierWorkNo: undefined,
+        importDate: [
+          this.$moment(new Date())
+            .subtract(1, 'months')
+            .format('YYYY-MM-DD'),
+          this.$moment(new Date()).format('YYYY-MM-DD')
+        ]
       }
       this.pagination = {
         current: 1,
-        size: 10
+        size: 50
       }
       this.getList()
     },
+
+    // 多选
     handleSelectionChange(val) {
       this.selectedData = val
     },
-    // 删除数据
-    handleDelete(index, row) {
-      if (this.tableData.length > 0) {
-       this.$confirm(this.$t('table.deleteInfo'), this.$t('table.Tips'), {
-          confirmButtonText: this.$t('table.confirm'),
-         cancelButtonText: this.$t('table.cancel'),
-          type: 'warning'
-        })
-          .then(() => {
-            routerDellte([row.id]).then(res => {
-              if (res.code === 0) {
-                this.$message({
-                  type: 'success',
-                  message: this.$t('table.deleteSuccess')
-                })
-                this.getList()
-              }
-            })
-          })
-          .catch(() => {
-            this.$message({
-              type: 'info',
-               message: this.$t('table.deleteError')
-            })
-          })
-      }
+    // 点击日志
+    clickLogs(row) {
+      this.logId = row
+      allLogs(this.paginationLog, { dataId: row.id }).then(res => {
+        if (res.data.records.length > 0) {
+          this.dialogTableVisible = true
+          this.gridData = res.data.records
+          this.logTotal = res.data.total
+        } else {
+          this.dialogTableVisible = false
+          this.$message('此条数据暂无操作日志！')
+        }
+      })
     },
+
+    // 日志分页
+    getLogList(val) {
+      this.paginationLog = val
+      this.clickLogs(this.logId)
+    },
+    //  关闭日志弹窗
+    closeLog() {
+      this.dialogTableVisible = false
+    },
+
     // 批量删除
     deleteAll() {
       if (this.selectedData.length > 0) {
-        this.$confirm(this.$t('table.okInfo'), this.$t('table.Tips') + this.$t('table.total') + this.selectedData.length + this.$t('table.dataInfo'), {
+        this.$confirm(this.$t('table.deleteInfo'), this.$t('table.Tips') + this.$t('table.total') + this.selectedData.length + this.$t('table.dataInfo'), {
           confirmButtonText: this.$t('table.confirm'),
-         cancelButtonText: this.$t('table.cancel'),
+          cancelButtonText: this.$t('table.cancel'),
           type: 'warning'
         })
           .then(() => {
@@ -414,78 +471,10 @@ export default {
           .catch(() => {
             this.$message({
               type: 'info',
-               message: this.$t('table.deleteError')
+              message: this.$t('table.deleteError')
             })
           })
       }
-    },
-    // 批量确认
-    okAll() {
-      if (this.selectedData.length > 0) {
-         this.$confirm(this.$t('table.okInfo'), this.$t('table.Tips') + this.$t('table.total') + this.selectedData.length + this.$t('table.dataInfo'), {
-          confirmButtonText: this.$t('table.confirm'),
-         cancelButtonText: this.$t('table.cancel'),
-          type: 'warning'
-        })
-          .then(() => {
-            const newId = []
-            this.selectedData.map(item => {
-              const newConfirm = item.isConfirm
-              if (newConfirm === 0) {
-                newId.push(item.id)
-              }
-            })
-            routerOk(newId).then(res => {
-              if (res.code === 200) {
-                this.$message({
-                  type: 'success',
-                  message: this.$t('table.operationSuccess')
-                })
-                this.getList()
-              }
-            })
-          })
-          .catch(() => {
-            this.$message({
-              type: 'info',
-               message: this.$t('table.deleteError')
-            })
-          })
-      }
-    },
-    // 导出用户
-    handleExport() {
-      if (this.tableData.length) {
-        import('@/vendor/Export2Excel').then(excel => {
-          const tHeader = [
-            this.$t('permission.companyNo'),
-            this.$t('permission.companyName'),
-            this.$t('permission.title'),
-            this.$t('permission.department'),
-            this.$t('permission.company'),
-            this.$t('permission.description'),
-            this.$t('permission.state'),
-            this.$t('permission.user'),
-            this.$t('permission.time')
-          ]
-          const filterVal = ['companyNo', 'name', 'title', 'department', 'company', 'description', 'state', 'user', 'time']
-          const list = this.tableData
-          const data = this.formatJson(filterVal, list)
-          excel.export_json_to_excel({
-            header: tHeader,
-            data
-          })
-        })
-      } else {
-        this.$message({
-          message: 'Please select at least one item',
-          type: 'warning'
-        })
-      }
-    },
-    // 导出用户
-    formatJson(filterVal, jsonData) {
-      return jsonData.map(v => filterVal.map(j => v[j]))
     },
     // 获取列表
     getList() {
@@ -496,7 +485,6 @@ export default {
         this.listLoading = false
       })
     },
-
     i18n(routes) {
       const app = routes.map(route => {
         route.title = i18n.t(`route.${route.title}`)
@@ -509,34 +497,76 @@ export default {
     },
     // 编辑
     handleEdit(index, row) {
-      this.$set(row, 'isEgdit', true)
+      this.dialogFormVisible = true
+      this.ruleForm = JSON.parse(JSON.stringify(row))
     },
     // 编辑成功
-    editSuccess(index, row) {
-      // if (row.poItemId === '') {
-      //
-      //   this.$message.error('采购订单项目ID输入错误！')
-      //   return
-      // } else if (!row.productCode) {
-      //   this.$message.error('物质编码输入错误！')
-      //   return
-      // }
-      // this.$message.success('恭喜你，数据保存成功！')
-      // this.$set(row, 'isEgdit', false)
-      routerEdit(row).then(res => {
-        if (res.code === 200) {
-          this.$message({
-            type: 'success',
-            message: this.$t('table.editSuc')
+    submitForm(formName) {
+      this.editLoading = true
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          routerEdit(this.ruleForm).then(res => {
+            if (res.code === 200) {
+              this.$message({
+                type: 'success',
+                message: this.$t('table.editSuc')
+              })
+              this.editLoading = false
+              this.dialogFormVisible = false
+              this.getList()
+            }
           })
-          this.$set(row, 'isEgdit', false)
         } else {
+          this.editLoading = false
           this.$message({
             type: 'error',
-            message: this.$t('table.editErr')('table.editErr')
+            message: '必填项不能为空'
           })
+          return false
         }
       })
+    },
+    // 上传
+    okUpload() {
+      // electricUpload().then(res => {
+      //   if (res.code === 200) {
+      //     this.$message({
+      //       type: 'success',
+      //       message: '上传成功！'
+      //     })
+      //   }
+      //   this.getList()
+      // })
+    },
+    // 文件导入
+    okImprot() {
+      this.dialogVisible = true
+    },
+    // 成功
+    handleAvatarSuccess(res, file) {
+      if (res.code === 200) {
+        this.$message.success(this.$t('table.upSuccess'))
+        this.dialogVisible = false
+        this.getList()
+      }
+    },
+    // 失败
+    handleAvatarError(res, file) {
+      if (res.code === 500 && res.type === 'error') {
+        this.$message.error(this.$t('table.upError'))
+      }
+    },
+    beforeAvatarUpload(file) {
+      const isXLS = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      const isLt2M = file.size / 1024 / 1024 < 2
+
+      if (!isXLS) {
+        this.$message.error(this.$t('table.errorOne'))
+      }
+      if (!isLt2M) {
+        this.$message.error(this.$t('table.errorTwo'))
+      }
+      return isXLS && isLt2M
     }
   }
 }

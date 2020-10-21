@@ -414,6 +414,15 @@ export const asyncRoutes = [{
       title: 'userMangement',
       roles: ['admin']
     }
+  },
+  {
+    path: 'supplierMangemen',
+    component: () => import('@/views/SystemManagement/supplierMangemen'),
+    name: 'supplierMangemen',
+    meta: {
+      title: 'supplierMangemen',
+      roles: ['admin']
+    }
   }
   ]
 },

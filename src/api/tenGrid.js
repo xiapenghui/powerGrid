@@ -322,3 +322,50 @@ export function mctOk(data) {
     data
   })
 }
+
+// 供应商管理列表
+// 供应商管理列表接口
+export function supplierList(query, data) {
+  return request({
+    url: newUrl + '/sys/supplier/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+// 供应商管理编辑保存接口
+export function supplierEdit(data) {
+  return request({
+    url: newUrl + '/sys/supplier/update',
+    method: 'post',
+    data
+  })
+}
+
+// 供应商管理删除接口
+export function supplierDellte(data) {
+  return request({
+    url: newUrl + '/sys/supplier/delete',
+    method: 'post',
+    data
+  })
+}
+
+// 供应商管理增加接口
+export function supplierAdd(query) {
+  return request({
+    url: newUrl + '/sys/supplier/add',
+    method: 'post',
+    params: query
+  })
+}
+
+// 供应商管理增加接口
+export function supplierGet() {
+  return request({
+    url: newUrl + '/sys/supplier/sale-org',
+    method: 'get'
+  })
+}
+

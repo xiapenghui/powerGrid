@@ -100,15 +100,13 @@
     </el-table>
 
     <!-- 编辑弹窗 -->
-    <!-- <el-dialog title="编辑信息" :visible.sync="dialogFormVisible">
-      <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm"> -->
     <el-dialog :visible.sync="dialogFormVisible" :title="dialogType === 'edit' ? $t('permission.editUsers') : $t('permission.addUser')">
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="100px" label-position="left">
-        <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
-        <el-form-item label="供应商工单编号" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" /></el-form-item>
-        <el-form-item label="规格型号编码" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
-        <el-form-item label="是否是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
-        <el-form-item label="感知过程" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
+        <el-form-item label="用户名" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
+        <el-form-item label="姓名" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" /></el-form-item>
+        <el-form-item label="性别" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
+        <el-form-item label="电话" prop="isAlarmData"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
+        <el-form-item label="邮箱" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
       </el-form>
 
       <div slot="footer" class="dialog-footer">
@@ -139,7 +137,6 @@ export default {
       logTotal: 0,
       tableData: [],
       ruleForm: {}, // 编辑弹窗
-      srcList: ['https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg', 'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'],
       pagination: {
         current: 1,
         size: 50,
@@ -159,17 +156,11 @@ export default {
       content1: this.$t('permission.supplierWorkNo'),
       dialogType: 'new',
       rules: {
-        saleOrg: [{ required: true, message: '请输入工厂', trigger: 'blur' }],
-        standardVersion: [{ required: true, message: '请输入采集规范版本号', trigger: 'blur' }],
-        supplierWorkNo: [{ required: true, message: '请输入供应商工单编号', trigger: 'blur' }],
-        supplierCode: [{ required: true, message: '请输入国网侧供应商编码', trigger: 'blur' }],
-        modelCode: [{ required: true, message: '请输入规格型号编码', trigger: 'blur' }],
-        categoryType: [{ required: true, message: '请输入物资品类类型', trigger: 'blur' }],
-        processType: [{ required: true, message: '请输入感知过程', trigger: 'blur' }],
-        pdCode: [{ required: true, message: '请输入工序', trigger: 'blur' }],
-        checkTime: [{ required: true, message: '请输入采集时间', trigger: 'blur' }],
-        putCenterTime: [{ required: true, message: '请输入入数采中心时间', trigger: 'blur' }],
-        RawMaterialSN: [{ required: true, message: '请输入原材料出厂编号(Key)', trigger: 'blur' }]
+        saleOrg: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+        supplierWorkNo: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
+        modelCode: [{ required: true, message: '请选择性别', trigger: 'blur' }],
+        isAlarmData: [{ required: true, message: '请输入电话号码', trigger: 'blur' }],
+        processType: [{ required: true, message: '请输入邮箱', trigger: 'blur' }]
       }
     }
   },
@@ -288,6 +279,7 @@ export default {
     handleAddUser() {
       this.dialogType = 'new'
       this.dialogFormVisible = true
+      this.ruleForm = {}
     },
 
     // 获取列表

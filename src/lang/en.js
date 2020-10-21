@@ -39,6 +39,7 @@ export default {
     InsulationTest: 'Insulation Test',
     ElectricalInterlock: 'Electrical Interlock',
     productionList: 'Production Schedule',
+    supplierMangemen: 'Supplier Mangemen',
     // 截止
 
     icons: 'Icons',

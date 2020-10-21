@@ -39,6 +39,7 @@ export default {
     InsulationTest: '辅助回路绝缘试验',
     ElectricalInterlock: '电气联锁信息',
     productionList: '生产总表',
+    supplierMangemen: '供应商管理',
 
     // 截止
 
