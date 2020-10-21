@@ -108,7 +108,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.materialsName')" width="200">
+      <el-table-column align="center" :label="$t('permission.materialsName')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.materialsName }}
         </template>
@@ -222,7 +222,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.materialsDesc')" width="200">
+      <el-table-column align="center" :label="$t('permission.materialsDesc')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.materialsDesc }}
         </template>

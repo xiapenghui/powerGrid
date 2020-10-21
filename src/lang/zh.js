@@ -414,6 +414,14 @@ export default {
     loopResistanceUn: '额定电阻值',
     ContactNumOther: '断路器出厂编号(常州)',
     openCloseFiveManual: '人力分合操作5次，可靠动作',
+    breakTimeMax: '额定分闸时间上限值',
+    breakTimeMin: '额定分闸时间下限值',
+    closeTimeMax: '额定合闸时间上限值',
+    closeTimeMin: '额定合闸时间下限',
+    closeNotSameTimeUn: '合闸不同期额定值(ms)',
+    breakNotSameTimeUn: '分闸不同期额定值(ms)',
+    closeBounceTimeUn: '合闸弹跳额定值(ms)',
+    pressureValueUnOther: '额定耐压值(kV)',
 
     // 截止
     roles: '你的权限',
