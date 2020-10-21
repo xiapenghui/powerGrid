@@ -200,9 +200,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.imageFileUrl')" fixed="right" width="180">
-        <template slot-scope="scope">
-          <div class="demo-image__preview"><el-image style="width: 100px; height: 100px" :src="scope.row.imageFileUrl" :preview-src-list="srcList" /></div>
+      <el-table-column align="center" :label="$t('permission.imageFileUrl')" width="180">
+        <template>
+          <el-tag type="success"><i class="el-icon-picture" /></el-tag>
         </template>
       </el-table-column>
 
@@ -221,7 +221,7 @@
           <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
           <el-form-item label="供应商工单编号" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" /></el-form-item>
           <el-form-item label="规格型号编码" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
-          <el-form-item label="是否是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
+          <el-form-item label="是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
           <el-form-item label="感知过程" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
           <el-form-item label="采集时间" prop="checkTime">
             <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
@@ -480,7 +480,6 @@ export default {
     getList() {
       this.listLoading = true
       electricCurrent(this.pagination, this.listQuery).then(res => {
-        debugger
         this.tableData = res.data.records
         this.total = res.data.total
         this.listLoading = false

@@ -571,7 +571,6 @@ export default {
     // 成功
     handleAvatarSuccess(res, file) {
       if (res.code === 200) {
-        debugger
         this.$message.success(this.$t('table.upSuccess'))
         this.dialogVisible = false
         this.getList()

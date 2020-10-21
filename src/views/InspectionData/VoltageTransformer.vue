@@ -193,11 +193,17 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.imageFileUrlOther')" fixed="right" width="180">
+      <el-table-column align="center" :label="$t('permission.imageFileUrl')" width="180">
+        <template>
+          <el-tag type="success"><i class="el-icon-picture" /></el-tag>
+        </template>
+      </el-table-column>
+
+      <!--  <el-table-column align="center" :label="$t('permission.imageFileUrlOther')" fixed="right" width="180">
         <template slot-scope="scope">
           <div class="demo-image__preview"><el-image style="width: 100px; height: 100px" :src="scope.row.imageFileUrl" :preview-src-list="srcList" /></div>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column align="center" :label="$t('permission.operations')" fixed="right" width="150">
         <template slot-scope="scope">

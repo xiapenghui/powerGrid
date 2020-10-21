@@ -410,6 +410,10 @@ export default {
     pressureValueUn: '一次耐压额定值(kV)',
     imageFileUrlOther: '（电压互感器）检验报告附件',
     ratedVoltage: '一次额定电压(kV)',
+    FG_FactoryNum: '柜体出厂编号(常州)',
+    loopResistanceUn: '额定电阻值',
+    ContactNumOther: '断路器出厂编号(常州)',
+    openCloseFiveManual: '人力分合操作5次，可靠动作',
 
     // 截止
     roles: '你的权限',

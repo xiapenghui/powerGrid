@@ -634,7 +634,6 @@ export default {
     getList() {
       this.listLoading = true
       productionList(this.pagination, this.listQuery).then(res => {
-        debugger
         this.tableData = res.data.records
         this.total = res.data.total
         this.listLoading = false
