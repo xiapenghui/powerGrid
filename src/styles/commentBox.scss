@@ -10,18 +10,21 @@
       .boxLeft,
       .boxRight {
         width: 46%;
+        .el-date-editor.el-input{
+            width: 100%;
+        }
       }
     }
   }
 }
 .app-container {
-  .el-dialog{
+  .el-dialog {
     margin-top: 5vh !important;
   }
   .el-button {
     padding: 5px 10px;
   }
-  .el-button--small{
+  .el-button--small {
     padding: 3px 10px;
   }
   .search {
@@ -31,19 +34,20 @@
     label {
       font-weight: 500;
     }
-    .el-select{
+    .el-select {
       width: 100%;
     }
-    .el-date-editor.el-input{
-       width: 160px;
-    }
 
-    .el-col-8 {
-      text-align: right;
+    .el-col-8,
+    .el-col-4 {
+      text-align: center;
       line-height: 30px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+    }
+    .textLeft {
+      text-align: left;
     }
 
     .center {
@@ -53,12 +57,6 @@
     .is-circle {
       float: right;
       margin-right: 10px;
-    }
-    .el-icon-d-arrow-left {
-      transform: rotate(270deg);
-    }
-    .el-icon-d-arrow-right {
-      transform: rotate(270deg);
     }
   }
 

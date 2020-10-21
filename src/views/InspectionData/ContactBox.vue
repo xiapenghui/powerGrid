@@ -40,14 +40,12 @@ export default {
   created() {
     this.tabledatas = [{ title: '标题1', text: 's111sssa' }, { title: '标题2', text: 'ss222ssa' }]
     this.tabledatas.map(i => {
-      debugger
       i.show = false
       return i
     })
   },
   methods: {
     edit(row, index) {
-      debugger
       row.show = !row.show
       Vue.set(this.tabledatas, index, row)
       // 修改后保存
@@ -66,7 +64,6 @@ export default {
     },
     // 单个复制
     cope(val, index) {
-      debugger
       this.tabledatas.splice(index, 0, JSON.parse(JSON.stringify(val)))
     },
     // 单个删除

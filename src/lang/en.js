@@ -110,7 +110,7 @@ export default {
     improt: 'Import File'
   },
   login: {
-    title: 'Login Form',
+    title: 'Cooper Edison National Network System',
     logIn: 'Login',
     username: 'Username',
     password: 'Password',

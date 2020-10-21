@@ -10,7 +10,27 @@
           </el-col>
           <el-col :span="16"><el-input v-model="listQuery.soNo" :placeholder="$t('permission.poItemIdInfos')" clearable /></el-col>
         </el-col>
-        <el-col :span="6">
+
+        <el-col :span="8">
+          <el-col :span="4">
+            <el-tooltip class="item" effect="dark" placement="top-start"><label class="radio-label">创建时间:</label></el-tooltip>
+          </el-col>
+          <el-col :span="18">
+            <el-date-picker
+              v-model="listQuery.importDate"
+              format="yyyy-MM-dd"
+              value-format="yyyy-MM-dd"
+              type="daterange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              :clearable="false"
+              @change="importChange"
+            />
+          </el-col>
+        </el-col>
+
+        <el-col :span="4" class="textLeft">
           <el-button type="primary" icon="el-icon-search" @click="handleSearch">{{ $t('permission.search') }}</el-button>
           <el-button type="danger" icon="el-icon-refresh" @click="handleReset">{{ $t('permission.reset') }}</el-button>
         </el-col>
@@ -18,7 +38,6 @@
     </div>
     <div class="rightBtn">
       <el-button type="danger" icon="el-icon-delete" @click="deleteAll">{{ $t('permission.deleteAll') }}</el-button>
-      <el-button type="success" icon="el-icon-check" @click="okAll">{{ $t('permission.okAll') }}</el-button>
       <el-button type="primary" icon="el-icon-upload2" @click="okUpload">上传国网</el-button>
       <el-button type="primary" icon="el-icon-download" @click="okImprot">导入文件</el-button>
     </div>
@@ -35,9 +54,10 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" align="center" width="55" fixed />
-      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
+
+      <el-table-column align="center" label="创建时间" width="150">
         <template slot-scope="scope">
-          {{ scope.row.saleOrg }}
+          {{ scope.row.createTime }}
         </template>
       </el-table-column>
 
@@ -53,26 +73,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.purchaserHqCode')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.purchaserHqCode }}
-        </template>
-      </el-table-column>
-
       <el-table-column align="center" :label="$t('permission.soNo')" width="120">
         <template slot-scope="scope">
           {{ scope.row.soNo }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.supplierCode')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.supplierCode }}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" :label="$t('permission.buyerCode')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.buyerCode }}
         </template>
       </el-table-column>
 
@@ -82,33 +85,15 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.buyerProvinceOther')" width="160">
-        <template slot-scope="scope">
-          {{ scope.row.buyerProvince }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.categoryCode')" width="100">
-        <template slot-scope="scope">
-          {{ scope.row.categoryCode }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.subclassCode')" width="100">
-        <template slot-scope="scope">
-          {{ scope.row.subclassCode }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.soStatus')" width="100">
-        <template slot-scope="scope">
-          {{ scope.row.soStatus }}
-        </template>
-      </el-table-column>
-
       <el-table-column align="center" :label="$t('permission.soItemNo')" width="120">
         <template slot-scope="scope">
           {{ scope.row.soItemNo }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.poNo')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.poNo }}
         </template>
       </el-table-column>
 
@@ -136,9 +121,69 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.productAmount')" width="120">
+      <el-table-column align="center" :label="$t('permission.productAmount')" width="150">
         <template slot-scope="scope">
           {{ scope.row.productAmount }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
+        <template slot-scope="scope">
+          {{ scope.row.saleOrg }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.purchaserHqCode')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.purchaserHqCode }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.supplierCode')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.supplierCode }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.buyerCode')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.buyerCode }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.buyerProvinceOther')" width="160">
+        <template slot-scope="scope">
+          {{ scope.row.buyerProvince }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.categoryCode')" width="100">
+        <template slot-scope="scope">
+          {{ scope.row.categoryCode }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.subclassCode')" width="100">
+        <template slot-scope="scope">
+          {{ scope.row.subclassCode }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.dataSource')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.dataSource }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.dataSourceCreateTime')" width="150">
+        <template slot-scope="scope">
+          {{ scope.row.dataSourceCreateTime }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.soStatus')" width="100">
+        <template slot-scope="scope">
+          {{ scope.row.soStatus }}
         </template>
       </el-table-column>
 
@@ -151,18 +196,6 @@
       <el-table-column align="center" :label="$t('permission.openId')" width="120">
         <template slot-scope="scope">
           {{ scope.row.openId }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.dataSource')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.dataSource }}>
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.dataSourceCreateTime')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.dataSourceCreateTime }}
         </template>
       </el-table-column>
 
@@ -245,7 +278,7 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { saleList, saleDellte, saleEdit, saleOk, saleUpload, allLogs } from '@/api/business'
+import { saleList, saleDellte, saleEdit, saleUpload, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import logDialog from '@/components/logDialog' // 日志封装
 const fixHeight = 280
@@ -265,10 +298,13 @@ export default {
       ruleForm: {}, // 编辑弹窗
       pagination: {
         current: 1,
-        size: 50
+        size: 50,
+        startTime: '',
+        endTime: ''
       },
       listQuery: {
-        soNo: undefined
+        soNo: undefined,
+        importDate: []
       },
       listLoading: true,
       editLoading: false, // 编辑loading
@@ -316,9 +352,23 @@ export default {
     // 监听data属性中英文切换问题
     '$i18n.locale'() {
       this.content1 = this.$t('permission.poItemIds')
+    },
+    'listQuery.importDate': {
+      handler(val) {
+        this.pagination.startTime = val[0] + ' 00:00:00'
+        this.pagination.endTime = val[1] + ' 23:59:59'
+      },
+      deep: true
     }
   },
   created() {
+    // 搜索框初始化开始结束时间
+    this.listQuery.importDate[0] = this.$moment(new Date())
+      .subtract(1, 'months')
+      .format('YYYY-MM-DD 00:00:00')
+    this.listQuery.importDate[1] = this.$moment(new Date()).format('YYYY-MM-DD 23:59:59')
+    this.pagination.startTime = this.listQuery.importDate[0]
+    this.pagination.endTime = this.listQuery.importDate[1]
     // 监听表格高度
     const that = this
     window.onresize = () => {
@@ -329,6 +379,11 @@ export default {
     this.getList()
   },
   methods: {
+    // 改变搜索框开始结束时间触发
+    importChange(val) {
+      this.listQuery.importDate[0] = val[0]
+      this.listQuery.importDate[1] = val[1]
+    },
     // 查询
     handleSearch() {
       this.pagination.current = 1
@@ -340,7 +395,13 @@ export default {
     // 重置
     handleReset() {
       this.listQuery = {
-        soNo: undefined
+        soNo: undefined,
+        importDate: [
+          this.$moment(new Date())
+            .subtract(1, 'months')
+            .format('YYYY-MM-DD'),
+          this.$moment(new Date()).format('YYYY-MM-DD')
+        ]
       }
       this.pagination = {
         current: 1,
@@ -439,76 +500,7 @@ export default {
           })
       }
     },
-    // 批量确认
-    okAll() {
-      if (this.selectedData.length > 0) {
-        this.$confirm(this.$t('table.okInfo'), this.$t('table.Tips') + this.$t('table.total') + this.selectedData.length + this.$t('table.dataInfo'), {
-          confirmButtonText: this.$t('table.confirm'),
-          cancelButtonText: this.$t('table.cancel'),
-          type: 'warning'
-        })
-          .then(() => {
-            const newId = []
-            this.selectedData.map(item => {
-              const newConfirm = item.isConfirm
-              if (newConfirm === 0) {
-                newId.push(item.id)
-              }
-            })
-            saleOk(newId).then(res => {
-              if (res.code === 200) {
-                this.$message({
-                  type: 'success',
-                  message: this.$t('table.operationSuccess')
-                })
-                this.getList()
-              }
-            })
-          })
-          .catch(() => {
-            this.$message({
-              type: 'info',
-              message: this.$t('table.operationError')
-            })
-          })
-      }
-    },
 
-    // 导出用户
-    handleExport() {
-      if (this.tableData.length) {
-        this.downloadLoading = true
-        import('@/vendor/Export2Excel').then(excel => {
-          const tHeader = [
-            this.$t('permission.companyNo'),
-            this.$t('permission.companyName'),
-            this.$t('permission.title'),
-            this.$t('permission.department'),
-            this.$t('permission.company'),
-            this.$t('permission.description'),
-            this.$t('permission.state'),
-            this.$t('permission.user'),
-            this.$t('permission.time')
-          ]
-          const filterVal = ['companyNo', 'name', 'title', 'department', 'company', 'description', 'state', 'user', 'time']
-          const list = this.tableData
-          const data = this.formatJson(filterVal, list)
-          excel.export_json_to_excel({
-            header: tHeader,
-            data
-          })
-        })
-      } else {
-        this.$message({
-          message: 'Please select at least one item',
-          type: 'warning'
-        })
-      }
-    },
-    // 导出用户
-    formatJson(filterVal, jsonData) {
-      return jsonData.map(v => filterVal.map(j => v[j]))
-    },
     // 获取列表
     getList() {
       this.listLoading = true
@@ -551,12 +543,15 @@ export default {
             }
           })
         } else {
-          console.log('error submit!!')
+          this.editLoading = false
+          this.$message({
+            type: 'error',
+            message: '必填项不能为空'
+          })
           return false
         }
       })
     },
-
     // 上传
     okUpload() {
       saleUpload().then(res => {
@@ -576,7 +571,6 @@ export default {
     // 成功
     handleAvatarSuccess(res, file) {
       if (res.code === 200) {
-        debugger
         this.$message.success(this.$t('table.upSuccess'))
         this.dialogVisible = false
         this.getList()
