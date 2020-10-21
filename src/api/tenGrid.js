@@ -353,11 +353,11 @@ export function supplierDellte(data) {
 }
 
 // 供应商管理增加接口
-export function supplierAdd(query) {
+export function supplierAdd(data) {
   return request({
     url: newUrl + '/sys/supplier/add',
     method: 'post',
-    params: query
+    data
   })
 }
 
@@ -368,4 +368,3 @@ export function supplierGet() {
     method: 'get'
   })
 }
-

@@ -274,17 +274,10 @@ export default {
     },
     // 增加角色
     handleAddUser() {
-      debugger
+      // debugger;
       this.dialogType = 'new'
       this.dialogFormVisible = true
-      // this.ruleForm.saleOrg === ''
-      // this.ruleForm.purchaserHqCode === ''
-      // this.ruleForm.supplierCode === ''
-      // this.ruleForm.supplierName === ''
-      // this.ruleForm.description === ''
-      supplierAdd(this.ruleForm).then(res => {
-        debugger
-      })
+      this.ruleForm = {}
     },
 
     // 获取列表
@@ -313,22 +306,33 @@ export default {
       this.ruleForm = JSON.parse(JSON.stringify(row))
     },
     // 编辑成功
+    tipsFn() {
+      this.$message({
+        type: 'success',
+        message: this.$t('table.editSuc')
+      })
+      this.editLoading = false
+      this.dialogFormVisible = false
+      this.getList()
+    },
+    // 编辑成功
     submitForm(formName) {
-      this.dialogType === 'new'
       this.editLoading = true
       this.$refs[formName].validate(valid => {
         if (valid) {
-          supplierEdit(this.ruleForm).then(res => {
-            if (res.code === 200) {
-              this.$message({
-                type: 'success',
-                message: this.$t('table.editSuc')
-              })
-              this.editLoading = false
-              this.dialogFormVisible = false
-              this.getList()
-            }
-          })
+          if (this.dialogType === 'edit') {
+            supplierEdit(this.ruleForm).then(res => {
+              if (res.code === 200) {
+                this.tipsFn()
+              }
+            })
+          } else {
+            supplierAdd(this.ruleForm).then(res => {
+              if (res.code === 200) {
+                this.tipsFn()
+              }
+            })
+          }
         } else {
           this.editLoading = false
           this.$message({
