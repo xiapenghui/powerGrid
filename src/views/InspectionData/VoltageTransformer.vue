@@ -62,7 +62,9 @@
 
       <el-table-column align="center" :label="$t('permission.upload')" width="100">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :class="[scope.row.isUpload === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isUpload === 0 ? '未上传' : '上传' }}</el-tag>
+          <el-tag v-if="scope.row.isUpload === 0" class="classBlack">未上传</el-tag>
+          <el-tag v-else-if="scope.row.isUpload === 1" class="classGreen">已上传</el-tag>
+          <el-tag v-else class="classRed">上传失败</el-tag>
         </template>
       </el-table-column>
 
@@ -215,36 +217,37 @@
     <!-- 编辑弹窗 -->
     <el-dialog title="编辑信息" :visible.sync="dialogFormVisible">
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
-        <div class="boxLeft">
-          <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
-          <el-form-item label="供应商工单编号" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" /></el-form-item>
-          <el-form-item label="规格型号编码" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
-          <el-form-item label="是否是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
-          <el-form-item label="感知过程" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
-          <el-form-item label="采集时间" prop="checkTime">
-            <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
-          </el-form-item>
-          <el-form-item label="原材料出厂编号" prop="RawMaterialSN"><el-input v-model="ruleForm.RawMaterialSN" /></el-form-item>
-          <el-form-item label="一次耐压值(kV)"><el-input v-model="ruleForm.pressureValue" /></el-form-item>
-          <el-form-item label="耐压持续额定时间(s)"><el-input v-model="ruleForm.pressureTimeUn" /></el-form-item>
-          <el-form-item label="额定局放量(pC)"><el-input v-model="ruleForm.dischargeUn" /></el-form-item>
-          <el-form-item label="B相局放量"><el-input v-model="ruleForm.dischargeB" /></el-form-item>
-
-        </div>
-        <div class="boxRight">
-          <el-form-item label="采集规范版本号" prop="standardVersion"><el-input v-model="ruleForm.standardVersion" /></el-form-item>
-          <el-form-item label="国网侧供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
-          <el-form-item label="物资品类类型" prop="categoryType"><el-input v-model="ruleForm.categoryType" /></el-form-item>
-          <el-form-item label="告警项"><el-input v-model="ruleForm.alarmItem" /></el-form-item>
-          <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
-          <el-form-item label="入数采中心时间" prop="putCenterTime">
-            <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
-          </el-form-item>
-          <el-form-item label="一次额定电压(kV)"><el-input v-model="ruleForm.ratedVoltage" /></el-form-item>
-          <el-form-item label="耐压持续时间(s)"><el-input v-model="ruleForm.pressureTime" /></el-form-item>
-          <el-form-item label="A相局放量"><el-input v-model="ruleForm.dischargeA" /></el-form-item>
-          <el-form-item label="C相局放量"><el-input v-model="ruleForm.dischargeC" /></el-form-item>
-          <el-form-item label="（电压互感器）检验报告附件"><el-input v-model="ruleForm.imageFileUrl" /></el-form-item>
+        <div class="bigUpBox">
+          <div class="boxLeft">
+            <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
+            <el-form-item label="供应商工单编号" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" /></el-form-item>
+            <el-form-item label="规格型号编码" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
+            <el-form-item label="是否是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
+            <el-form-item label="感知过程" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
+            <el-form-item label="采集时间" prop="checkTime">
+              <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+            </el-form-item>
+            <el-form-item label="原材料出厂编号" prop="RawMaterialSN"><el-input v-model="ruleForm.RawMaterialSN" /></el-form-item>
+            <el-form-item label="一次耐压值(kV)"><el-input v-model="ruleForm.pressureValue" /></el-form-item>
+            <el-form-item label="耐压持续额定时间(s)"><el-input v-model="ruleForm.pressureTimeUn" /></el-form-item>
+            <el-form-item label="额定局放量(pC)"><el-input v-model="ruleForm.dischargeUn" /></el-form-item>
+            <el-form-item label="B相局放量"><el-input v-model="ruleForm.dischargeB" /></el-form-item>
+          </div>
+          <div class="boxRight">
+            <el-form-item label="采集规范版本号" prop="standardVersion"><el-input v-model="ruleForm.standardVersion" /></el-form-item>
+            <el-form-item label="国网侧供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
+            <el-form-item label="物资品类类型" prop="categoryType"><el-input v-model="ruleForm.categoryType" /></el-form-item>
+            <el-form-item label="告警项"><el-input v-model="ruleForm.alarmItem" /></el-form-item>
+            <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
+            <el-form-item label="入数采中心时间" prop="putCenterTime">
+              <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+            </el-form-item>
+            <el-form-item label="一次额定电压(kV)"><el-input v-model="ruleForm.ratedVoltage" /></el-form-item>
+            <el-form-item label="耐压持续时间(s)"><el-input v-model="ruleForm.pressureTime" /></el-form-item>
+            <el-form-item label="A相局放量"><el-input v-model="ruleForm.dischargeA" /></el-form-item>
+            <el-form-item label="C相局放量"><el-input v-model="ruleForm.dischargeC" /></el-form-item>
+            <el-form-item label="（电压互感器）检验报告附件"><el-input v-model="ruleForm.imageFileUrl" /></el-form-item>
+          </div>
         </div>
       </el-form>
 

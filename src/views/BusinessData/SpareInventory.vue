@@ -63,7 +63,9 @@
 
       <el-table-column align="center" :label="$t('permission.upload')" width="100">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :class="[scope.row.isUpload === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isUpload === 0 ? '未上传' : '上传' }}</el-tag>
+          <el-tag v-if="scope.row.isUpload === 0" class="classBlack">未上传</el-tag>
+          <el-tag v-else-if="scope.row.isUpload === 1" class="classGreen">已上传</el-tag>
+          <el-tag v-else class="classRed">上传失败</el-tag>
         </template>
       </el-table-column>
 
@@ -181,28 +183,29 @@
     <!-- 编辑弹窗 -->
     <el-dialog title="编辑信息" :visible.sync="dialogFormVisible">
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
-        <div class="boxLeft">
-          <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
-          <el-form-item label="供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
-          <el-form-item label="备品备件编号" prop="spareProductCode"><el-input v-model="ruleForm.spareProductCode" /></el-form-item>
-          <el-form-item label="备品备件库存剩余数量" prop="productAmount"><el-input v-model="ruleForm.productAmount" /></el-form-item>
-          <el-form-item label="数据来源" prop="dataSource"><el-input v-model="ruleForm.dataSource" /></el-form-item>
-          <el-form-item label="数据拥有方"><el-input v-model="ruleForm.ownerId" /></el-form-item>
-          <el-form-item label="批次号" prop="ItemProductLot"><el-input v-model="ruleForm.ItemProductLot" /></el-form-item>
-          <el-form-item label="来源数据创建时间" prop="itemDataSourceCreatetime"><el-input v-model="ruleForm.itemDataSourceCreatetime" /></el-form-item>
-
-        </div>
-        <div class="boxRight">
-          <el-form-item label="采购方总部编码" prop="purchaserHqCode"><el-input v-model="ruleForm.purchaserHqCode" /></el-form-item>
-          <el-form-item label="供应商名称" prop="supplierName"><el-input v-model="ruleForm.supplierName" /></el-form-item>
-          <el-form-item label="备品备件描述" prop="productDec"><el-input v-model="ruleForm.productDec" /></el-form-item>
-          <el-form-item label="计量单位" prop="productUnit"><el-input v-model="ruleForm.productUnit" /></el-form-item>
-          <el-form-item label="来源数据创建时间" prop="dataSourceCreateTime">
-            <el-date-picker v-model="ruleForm.dataSourceCreateTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
-          </el-form-item>
-          <el-form-item label="数据可见方"><el-input v-model="ruleForm.openId" /></el-form-item>
-          <el-form-item label="备注"><el-input v-model="ruleForm.entityStatus" /></el-form-item>
-          <el-form-item label="备注"><el-input v-model="ruleForm.itemRemark" /></el-form-item>
+        <div class="bigUpBox">
+          <div class="boxLeft">
+            <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
+            <el-form-item label="供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
+            <el-form-item label="备品备件编号" prop="spareProductCode"><el-input v-model="ruleForm.spareProductCode" /></el-form-item>
+            <el-form-item label="备品备件库存剩余数量" prop="productAmount"><el-input v-model="ruleForm.productAmount" /></el-form-item>
+            <el-form-item label="数据来源" prop="dataSource"><el-input v-model="ruleForm.dataSource" /></el-form-item>
+            <el-form-item label="数据拥有方"><el-input v-model="ruleForm.ownerId" /></el-form-item>
+            <el-form-item label="批次号" prop="ItemProductLot"><el-input v-model="ruleForm.ItemProductLot" /></el-form-item>
+            <el-form-item label="来源数据创建时间" prop="itemDataSourceCreatetime"><el-input v-model="ruleForm.itemDataSourceCreatetime" /></el-form-item>
+          </div>
+          <div class="boxRight">
+            <el-form-item label="采购方总部编码" prop="purchaserHqCode"><el-input v-model="ruleForm.purchaserHqCode" /></el-form-item>
+            <el-form-item label="供应商名称" prop="supplierName"><el-input v-model="ruleForm.supplierName" /></el-form-item>
+            <el-form-item label="备品备件描述" prop="productDec"><el-input v-model="ruleForm.productDec" /></el-form-item>
+            <el-form-item label="计量单位" prop="productUnit"><el-input v-model="ruleForm.productUnit" /></el-form-item>
+            <el-form-item label="来源数据创建时间" prop="dataSourceCreateTime">
+              <el-date-picker v-model="ruleForm.dataSourceCreateTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+            </el-form-item>
+            <el-form-item label="数据可见方"><el-input v-model="ruleForm.openId" /></el-form-item>
+            <el-form-item label="备注"><el-input v-model="ruleForm.entityStatus" /></el-form-item>
+            <el-form-item label="备注"><el-input v-model="ruleForm.itemRemark" /></el-form-item>
+          </div>
         </div>
       </el-form>
 

@@ -63,7 +63,9 @@
 
       <el-table-column align="center" :label="$t('permission.upload')" width="100">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :class="[scope.row.isUpload === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isUpload === 0 ? '未上传' : '上传' }}</el-tag>
+          <el-tag v-if="scope.row.isUpload === 0" class="classBlack">未上传</el-tag>
+          <el-tag v-else-if="scope.row.isUpload === 1" class="classGreen">已上传</el-tag>
+          <el-tag v-else class="classRed">上传失败</el-tag>
         </template>
       </el-table-column>
 
@@ -294,50 +296,51 @@
     <!-- 编辑弹窗 -->
     <el-dialog title="编辑信息" :visible.sync="dialogFormVisible">
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
-        <div class="boxLeft">
-          <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
-          <el-form-item label="供应商工单编号" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" /></el-form-item>
-          <el-form-item label="规格型号编码" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
-          <el-form-item label="厂区编号"><el-input v-model="ruleForm.factoryCode" /></el-form-item>
-          <el-form-item label="供应商产品厂内编号" prop="productModel"><el-input v-model="ruleForm.productModel" /></el-form-item>
-          <el-form-item label="生产设备唯一识别号" prop="equipmentUniqueCode"><el-input v-model="ruleForm.equipmentUniqueCode" /></el-form-item>
-          <el-form-item label="是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
-          <el-form-item label="感知过程" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
-          <el-form-item label="采集时间" prop="checkTime">
-            <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
-          </el-form-item>
-          <el-form-item label="断路器出厂编号(常州)" prop="contactNum"><el-input v-model="ruleForm.contactNum" /></el-form-item>
-          <el-form-item label="额定分闸时间上限值" prop="breakTimeMax"><el-input v-model="ruleForm.breakTimeMax" /></el-form-item>
-          <el-form-item label="A相分闸时间" prop="breakTimeA"><el-input v-model="ruleForm.breakTimeA" /></el-form-item>
-          <el-form-item label="C相分闸时间" prop="breakTimeC"><el-input v-model="ruleForm.breakTimeC" /></el-form-item>
-          <el-form-item label="额定合闸时间下限" prop="closeTimeMin"><el-input v-model="ruleForm.closeTimeMin" /></el-form-item>
-          <el-form-item label="B相合闸时间" prop="closeTimeB"><el-input v-model="ruleForm.closeTimeB" /></el-form-item>
-          <el-form-item label="合闸不同期额定值(ms)" prop="closeNotSameTimeUn"><el-input v-model="ruleForm.closeNotSameTimeUn" /></el-form-item>
-          <el-form-item label="分闸不同期额定值(ms)" prop="breakNotSameTimeUn"><el-input v-model="ruleForm.breakNotSameTimeUn" /></el-form-item>
-          <el-form-item label="合闸弹跳（真空断路器）额定值(ms)" prop="closeBounceTimeUn"><el-input v-model="ruleForm.closeBounceTimeUn" /></el-form-item>
-
-        </div>
-        <div class="boxRight">
-          <el-form-item label="采集规范版本号" prop="standardVersion"><el-input v-model="ruleForm.standardVersion" /></el-form-item>
-          <el-form-item label="国网侧供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
-          <el-form-item label="物资品类类型" prop="categoryType"><el-input v-model="ruleForm.categoryType" /></el-form-item>
-          <el-form-item label="供应商产品编号"><el-input v-model="ruleForm.supplierSupportId" /></el-form-item>
-          <el-form-item label="生产设备名称" prop="equipmentName"><el-input v-model="ruleForm.equipmentName" /></el-form-item>
-          <el-form-item label="告警项"><el-input v-model="ruleForm.alarmItem" /></el-form-item>
-          <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
-          <el-form-item label="入数采中心时间" prop="putCenterTime">
-            <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
-          </el-form-item>
-          <el-form-item label="成品序列号" prop="materialSN"><el-input v-model="ruleForm.materialSN" /></el-form-item>
-          <el-form-item label="额定分闸时间下限值" prop="breakTimeMin"><el-input v-model="ruleForm.breakTimeMin" /></el-form-item>
-          <el-form-item label="B相分闸时间" prop="breakTimeB"><el-input v-model="ruleForm.breakTimeB" /></el-form-item>
-          <el-form-item label="额定合闸时间上限值" prop="closeTimeMax"><el-input v-model="ruleForm.closeTimeMax" /></el-form-item>
-          <el-form-item label="A相合闸时间" prop="closeTimeA"><el-input v-model="ruleForm.closeTimeA" /></el-form-item>
-          <el-form-item label="C相合闸时间" prop="closeTimeC"><el-input v-model="ruleForm.closeTimeC" /></el-form-item>
-          <el-form-item label="合闸不同期" prop="closeNotSameTime"><el-input v-model="ruleForm.closeNotSameTime" /></el-form-item>
-          <el-form-item label="分闸不同期(ms)" prop="breakNotSameTime"><el-input v-model="ruleForm.breakNotSameTime" /></el-form-item>
-          <el-form-item label="合闸弹跳（真空断路器）(ms)" prop="closeBounceTime"><el-input v-model="ruleForm.closeBounceTime" /></el-form-item>
-          <el-form-item label="机械特性试验报告"><el-input v-model="ruleForm.imageFileUrl" /></el-form-item>
+        <div class="bigUpBox">
+          <div class="boxLeft">
+            <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
+            <el-form-item label="供应商工单编号" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" /></el-form-item>
+            <el-form-item label="规格型号编码" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
+            <el-form-item label="厂区编号"><el-input v-model="ruleForm.factoryCode" /></el-form-item>
+            <el-form-item label="供应商产品厂内编号" prop="productModel"><el-input v-model="ruleForm.productModel" /></el-form-item>
+            <el-form-item label="生产设备唯一识别号" prop="equipmentUniqueCode"><el-input v-model="ruleForm.equipmentUniqueCode" /></el-form-item>
+            <el-form-item label="是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
+            <el-form-item label="感知过程" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
+            <el-form-item label="采集时间" prop="checkTime">
+              <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+            </el-form-item>
+            <el-form-item label="断路器出厂编号(常州)" prop="contactNum"><el-input v-model="ruleForm.contactNum" /></el-form-item>
+            <el-form-item label="额定分闸时间上限值" prop="breakTimeMax"><el-input v-model="ruleForm.breakTimeMax" /></el-form-item>
+            <el-form-item label="A相分闸时间" prop="breakTimeA"><el-input v-model="ruleForm.breakTimeA" /></el-form-item>
+            <el-form-item label="C相分闸时间" prop="breakTimeC"><el-input v-model="ruleForm.breakTimeC" /></el-form-item>
+            <el-form-item label="额定合闸时间下限" prop="closeTimeMin"><el-input v-model="ruleForm.closeTimeMin" /></el-form-item>
+            <el-form-item label="B相合闸时间" prop="closeTimeB"><el-input v-model="ruleForm.closeTimeB" /></el-form-item>
+            <el-form-item label="合闸不同期额定值(ms)" prop="closeNotSameTimeUn"><el-input v-model="ruleForm.closeNotSameTimeUn" /></el-form-item>
+            <el-form-item label="分闸不同期额定值(ms)" prop="breakNotSameTimeUn"><el-input v-model="ruleForm.breakNotSameTimeUn" /></el-form-item>
+            <el-form-item label="合闸弹跳（真空断路器）额定值(ms)" prop="closeBounceTimeUn"><el-input v-model="ruleForm.closeBounceTimeUn" /></el-form-item>
+          </div>
+          <div class="boxRight">
+            <el-form-item label="采集规范版本号" prop="standardVersion"><el-input v-model="ruleForm.standardVersion" /></el-form-item>
+            <el-form-item label="国网侧供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
+            <el-form-item label="物资品类类型" prop="categoryType"><el-input v-model="ruleForm.categoryType" /></el-form-item>
+            <el-form-item label="供应商产品编号"><el-input v-model="ruleForm.supplierSupportId" /></el-form-item>
+            <el-form-item label="生产设备名称" prop="equipmentName"><el-input v-model="ruleForm.equipmentName" /></el-form-item>
+            <el-form-item label="告警项"><el-input v-model="ruleForm.alarmItem" /></el-form-item>
+            <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
+            <el-form-item label="入数采中心时间" prop="putCenterTime">
+              <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+            </el-form-item>
+            <el-form-item label="成品序列号" prop="materialSN"><el-input v-model="ruleForm.materialSN" /></el-form-item>
+            <el-form-item label="额定分闸时间下限值" prop="breakTimeMin"><el-input v-model="ruleForm.breakTimeMin" /></el-form-item>
+            <el-form-item label="B相分闸时间" prop="breakTimeB"><el-input v-model="ruleForm.breakTimeB" /></el-form-item>
+            <el-form-item label="额定合闸时间上限值" prop="closeTimeMax"><el-input v-model="ruleForm.closeTimeMax" /></el-form-item>
+            <el-form-item label="A相合闸时间" prop="closeTimeA"><el-input v-model="ruleForm.closeTimeA" /></el-form-item>
+            <el-form-item label="C相合闸时间" prop="closeTimeC"><el-input v-model="ruleForm.closeTimeC" /></el-form-item>
+            <el-form-item label="合闸不同期" prop="closeNotSameTime"><el-input v-model="ruleForm.closeNotSameTime" /></el-form-item>
+            <el-form-item label="分闸不同期(ms)" prop="breakNotSameTime"><el-input v-model="ruleForm.breakNotSameTime" /></el-form-item>
+            <el-form-item label="合闸弹跳（真空断路器）(ms)" prop="closeBounceTime"><el-input v-model="ruleForm.closeBounceTime" /></el-form-item>
+            <el-form-item label="机械特性试验报告"><el-input v-model="ruleForm.imageFileUrl" /></el-form-item>
+          </div>
         </div>
       </el-form>
 

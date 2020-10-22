@@ -64,7 +64,9 @@
 
       <el-table-column align="center" :label="$t('permission.upload')" width="100">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status" :class="[scope.row.isUpload === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isUpload === 0 ? '未上传' : '上传' }}</el-tag>
+          <el-tag v-if="scope.row.isUpload === 0" class="classBlack">未上传</el-tag>
+          <el-tag v-else-if="scope.row.isUpload === 1" class="classGreen">已上传</el-tag>
+          <el-tag v-else class="classRed">上传失败</el-tag>
         </template>
       </el-table-column>
 
@@ -183,7 +185,6 @@
       <el-table-column align="center" :label="$t('permission.operations')" fixed="right" width="150">
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">{{ $t('table.edit') }}</el-button>
-          <!-- <el-button type="danger" size="small" @click="handleDelete(scope.$index, scope.row)">{{ $t('table.delete') }}</el-button> -->
           <el-button type="warning" size="small" @click="clickLogs(scope.row)">日志</el-button>
         </template>
       </el-table-column>
@@ -192,30 +193,32 @@
     <!-- 编辑弹窗 -->
     <el-dialog title="编辑信息" :visible.sync="dialogFormVisible">
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
-        <div class="boxLeft">
-          <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
-          <el-form-item label="供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
-          <el-form-item label="原材料名称" prop="matName"><el-input v-model="ruleForm.matName" /></el-form-item>
-          <el-form-item label="原材料库存数量" prop="matNum"><el-input v-model="ruleForm.matNum" /></el-form-item>
-          <el-form-item label="原材料描述"><el-input v-model="ruleForm.matDescription" /></el-form-item>
-          <el-form-item label="数据来源" prop="dataSource"><el-input v-model="ruleForm.dataSource" /></el-form-item>
-          <el-form-item label="入库批次号" prop="itemBatchCode"><el-input v-model="ruleForm.itemBatchCode" /></el-form-item>
-          <el-form-item label="备注" prop="remark"><el-input v-model="ruleForm.remark" /></el-form-item>
-          <el-form-item label="数据可见方"><el-input v-model="ruleForm.openId" /></el-form-item>
-          <el-form-item label="来源数据创建时间" prop="itemDataSourceCreatetime"><el-input v-model="ruleForm.itemDataSourceCreatetime" /></el-form-item>
-        </div>
-        <div class="boxRight">
-          <el-form-item label="采购方总部编码" prop="purchaserHqCode"><el-input v-model="ruleForm.purchaserHqCode" /></el-form-item>
-          <el-form-item label="供应商名称" prop="supplierName"><el-input v-model="ruleForm.supplierName" /></el-form-item>
-          <el-form-item label="原材料编码" prop="matCode"><el-input v-model="ruleForm.matCode" /></el-form-item>
-          <el-form-item label="原材料单位" prop="matUnit"><el-input v-model="ruleForm.matUnit" /></el-form-item>
-          <el-form-item label="原材料产地"><el-input v-model="ruleForm.matProdAddr" /></el-form-item>
-          <el-form-item label="当前入库批次库存剩余数量" prop="itemProductAmount"><el-input v-model="ruleForm.itemProductAmount" /></el-form-item>
-          <el-form-item label="来源数据创建时间" prop="dataSourceCreateTime">
-            <el-date-picker v-model="ruleForm.dataSourceCreateTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
-          </el-form-item>
-          <el-form-item label="数据拥有方"><el-input v-model="ruleForm.ownerId" /></el-form-item>
-          <el-form-item label="备注"><el-input v-model="ruleForm.itemRemark" /></el-form-item>
+        <div class="bigUpBox">
+          <div class="boxLeft">
+            <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
+            <el-form-item label="供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
+            <el-form-item label="原材料名称" prop="matName"><el-input v-model="ruleForm.matName" /></el-form-item>
+            <el-form-item label="原材料库存数量" prop="matNum"><el-input v-model="ruleForm.matNum" /></el-form-item>
+            <el-form-item label="原材料描述"><el-input v-model="ruleForm.matDescription" /></el-form-item>
+            <el-form-item label="数据来源" prop="dataSource"><el-input v-model="ruleForm.dataSource" /></el-form-item>
+            <el-form-item label="入库批次号" prop="itemBatchCode"><el-input v-model="ruleForm.itemBatchCode" /></el-form-item>
+            <el-form-item label="备注" prop="remark"><el-input v-model="ruleForm.remark" /></el-form-item>
+            <el-form-item label="数据可见方"><el-input v-model="ruleForm.openId" /></el-form-item>
+            <el-form-item label="来源数据创建时间" prop="itemDataSourceCreatetime"><el-input v-model="ruleForm.itemDataSourceCreatetime" /></el-form-item>
+          </div>
+          <div class="boxRight">
+            <el-form-item label="采购方总部编码" prop="purchaserHqCode"><el-input v-model="ruleForm.purchaserHqCode" /></el-form-item>
+            <el-form-item label="供应商名称" prop="supplierName"><el-input v-model="ruleForm.supplierName" /></el-form-item>
+            <el-form-item label="原材料编码" prop="matCode"><el-input v-model="ruleForm.matCode" /></el-form-item>
+            <el-form-item label="原材料单位" prop="matUnit"><el-input v-model="ruleForm.matUnit" /></el-form-item>
+            <el-form-item label="原材料产地"><el-input v-model="ruleForm.matProdAddr" /></el-form-item>
+            <el-form-item label="当前入库批次库存剩余数量" prop="itemProductAmount"><el-input v-model="ruleForm.itemProductAmount" /></el-form-item>
+            <el-form-item label="来源数据创建时间" prop="dataSourceCreateTime">
+              <el-date-picker v-model="ruleForm.dataSourceCreateTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+            </el-form-item>
+            <el-form-item label="数据拥有方"><el-input v-model="ruleForm.ownerId" /></el-form-item>
+            <el-form-item label="备注"><el-input v-model="ruleForm.itemRemark" /></el-form-item>
+          </div>
         </div>
       </el-form>
 
@@ -389,38 +392,6 @@ export default {
     handleSelectionChange(val) {
       this.selectedData = val
     },
-    // 删除数据
-    // handleDelete(index, row) {
-    //   this.$message({
-    //     type: 'error',
-    //     message: '功能暂未开通！'
-    //   });
-    //   if (this.tableData.length > 0) {
-    //     this.$confirm(this.$t('table.deleteInfo'), this.$t('table.Tips'), {
-    //       confirmButtonText: this.$t('table.confirm'),
-    //       cancelButtonText: this.$t('table.cancel'),
-    //       type: 'warning'
-    //     })
-    //       .then(() => {
-    //         miDellte([row.id]).then(res => {
-    //           if (res.code === 0) {
-    //             this.$message({
-    //               type: 'success',
-    //               message: this.$t('table.deleteSuccess')
-    //             })
-    //             this.getList()
-    //           }
-    //         })
-    //       })
-    //       .catch(() => {
-    //         this.$message({
-    //           type: 'info',
-    //           message: this.$t('table.deleteError')
-    //         })
-    //       })
-    //   }
-    // },
-
     // 点击日志
     clickLogs(row) {
       this.logId = row
