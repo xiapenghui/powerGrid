@@ -94,11 +94,9 @@
     </el-table>
 
     <!-- 编辑弹窗 -->
-    <el-dialog :visible.sync="dialogFormVisible" :title="dialogType === 'edit' ? $t('permission.editUsers') : $t('permission.addUser')">
+    <el-dialog :visible.sync="dialogFormVisible" :title="dialogType === 'edit' ? $t('permission.editSupplier') : $t('permission.addSupplier')">
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="100px" label-position="left">
-        <el-form-item label="工厂" prop="saleOrg">
-          <el-select v-model="ruleForm.saleOrg" placeholder="请选择"><el-option v-for="item in supplierOption" :key="item" :value="item" /></el-select>
-        </el-form-item>
+        <el-form-item label="工厂" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
         <el-form-item label="采购方总部编码" prop="purchaserHqCode"><el-input v-model="ruleForm.purchaserHqCode" /></el-form-item>
         <el-form-item label="供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
         <el-form-item label="供应商名称" prop="supplierName"><el-input v-model="ruleForm.supplierName" /></el-form-item>
@@ -118,7 +116,7 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { supplierList, supplierDellte, supplierEdit, supplierGet, supplierAdd } from '@/api/tenGrid'
+import { supplierList, supplierDellte, supplierEdit, supplierAdd } from '@/api/tenGrid'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
 const fixHeight = 280
 export default {
@@ -151,7 +149,6 @@ export default {
       dialogFormVisible: false, // 编辑弹出框
       content1: this.$t('permission.supplierCode'),
       dialogType: 'new',
-      supplierOption: [],
       rules: {
         saleOrg: [{ required: true, message: '请输入工厂', trigger: 'blur' }],
         purchaserHqCode: [{ required: true, message: '请输入采购方总部编码', trigger: 'blur' }],
@@ -201,7 +198,6 @@ export default {
       })()
     }
     this.getList()
-    this.supplierName() // 获取所有工厂名称
   },
   methods: {
     // 改变搜索框开始结束时间触发
@@ -341,12 +337,6 @@ export default {
           })
           return false
         }
-      })
-    },
-    // 获取所有工厂名称
-    supplierName() {
-      supplierGet().then(res => {
-        this.supplierOption = res.data
       })
     }
   }

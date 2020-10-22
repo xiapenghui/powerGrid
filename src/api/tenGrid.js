@@ -362,7 +362,7 @@ export function supplierAdd(data) {
 }
 
 // 供应商管理增加接口
-export function supplierGet() {
+export function saleOrg() {
   return request({
     url: newUrl + '/sys/supplier/sale-org',
     method: 'get'

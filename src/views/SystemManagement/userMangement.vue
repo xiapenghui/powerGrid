@@ -91,6 +91,12 @@
         </template>
       </el-table-column>
 
+      <el-table-column align="center" label="工厂">
+        <template slot-scope="scope">
+          {{ scope.row.saleOrg }}
+        </template>
+      </el-table-column>
+
       <el-table-column align="center" :label="$t('permission.operations')" fixed="right" width="150">
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">{{ $t('table.edit') }}</el-button>
@@ -100,13 +106,17 @@
     </el-table>
 
     <!-- 编辑弹窗 -->
-    <el-dialog :visible.sync="dialogFormVisible" :title="dialogType === 'edit' ? $t('permission.editUsers') : $t('permission.addUser')">
+    <el-dialog :visible.sync="dialogFormVisible" :title="dialogType === 'edit' ? $t('permission.editUser') : $t('permission.addUser')">
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="100px" label-position="left">
-        <el-form-item label="用户名" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
+        <el-form-item label="用户名" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
         <el-form-item label="姓名" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" /></el-form-item>
         <el-form-item label="性别" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
         <el-form-item label="电话" prop="isAlarmData"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
         <el-form-item label="邮箱" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
+        <el-form-item label="工厂" prop="saleOrg">
+          <!-- <el-input v-model="ruleForm.saleOrg" /> -->
+          <el-select v-model="ruleForm.saleOrg" placeholder="请选择"><el-option v-for="item in saleOrgList" :key="item" :value="item" /></el-select>
+        </el-form-item>
       </el-form>
 
       <div slot="footer" class="dialog-footer">
@@ -122,7 +132,7 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { electricCurrent, electricDellte, electricEdit } from '@/api/tenGrid'
+import { electricCurrent, electricDellte, electricEdit, saleOrg } from '@/api/tenGrid'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
 const fixHeight = 280
 export default {
@@ -155,12 +165,14 @@ export default {
       dialogFormVisible: false, // 编辑弹出框
       content1: this.$t('permission.supplierWorkNo'),
       dialogType: 'new',
+      saleOrgList: [],
       rules: {
-        saleOrg: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+        pdCode: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
         supplierWorkNo: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
         modelCode: [{ required: true, message: '请选择性别', trigger: 'blur' }],
         isAlarmData: [{ required: true, message: '请输入电话号码', trigger: 'blur' }],
-        processType: [{ required: true, message: '请输入邮箱', trigger: 'blur' }]
+        processType: [{ required: true, message: '请输入邮箱', trigger: 'blur' }],
+        saleOrg: [{ required: true, message: '请选择工厂', trigger: 'change' }]
       }
     }
   },
@@ -205,6 +217,7 @@ export default {
       })()
     }
     this.getList()
+    this.getSaleOrg()// 获取所有工厂
   },
   methods: {
     // 改变搜索框开始结束时间触发
@@ -333,7 +346,14 @@ export default {
           return false
         }
       })
+    },
+    // 获取所有工厂
+    getSaleOrg() {
+      saleOrg().then(res => {
+        this.saleOrgList = res.data
+      })
     }
+
   }
 }
 </script>

@@ -169,7 +169,6 @@ export default {
     companyInfo: '请选择公司',
     departmentInfo: '请选择部门',
     editUser: '编辑用户',
-    editUsers: '编辑用户',
     modifyeUser: '修改用户',
     password: '密码',
     passwords: '确认密码',
@@ -423,6 +422,8 @@ export default {
     breakNotSameTimeUn: '分闸不同期额定值(ms)',
     closeBounceTimeUn: '合闸弹跳额定值(ms)',
     pressureValueUnOther: '额定耐压值(kV)',
+    addSupplier: '新增供应商',
+    editSupplier: '编辑供应商',
 
     // 截止
     roles: '你的权限',
