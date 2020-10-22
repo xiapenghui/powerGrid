@@ -5,18 +5,23 @@
       margin-top: 10px;
     }
     .demo-ruleForm {
-      display: flex;
-      justify-content: space-between;
-      .boxLeft,
-      .boxRight {
-        width: 46%;
-        .el-date-editor.el-input{
+      .bigUpBox {
+       display: flex;
+       justify-content: space-between;
+        .boxLeft,
+        .boxRight {
+          width: 46%;
+          .el-date-editor.el-input {
             width: 100%;
+          }
         }
       }
+      .bigDownBox {
+        width: 100%;
+      }
     }
-    .el-select{
-       width: 100%;
+    .el-select {
+      width: 100%;
     }
   }
 }
@@ -93,5 +98,26 @@
     background-color: #fef0f0;
     border-color: #fde2e2;
     color: #f56c6c;
+  }
+  .demo-image__error{
+     .blockImg{
+       width: 80px;
+       height: 80px;
+       display: inline-block;
+       margin: 10px 10px 10px 0;
+       .demonstration{
+         margin-top: 10px;
+         text-align: center;
+         display: inline-block;
+         width: 100%;
+       }
+     }
+     .el-image{
+       background-color: #CCCCCC;
+       display: flex;
+       .image-slot{
+         margin: auto;
+       }
+     }
   }
 }

@@ -39,7 +39,6 @@
 
     <div class="rightBtn">
       <el-button type="danger" icon="el-icon-delete" @click="deleteAll">{{ $t('permission.deleteAll') }}</el-button>
-      <el-button type="primary" icon="el-icon-upload2" @click="okUpload">上传国网</el-button>
       <el-button type="primary" icon="el-icon-download" @click="okImprot">导入文件</el-button>
     </div>
 
@@ -201,8 +200,8 @@
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.imageFileUrl')" width="180">
-        <template>
-          <el-tag type="success"><i class="el-icon-picture" /></el-tag>
+        <template slot-scope="scope">
+          {{ scope.row.imageFileUrl }}
         </template>
       </el-table-column>
 
@@ -217,36 +216,46 @@
     <!-- 编辑弹窗 -->
     <el-dialog title="编辑信息" :visible.sync="dialogFormVisible">
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
-        <div class="boxLeft">
-          <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
-          <el-form-item label="供应商工单编号" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" /></el-form-item>
-          <el-form-item label="规格型号编码" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
-          <el-form-item label="是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
-          <el-form-item label="感知过程" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
-          <el-form-item label="采集时间" prop="checkTime">
-            <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
-          </el-form-item>
-          <el-form-item label="原材料出厂编号(Key)" prop="RawMaterialSN"><el-input v-model="ruleForm.RawMaterialSN" /></el-form-item>
-          <el-form-item label="一次耐压额定值(kV)"><el-input v-model="ruleForm.pressureValueUn" /></el-form-item>
-          <el-form-item label="耐压持续额定时间(s)"><el-input v-model="ruleForm.pressureTimeUn" /></el-form-item>
-          <el-form-item label="额定局放量(pC)"><el-input v-model="ruleForm.dischargeUn" /></el-form-item>
-          <el-form-item label="B相局放量"><el-input v-model="ruleForm.dischargeB" /></el-form-item>
-          <el-form-item label="（电流互感器）检验报告附件"><el-input v-model="ruleForm.imageFileUrl" /></el-form-item>
+        <div class="bigUpBox">
+          <div class="boxLeft">
+            <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
+            <el-form-item label="供应商工单编号" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" /></el-form-item>
+            <el-form-item label="规格型号编码" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
+            <el-form-item label="是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
+            <el-form-item label="感知过程" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
+            <el-form-item label="采集时间" prop="checkTime">
+              <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+            </el-form-item>
+            <el-form-item label="原材料出厂编号(Key)" prop="RawMaterialSN"><el-input v-model="ruleForm.RawMaterialSN" /></el-form-item>
+            <el-form-item label="一次耐压额定值(kV)"><el-input v-model="ruleForm.pressureValueUn" /></el-form-item>
+            <el-form-item label="耐压持续额定时间(s)"><el-input v-model="ruleForm.pressureTimeUn" /></el-form-item>
+            <el-form-item label="额定局放量(pC)"><el-input v-model="ruleForm.dischargeUn" /></el-form-item>
+            <el-form-item label="B相局放量"><el-input v-model="ruleForm.dischargeB" /></el-form-item>
+          </div>
+          <div class="boxRight">
+            <el-form-item label="采集规范版本号" prop="standardVersion"><el-input v-model="ruleForm.standardVersion" /></el-form-item>
+            <el-form-item label="国网侧供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
+            <el-form-item label="物资品类类型" prop="categoryType"><el-input v-model="ruleForm.categoryType" /></el-form-item>
+            <el-form-item label="告警项"><el-input v-model="ruleForm.alarmItem" /></el-form-item>
+            <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
+            <el-form-item label="入数采中心时间" prop="putCenterTime">
+              <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+            </el-form-item>
+            <el-form-item label="一次额定电流(A)"><el-input v-model="ruleForm.ratedCurrent" /></el-form-item>
+            <el-form-item label="一次耐压值(kV)"><el-input v-model="ruleForm.pressureValue" /></el-form-item>
+            <el-form-item label="耐压持续时间(s)"><el-input v-model="ruleForm.pressureTime" /></el-form-item>
+            <el-form-item label="A相局放量"><el-input v-model="ruleForm.dischargeA" /></el-form-item>
+            <el-form-item label="C相局放量"><el-input v-model="ruleForm.dischargeC" /></el-form-item>
+          </div>
         </div>
-        <div class="boxRight">
-          <el-form-item label="采集规范版本号" prop="standardVersion"><el-input v-model="ruleForm.standardVersion" /></el-form-item>
-          <el-form-item label="国网侧供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
-          <el-form-item label="物资品类类型" prop="categoryType"><el-input v-model="ruleForm.categoryType" /></el-form-item>
-          <el-form-item label="告警项"><el-input v-model="ruleForm.alarmItem" /></el-form-item>
-          <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
-          <el-form-item label="入数采中心时间" prop="putCenterTime">
-            <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+        <div class="bigDownBox">
+          <el-form-item label="（电流互感器）检验报告附件">
+            <el-upload action="#" :limit="1" list-type="picture-card" :auto-upload="false">
+              <i slot="default" class="el-icon-plus" />
+              <div slot="file" slot-scope="{ file }"><img class="el-upload-list__item-thumbnail" :src="file.url" alt=""></div>
+            </el-upload>
+            <el-dialog :visible.sync="dialogVisibleImg"><img width="100%" :src="dialogImageUrl" alt=""></el-dialog>
           </el-form-item>
-          <el-form-item label="一次额定电流(A)"><el-input v-model="ruleForm.ratedCurrent" /></el-form-item>
-          <el-form-item label="一次耐压值(kV)"><el-input v-model="ruleForm.pressureValue" /></el-form-item>
-          <el-form-item label="耐压持续时间(s)"><el-input v-model="ruleForm.pressureTime" /></el-form-item>
-          <el-form-item label="A相局放量"><el-input v-model="ruleForm.dischargeA" /></el-form-item>
-          <el-form-item label="C相局放量"><el-input v-model="ruleForm.dischargeC" /></el-form-item>
         </div>
       </el-form>
 
@@ -280,6 +289,43 @@
         </div>
       </el-upload>
     </el-dialog>
+
+    <!-- //批量上传图片弹窗 -->
+    <el-dialog title="批量上传图片" :visible.sync="dialogVisibleAllImg" width="50%">
+      <div class="demo-image__error">
+        <div v-for="(item, index) in imgList" :key="index" class="blockImg">
+          <el-image style="width:80px; height: 80px" :src="item.imagePath">
+            <div slot="error" class="image-slot"><i class="el-icon-picture-outline" /></div>
+          </el-image>
+          <span class="demonstration">{{ item.imageName }}</span>
+        </div>
+      </div>
+
+      <div class="uploadImg">
+        <el-upload
+          style="margin-top: 30px"
+          class="upload-demo"
+          action="http://39.101.166.244:8888/api/image/upload"
+          :data="this.newDataImg"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :before-remove="beforeRemove"
+          :on-change="onChange"
+          multiple
+          :limit="20"
+          :on-exceed="handleExceed"
+          :file-list="fileList"
+        >
+          <el-button size="small" type="primary">点击上传</el-button>
+        </el-upload>
+      </div>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisibleAllImg = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisibleAllImg = false">确 定</el-button>
+      </span>
+    </el-dialog>
+
     <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" />
   </div>
 </template>
@@ -306,7 +352,6 @@ export default {
       tableData: [],
       gridData: [], // 日志信息
       ruleForm: {}, // 编辑弹窗
-      srcList: ['https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg', 'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'],
       pagination: {
         current: 1,
         size: 50,
@@ -325,6 +370,13 @@ export default {
       dialogTableVisible: false, // 日志弹出框
       dialogVisible: false, // 文件上传弹出框
       dialogFormVisible: false, // 编辑弹出框
+      dialogImageUrl: '',
+      dialogVisibleImg: false, // 上传图片模态框
+      dialogVisibleAllImg: false, // 批量上传图片
+      disabled: false,
+      imgList: [], // 批量上传图片数组
+      fileList: [],
+      newDataImg: { id: 'PEF20002416', imagePath: '11', modelName: '电流互感器' },
       content1: this.$t('permission.supplierWorkNo'),
       rules: {
         saleOrg: [{ required: true, message: '请输入工厂', trigger: 'blur' }],
@@ -526,18 +578,6 @@ export default {
         }
       })
     },
-    // 上传
-    okUpload() {
-      // electricUpload().then(res => {
-      //   if (res.code === 200) {
-      //     this.$message({
-      //       type: 'success',
-      //       message: '上传成功！'
-      //     })
-      //   }
-      //   this.getList()
-      // })
-    },
     // 文件导入
     okImprot() {
       this.dialogVisible = true
@@ -549,6 +589,9 @@ export default {
         this.dialogVisible = false
         this.getList()
       }
+      debugger
+      this.dialogVisibleAllImg = true
+      this.imgList = res.data
     },
     // 失败
     handleAvatarError(res, file) {
@@ -567,7 +610,27 @@ export default {
         this.$message.error(this.$t('table.errorTwo'))
       }
       return isXLS && isLt2M
+    },
+
+    // 上传
+    onChange(file, fileList) {
+      debugger
+    },
+    handleRemove(file, fileList) {
+      debugger
+      console.log(file, fileList)
+    },
+    handlePreview(file) {
+      debugger
+      console.log(file)
+    },
+    handleExceed(files, fileList) {
+      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
+    },
+    beforeRemove(file, fileList) {
+      return this.$confirm(`确定移除 ${file.name}？`)
     }
+
   }
 }
 </script>

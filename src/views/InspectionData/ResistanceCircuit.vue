@@ -274,7 +274,7 @@
     <el-dialog title="导入文件" :visible.sync="dialogVisible" width="30%">
       <el-upload
         class="upload-demo"
-        :action="this.GLOBAL.BASE_URL + '/api/kvsc/acit/import/file'"
+        :action="this.GLOBAL.BASE_URL + '/api/kvsc/mcr/import/file'"
         :limit="1"
         :before-upload="beforeAvatarUpload"
         :on-success="handleAvatarSuccess"
