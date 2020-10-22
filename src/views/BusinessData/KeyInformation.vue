@@ -112,7 +112,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.itemProductAmount')" width="120">
+      <el-table-column align="center" :label="$t('permission.itemProductAmount')" width="180">
         <template slot-scope="scope">
           {{ scope.row.itemProductAmount }}
         </template>
@@ -170,7 +170,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.dataSourceCreateTime')" width="120">
+      <el-table-column align="center" :label="$t('permission.dataSourceCreateTime')" width="150">
         <template slot-scope="scope">
           {{ scope.row.itemDataSourceCreatetime }}
         </template>
