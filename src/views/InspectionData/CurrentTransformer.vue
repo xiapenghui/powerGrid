@@ -589,7 +589,6 @@ export default {
         this.dialogVisible = false
         this.getList()
       }
-      debugger
       this.dialogVisibleAllImg = true
       this.imgList = res.data
     },
@@ -614,7 +613,15 @@ export default {
 
     // 上传
     onChange(file, fileList) {
-      debugger
+      const dataImg = []
+      this.imgList.map(res => {
+        const imgName = res.imageName
+        dataImg.push(imgName)
+      })
+      if (dataImg.includes(file.name) === true) {
+        // this.imgList = file
+        debugger
+      }
     },
     handleRemove(file, fileList) {
       debugger
@@ -630,7 +637,6 @@ export default {
     beforeRemove(file, fileList) {
       return this.$confirm(`确定移除 ${file.name}？`)
     }
-
   }
 }
 </script>
