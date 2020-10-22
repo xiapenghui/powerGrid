@@ -488,7 +488,7 @@ export default {
     // do
     upData: '文件上传',
     closeOk: '解析',
-    clickUp: '点击上传',
+    clickUp: '选择文件',
     onlyUpload: '只能上传',
     xls: 'xls',
     xlsx: 'xlsx',

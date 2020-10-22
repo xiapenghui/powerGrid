@@ -39,7 +39,6 @@
 
     <div class="rightBtn">
       <el-button type="danger" icon="el-icon-delete" @click="deleteAll">{{ $t('permission.deleteAll') }}</el-button>
-      <el-button type="primary" icon="el-icon-upload2" @click="okUpload">上传国网</el-button>
       <el-button type="primary" icon="el-icon-download" @click="okImprot">导入文件</el-button>
     </div>
 
@@ -637,18 +636,6 @@ export default {
           return false
         }
       })
-    },
-    // 上传
-    okUpload() {
-      // electricUpload().then(res => {
-      //   if (res.code === 200) {
-      //     this.$message({
-      //       type: 'success',
-      //       message: '上传成功！'
-      //     })
-      //   }
-      //   this.getList()
-      // })
     },
     // 文件导入
     okImprot() {

@@ -316,7 +316,7 @@
           :on-exceed="handleExceed"
           :file-list="fileList"
         >
-          <el-button size="small" type="primary">点击上传</el-button>
+          <el-button size="small" type="primary">选择图片</el-button>
         </el-upload>
       </div>
 
@@ -615,24 +615,21 @@ export default {
     onChange(file, fileList) {
       const dataImg = []
       this.imgList.map(res => {
-        const imgName = res.imageName
+        var imgName = res.imageName
         dataImg.push(imgName)
+        if (dataImg.includes(file.name) === true) {
+          debugger
+        }
       })
-      if (dataImg.includes(file.name) === true) {
-        // this.imgList = file
-        debugger
-      }
     },
     handleRemove(file, fileList) {
-      debugger
       console.log(file, fileList)
     },
     handlePreview(file) {
-      debugger
       console.log(file)
     },
     handleExceed(files, fileList) {
-      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
+      this.$message.warning(`当前限制选择 20 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
     },
     beforeRemove(file, fileList) {
       return this.$confirm(`确定移除 ${file.name}？`)
