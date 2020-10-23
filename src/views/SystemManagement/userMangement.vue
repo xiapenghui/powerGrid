@@ -69,8 +69,7 @@
 
       <el-table-column align="center" label="工厂">
         <template slot-scope="scope">
-          {{ scope.row.supplierId }}
-          <!-- <el-tag type="info">{{ scope.row.supplierId=== 1 ? 'PDSE' : 'CZ' }}</el-tag> -->
+          {{ scope.row.saleOrg }}
         </template>
       </el-table-column>
 
@@ -82,7 +81,7 @@
 
       <el-table-column align="center" label="姓别">
         <template slot-scope="scope">
-          <el-tag type="info">{{ scope.row.sex=== 0 ? '男' : '女' }}</el-tag>
+          <el-tag type="info">{{ scope.row.sex === 0 ? '男' : '女' }}</el-tag>
         </template>
       </el-table-column>
 
@@ -120,16 +119,12 @@
             <el-option v-for="item in isAdminList" :key="item.value" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
-        <el-form-item label="工厂" prop="supplierId">
-          <el-select v-model="ruleForm.supplierId" placeholder="请选择">
-            <el-option v-for="item in supplierIdList" :key="item" :value="item" />
-          </el-select>
+        <el-form-item label="工厂" prop="saleOrg">
+          <el-select v-model="ruleForm.saleOrg" placeholder="请选择"><el-option v-for="item in supplierIdList" :key="item" :value="item" /></el-select>
         </el-form-item>
         <el-form-item label="姓名" prop="realname"><el-input v-model="ruleForm.realname" /></el-form-item>
         <el-form-item label="性别" prop="sex">
-          <el-select v-model="ruleForm.sex" placeholder="请选择">
-            <el-option v-for="item in sexList" :key="item.value" :label="item.label" :value="item.value" />
-          </el-select>
+          <el-select v-model="ruleForm.sex" placeholder="请选择"><el-option v-for="item in sexList" :key="item.value" :label="item.label" :value="item.value" /></el-select>
         </el-form-item>
         <el-form-item label="电话" prop="phone"><el-input v-model="ruleForm.phone" /></el-form-item>
         <el-form-item label="邮箱" prop="email"><el-input v-model="ruleForm.email" /></el-form-item>
@@ -395,8 +390,11 @@ export default {
     // 获取所有工厂
     getSaleOrg() {
       saleOrg().then(res => {
-        debugger
-        // this.supplierIdList = res.data
+        var orgArr = res.data.reduce(function(arr, newSaleOrg) {
+          arr.push(newSaleOrg.saleOrg)
+          return arr
+        }, [])
+        this.supplierIdList = orgArr
       })
     }
   }
