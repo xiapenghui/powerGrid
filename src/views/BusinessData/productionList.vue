@@ -64,8 +64,8 @@
 
       <el-table-column align="center" :label="$t('permission.isUploadProd')" width="100">
         <template slot-scope="scope">
-          <el-tag v-if="scope.row.isUpload === 0" class="classBlack">未上传</el-tag>
-          <el-tag v-else-if="scope.row.isUpload === 1" class="classGreen">已上传</el-tag>
+          <el-tag v-if="scope.row.isUploadProd === 0" class="classBlack">未上传</el-tag>
+          <el-tag v-else-if="scope.row.isUploadProd === 1" class="classGreen">已上传</el-tag>
           <el-tag v-else class="classRed">上传失败</el-tag>
         </template>
       </el-table-column>
