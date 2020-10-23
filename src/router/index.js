@@ -100,19 +100,19 @@ export const constantRoutes = [{
       }
     },
     {
-      path: 'productionList',
-      component: () => import('@/views/BusinessData/productionList'),
-      name: 'productionList',
-      meta: {
-        title: 'productionList'
-      }
-    },
-    {
       path: 'SalesIinformation',
       component: () => import('@/views/BusinessData/SalesIinformation'),
       name: 'SalesIinformation',
       meta: {
         title: 'SalesIinformation'
+      }
+    },
+    {
+      path: 'productionList',
+      component: () => import('@/views/BusinessData/productionList'),
+      name: 'productionList',
+      meta: {
+        title: 'productionList'
       }
     },
     {

@@ -391,6 +391,7 @@ export default {
       newDataImg: { id: 'PEF20002416', imagePath: '', modelName: '电流互感器' }, // 多个图片上传
       oneDataImg: { id: 'PEF20002416', imagePath: '', modelName: '电流互感器' }, // 单个图片上传或替换之前的图片
       editFileList: [],
+      newName: '', // 上传文件赋值名字
       content1: this.$t('permission.supplierWorkNo'),
       rules: {
         saleOrg: [{ required: true, message: '请输入工厂', trigger: 'blur' }],
@@ -636,13 +637,13 @@ export default {
 
     // 上传
     onChange(file, fileList) {
-      console.log('file', file)
+      // console.log('file', file)
     },
     handleRemove(file, fileList) {
-      console.log(file, fileList)
+      // console.log(file, fileList)
     },
     handlePreview(file) {
-      console.log(file)
+      // console.log(file)
     },
     handleExceed(files, fileList) {
       this.$message.warning(`当前限制选择 20 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
@@ -654,7 +655,7 @@ export default {
       }
     },
     beforeUploadImage(file) {
-      console.log('file', file)
+      // console.log('file', file)
       const isJPG = file.type === 'image/jpeg'
       var isOK = this.imgList.some(function(item) {
         return item.imageName === file.name
@@ -666,9 +667,9 @@ export default {
       return isJPG && isOK
     },
     onSuccessImage(res, file, fileList) {
-      console.log('res', res)
-      console.log('file', file)
-      console.log('fileList', fileList)
+      // console.log('res', res)
+      // console.log('file', file)
+      // console.log('fileList', fileList)
       this.imgList.map(item => {
         if (item.imageName === file.name) {
           item.imagePath = 'http://39.101.166.244:8888' + res.data
@@ -682,8 +683,8 @@ export default {
     // 编辑图片上传成功
     onsucessImg(file, fileList) {
       debugger
-      // this.dialogImageUrl = 'http://39.101.166.244:8888'+file.data;
-      // this.dialogImageUrl="http://39.101.166.244:8888"+fileList.response.data
+      // this.tableData.imageFileUrl = fileList.name
+      // res.imageFileUrl = fileList.name
     }
 
   }
