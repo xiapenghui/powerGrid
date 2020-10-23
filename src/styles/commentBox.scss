@@ -131,3 +131,8 @@
 .el-upload-list__item{
   transition: none;
 }
+.el-popup-parent--hidden{
+  .v-modal{
+    z-index: 99 !important;
+  }
+}

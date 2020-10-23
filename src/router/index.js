@@ -7,7 +7,6 @@ Vue.use(Router)
 import Layout from '@/layout'
 
 /* Router Modules */
-import tableRouter from './modules/table'
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -204,7 +203,6 @@ export const constantRoutes = [{
   component: Layout,
   redirect: '/InspectionData/ContactBox',
   name: 'Table',
-
   meta: {
     title: 'InspectionData',
     icon: 'tab'
@@ -428,7 +426,6 @@ export const asyncRoutes = [{
 },
 
 /** when your routing map is too long, you can split it into small modules **/
-tableRouter,
 
 {
   path: '/error',
@@ -456,58 +453,6 @@ tableRouter,
     meta: {
       title: 'page404',
       noCache: true
-    }
-  }
-  ]
-},
-{
-  path: '/excel',
-  component: Layout,
-  redirect: '/excel/export-excel',
-  hidden: true,
-  name: 'Excel',
-  meta: {
-    title: 'excel',
-    icon: 'excel'
-  },
-  children: [{
-    path: 'export-excel',
-    component: () => import('@/views/excel/export-excel'),
-    name: 'ExportExcel',
-    meta: {
-      title: 'exportExcel'
-    }
-  },
-  {
-    path: 'export-selected-excel',
-    component: () => import('@/views/excel/select-excel'),
-    name: 'SelectExcel',
-    meta: {
-      title: 'selectExcel'
-    }
-  },
-  {
-    path: 'export-merge-header',
-    component: () => import('@/views/excel/merge-header'),
-    name: 'MergeHeader',
-    meta: {
-      title: 'mergeHeader'
-    }
-  },
-  {
-    path: 'upload-excel',
-    component: () => import('@/views/excel/upload-excel'),
-    name: 'UploadExcel',
-    meta: {
-      title: 'uploadExcel'
-    }
-  },
-  {
-    path: 'newTree',
-    component: () => import('@/views/excel/newTree'),
-    name: 'newTree',
-    meta: {
-      title: 'newTree'
     }
   }
   ]

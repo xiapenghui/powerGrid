@@ -69,7 +69,8 @@
 
       <el-table-column align="center" label="工厂">
         <template slot-scope="scope">
-          {{ scope.row.saleOrg }}
+          {{ scope.row.supplierId }}
+          <!-- <el-tag type="info">{{ scope.row.supplierId=== 1 ? 'PDSE' : 'CZ' }}</el-tag> -->
         </template>
       </el-table-column>
 
@@ -119,8 +120,10 @@
             <el-option v-for="item in isAdminList" :key="item.value" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
-        <el-form-item label="工厂" prop="saleOrg">
-          <el-select v-model="ruleForm.saleOrg" placeholder="请选择"><el-option v-for="item in saleOrgList" :key="item" :value="item" /></el-select>
+        <el-form-item label="工厂" prop="supplierId">
+          <el-select v-model="ruleForm.supplierId" placeholder="请选择">
+            <el-option v-for="item in supplierIdList" :key="item" :value="item" />
+          </el-select>
         </el-form-item>
         <el-form-item label="姓名" prop="realname"><el-input v-model="ruleForm.realname" /></el-form-item>
         <el-form-item label="性别" prop="sex">
@@ -172,7 +175,7 @@ export default {
       dialogFormVisible: false, // 编辑弹出框
       content1: this.$t('permission.username'),
       dialogType: 'new',
-      saleOrgList: [],
+      supplierIdList: [],
       isAdminList: [
         {
           value: '0',
@@ -195,7 +198,7 @@ export default {
       ],
       rules: {
         username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-        saleOrg: [{ required: true, message: '请选择工厂', trigger: 'change' }],
+        supplierId: [{ required: true, message: '请选择工厂', trigger: 'change' }],
         isAdmin: [{ required: true, message: '请选择角色', trigger: 'change' }],
         realname: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
         sex: [{ required: true, message: '请选择性别', trigger: 'change' }],
@@ -327,6 +330,7 @@ export default {
     getList() {
       this.listLoading = true
       userList(this.pagination, this.listQuery).then(res => {
+        debugger
         this.tableData = res.data.records
         this.total = res.data.total
         this.listLoading = false
@@ -391,7 +395,8 @@ export default {
     // 获取所有工厂
     getSaleOrg() {
       saleOrg().then(res => {
-        this.saleOrgList = res.data
+        debugger
+        // this.supplierIdList = res.data
       })
     }
   }

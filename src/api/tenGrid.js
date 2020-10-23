@@ -364,7 +364,7 @@ export function supplierAdd(data) {
 // 供应商管理增加接口
 export function saleOrg() {
   return request({
-    url: newUrl + '/sys/supplier/sale-org',
+    url: newUrl + '/sys/supplier/saleOrg',
     method: 'get'
   })
 }
@@ -406,4 +406,3 @@ export function userAdd(data) {
     data
   })
 }
-

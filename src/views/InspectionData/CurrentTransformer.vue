@@ -260,6 +260,7 @@
               :file-list="editFileList"
               :on-remove="onRemoveImg"
               :on-success="onsucessImg"
+              :on-preview="handlePictureCardPreview"
             >
               <i slot="default" class="el-icon-plus" />
             </el-upload>
@@ -686,6 +687,10 @@ export default {
       debugger
       // this.tableData.imageFileUrl = fileList.name
       // res.imageFileUrl = fileList.name
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url
+      this.dialogVisibleImg = true
     }
 
   }
