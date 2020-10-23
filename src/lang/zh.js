@@ -424,6 +424,7 @@ export default {
     pressureValueUnOther: '额定耐压值(kV)',
     addSupplier: '新增供应商',
     editSupplier: '编辑供应商',
+    username: '用户名',
 
     // 截止
     roles: '你的权限',

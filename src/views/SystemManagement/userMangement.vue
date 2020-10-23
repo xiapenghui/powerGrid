@@ -5,10 +5,10 @@
         <el-col :span="6">
           <el-col :span="8">
             <el-tooltip class="item" effect="dark" :content="content1" placement="top-start">
-              <label class="radio-label">{{ $t('permission.supplierWorkNo') }}:</label>
+              <label class="radio-label">{{ $t('permission.username') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="listQuery.supplierWorkNo" :placeholder="$t('permission.supplierWorkNo')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.username" :placeholder="$t('permission.userNameInfo')" clearable /></el-col>
         </el-col>
 
         <el-col :span="8">
@@ -55,39 +55,21 @@
     >
       <el-table-column type="selection" align="center" width="55" fixed />
 
-      <el-table-column align="center" label="创建时间">
-        <template slot-scope="scope">
-          {{ scope.row.createTime }}
-        </template>
-      </el-table-column>
-
       <el-table-column align="center" label="用户名">
         <template slot-scope="scope">
-          {{ scope.row.isAlarmData }}
+          {{ scope.row.username }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="姓名">
+      <el-table-column align="center" label="密码">
         <template slot-scope="scope">
-          {{ scope.row.alarmItem }}
+          {{ scope.row.password }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="姓别">
+      <el-table-column align="center" label="角色">
         <template slot-scope="scope">
-          {{ scope.row.processType }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" label="电话">
-        <template slot-scope="scope">
-          {{ scope.row.pdCode }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" label="邮箱">
-        <template slot-scope="scope">
-          {{ scope.row.checkTime }}
+          <el-tag :class="[scope.row.isAdmin === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isAdmin === 0 ? '管理员' : '普通用户' }}</el-tag>
         </template>
       </el-table-column>
 
@@ -97,10 +79,39 @@
         </template>
       </el-table-column>
 
+      <el-table-column align="center" label="姓名">
+        <template slot-scope="scope">
+          {{ scope.row.realname }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="姓别">
+        <template slot-scope="scope">
+          <el-tag type="info">{{ scope.row.sex=== 0 ? '男' : '女' }}</el-tag>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="电话">
+        <template slot-scope="scope">
+          {{ scope.row.phone }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="邮箱">
+        <template slot-scope="scope">
+          {{ scope.row.email }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="创建时间">
+        <template slot-scope="scope">
+          {{ scope.row.createTime }}
+        </template>
+      </el-table-column>
+
       <el-table-column align="center" :label="$t('permission.operations')" fixed="right" width="150">
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">{{ $t('table.edit') }}</el-button>
-          <!-- <el-button type="warning" size="small" @click="clickLogs(scope.row)">日志</el-button> -->
         </template>
       </el-table-column>
     </el-table>
@@ -108,15 +119,25 @@
     <!-- 编辑弹窗 -->
     <el-dialog :visible.sync="dialogFormVisible" :title="dialogType === 'edit' ? $t('permission.editUser') : $t('permission.addUser')">
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="100px" label-position="left">
-        <el-form-item label="用户名" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
-        <el-form-item label="姓名" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" /></el-form-item>
-        <el-form-item label="性别" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
-        <el-form-item label="电话" prop="isAlarmData"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
-        <el-form-item label="邮箱" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
+        <el-form-item label="用户名" prop="username"><el-input v-model="ruleForm.username" /></el-form-item>
+        <el-form-item label="密码" prop="password"><el-input v-model="ruleForm.password" /></el-form-item>
+
+        <el-form-item label="角色" prop="isAdmin">
+          <el-select v-model="ruleForm.isAdmin" placeholder="请选择">
+            <el-option v-for="item in isAdminList" :key="item.value" :label="item.label" :value="item.value" />
+          </el-select>
+        </el-form-item>
         <el-form-item label="工厂" prop="saleOrg">
-          <!-- <el-input v-model="ruleForm.saleOrg" /> -->
           <el-select v-model="ruleForm.saleOrg" placeholder="请选择"><el-option v-for="item in saleOrgList" :key="item" :value="item" /></el-select>
         </el-form-item>
+        <el-form-item label="姓名" prop="realname"><el-input v-model="ruleForm.realname" /></el-form-item>
+        <el-form-item label="性别" prop="sex">
+          <el-select v-model="ruleForm.sex" placeholder="请选择">
+            <el-option v-for="item in sexList" :key="item.value" :label="item.label" :value="item.value" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="电话" prop="phone"><el-input v-model="ruleForm.phone" /></el-form-item>
+        <el-form-item label="邮箱" prop="email"><el-input v-model="ruleForm.email" /></el-form-item>
       </el-form>
 
       <div slot="footer" class="dialog-footer">
@@ -132,19 +153,13 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { electricCurrent, electricDellte, electricEdit, saleOrg } from '@/api/tenGrid'
+import { userList, userDellte, userEdit, saleOrg, userAdd } from '@/api/tenGrid'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
 const fixHeight = 280
 export default {
   components: { Pagination },
   data() {
     return {
-      // 日志分页
-      paginationLog: {
-        current: 1,
-        size: 10
-      },
-      logTotal: 0,
       tableData: [],
       ruleForm: {}, // 编辑弹窗
       pagination: {
@@ -154,7 +169,7 @@ export default {
         endTime: ''
       },
       listQuery: {
-        supplierWorkNo: undefined,
+        username: undefined,
         importDate: []
       },
       listLoading: true,
@@ -163,16 +178,38 @@ export default {
       selectedData: [], // 批量删除新数组
       tableHeight: window.innerHeight - fixHeight, // 表格高度
       dialogFormVisible: false, // 编辑弹出框
-      content1: this.$t('permission.supplierWorkNo'),
+      content1: this.$t('permission.username'),
       dialogType: 'new',
       saleOrgList: [],
+      isAdminList: [
+        {
+          value: '0',
+          label: '管理员'
+        },
+        {
+          value: '1',
+          label: '普通用户'
+        }
+      ],
+      sexList: [
+        {
+          value: '0',
+          label: '男'
+        },
+        {
+          value: '1',
+          label: '女'
+        }
+      ],
       rules: {
-        pdCode: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-        supplierWorkNo: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
-        modelCode: [{ required: true, message: '请选择性别', trigger: 'blur' }],
-        isAlarmData: [{ required: true, message: '请输入电话号码', trigger: 'blur' }],
-        processType: [{ required: true, message: '请输入邮箱', trigger: 'blur' }],
-        saleOrg: [{ required: true, message: '请选择工厂', trigger: 'change' }]
+        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+        saleOrg: [{ required: true, message: '请选择工厂', trigger: 'change' }],
+        isAdmin: [{ required: true, message: '请选择角色', trigger: 'change' }],
+        realname: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
+        sex: [{ required: true, message: '请选择性别', trigger: 'change' }],
+        phone: [{ required: true, message: '请输入电话号码', trigger: 'blur' }],
+        email: [{ required: true, message: '请输入邮箱', trigger: 'blur' }]
       }
     }
   },
@@ -217,7 +254,7 @@ export default {
       })()
     }
     this.getList()
-    this.getSaleOrg()// 获取所有工厂
+    this.getSaleOrg() // 获取所有工厂
   },
   methods: {
     // 改变搜索框开始结束时间触发
@@ -228,15 +265,15 @@ export default {
     // 查询
     handleSearch() {
       this.pagination.current = 1
-      if (this.listQuery.supplierWorkNo === '') {
-        this.listQuery.supplierWorkNo = undefined
+      if (this.listQuery.username === '') {
+        this.listQuery.username = undefined
       }
       this.getList()
     },
     // 重置
     handleReset() {
       this.listQuery = {
-        supplierWorkNo: undefined,
+        username: undefined,
         importDate: [
           this.$moment(new Date())
             .subtract(1, 'months')
@@ -270,7 +307,7 @@ export default {
               const newFeatid = item.id
               idList.push(newFeatid)
             })
-            electricDellte(idList).then(res => {
+            userDellte(idList).then(res => {
               if (res.code === 0) {
                 this.$message({
                   type: 'success',
@@ -298,7 +335,7 @@ export default {
     // 获取列表
     getList() {
       this.listLoading = true
-      electricCurrent(this.pagination, this.listQuery).then(res => {
+      userList(this.pagination, this.listQuery).then(res => {
         this.tableData = res.data.records
         this.total = res.data.total
         this.listLoading = false
@@ -320,23 +357,36 @@ export default {
       this.dialogFormVisible = true
       this.ruleForm = JSON.parse(JSON.stringify(row))
     },
+
+    // 编辑成功
+    tipsFn() {
+      this.$message({
+        type: 'success',
+        message: this.$t('table.editSuc')
+      })
+      this.editLoading = false
+      this.dialogFormVisible = false
+      this.getList()
+    },
+
     // 编辑成功
     submitForm(formName) {
-      this.dialogType === 'new'
       this.editLoading = true
       this.$refs[formName].validate(valid => {
         if (valid) {
-          electricEdit(this.ruleForm).then(res => {
-            if (res.code === 200) {
-              this.$message({
-                type: 'success',
-                message: this.$t('table.editSuc')
-              })
-              this.editLoading = false
-              this.dialogFormVisible = false
-              this.getList()
-            }
-          })
+          if (this.dialogType === 'edit') {
+            userEdit(this.ruleForm).then(res => {
+              if (res.code === 200) {
+                this.tipsFn()
+              }
+            })
+          } else {
+            userAdd(this.ruleForm).then(res => {
+              if (res.code === 200) {
+                this.tipsFn()
+              }
+            })
+          }
         } else {
           this.editLoading = false
           this.$message({
@@ -353,7 +403,6 @@ export default {
         this.saleOrgList = res.data
       })
     }
-
   }
 }
 </script>

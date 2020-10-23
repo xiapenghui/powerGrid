@@ -368,3 +368,42 @@ export function saleOrg() {
     method: 'get'
   })
 }
+
+// 用户管理列表
+// 用户管理列表接口
+export function userList(query, data) {
+  return request({
+    url: newUrl + '/sys/user/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+// 用户管理编辑保存接口
+export function userEdit(data) {
+  return request({
+    url: newUrl + '/sys/user/update',
+    method: 'post',
+    data
+  })
+}
+
+// 用户管理删除接口
+export function userDellte(data) {
+  return request({
+    url: newUrl + '/sys/user/delete',
+    method: 'post',
+    data
+  })
+}
+
+// 用户管理增加接口
+export function userAdd(data) {
+  return request({
+    url: newUrl + '/sys/user/add',
+    method: 'post',
+    data
+  })
+}
+
