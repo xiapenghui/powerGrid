@@ -53,7 +53,7 @@ export default {
   },
   data() {
     return {
-      openeds: ['/BusinessData', '/InspectionData']
+      openeds: ['/BusinessData', '/InspectionData','/SystemManagement']
     }
   }
 }

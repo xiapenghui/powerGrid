@@ -387,6 +387,7 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 import logDialog from '@/components/logDialog' // 日志封装
 const fixHeight = 280
 export default {
+  name: 'MechanicalTest',
   components: { Pagination, logDialog },
   data() {
     return {

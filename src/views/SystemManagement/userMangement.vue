@@ -61,12 +61,6 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="密码">
-        <template slot-scope="scope">
-          {{ scope.row.password }}
-        </template>
-      </el-table-column>
-
       <el-table-column align="center" label="角色">
         <template slot-scope="scope">
           <el-tag :class="[scope.row.isAdmin === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isAdmin === 0 ? '管理员' : '普通用户' }}</el-tag>
@@ -120,8 +114,6 @@
     <el-dialog :visible.sync="dialogFormVisible" :title="dialogType === 'edit' ? $t('permission.editUser') : $t('permission.addUser')">
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="100px" label-position="left">
         <el-form-item label="用户名" prop="username"><el-input v-model="ruleForm.username" /></el-form-item>
-        <el-form-item label="密码" prop="password"><el-input v-model="ruleForm.password" /></el-form-item>
-
         <el-form-item label="角色" prop="isAdmin">
           <el-select v-model="ruleForm.isAdmin" placeholder="请选择">
             <el-option v-for="item in isAdminList" :key="item.value" :label="item.label" :value="item.value" />
@@ -203,7 +195,6 @@ export default {
       ],
       rules: {
         username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
         saleOrg: [{ required: true, message: '请选择工厂', trigger: 'change' }],
         isAdmin: [{ required: true, message: '请选择角色', trigger: 'change' }],
         realname: [{ required: true, message: '请输入姓名', trigger: 'blur' }],

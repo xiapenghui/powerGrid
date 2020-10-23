@@ -218,6 +218,7 @@ import { poList, poDown } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 const fixHeight = 280
 export default {
+  name: 'PurchaseIinformation',
   components: { Pagination },
   data() {
     return {

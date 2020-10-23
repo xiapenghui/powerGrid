@@ -311,6 +311,7 @@ import i18n from '@/lang'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
+	name:'SchedulingInformation',
   components: { Pagination },
   data() {
     return {
