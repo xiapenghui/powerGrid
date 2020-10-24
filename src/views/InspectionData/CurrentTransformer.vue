@@ -223,20 +223,30 @@
             <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
             <el-form-item label="供应商工单编号" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" /></el-form-item>
             <el-form-item label="规格型号编码" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
-            <el-form-item label="是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
+            <el-tooltip class="item" effect="dark" content="是告警问题数据" placement="top-start">
+              <el-form-item label="是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
+            </el-tooltip>
             <el-form-item label="感知过程" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
             <el-form-item label="采集时间" prop="checkTime">
               <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
             </el-form-item>
-            <el-form-item label="原材料出厂编号(Key)" prop="RawMaterialSN"><el-input v-model="ruleForm.RawMaterialSN" /></el-form-item>
-            <el-form-item label="一次耐压额定值(kV)"><el-input v-model="ruleForm.pressureValueUn" /></el-form-item>
-            <el-form-item label="耐压持续额定时间(s)"><el-input v-model="ruleForm.pressureTimeUn" /></el-form-item>
+            <el-tooltip class="item" effect="dark" content="原材料出厂编号(Key)" placement="top-start">
+              <el-form-item label="原材料出厂编号(Key)" prop="RawMaterialSN"><el-input v-model="ruleForm.RawMaterialSN" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="一次耐压额定值(kV)" placement="top-start">
+              <el-form-item label="一次耐压额定值(kV)"><el-input v-model="ruleForm.pressureValueUn" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="耐压持续额定时间(s)" placement="top-start">
+              <el-form-item label="耐压持续额定时间(s)"><el-input v-model="ruleForm.pressureTimeUn" /></el-form-item>
+            </el-tooltip>
             <el-form-item label="额定局放量(pC)"><el-input v-model="ruleForm.dischargeUn" /></el-form-item>
             <el-form-item label="B相局放量"><el-input v-model="ruleForm.dischargeB" /></el-form-item>
           </div>
           <div class="boxRight">
             <el-form-item label="采集规范版本号" prop="standardVersion"><el-input v-model="ruleForm.standardVersion" /></el-form-item>
-            <el-form-item label="国网侧供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
+            <el-tooltip class="item" effect="dark" content="国网侧供应商编码" placement="top-start">
+              <el-form-item label="国网侧供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
+            </el-tooltip>
             <el-form-item label="物资品类类型" prop="categoryType"><el-input v-model="ruleForm.categoryType" /></el-form-item>
             <el-form-item label="告警项"><el-input v-model="ruleForm.alarmItem" /></el-form-item>
             <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
@@ -251,21 +261,23 @@
           </div>
         </div>
         <div class="bigDownBox">
-          <el-form-item label="（电流互感器）检验报告附件">
-            <el-upload
-              action="http://39.101.166.244:8888/api/image/upload"
-              :data="this.oneDataImg"
-              :limit="1"
-              list-type="picture-card"
-              :file-list="editFileList"
-              :on-remove="onRemoveImg"
-              :on-success="onsucessImg"
-              :on-preview="handlePictureCardPreview"
-            >
-              <i slot="default" class="el-icon-plus" />
-            </el-upload>
-            <el-dialog :visible.sync="dialogVisibleImg"><img width="100%" :src="dialogImageUrl" alt=""></el-dialog>
-          </el-form-item>
+          <el-tooltip class="item" effect="dark" content="（电流互感器）检验报告附件" placement="top-start">
+            <el-form-item label="（电流互感器）检验报告附件">
+              <el-upload
+                action="http://39.101.166.244:8888/api/image/upload"
+                :data="this.oneDataImg"
+                :limit="1"
+                list-type="picture-card"
+                :file-list="editFileList"
+                :on-remove="onRemoveImg"
+                :on-success="onsucessImg"
+                :on-preview="handlePictureCardPreview"
+              >
+                <i slot="default" class="el-icon-plus" />
+              </el-upload>
+              <el-dialog :visible.sync="dialogVisibleImg"><img width="100%" :src="dialogImageUrl" alt=""></el-dialog>
+            </el-form-item>
+          </el-tooltip>
         </div>
       </el-form>
 
@@ -304,7 +316,7 @@
     <el-dialog title="批量上传图片" :visible.sync="dialogVisibleAllImg" width="50%">
       <div class="demo-image__error">
         <div v-for="(item, index) in imgList" :key="index" class="blockImg">
-          <el-image style="width:80px; height: 80px" :src="item.imagePath===null ? '' : item.imagePath">
+          <el-image style="width:80px; height: 80px" :src="item.imagePath === null ? '' : item.imagePath">
             <div slot="error" class="image-slot"><i class="el-icon-picture-outline" /></div>
           </el-image>
           <span class="demonstration">{{ item.imageName }}</span>
@@ -679,12 +691,9 @@ export default {
       })
     },
     // 编辑替换移除图片
-    onRemoveImg(file, fileList) {
-
-    },
+    onRemoveImg(file, fileList) {},
     // 编辑图片上传成功
     onsucessImg(file, fileList) {
-      debugger
       // this.tableData.imageFileUrl = fileList.name
       // res.imageFileUrl = fileList.name
     },
@@ -692,7 +701,6 @@ export default {
       this.dialogImageUrl = file.url
       this.dialogVisibleImg = true
     }
-
   }
 }
 </script>

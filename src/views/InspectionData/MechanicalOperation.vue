@@ -247,22 +247,38 @@
             <el-form-item label="供应商工单编号" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" /></el-form-item>
             <el-form-item label="规格型号编码" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
             <el-form-item label="厂区编号"><el-input v-model="ruleForm.factoryCode" /></el-form-item>
-            <el-form-item label="供应商产品厂内编号" prop="productModel"><el-input v-model="ruleForm.productModel" /></el-form-item>
-            <el-form-item label="生产设备唯一识别号" prop="equipmentUniqueCode"><el-input v-model="ruleForm.equipmentUniqueCode" /></el-form-item>
+            <el-tooltip class="item" effect="dark" content="供应商产品厂内编号" placement="top-start">
+              <el-form-item label="供应商产品厂内编号" prop="productModel"><el-input v-model="ruleForm.productModel" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="生产设备唯一识别号" placement="top-start">
+              <el-form-item label="生产设备唯一识别号" prop="equipmentUniqueCode"><el-input v-model="ruleForm.equipmentUniqueCode" /></el-form-item>
+            </el-tooltip>
             <el-form-item label="是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
             <el-form-item label="感知过程" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
             <el-form-item label="采集时间" prop="checkTime">
               <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
             </el-form-item>
-            <el-form-item label="断路器出厂编号(常州)" prop="contactNum"><el-input v-model="ruleForm.contactNum" /></el-form-item>
-            <el-form-item label="人力分合操作5次，可靠动作" prop="openCloseFiveManual"><el-input v-model="ruleForm.openCloseFiveManual" /></el-form-item>
-            <el-form-item label="等于或低于30% 额定合闸电压时,可靠不动作" prop="thirtyRatedSwitch"><el-input v-model="ruleForm.thirtyRatedSwitch" /></el-form-item>
-            <el-form-item label="65%~110%额定合闸电压（直流）范围，可靠合闸" prop="sixtyFiveRatedSwitch"><el-input v-model="ruleForm.sixtyFiveRatedSwitch" /></el-form-item>
-            <el-form-item label="额定操作电压下，分合操作5次，均可靠动作" prop="ratedVolAllReliable"><el-input v-model="ruleForm.ratedVolAllReliable" /></el-form-item>
+            <el-tooltip class="item" effect="dark" content="断路器出厂编号(常州)" placement="top-start">
+              <el-form-item label="断路器出厂编号(常州)" prop="contactNum"><el-input v-model="ruleForm.contactNum" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="人力分合操作5次，可靠动作" placement="top-start">
+              <el-form-item label="人力分合操作5次，可靠动作" prop="openCloseFiveManual"><el-input v-model="ruleForm.openCloseFiveManual" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="等于或低于30% 额定合闸电压时,可靠不动作" placement="top-start">
+              <el-form-item label="等于或低于30% 额定合闸电压时,可靠不动作" prop="thirtyRatedSwitch"><el-input v-model="ruleForm.thirtyRatedSwitch" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="65%~110%额定合闸电压（直流）范围，可靠合闸" placement="top-start">
+              <el-form-item label="65%~110%额定合闸电压（直流）范围，可靠合闸" prop="sixtyFiveRatedSwitch"><el-input v-model="ruleForm.sixtyFiveRatedSwitch" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="额定操作电压下，分合操作5次，均可靠动作" placement="top-start">
+              <el-form-item label="额定操作电压下，分合操作5次，均可靠动作" prop="ratedVolAllReliable"><el-input v-model="ruleForm.ratedVolAllReliable" /></el-form-item>
+            </el-tooltip>
           </div>
           <div class="boxRight">
             <el-form-item label="采集规范版本号" prop="standardVersion"><el-input v-model="ruleForm.standardVersion" /></el-form-item>
-            <el-form-item label="国网侧供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
+            <el-tooltip class="item" effect="dark" content="国网侧供应商编码" placement="top-start">
+              <el-form-item label="国网侧供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
+            </el-tooltip>
             <el-form-item label="物资品类类型" prop="categoryType"><el-input v-model="ruleForm.categoryType" /></el-form-item>
             <el-form-item label="供应商产品编号"><el-input v-model="ruleForm.supplierSupportId" /></el-form-item>
             <el-form-item label="生产设备名称" prop="equipmentName"><el-input v-model="ruleForm.equipmentName" /></el-form-item>
@@ -272,10 +288,18 @@
               <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
             </el-form-item>
             <el-form-item label="成品序列号" prop="materialSN"><el-input v-model="ruleForm.materialSN" /></el-form-item>
-            <el-form-item label="储能电机85%和110%操作电压，储能可靠动作" prop="eightyFiveOper"><el-input v-model="ruleForm.eightyFiveOper" /></el-form-item>
-            <el-form-item label="80%~110%额定合闸电压（交流）范围，可靠合闸" prop="eightyRatedSwitch"><el-input v-model="ruleForm.eightyRatedSwitch" /></el-form-item>
-            <el-form-item label="分闸电源低于额定30%，操作5次可靠不动作" prop="lowerThirtyRated"><el-input v-model="ruleForm.lowerThirtyRated" /></el-form-item>
-            <el-form-item label="额定操作电压“分-0.3-合分”，可靠动作" prop="ratedVolOpenClose"><el-input v-model="ruleForm.ratedVolOpenClose" /></el-form-item>
+            <el-tooltip class="item" effect="dark" content="储能电机85%和110%操作电压，储能可靠动作" placement="top-start">
+              <el-form-item label="储能电机85%和110%操作电压，储能可靠动作" prop="eightyFiveOper"><el-input v-model="ruleForm.eightyFiveOper" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="80%~110%额定合闸电压（交流）范围，可靠合闸" placement="top-start">
+              <el-form-item label="80%~110%额定合闸电压（交流）范围，可靠合闸" prop="eightyRatedSwitch"><el-input v-model="ruleForm.eightyRatedSwitch" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="分闸电源低于额定30%，操作5次可靠不动作" placement="top-start">
+              <el-form-item label="分闸电源低于额定30%，操作5次可靠不动作" prop="lowerThirtyRated"><el-input v-model="ruleForm.lowerThirtyRated" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="额定操作电压“分-0.3-合分”，可靠动作" placement="top-start">
+              <el-form-item label="额定操作电压“分-0.3-合分”，可靠动作" prop="ratedVolOpenClose"><el-input v-model="ruleForm.ratedVolOpenClose" /></el-form-item>
+            </el-tooltip>
           </div>
         </div>
       </el-form>
