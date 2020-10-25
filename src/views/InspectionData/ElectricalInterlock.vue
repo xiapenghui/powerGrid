@@ -13,7 +13,7 @@
 
         <el-col :span="8">
           <el-col :span="4">
-            <el-tooltip class="item" effect="dark" placement="top-start"><label class="radio-label">创建时间:</label></el-tooltip>
+            <el-tooltip class="item" effect="dark" content="创建时间" placement="top-start"><label class="radio-label">创建时间:</label></el-tooltip>
           </el-col>
           <el-col :span="18">
             <el-date-picker

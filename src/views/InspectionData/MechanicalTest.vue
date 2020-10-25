@@ -10,7 +10,6 @@
           </el-col>
           <el-col :span="16"><el-input v-model="listQuery.supplierWorkNo" :placeholder="$t('permission.supplierWorkNo')" clearable /></el-col>
         </el-col>
-
         <el-col :span="8">
           <el-col :span="4">
             <el-tooltip class="item" effect="dark" placement="top-start"><label class="radio-label">创建时间:</label></el-tooltip>
