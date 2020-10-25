@@ -53,8 +53,11 @@ export default {
   },
   data() {
     return {
-      openeds: ['/BusinessData', '/InspectionData','/SystemManagement']
+      openeds: ['/BusinessData', '/InspectionData', '/SystemManagement']
     }
+  },
+  created(){
+	  console.log("permission_routes",this.permission_routes)
   }
 }
 </script>

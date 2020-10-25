@@ -12,16 +12,15 @@
     </div>
 
     <!-- //导入文件 -->
-    <el-button type="primary" size="mini" style="position: absolute;top: 10px; right: 260px;z-index: 9;" @click="dialogVisible = true">
+    <!-- <el-button type="primary" size="mini" style="position: absolute;top: 10px; right: 260px;z-index: 9;" @click="dialogVisible = true">
       <i class="el-icon-folder-checked" />
-    </el-button>
-    <el-dialog
+    </el-button> -->
+    <!--   <el-dialog
       :title="newTitle"
       :visible.sync="dialogVisible"
       :close-on-click-modal="false"
       width="30%"
     >
-      <!-- action="http://39.101.166.244:8888/api/excel/upload" -->
       <el-upload
         v-loading="loading"
         class="upload-demo"
@@ -39,17 +38,16 @@
       </el-upload>
 
       <span slot="footer" class="dialog-footer">
-        <!-- <el-button @click="dialogVisible = false">取 消</el-button> -->
         <el-button type="primary" @click="closeOk">{{ $t('table.closeOk') }}</el-button>
       </span>
-    </el-dialog>
+    </el-dialog> -->
   </div>
 </template>
 
 <script>
 import RightPanel from '@/components/RightPanel'
 import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components'
-import { analysis } from '@/api/tenGrid'
+// import { analysis } from '@/api/tenGrid'
 import ResizeMixin from './mixin/ResizeHandler'
 import i18n from '@/lang'
 import { mapState } from 'vuex'
@@ -64,13 +62,13 @@ export default {
     TagsView
   },
   mixins: [ResizeMixin],
-  data() {
-    return {
-      dialogVisible: false,
-      loading: false,
-      newTitle: this.$t('table.upData')
-    }
-  },
+  // data() {
+  //   return {
+  //     dialogVisible: false,
+  //     loading: false,
+  //     newTitle: this.$t('table.upData')
+  //   }
+  // },
   computed: {
     ...mapState({
       sidebar: state => state.app.sidebar,
@@ -98,43 +96,43 @@ export default {
     handleClickOutside() {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
     },
-    // 解析文件
-    closeOk() {
-      this.loading = true
-      analysis().then(res => {
-        if (res.code === 200) {
-          this.$message.success('恭喜你，解析成功！')
-          this.loading = false
-          this.dialogVisible = false
-        } else {
-          this.$message.error('抱歉，解析失败！')
-        }
-      })
-    },
-    // 成功
-    handleAvatarSuccess(res, file) {
-      if (res.code === 200) {
-        this.$message.success(this.$t('table.upSuccess'))
-      }
-    },
-    // 失败
-    handleAvatarError(res, file) {
-      if (res.code === 500 && res.type === 'error') {
-        this.$message.error(this.$t('table.upError'))
-      }
-    },
-    beforeAvatarUpload(file) {
-      const isXLS = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      const isLt2M = file.size / 1024 / 1024 < 2
+    // // 解析文件
+    // closeOk() {
+    //   this.loading = true
+    //   analysis().then(res => {
+    //     if (res.code === 200) {
+    //       this.$message.success('恭喜你，解析成功！')
+    //       this.loading = false
+    //       this.dialogVisible = false
+    //     } else {
+    //       this.$message.error('抱歉，解析失败！')
+    //     }
+    //   })
+    // },
+    // // 成功
+    // handleAvatarSuccess(res, file) {
+    //   if (res.code === 200) {
+    //     this.$message.success(this.$t('table.upSuccess'))
+    //   }
+    // },
+    // // 失败
+    // handleAvatarError(res, file) {
+    //   if (res.code === 500 && res.type === 'error') {
+    //     this.$message.error(this.$t('table.upError'))
+    //   }
+    // },
+    // beforeAvatarUpload(file) {
+    //   const isXLS = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    //   const isLt2M = file.size / 1024 / 1024 < 2
 
-      if (!isXLS) {
-        this.$message.error(this.$t('table.errorOne'))
-      }
-      if (!isLt2M) {
-        this.$message.error(this.$t('table.errorTwo'))
-      }
-      return isXLS && isLt2M
-    },
+    //   if (!isXLS) {
+    //     this.$message.error(this.$t('table.errorOne'))
+    //   }
+    //   if (!isLt2M) {
+    //     this.$message.error(this.$t('table.errorTwo'))
+    //   }
+    //   return isXLS && isLt2M
+    // },
     i18n(routes) {
       const app = routes.map(route => {
         route.title = i18n.t(`route.${route.title}`)

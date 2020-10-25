@@ -57,6 +57,7 @@ export const constantRoutes = [{
   component: () => import('@/views/error-page/404'),
   hidden: true
 },
+
 {
   path: '/401',
   component: () => import('@/views/error-page/401'),
@@ -228,7 +229,51 @@ export const constantRoutes = [{
     }
 
   ]
+},
+
+/** when your routing map is too long, you can split it into small modules **/
+
+{
+  path: '/error',
+  component: Layout,
+  redirect: 'noRedirect',
+  name: 'ErrorPages',
+  hidden: true,
+  meta: {
+    title: 'errorPages',
+    icon: '404'
+  },
+  children: [{
+    path: '401',
+    component: () => import('@/views/error-page/401'),
+    name: 'Page401',
+    meta: {
+      title: 'page401',
+      noCache: true
+    }
+  },
+  {
+    path: '404',
+    component: () => import('@/views/error-page/404'),
+    name: 'Page404',
+    meta: {
+      title: 'page404',
+      noCache: true
+    }
+  }
+  ]
+},
+{
+  path: '*',
+  redirect: '/404',
+  hidden: true
 }
+  // // 404 page must be placed at the end !!!
+  // {
+  //   path: '*',
+  //   redirect: '/404',
+  //   hidden: true
+  // }
 
 ]
 
@@ -287,47 +332,8 @@ export const asyncRoutes = [{
     }
   }
   ]
-},
-
-/** when your routing map is too long, you can split it into small modules **/
-
-{
-  path: '/error',
-  component: Layout,
-  redirect: 'noRedirect',
-  name: 'ErrorPages',
-  hidden: true,
-  meta: {
-    title: 'errorPages',
-    icon: '404'
-  },
-  children: [{
-    path: '401',
-    component: () => import('@/views/error-page/401'),
-    name: 'Page401',
-    meta: {
-      title: 'page401',
-      noCache: true
-    }
-  },
-  {
-    path: '404',
-    component: () => import('@/views/error-page/404'),
-    name: 'Page404',
-    meta: {
-      title: 'page404',
-      noCache: true
-    }
-  }
-  ]
-},
-
-// 404 page must be placed at the end !!!
-{
-  path: '*',
-  redirect: '/404',
-  hidden: true
 }
+
 ]
 
 const createRouter = () => new Router({

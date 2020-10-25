@@ -173,21 +173,21 @@ export default {
       supplierIdList: [],
       isAdminList: [
         {
-          value: '0',
+          value: 0,
           label: '管理员'
         },
         {
-          value: '1',
+          value: 1,
           label: '普通用户'
         }
       ],
       sexList: [
         {
-          value: '0',
+          value: 0,
           label: '男'
         },
         {
-          value: '1',
+          value: 1,
           label: '女'
         }
       ],

@@ -1,4 +1,5 @@
 import { asyncRoutes, constantRoutes } from '@/router'
+import { setMenu } from '@/utils/auth'
 
 /**
  * Use meta.role to determine if the current user has permission
@@ -18,21 +19,21 @@ function hasPermission(roles, route) {
  * @param routes asyncRoutes
  * @param roles
  */
-export function filterAsyncRoutes(routes, roles) {
-  const res = []
+// export function filterAsyncRoutes(routes, roles) {
+//   const res = []
 
-  routes.forEach(route => {
-    const tmp = { ...route }
-    if (hasPermission(roles, tmp)) {
-      if (tmp.children) {
-        tmp.children = filterAsyncRoutes(tmp.children, roles)
-      }
-      res.push(tmp)
-    }
-  })
+//   routes.forEach(route => {
+//     const tmp = { ...route }
+//     if (hasPermission(roles, tmp)) {
+//       if (tmp.children) {
+//         tmp.children = filterAsyncRoutes(tmp.children, roles)
+//       }
+//       res.push(tmp)
+//     }
+//   })
 
-  return res
-}
+//   return res
+// }
 
 const state = {
   routes: [],
@@ -42,7 +43,10 @@ const state = {
 const mutations = {
   SET_ROUTES: (state, routes) => {
     state.addRoutes = routes
+    console.log('routes', routes)
+
     state.routes = constantRoutes.concat(routes)
+     console.log('constantRoutes', state.routes)
   }
 }
 
@@ -50,13 +54,22 @@ const actions = {
   generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
       let accessedRoutes
-      if (roles.includes('admin')) {
-        accessedRoutes = asyncRoutes || []
+      console.log('roles', roles)
+      console.log('asyncRoutes', asyncRoutes)
+      if (roles === 'ROLE_ADMIN') {
+        console.log('满足')
+        accessedRoutes = asyncRoutes
       } else {
-        accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
+        accessedRoutes = []
       }
       commit('SET_ROUTES', accessedRoutes)
+
       resolve(accessedRoutes)
+      // if (roles.includes('admin')) {
+      //   accessedRoutes = asyncRoutes || []
+      // } else {
+      //   accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
+      // }
     })
   }
 }
