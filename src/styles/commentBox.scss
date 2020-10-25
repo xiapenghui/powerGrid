@@ -27,6 +27,7 @@
   }
 }
 .app-container {
+  padding: 5px 20px;
   .el-dialog {
     margin-top: 5vh !important;
   }
@@ -55,10 +56,6 @@
       white-space: nowrap;
       text-overflow: ellipsis;
     }
-    .textLeft {
-      text-align: left;
-    }
-
     .center {
       text-align: center;
       margin-top: 20px;
@@ -66,6 +63,9 @@
     .is-circle {
       float: right;
       margin-right: 10px;
+    }
+    label{
+      font-size: 17px;
     }
   }
 

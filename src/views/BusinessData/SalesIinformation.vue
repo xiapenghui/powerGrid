@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="search">
       <el-row :gutter="20">
-        <el-col :span="6">
+        <el-col :span="8">
           <el-col :span="8">
             <el-tooltip class="item" effect="dark" :content="content1" placement="top-start">
               <label class="radio-label">{{ $t('permission.poItemIds') }}:</label>
@@ -12,10 +12,10 @@
         </el-col>
 
         <el-col :span="8">
-          <el-col :span="4">
+          <el-col :span="8">
             <el-tooltip class="item" effect="dark" content="创建时间" placement="top-start"><label class="radio-label">创建时间:</label></el-tooltip>
           </el-col>
-          <el-col :span="18">
+          <el-col :span="16">
             <el-date-picker
               v-model="listQuery.importDate"
               format="yyyy-MM-dd"
@@ -281,7 +281,7 @@ import i18n from '@/lang'
 import { saleList, saleDellte, saleEdit, saleUpload, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import logDialog from '@/components/logDialog' // 日志封装
-const fixHeight = 280
+const fixHeight = 270
 export default {
   name: 'SalesIinformation',
   components: { Pagination, logDialog },
