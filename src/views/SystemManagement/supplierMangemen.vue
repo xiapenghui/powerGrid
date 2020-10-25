@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="search">
       <el-row :gutter="20">
-        <el-col :span="6">
+        <el-col :span="8">
           <el-col :span="8">
             <el-tooltip class="item" effect="dark" :content="content1" placement="top-start">
               <label class="radio-label">{{ $t('permission.supplierCode') }}:</label>
@@ -12,10 +12,10 @@
         </el-col>
 
         <el-col :span="8">
-          <el-col :span="4">
+          <el-col :span="8">
             <el-tooltip class="item" effect="dark" placement="top-start"><label class="radio-label">创建时间:</label></el-tooltip>
           </el-col>
-          <el-col :span="18">
+          <el-col :span="16">
             <el-date-picker
               v-model="listQuery.importDate"
               format="yyyy-MM-dd"
@@ -30,7 +30,7 @@
           </el-col>
         </el-col>
 
-        <el-col :span="4" class="textLeft">
+        <el-col :span="4">
           <el-button type="primary" icon="el-icon-search" @click="handleSearch">{{ $t('permission.search') }}</el-button>
           <el-button type="danger" icon="el-icon-refresh" @click="handleReset">{{ $t('permission.reset') }}</el-button>
         </el-col>
