@@ -425,7 +425,7 @@ export default {
     addSupplier: '新增供应商',
     editSupplier: '编辑供应商',
     username: '用户名',
-
+    imageFileUrlJixie: '机械特性试验报告',
     // 截止
     roles: '你的权限',
     switchRoles: '切换权限',

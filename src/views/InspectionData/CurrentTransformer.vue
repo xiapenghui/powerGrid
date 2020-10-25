@@ -261,8 +261,8 @@
           </div>
         </div>
         <div class="bigDownBox">
-          <el-tooltip class="item" effect="dark" content="（电流互感器）检验报告附件" placement="top-start">
-            <el-form-item label="（电流互感器）检验报告附件">
+          <el-tooltip class="item" effect="dark" content="电流附件" placement="top-start">
+            <el-form-item label="电流附件">
               <el-upload
                 action="http://39.101.166.244:8888/api/image/upload"
                 :data="this.oneDataImg"
@@ -275,6 +275,7 @@
               >
                 <i slot="default" class="el-icon-plus" />
               </el-upload>
+
               <el-dialog :visible.sync="dialogVisibleImg"><img width="100%" :src="dialogImageUrl" alt=""></el-dialog>
             </el-form-item>
           </el-tooltip>
@@ -402,10 +403,10 @@ export default {
       disabled: false,
       imgList: [], // 批量上传图片数组
       fileList: [],
-      newDataImg: { id: 'PEF20002416', imagePath: '', modelName: '电流互感器' }, // 多个图片上传
-      oneDataImg: { id: 'PEF20002416', imagePath: '', modelName: '电流互感器' }, // 单个图片上传或替换之前的图片
+      newDataImg: { id: '', imagePath: '', modelName: '电流互感器' }, // 多个图片上传
+      oneDataImg: { id: '', imagePath: '', modelName: '电流互感器' }, // 单个图片上传或替换之前的图片
+      editRow: {},
       editFileList: [],
-      newName: '', // 上传文件赋值名字
       content1: this.$t('permission.supplierWorkNo'),
       rules: {
         saleOrg: [{ required: true, message: '请输入工厂', trigger: 'blur' }],
@@ -580,6 +581,7 @@ export default {
     handleEdit(index, row) {
       this.editFileList = []
       this.oneDataImg.id = row.id
+      this.editRow = row
       if (row.imagePath !== null) {
         this.editFileList.push({
           name: row.imageFileUrl,
@@ -671,10 +673,15 @@ export default {
     beforeUploadImage(file) {
       // console.log('file', file)
       const isJPG = file.type === 'image/jpeg'
+      const isPNG = file.type === 'image/png'
+      const self = this
       var isOK = this.imgList.some(function(item) {
+        if (item.imageName === file.name) {
+          self.newDataImg.id = item.id
+        }
         return item.imageName === file.name
       })
-      if (!isJPG) {
+      if (!isJPG && !isPNG) {
         this.$message.error(` ${file.name}格式错误！`)
       }
 
@@ -693,9 +700,12 @@ export default {
     // 编辑替换移除图片
     onRemoveImg(file, fileList) {},
     // 编辑图片上传成功
-    onsucessImg(file, fileList) {
-      // this.tableData.imageFileUrl = fileList.name
-      // res.imageFileUrl = fileList.name
+    onsucessImg(response, file, fileList) {
+      console.log('response', response)
+      console.log('file', file)
+      console.log('fileList', fileList)
+      this.editRow.imageFileUrl = file.name
+      // this.getList()
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url

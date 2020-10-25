@@ -278,7 +278,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.imageFileUrl')" width="200">
+      <el-table-column align="center" :label="$t('permission.imageFileUrlJixie')" width="200">
         <template slot-scope="scope">
           {{ scope.row.imageFileUrl }}
         </template>
@@ -362,8 +362,27 @@
             <el-tooltip class="item" effect="dark" content="合闸弹跳（真空断路器）(ms)" placement="top-start">
               <el-form-item label="合闸弹跳（真空断路器）(ms)" prop="closeBounceTime"><el-input v-model="ruleForm.closeBounceTime" /></el-form-item>
             </el-tooltip>
-            <el-form-item label="机械特性试验报告"><el-input v-model="ruleForm.imageFileUrl" /></el-form-item>
           </div>
+        </div>
+        <div class="bigDownBox">
+          <el-tooltip class="item" effect="dark" content="机械特性附件" placement="top-start">
+            <el-form-item label="机械特性附件">
+              <el-upload
+                action="http://39.101.166.244:8888/api/image/upload"
+                :data="this.oneDataImg"
+                :limit="1"
+                list-type="picture-card"
+                :file-list="editFileList"
+                :on-remove="onRemoveImg"
+                :on-success="onsucessImg"
+                :on-preview="handlePictureCardPreview"
+              >
+                <i slot="default" class="el-icon-plus" />
+              </el-upload>
+
+              <el-dialog :visible.sync="dialogVisibleImg"><img width="100%" :src="dialogImageUrl" alt=""></el-dialog>
+            </el-form-item>
+          </el-tooltip>
         </div>
       </el-form>
 
@@ -397,6 +416,46 @@
         </div>
       </el-upload>
     </el-dialog>
+
+    <!-- //批量上传图片弹窗 -->
+    <el-dialog title="批量上传图片" :visible.sync="dialogVisibleAllImg" width="50%">
+      <div class="demo-image__error">
+        <div v-for="(item, index) in imgList" :key="index" class="blockImg">
+          <el-image style="width:80px; height: 80px" :src="item.imagePath === null ? '' : item.imagePath">
+            <div slot="error" class="image-slot"><i class="el-icon-picture-outline" /></div>
+          </el-image>
+          <span class="demonstration">{{ item.imageName }}</span>
+        </div>
+      </div>
+
+      <div class="uploadImg">
+        <el-upload
+          ref="uploadImage"
+          style="margin-top: 30px"
+          class="upload-demo"
+          action="http://39.101.166.244:8888/api/image/upload"
+          :data="this.newDataImg"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :before-remove="beforeRemove"
+          :on-success="onSuccessImage"
+          :before-upload="beforeUploadImage"
+          :on-change="onChange"
+          multiple
+          :limit="20"
+          :on-exceed="handleExceed"
+          :file-list="fileList"
+        >
+          <el-button size="small" type="primary">选择图片</el-button>
+        </el-upload>
+      </div>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisibleAllImg = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisibleAllImg = false">确 定</el-button>
+      </span>
+    </el-dialog>
+
     <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" />
   </div>
 </template>
@@ -443,6 +502,16 @@ export default {
       dialogTableVisible: false, // 日志弹出框
       dialogVisible: false, // 文件上传弹出框
       dialogFormVisible: false, // 编辑弹出框
+      dialogImageUrl: '', // 编辑上传单张图片
+      dialogVisibleImg: false, // 上传图片模态框
+      dialogVisibleAllImg: false, // 批量上传图片
+      disabled: false,
+      imgList: [], // 批量上传图片数组
+      fileList: [],
+      newDataImg: { id: '', imagePath: '', modelName: '机械特性试验' }, // 多个图片上传
+      oneDataImg: { id: '', imagePath: '', modelName: '机械特性试验' }, // 单个图片上传或替换之前的图片
+      editRow: {},
+      editFileList: [],
       content1: this.$t('permission.supplierWorkNo'),
       rules: {
         saleOrg: [{ required: true, message: '请输入工厂', trigger: 'blur' }],
@@ -635,8 +704,17 @@ export default {
     },
     // 编辑
     handleEdit(index, row) {
-      this.dialogFormVisible = true
+      this.editFileList = []
+      this.oneDataImg.id = row.id
+      this.editRow = row
+      if (row.imagePath !== null) {
+        this.editFileList.push({
+          name: row.imageFileUrl,
+          url: 'http://39.101.166.244:8888/image/' + row.imagePath
+        })
+      }
       this.ruleForm = JSON.parse(JSON.stringify(row))
+      this.dialogFormVisible = true
     },
     // 编辑成功
     submitForm(formName) {
@@ -675,6 +753,9 @@ export default {
         this.dialogVisible = false
         this.getList()
       }
+      this.dialogVisibleAllImg = true
+      console.log('res.data', res.data)
+      this.imgList = res.data
     },
     // 失败
     handleAvatarError(res, file) {
@@ -693,7 +774,68 @@ export default {
         this.$message.error(this.$t('table.errorTwo'))
       }
       return isXLS && isLt2M
+    },
+    // 上传
+    onChange(file, fileList) {
+      // console.log('file', file)
+    },
+    handleRemove(file, fileList) {
+      // console.log(file, fileList)
+    },
+    handlePreview(file) {
+      // console.log(file)
+    },
+    handleExceed(files, fileList) {
+      this.$message.warning(`当前限制选择 20 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
+    },
+    beforeRemove(file, fileList) {
+      if (file && file.status === 'success') {
+        // 成功时候的方法
+        return this.$confirm(`确定移除 ${file.name}？`)
+      }
+    },
+    beforeUploadImage(file) {
+      // console.log('file', file)
+      const isJPG = file.type === 'image/jpeg'
+      const isPNG = file.type === 'image/png'
+      const self = this
+      var isOK = this.imgList.some(function(item) {
+        if (item.imageName === file.name) {
+          self.newDataImg.id = item.id
+        }
+        return item.imageName === file.name
+      })
+      if (!isJPG && !isPNG) {
+        this.$message.error(` ${file.name}格式错误！`)
+      }
+
+      return isJPG && isOK
+    },
+    onSuccessImage(res, file, fileList) {
+      // console.log('res', res)
+      // console.log('file', file)
+      // console.log('fileList', fileList)
+      this.imgList.map(item => {
+        if (item.imageName === file.name) {
+          item.imagePath = 'http://39.101.166.244:8888' + res.data
+        }
+      })
+    },
+    // 编辑替换移除图片
+    onRemoveImg(file, fileList) {},
+    // 编辑图片上传成功
+    onsucessImg(response, file, fileList) {
+      console.log('response', response)
+      console.log('file', file)
+      console.log('fileList', fileList)
+      this.editRow.imageFileUrl = file.name
+      // this.getList()
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url
+      this.dialogVisibleImg = true
     }
+
   }
 }
 </script>
