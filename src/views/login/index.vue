@@ -31,7 +31,7 @@
           <span class="show-pwd" @click="showPwd"><svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" /></span>
         </el-form-item>
       </el-tooltip>
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">{{ $t('login.logIn') }}</el-button>
+      <el-button :loading="loading" type="primary" @click.native.prevent="handleLogin">{{ $t('login.logIn') }}</el-button>
     </el-form>
   </div>
 </template>
@@ -198,7 +198,7 @@ $cursor: #fff;
 <style lang="scss" scoped>
 $bg: #2d3a4b;
 $dark_gray: #889aa4;
-$light_gray: #eee;
+$light_gray: #ffffff;
 
 .login-container {
   min-height: 100%;
@@ -206,9 +206,6 @@ $light_gray: #eee;
   // background-color: $bg;
   background-color:rgb(0,101,105);
   // background-image: linear-gradient(to right, #1a68ad, #4ea962);
-  // background-image: url(../../assets/home/bg.gif);
-  // background-repeat: no-repeat;
-  // background-size: cover;
   overflow: hidden;
 
   .login-form {
@@ -218,6 +215,14 @@ $light_gray: #eee;
     padding: 160px 35px 0;
     margin: 0 auto;
     overflow: hidden;
+    .el-button {
+      width:100%;
+      margin-bottom:30px;
+      background-color: #F8B502;
+      border: 1px solid #F8B502;
+      font-weight: bold;
+      letter-spacing: 5px;
+    }
   }
 
   .tips {
@@ -244,11 +249,13 @@ $light_gray: #eee;
     position: relative;
 
     .title {
-      font-size: 26px;
+      font-size:35px;
       color: $light_gray;
-      margin: 0px auto 40px auto;
+      margin: 0px auto 30px auto;
       text-align: center;
       font-weight: bold;
+      letter-spacing:5px;
+      font-family: '宋体';
     }
 
     .set-language {
