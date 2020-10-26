@@ -285,52 +285,30 @@ export const constantRoutes = [{
 export const asyncRoutes = [{
   path: '/SystemManagement',
   component: Layout,
-  redirect: '/SystemManagement/index',
+  redirect: '/SystemManagement/userMangement',
   alwaysShow: true, // will always show the root menu
-  name: 'Permission',
+  name: 'SystemManagement',
   meta: {
     title: 'SystemManagement',
-    icon: 'lock',
-    roles: ['admin'] // you can set roles in root nav
+    icon: 'lock'
   },
-  children: [{
-    path: 'index',
-    component: () => import('@/views/SystemManagement/index'),
-    hidden: true,
-    name: 'RolePermission',
-    meta: {
-      title: 'rolePermission',
-      roles: ['admin']
+  children: [
+    {
+      path: 'userMangement',
+      component: () => import('@/views/SystemManagement/userMangement'),
+      name: 'userMangement',
+      meta: {
+        title: 'userMangement'
+      }
+    },
+    {
+      path: 'supplierMangemen',
+      component: () => import('@/views/SystemManagement/supplierMangemen'),
+      name: 'supplierMangemen',
+      meta: {
+        title: 'supplierMangemen'
+      }
     }
-  },
-  {
-    path: 'lookUser',
-    hidden: true,
-    component: () => import('@/views/SystemManagement/lookUser'),
-    name: 'lookUser',
-    meta: {
-      title: 'lookUser',
-      roles: ['admin']
-    }
-  },
-  {
-    path: 'userMangement',
-    component: () => import('@/views/SystemManagement/userMangement'),
-    name: 'userMangement',
-    meta: {
-      title: 'userMangement',
-      roles: ['admin']
-    }
-  },
-  {
-    path: 'supplierMangemen',
-    component: () => import('@/views/SystemManagement/supplierMangemen'),
-    name: 'supplierMangemen',
-    meta: {
-      title: 'supplierMangemen',
-      roles: ['admin']
-    }
-  }
   ]
 }
 

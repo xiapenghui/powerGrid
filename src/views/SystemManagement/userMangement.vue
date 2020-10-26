@@ -397,6 +397,7 @@ export default {
     // 获取所有工厂
     getSaleOrg() {
       saleOrg().then(res => {
+        debugger
         var orgArr = res.data.reduce(function(arr, newSaleOrg) {
           arr.push(newSaleOrg.saleOrg)
           return arr
