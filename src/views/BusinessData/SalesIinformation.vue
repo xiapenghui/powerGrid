@@ -220,14 +220,13 @@
             <el-form-item label="数据来源" prop="dataSource"><el-input v-model="ruleForm.dataSource" /></el-form-item>
             <el-form-item label="销售订单状态"><el-input v-model="ruleForm.soStatus" /></el-form-item>
             <el-form-item label="数据可见方"><el-input v-model="ruleForm.openId" /></el-form-item>
-
           </div>
           <div class="boxRight">
             <el-form-item label="采购方公司名称" prop="buyerName"><el-input v-model="ruleForm.buyerName" /></el-form-item>
             <el-form-item label="采购订单号" prop="poNo"><el-input v-model="ruleForm.poNo" /></el-form-item>
             <el-form-item label="物资编码" prop="productCode"><el-input v-model="ruleForm.productCode" /></el-form-item>
             <el-form-item label="物资单位" prop="productUnit"><el-input v-model="ruleForm.productUnit" /></el-form-item>
-            <el-form-item label="工厂" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" /></el-form-item>
+            <el-form-item label="工厂" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" :disabled="true" /></el-form-item>
             <el-form-item label="供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
             <el-form-item label="采购方公司省份"><el-input v-model="ruleForm.buyerProvince" /></el-form-item>
             <el-form-item label="种类编码" prop="subclassCode"><el-input v-model="ruleForm.subclassCode" /></el-form-item>
@@ -327,7 +326,7 @@ export default {
         productName: [{ required: true, message: '请输入物资名称', trigger: 'blur' }],
         productUnit: [{ required: true, message: '请输入物资单位', trigger: 'blur' }],
         productAmount: [{ required: true, message: '请输入物资数量', trigger: 'blur' }],
-        SaleOrg: [{ required: true, message: '请输入工厂', trigger: 'blur' }],
+        saleOrg: [{ required: true, message: '请输入工厂', trigger: 'blur' }],
         purchaserHqCode: [{ required: true, message: '请输入采购方总部编码', trigger: 'blur' }],
         supplierCode: [{ required: true, message: '请输入供应商编码', trigger: 'blur' }],
         categoryCode: [{ required: true, message: '请输入品类编码', trigger: 'blur' }],

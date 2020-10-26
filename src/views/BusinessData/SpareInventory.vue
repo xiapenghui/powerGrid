@@ -190,7 +190,7 @@
               <el-form-item label="备品备件库存剩余数量" prop="productAmount"><el-input v-model="ruleForm.productAmount" /></el-form-item>
             </el-tooltip>
             <el-form-item label="批次号" prop="ItemProductLot"><el-input v-model="ruleForm.ItemProductLot" /></el-form-item>
-            <el-form-item label="工厂" prop="SaleOrg"><el-input v-model="ruleForm.SaleOrg" /></el-form-item>
+            <el-form-item label="工厂" prop="SaleOrg"><el-input v-model="ruleForm.SaleOrg" :disabled="true" /></el-form-item>
             <el-form-item label="供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
             <el-form-item label="数据来源" prop="dataSource"><el-input v-model="ruleForm.dataSource" /></el-form-item>
             <el-form-item label="备注"><el-input v-model="ruleForm.remark" /></el-form-item>

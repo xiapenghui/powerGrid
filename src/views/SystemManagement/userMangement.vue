@@ -114,17 +114,21 @@
     <el-dialog :visible.sync="dialogFormVisible" :title="dialogType === 'edit' ? $t('permission.editUser') : $t('permission.addUser')">
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="100px" label-position="left">
         <el-form-item label="用户名" prop="username"><el-input v-model="ruleForm.username" /></el-form-item>
+        <el-form-item v-if="isPassword" label="密码" prop="password"><el-input v-model="ruleForm.password" /></el-form-item>
+
         <el-form-item label="角色" prop="isAdmin">
-          <el-select v-model="ruleForm.isAdmin" placeholder="请选择">
-            <el-option v-for="item in isAdminList" :key="item.value" :label="item.label" :value="item.value" />
-          </el-select>
+          <el-select v-model="ruleForm.isAdmin" placeholder="请选择"><el-option v-for="item in isAdminList" :key="item.value" :label="item.label" :value="item.value" /></el-select>
         </el-form-item>
-        <el-form-item label="工厂" prop="saleOrg">
-          <el-select v-model="ruleForm.saleOrg" placeholder="请选择"><el-option v-for="item in supplierIdList" :key="item" :value="item" /></el-select>
+        <el-form-item label="工厂" prop="saleOrg">{{ supplierIdList }}
+          <el-select v-model="ruleForm.saleOrg" placeholder="请选择">
+            <el-option v-for="item in supplierIdList" :key="item.id" :label="item.id" :value="item.saleOrg" />
+          </el-select>
         </el-form-item>
         <el-form-item label="姓名" prop="realname"><el-input v-model="ruleForm.realname" /></el-form-item>
         <el-form-item label="性别" prop="sex">
-          <el-select v-model="ruleForm.sex" placeholder="请选择"><el-option v-for="item in sexList" :key="item.value" :label="item.label" :value="item.value" /></el-select>
+          <el-select v-model="ruleForm.sex" placeholder="请选择">
+            <el-option v-for="item in sexList" :key="item.value" :label="item.label" :value="item.value" />
+          </el-select>
         </el-form-item>
         <el-form-item label="电话" prop="phone"><el-input v-model="ruleForm.phone" /></el-form-item>
         <el-form-item label="邮箱" prop="email"><el-input v-model="ruleForm.email" /></el-form-item>
@@ -191,14 +195,16 @@ export default {
           label: '女'
         }
       ],
+      isPassword: false,
       rules: {
         username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-        supplierId: [{ required: true, message: '请选择工厂', trigger: 'change' }],
+        password: [{ required: true, message: '请输入用密码', trigger: 'blur' }],
+        saleOrg: [{ required: true, message: '请选择工厂', trigger: 'change' }],
         isAdmin: [{ required: true, message: '请选择角色', trigger: 'change' }],
         realname: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
         sex: [{ required: true, message: '请选择性别', trigger: 'change' }],
         phone: [{ required: true, message: '请输入电话号码', trigger: 'blur' }],
-        email: [{ required: true, message: '请输入邮箱', trigger: 'blur' }]
+        email: [{ required: true, message: '请输入邮箱', trigger: 'blur' }, { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }]
       }
     }
   },
@@ -318,6 +324,7 @@ export default {
     handleAddUser() {
       this.dialogType = 'new'
       this.dialogFormVisible = true
+      this.isPassword = true
       this.ruleForm = {}
     },
 
@@ -344,6 +351,7 @@ export default {
     handleEdit(index, row) {
       this.dialogType = 'edit'
       this.dialogFormVisible = true
+      this.isPassword = false
       this.ruleForm = JSON.parse(JSON.stringify(row))
     },
 

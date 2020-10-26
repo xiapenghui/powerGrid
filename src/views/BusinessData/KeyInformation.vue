@@ -199,7 +199,7 @@
             <el-form-item label="原材料库存数量" prop="matNum"><el-input v-model="ruleForm.matNum" /></el-form-item>
             <el-form-item label="原材料描述"><el-input v-model="ruleForm.matDescription" /></el-form-item>
             <el-form-item label="入库批次号" prop="itemBatchCode"><el-input v-model="ruleForm.itemBatchCode" /></el-form-item>
-            <el-form-item label="工厂" prop="SaleOrg"><el-input v-model="ruleForm.SaleOrg" /></el-form-item>
+            <el-form-item label="工厂" prop="SaleOrg"><el-input v-model="ruleForm.SaleOrg" :disabled="true" /></el-form-item>
             <el-form-item label="供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
             <el-form-item label="数据来源" prop="dataSource"><el-input v-model="ruleForm.dataSource" /></el-form-item>
             <el-form-item label="备注"><el-input v-model="ruleForm.remark" /></el-form-item>

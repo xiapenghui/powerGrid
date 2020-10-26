@@ -32,7 +32,7 @@ Vue.prototype.$moment = moment// 赋值使用
 import global_ from '../src/api/Base.vue'
 Vue.prototype.GLOBAL = global_
 axios.defaults.baseURL = global_.BASE_URL
-axios.defaults.headers.common['token'] = getToken()
+axios.defaults.headers.common['Authorization'] = getToken()
 
 /**
  * If you don't want to use mock-server
