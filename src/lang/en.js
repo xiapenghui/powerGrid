@@ -1,6 +1,6 @@
 export default {
   route: {
-    dashboard: 'Dashboard',
+    dashboard: 'welcome',
     SystemManagement: 'System Management',
     rolePermission: 'Role Permission',
     lookUser: 'Look User',
@@ -100,7 +100,7 @@ export default {
     profile: 'Profile'
   },
   navbar: {
-    dashboard: 'Dashboard',
+    dashboard: 'welcome',
     github: 'Github',
     logOut: 'Log Out',
     profile: 'Profile',

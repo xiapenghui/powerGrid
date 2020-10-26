@@ -203,8 +203,9 @@ $light_gray: #eee;
 .login-container {
   min-height: 100%;
   width: 100%;
-  background-color: $bg;
-  background-image: linear-gradient(to right, #1a68ad, #4ea962);
+  // background-color: $bg;
+  background-color:rgb(0,101,105);
+  // background-image: linear-gradient(to right, #1a68ad, #4ea962);
   // background-image: url(../../assets/home/bg.gif);
   // background-repeat: no-repeat;
   // background-size: cover;

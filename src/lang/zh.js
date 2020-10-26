@@ -1,6 +1,6 @@
 export default {
   route: {
-    dashboard: '首页',
+    dashboard: '欢迎页',
     SystemManagement: '系统管理',
     rolePermission: '角色权限',
     lookUser: '查看用户',
@@ -101,7 +101,7 @@ export default {
     profile: '个人中心'
   },
   navbar: {
-    dashboard: '首页',
+    dashboard: '欢迎页',
     github: '项目地址',
     logOut: '退出登录',
     profile: '个人中心',
@@ -445,7 +445,7 @@ export default {
     copanyNmame: '上海灵娃智能科技有限公司',
     oneMessage: '管理员说你没权限进入这个页面...',
     twoMessage: '请检查您输入的URL是否正确，或单击下面的按钮返回主页',
-    goHome: '返回首页'
+    goHome: '返回欢迎页'
   },
 
   table: {

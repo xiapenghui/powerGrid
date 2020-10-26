@@ -119,9 +119,9 @@
         <el-form-item label="角色" prop="isAdmin">
           <el-select v-model="ruleForm.isAdmin" placeholder="请选择"><el-option v-for="item in isAdminList" :key="item.value" :label="item.label" :value="item.value" /></el-select>
         </el-form-item>
-        <el-form-item label="工厂" prop="saleOrg">{{ supplierIdList }}
-          <el-select v-model="ruleForm.saleOrg" placeholder="请选择">
-            <el-option v-for="item in supplierIdList" :key="item.id" :label="item.id" :value="item.saleOrg" />
+        <el-form-item label="工厂" prop="supplierId">{{ supplierIdList }}
+          <el-select v-model="ruleForm.supplierId" placeholder="请选择">
+            <el-option v-for="item in supplierIdList" :key="item.id" :label="item.saleOrg" :value="item.id" />
           </el-select>
         </el-form-item>
         <el-form-item label="姓名" prop="realname"><el-input v-model="ruleForm.realname" /></el-form-item>
@@ -397,12 +397,7 @@ export default {
     // 获取所有工厂
     getSaleOrg() {
       saleOrg().then(res => {
-        debugger
-        var orgArr = res.data.reduce(function(arr, newSaleOrg) {
-          arr.push(newSaleOrg.saleOrg)
-          return arr
-        }, [])
-        this.supplierIdList = orgArr
+        this.supplierIdList = res.data
       })
     }
   }
