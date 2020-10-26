@@ -1,13 +1,14 @@
 import router from './router'
 import store from './store'
-import {
-  Message
-} from 'element-ui'
+// import { Message} from 'element-ui'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
+// import {
+//   getToken,
+//   getRole
+// } from '@/utils/auth' // get token from cookie
 import {
-  getToken,
-  getRole
+  getToken
 } from '@/utils/auth' // get token from cookie
 import getPageTitle from '@/utils/get-page-title'
 
@@ -23,15 +24,28 @@ router.beforeEach(async(to, from, next) => {
   const hasToken = getToken()
   console.log('hasToken', hasToken)
   if (hasToken) {
-    console.log('to.path', to.path)
+    console.log('to.path', to)
     if (to.path === '/login') {
-      next({ path: '/' })
+      next({
+        path: '/'
+      })
       NProgress.done()
     } else {
+      // const accessRoutes = await store.dispatch('permission/generateRoutes', getRole())
+      // router.addRoutes(accessRoutes)
+      if (to.meta.roles) {
+        const isShow = to.meta.roles.includes(store.getters.roles)
+        if (isShow) {
+          next()
+        } else {
+          next({
+            path: '/404'
+          })
+        }
+      } else {
+        next()
+      }
       // next()
-      const accessRoutes = await store.dispatch('permission/generateRoutes', getRole())
-      router.addRoutes(accessRoutes)
-      next()
       // const hasRoles = store.getters.roles && store.getters.roles.length > 0
       // const hasRoles = store.getters.roles
       // if (hasRoles) {

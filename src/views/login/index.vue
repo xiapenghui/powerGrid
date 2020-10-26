@@ -51,13 +51,13 @@ export default {
     //     callback()
     //   }
     // }
-    const validatePassword = (rule, value, callback) => {
-      if (value.length < 4) {
-        callback(new Error(this.$t('login.errorPassword')))
-      } else {
-        callback()
-      }
-    }
+    // const validatePassword = (rule, value, callback) => {
+    //   if (value.length < 4) {
+    //     callback(new Error(this.$t('login.errorPassword')))
+    //   } else {
+    //     callback()
+    //   }
+    // }
     return {
       loginForm: {
         username: '',
@@ -65,8 +65,8 @@ export default {
       },
       loginRules: {
         // username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        username: [{ required: true, trigger: 'blur' }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        // username: [{ required: true, trigger: 'blur' }],
+        // password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       passwordType: 'password',
       capsTooltip: false,
@@ -183,7 +183,11 @@ $cursor: #fff;
         box-shadow: 0 0 0px 1000px $bg inset !important;
         -webkit-text-fill-color: $cursor !important;
       }
+     &::-webkit-input-placeholder{
+       color: #ffffff
+     }
     }
+
   }
 
   .el-form-item {
@@ -191,6 +195,9 @@ $cursor: #fff;
     background: rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     color: #454545;
+  }
+  .svg-icon{
+     color:#ffffff
   }
 }
 </style>

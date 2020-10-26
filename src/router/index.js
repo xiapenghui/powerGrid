@@ -88,7 +88,8 @@ export const constantRoutes = [{
   alwaysShow: true,
   meta: {
     title: 'BusinessData',
-    icon: 'tab'
+    icon: 'tab',
+    roles: ['ROLE_ADMIN', 'ROLE_USER']
   },
   children: [{
     path: 'PurchaseIinformation',
@@ -158,7 +159,8 @@ export const constantRoutes = [{
   name: 'Table',
   meta: {
     title: 'InspectionData',
-    icon: 'tab'
+    icon: 'tab',
+    roles: ['ROLE_ADMIN', 'ROLE_USER']
   },
   children: [
 
@@ -230,6 +232,43 @@ export const constantRoutes = [{
 
   ]
 },
+/**
+ * asyncRoutes
+ * the routes that need to be dynamically loaded based on user roles
+ */
+// 系统管理
+{
+  path: '/SystemManagement',
+  component: Layout,
+  redirect: '/SystemManagement/userMangement',
+  alwaysShow: true, // will always show the root menu
+  name: 'Permission',
+  meta: {
+    title: 'SystemManagement',
+    icon: 'lock',
+    roles: ['ROLE_ADMIN'] // you can set roles in root nav
+  },
+  children: [
+    {
+      path: 'userMangement',
+      component: () => import('@/views/SystemManagement/userMangement'),
+      name: 'userMangement',
+      meta: {
+        title: 'userMangement',
+        roles: ['ROLE_ADMIN']
+      }
+    },
+    {
+      path: 'supplierMangemen',
+      component: () => import('@/views/SystemManagement/supplierMangemen'),
+      name: 'supplierMangemen',
+      meta: {
+        title: 'supplierMangemen',
+        roles: ['ROLE_ADMIN']
+      }
+    }
+  ]
+},
 
 /** when your routing map is too long, you can split it into small modules **/
 
@@ -285,7 +324,7 @@ export const constantRoutes = [{
 export const asyncRoutes = [{
   path: '/SystemManagement',
   component: Layout,
-  redirect: '/SystemManagement/userMangement',
+  redirect: '/SystemManagement/index',
   alwaysShow: true, // will always show the root menu
   name: 'SystemManagement',
   meta: {

@@ -8,24 +8,27 @@
       </app-link>
     </template>
 
-    <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
-      <template slot="title">
-        <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="generateTitle(item.meta.title)" />
-      </template>
-      <sidebar-item
-        v-for="child in item.children"
-        :key="child.path"
-        :is-nest="true"
-        :item="child"
-        :base-path="resolvePath(child.path)"
-        class="nest-menu"
-      />
-    </el-submenu>
+    <template v-else>
+      <el-submenu v-if="item.meta.roles && isInculde(item.meta.roles)" ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
+        <template slot="title">
+          <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="generateTitle(item.meta.title)" />
+        </template>
+        <sidebar-item
+          v-for="child in item.children"
+          :key="child.path"
+          :is-nest="true"
+          :item="child"
+          :base-path="resolvePath(child.path)"
+          class="nest-menu"
+        />
+      </el-submenu>
+    </template>
   </div>
 </template>
 
 <script>
 import path from 'path'
+import { mapGetters } from 'vuex'
 import { generateTitle } from '@/utils/i18n'
 import { isExternal } from '@/utils/validate'
 import Item from './Item'
@@ -34,6 +37,11 @@ import FixiOSBug from './FixiOSBug'
 
 export default {
   name: 'SidebarItem',
+  computed: {
+    ...mapGetters([
+      'roles'
+    ])
+  },
   components: { Item, AppLink },
   mixins: [FixiOSBug],
   props: {
@@ -58,6 +66,9 @@ export default {
     return {}
   },
   methods: {
+    isInculde(roles) {
+      return roles.includes(this.roles)
+    },
     hasOneShowingChild(children = [], parent) {
       const showingChildren = children.filter(item => {
         if (item.hidden) {

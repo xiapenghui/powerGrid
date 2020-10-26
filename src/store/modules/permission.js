@@ -36,7 +36,7 @@ function hasPermission(roles, route) {
 // }
 
 const state = {
-  routes: [],
+  routes: constantRoutes,
   addRoutes: []
 }
 
@@ -46,7 +46,7 @@ const mutations = {
     console.log('routes', routes)
 
     state.routes = constantRoutes.concat(routes)
-     console.log('constantRoutes', state.routes)
+    console.log('constantRoutes', state.routes)
   }
 }
 
