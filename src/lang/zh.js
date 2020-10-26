@@ -119,7 +119,7 @@ export default {
     password: '密码',
     any: '随便填',
     errorName: '请输入正确的用户名',
-    errorPassword: '密码长度最少为6位',
+    errorPassword: '密码长度最少为4位',
     thirdparty: '第三方登录',
     thirdpartyTips: '本地不能模拟，请结合自己业务进行模拟！！！'
   },

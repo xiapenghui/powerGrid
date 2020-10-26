@@ -117,7 +117,7 @@ export default {
     password: 'Password',
     any: 'any',
     errorName: 'Please enter the correct user name',
-    errorPassword: 'The password can not be less than 6 digits',
+    errorPassword: 'The password can not be less than 4 digits',
     thirdparty: 'Or connect with',
     thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'
   },
