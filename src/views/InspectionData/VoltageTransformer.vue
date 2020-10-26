@@ -74,7 +74,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.standardVersion')" width="160">
+      <el-table-column align="center" :label="$t('permission.standardVersion')" width="120">
         <template slot-scope="scope">
           {{ scope.row.standardVersion }}
         </template>
@@ -104,7 +104,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.isAlarmData')" width="180">
+      <el-table-column align="center" :label="$t('permission.isAlarmData')" width="150">
         <template slot-scope="scope">
           {{ scope.row.isAlarmData }}
         </template>
@@ -247,24 +247,22 @@
           </div>
         </div>
         <div class="bigDownBox">
-          <el-tooltip class="item" effect="dark" content="电压附件" placement="top-start">
-            <el-form-item label="电压附件">
-              <el-upload
-                action="http://39.101.166.244:8888/api/image/upload"
-                :data="this.oneDataImg"
-                :limit="1"
-                list-type="picture-card"
-                :file-list="editFileList"
-                :on-remove="onRemoveImg"
-                :on-success="onsucessImg"
-                :on-preview="handlePictureCardPreview"
-              >
-                <i slot="default" class="el-icon-plus" />
-              </el-upload>
+          <el-form-item label="电压附件">
+            <el-upload
+              action="http://39.101.166.244:8888/api/image/upload"
+              :data="this.oneDataImg"
+              :limit="1"
+              list-type="picture-card"
+              :file-list="editFileList"
+              :on-remove="onRemoveImg"
+              :on-success="onsucessImg"
+              :on-preview="handlePictureCardPreview"
+            >
+              <i slot="default" class="el-icon-plus" />
+            </el-upload>
 
-              <el-dialog :visible.sync="dialogVisibleImg"><img width="100%" :src="dialogImageUrl" alt=""></el-dialog>
-            </el-form-item>
-          </el-tooltip>
+            <el-dialog :visible.sync="dialogVisibleImg"><img width="100%" :src="dialogImageUrl" alt=""></el-dialog>
+          </el-form-item>
         </div>
       </el-form>
 

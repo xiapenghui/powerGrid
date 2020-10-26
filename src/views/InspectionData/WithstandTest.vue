@@ -75,7 +75,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.standardVersion')" width="150">
+      <el-table-column align="center" :label="$t('permission.standardVersion')" width="120">
         <template slot-scope="scope">
           {{ scope.row.standardVersion }}
         </template>

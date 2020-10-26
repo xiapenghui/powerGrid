@@ -72,7 +72,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.standardVersion')" width="160">
+      <el-table-column align="center" :label="$t('permission.standardVersion')" width="120">
         <template slot-scope="scope">
           {{ scope.row.standardVersion }}
         </template>
@@ -132,7 +132,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.isAlarmData')" width="180">
+      <el-table-column align="center" :label="$t('permission.isAlarmData')" width="150">
         <template slot-scope="scope">
           {{ scope.row.isAlarmData }}
         </template>
