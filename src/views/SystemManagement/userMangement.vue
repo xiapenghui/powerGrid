@@ -112,7 +112,11 @@
     </el-table>
 
     <!-- 编辑弹窗 -->
-    <el-dialog :visible.sync="dialogFormVisible" :title="dialogType === 'edit' ? $t('permission.editUser') : $t('permission.addUser')">
+    <el-dialog
+      :close-on-click-modal="false"
+      :visible.sync="dialogFormVisible"
+      :title="dialogType === 'edit' ? $t('permission.editUser') : $t('permission.addUser')"
+    >
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="100px" label-position="left">
         <el-form-item label="用户名" prop="username"><el-input v-model="ruleForm.username" /></el-form-item>
         <el-form-item v-if="isPassword" label="密码" prop="password"><el-input v-model="ruleForm.password" /></el-form-item>
@@ -127,9 +131,7 @@
         </el-form-item>
         <el-form-item label="姓名" prop="realname"><el-input v-model="ruleForm.realname" /></el-form-item>
         <el-form-item label="性别" prop="sex">
-          <el-select v-model="ruleForm.sex" placeholder="请选择">
-            <el-option v-for="item in sexList" :key="item.value" :label="item.label" :value="item.value" />
-          </el-select>
+          <el-select v-model="ruleForm.sex" placeholder="请选择"><el-option v-for="item in sexList" :key="item.value" :label="item.label" :value="item.value" /></el-select>
         </el-form-item>
         <el-form-item label="电话" prop="phone"><el-input v-model="ruleForm.phone" /></el-form-item>
         <el-form-item label="邮箱" prop="email"><el-input v-model="ruleForm.email" /></el-form-item>
@@ -154,6 +156,24 @@ const fixHeight = 280
 export default {
   components: { Pagination },
   data() {
+    // 手机号验证
+    var checkPhone = (rule, value, callback) => {
+      const phoneReg = /^1[3|4|5|6|7|8][0-9]{9}$/
+      if (!value) {
+        return callback(new Error('电话号码不能为空'))
+      }
+      setTimeout(() => {
+        if (!Number.isInteger(+value)) {
+          callback(new Error('请输入数字值'))
+        } else {
+          if (phoneReg.test(value)) {
+            callback()
+          } else {
+            callback(new Error('电话号码格式不正确'))
+          }
+        }
+      }, 100)
+    }
     return {
       tableData: [],
       ruleForm: {}, // 编辑弹窗
@@ -204,7 +224,8 @@ export default {
         isAdmin: [{ required: true, message: '请选择角色', trigger: 'change' }],
         realname: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
         sex: [{ required: true, message: '请选择性别', trigger: 'change' }],
-        phone: [{ required: true, message: '请输入电话号码', trigger: 'blur' }],
+        // phone: [{ required: true, message: '请输入电话号码', trigger: 'blur' }],
+        phone: [{ required: true, validator: checkPhone, trigger: 'blur' }],
         email: [{ required: true, message: '请输入邮箱', trigger: 'blur' }, { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }]
       }
     }

@@ -343,7 +343,11 @@
     </el-table>
 
     <!-- 编辑弹窗 -->
-    <el-dialog title="编辑信息" :visible.sync="dialogFormVisible">
+    <el-dialog
+      title="编辑信息"
+      :close-on-click-modal="false"
+      :visible.sync="dialogFormVisible"
+    >
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
         <div class="bigUpBox">
           <div class="boxLeft">
@@ -419,7 +423,12 @@
     <log-dialog :is-show="dialogTableVisible" :log-total="logTotal" :pagination-log="paginationLog" :data="gridData" @pageChange="getLogList" @closeLog="closeLog" />
 
     <!-- 上传文件弹窗 -->
-    <el-dialog title="导入文件" :visible.sync="dialogVisible" width="30%">
+    <el-dialog
+      title="导入文件"
+      :close-on-click-modal="false"
+      :visible.sync="dialogVisible"
+      width="30%"
+    >
       <el-upload
         ref="upload"
         class="upload-demo"
@@ -470,7 +479,6 @@ export default {
       tableData: [],
       gridData: [], // 日志信息
       ruleForm: {}, // 编辑弹窗
-      srcList: ['https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg', 'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'],
       pagination: {
         current: 1,
         size: 50,
