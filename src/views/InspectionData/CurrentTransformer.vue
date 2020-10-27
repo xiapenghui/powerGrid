@@ -55,7 +55,6 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" align="center" width="55" fixed />
-
       <el-table-column align="center" label="创建时间" width="150">
         <template slot-scope="scope">
           {{ scope.row.createTime }}

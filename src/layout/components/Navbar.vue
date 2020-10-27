@@ -4,7 +4,7 @@
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     <div class="right-menu">
       <template v-if="device !== 'mobile'">
-        <el-button type="primary" size="mini" @click="dialogVisible = true"><i class="el-icon-folder-checked" /></el-button>
+        <el-button type="primary" size="mini" style="padding: 3px 7px;margin: 8px 5px 0 0;"><i class="el-icon-folder-checked" @click="dialogVisible = true" /></el-button>
         <el-tooltip :content="$t('navbar.size')" effect="dark" placement="bottom"><screenfull id="screenfull" class="right-menu-item hover-effect" /></el-tooltip>
         <el-tooltip :content="$t('navbar.words')" effect="dark" placement="bottom"><size-select id="size-select" class="right-menu-item hover-effect" /></el-tooltip>
         <el-tooltip :content="$t('navbar.Chinese')" effect="dark" placement="bottom"><lang-select class="right-menu-item hover-effect" /></el-tooltip>
@@ -116,6 +116,7 @@ export default {
           this.$message.error('抱歉，解析失败！')
         }
       })
+      this.dialogVisible = false
     },
     // 成功
     handleAvatarSuccess(res, file) {

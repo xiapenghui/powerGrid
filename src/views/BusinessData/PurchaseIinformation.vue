@@ -343,8 +343,8 @@ export default {
     },
     // 下载数据
     download() {
+      this.listLoading = true
       poDown().then(res => {
-        this.listLoading = true
         if (res.code === 200) {
           this.getList()
           this.$message({
@@ -358,8 +358,8 @@ export default {
             message: '下载失败!'
           })
         }
-        this.listLoading = false
       })
+      this.listLoading = false
     }
   }
 }
