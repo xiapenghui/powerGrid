@@ -33,6 +33,7 @@ import global_ from '../src/api/Base.vue'
 Vue.prototype.GLOBAL = global_
 axios.defaults.baseURL = global_.BASE_URL
 axios.defaults.headers.common['Authorization'] = getToken()
+Vue.prototype.$token = getToken()
 
 /**
  * If you don't want to use mock-server

@@ -33,6 +33,7 @@
         v-loading="loading"
         class="upload-demo"
         :action="this.GLOBAL.BASE_URL + '/api/excel/upload'"
+        :headers="this.myHeaders"
         :limit="1"
         :before-upload="beforeAvatarUpload"
         :on-success="handleAvatarSuccess"
@@ -77,6 +78,7 @@ export default {
   },
   data() {
     return {
+      myHeaders: { Authorization: this.$token }, // 获取token
       dialogVisible: false,
       loading: false,
       newTitle: this.$t('table.upData')

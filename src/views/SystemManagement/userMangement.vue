@@ -119,7 +119,7 @@
         <el-form-item label="角色" prop="isAdmin">
           <el-select v-model="ruleForm.isAdmin" placeholder="请选择"><el-option v-for="item in isAdminList" :key="item.value" :label="item.label" :value="item.value" /></el-select>
         </el-form-item>
-        <el-form-item label="工厂" prop="supplierId">{{ supplierIdList }}
+        <el-form-item label="工厂" prop="supplierId">
           <el-select v-model="ruleForm.supplierId" placeholder="请选择">
             <el-option v-for="item in supplierIdList" :key="item.id" :label="item.saleOrg" :value="item.id" />
           </el-select>

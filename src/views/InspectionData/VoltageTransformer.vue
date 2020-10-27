@@ -252,6 +252,7 @@
             <el-upload
               action="http://39.101.166.244:8888/api/image/upload"
               :data="this.oneDataImg"
+              :headers="this.myHeaders"
               :limit="1"
               list-type="picture-card"
               :file-list="editFileList"
@@ -281,6 +282,7 @@
       <el-upload
         class="upload-demo"
         :action="this.GLOBAL.BASE_URL + '/api/kvsc/vt/import/file'"
+        :headers="this.myHeaders"
         :limit="1"
         :before-upload="beforeAvatarUpload"
         :on-success="handleAvatarSuccess"
@@ -316,6 +318,7 @@
           class="upload-demo"
           action="http://39.101.166.244:8888/api/image/upload"
           :data="this.newDataImg"
+          :headers="this.myHeaders"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :before-remove="beforeRemove"
@@ -354,6 +357,7 @@ export default {
   components: { Pagination, logDialog },
   data() {
     return {
+      myHeaders: { Authorization: this.$token }, // 获取token
       // 日志分页
       paginationLog: {
         current: 1,

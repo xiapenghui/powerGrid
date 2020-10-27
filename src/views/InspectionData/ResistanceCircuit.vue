@@ -291,6 +291,7 @@
       <el-upload
         class="upload-demo"
         :action="this.GLOBAL.BASE_URL + '/api/kvsc/mcr/import/file'"
+        :headers="this.myHeaders"
         :limit="1"
         :before-upload="beforeAvatarUpload"
         :on-success="handleAvatarSuccess"
@@ -324,6 +325,7 @@ export default {
   components: { Pagination, logDialog },
   data() {
     return {
+      myHeaders: { Authorization: this.$token }, // 获取token
       // 日志分页
       paginationLog: {
         current: 1,
