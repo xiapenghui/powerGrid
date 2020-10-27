@@ -324,7 +324,7 @@ export const constantRoutes = [{
 export const asyncRoutes = [{
   path: '/SystemManagement',
   component: Layout,
-  redirect: '/SystemManagement/index',
+  redirect: '/SystemManagement/userMangement',
   alwaysShow: true, // will always show the root menu
   name: 'SystemManagement',
   meta: {

@@ -199,7 +199,7 @@ export default {
       rules: {
         username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
         password: [{ required: true, message: '请输入用密码', trigger: 'blur' }],
-        saleOrg: [{ required: true, message: '请选择工厂', trigger: 'change' }],
+        supplierId: [{ required: true, message: '请选择工厂', trigger: 'change' }],
         isAdmin: [{ required: true, message: '请选择角色', trigger: 'change' }],
         realname: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
         sex: [{ required: true, message: '请选择性别', trigger: 'change' }],
