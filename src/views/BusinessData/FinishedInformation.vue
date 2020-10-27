@@ -278,13 +278,13 @@
 </template>
 
 <script>
-import '../../styles/scrollbar.css';
-import '../../styles/commentBox.scss';
-import i18n from '@/lang';
-import { piList, piDellte, piEdit, piUpload, allLogs } from '@/api/business';
-import Pagination from '@/components/Pagination'; // secondary package based on el-pagination
-import logDialog from '@/components/logDialog'; // 日志封装
-const fixHeight = 270;
+import '../../styles/scrollbar.css'
+import '../../styles/commentBox.scss'
+import i18n from '@/lang'
+import { piList, piDellte, piEdit, piUpload, allLogs } from '@/api/business'
+import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import logDialog from '@/components/logDialog' // 日志封装
+const fixHeight = 270
 export default {
   name: 'FinishedInformation',
   components: { Pagination, logDialog },
@@ -335,63 +335,63 @@ export default {
         dataSourceCreateTime: [{ required: true, message: '请输入来源数据创建时间', trigger: 'blur' }],
         remark: [{ required: true, message: '请输入备注', trigger: 'blur' }]
       }
-    };
+    }
   },
   computed: {},
   watch: {
     // 监听表格高度
     tableHeight(val) {
       if (!this.timer) {
-        this.tableHeight = val;
-        this.timer = true;
-        const that = this;
+        this.tableHeight = val
+        this.timer = true
+        const that = this
         setTimeout(function() {
-          that.timer = false;
-        }, 400);
+          that.timer = false
+        }, 400)
       }
     },
     'listQuery.importDate': {
       handler(val) {
-        this.pagination.startTime = val[0] + ' 00:00:00';
-        this.pagination.endTime = val[1] + ' 23:59:59';
+        this.pagination.startTime = val[0] + ' 00:00:00'
+        this.pagination.endTime = val[1] + ' 23:59:59'
       },
       deep: true
     },
     // 监听data属性中英文切换问题
     '$i18n.locale'() {
-      this.content1 = this.$t('permission.productCode');
+      this.content1 = this.$t('permission.productCode')
     }
   },
   created() {
     // 搜索框初始化开始结束时间
     this.listQuery.importDate[0] = this.$moment(new Date())
       .subtract(1, 'months')
-      .format('YYYY-MM-DD 00:00:00');
-    this.listQuery.importDate[1] = this.$moment(new Date()).format('YYYY-MM-DD 23:59:59');
-    this.pagination.startTime = this.listQuery.importDate[0];
-    this.pagination.endTime = this.listQuery.importDate[1];
+      .format('YYYY-MM-DD 00:00:00')
+    this.listQuery.importDate[1] = this.$moment(new Date()).format('YYYY-MM-DD 23:59:59')
+    this.pagination.startTime = this.listQuery.importDate[0]
+    this.pagination.endTime = this.listQuery.importDate[1]
     // 监听表格高度
-    const that = this;
+    const that = this
     window.onresize = () => {
       return (() => {
-        that.tableHeight = window.innerHeight - fixHeight;
-      })();
-    };
-    this.getList();
+        that.tableHeight = window.innerHeight - fixHeight
+      })()
+    }
+    this.getList()
   },
   methods: {
     // 改变搜索框开始结束时间触发
     importChange(val) {
-      this.listQuery.importDate[0] = val[0];
-      this.listQuery.importDate[1] = val[1];
+      this.listQuery.importDate[0] = val[0]
+      this.listQuery.importDate[1] = val[1]
     },
     // 查询
     handleSearch() {
-      this.pagination.current = 1;
+      this.pagination.current = 1
       if (this.listQuery.productCode === '') {
-        this.listQuery.productCode = undefined;
+        this.listQuery.productCode = undefined
       }
-      this.getList();
+      this.getList()
     },
     // 重置
     handleReset() {
@@ -403,39 +403,39 @@ export default {
             .format('YYYY-MM-DD'),
           this.$moment(new Date()).format('YYYY-MM-DD')
         ]
-      };
+      }
       this.pagination = {
         current: 1,
         size: 50
-      };
-      this.getList();
+      }
+      this.getList()
     },
     // 多选
     handleSelectionChange(val) {
-      this.selectedData = val;
+      this.selectedData = val
     },
     // 点击日志
     clickLogs(row) {
-      this.logId = row;
+      this.logId = row
       allLogs(this.paginationLog, { dataId: row.id }).then(res => {
         if (res.data.records.length > 0) {
-          this.dialogTableVisible = true;
-          this.gridData = res.data.records;
-          this.logTotal = res.data.total;
+          this.dialogTableVisible = true
+          this.gridData = res.data.records
+          this.logTotal = res.data.total
         } else {
-          this.dialogTableVisible = false;
-          this.$message('此条数据暂无操作日志！');
+          this.dialogTableVisible = false
+          this.$message('此条数据暂无操作日志！')
         }
-      });
+      })
     },
     // 日志分页
     getLogList(val) {
-      this.paginationLog = val;
-      this.clickLogs(this.logId);
+      this.paginationLog = val
+      this.clickLogs(this.logId)
     },
     //  关闭日志弹窗
     closeLog() {
-      this.dialogTableVisible = false;
+      this.dialogTableVisible = false
     },
     // 批量删除
     deleteAll() {
@@ -446,57 +446,57 @@ export default {
           type: 'warning'
         })
           .then(() => {
-            const idList = [];
+            const idList = []
             this.selectedData.map(item => {
-              const newFeatid = item.id;
-              idList.push(newFeatid);
-            });
+              const newFeatid = item.id
+              idList.push(newFeatid)
+            })
             piDellte(idList).then(res => {
               if (res.code === 0) {
                 this.$message({
                   type: 'success',
                   message: this.$t('table.deleteSuccess')
-                });
-                this.getList();
+                })
+                this.getList()
               }
-            });
+            })
           })
           .catch(() => {
             this.$message({
               type: 'info',
               message: this.$t('table.deleteError')
-            });
-          });
+            })
+          })
       }
     },
     // 获取列表
     getList() {
-      this.listLoading = true;
+      this.listLoading = true
       piList(this.pagination, this.listQuery).then(res => {
-        this.tableData = res.data.records;
-        this.total = res.data.total;
-        this.listLoading = false;
-      });
+        this.tableData = res.data.records
+        this.total = res.data.total
+        this.listLoading = false
+      })
     },
 
     i18n(routes) {
       const app = routes.map(route => {
-        route.title = i18n.t(`route.${route.title}`);
+        route.title = i18n.t(`route.${route.title}`)
         if (route.children) {
-          route.children = this.i18n(route.children);
+          route.children = this.i18n(route.children)
         }
-        return route;
-      });
-      return app;
+        return route
+      })
+      return app
     },
     // 编辑
     handleEdit(index, row) {
-      this.dialogFormVisible = true;
-      this.ruleForm = JSON.parse(JSON.stringify(row));
+      this.dialogFormVisible = true
+      this.ruleForm = JSON.parse(JSON.stringify(row))
     },
     // 编辑成功
     submitForm(formName) {
-      this.editLoading = true;
+      this.editLoading = true
       this.$refs[formName].validate(valid => {
         if (valid) {
           piEdit(this.ruleForm).then(res => {
@@ -504,70 +504,78 @@ export default {
               this.$message({
                 type: 'success',
                 message: this.$t('table.editSuc')
-              });
-              this.editLoading = false;
-              this.dialogFormVisible = false;
-              this.getList();
+              })
+              this.editLoading = false
+              this.dialogFormVisible = false
+              this.getList()
             }
-          });
+          })
         } else {
-          this.editLoading = false;
+          this.editLoading = false
           this.$message({
             type: 'error',
             message: '必填项不能为空'
-          });
-          return false;
+          })
+          return false
         }
-      });
+      })
     },
 
     // 上传
     okUpload() {
-      this.listLoading = true;
+      this.listLoading = true
       piUpload().then(res => {
         if (res.code === 200) {
           this.$message({
             type: 'success',
             message: '上传成功！'
-          });
+          })
         }
-        this.getList();
-        this.listLoading = false;
-      });
+        this.getList()
+        this.listLoading = false
+      })
     },
     // 文件导入
     okImprot() {
-      this.dialogVisible = true;
+      this.dialogVisible = true
     },
     // 成功
     handleAvatarSuccess(res, file) {
       if (res.code === 200) {
-        this.$message.success(this.$t('table.upSuccess'));
-        this.dialogVisible = false;
-        this.getList();
-        this.$refs.upload.clearFiles();
+        this.$message.success(this.$t('table.upSuccess'))
+        this.dialogVisible = false
+        this.getList()
+        this.$refs.upload.clearFiles()
+      } else {
+        this.$message({
+          message: res.message,
+          type: 'error',
+          duration: 5000
+        })
+        this.dialogVisible = false
+        this.$refs.upload.clearFiles()
       }
     },
     // 失败
     handleAvatarError(res, file) {
       if (res.code === 500 && res.type === 'error') {
-        this.$message.error(this.$t('table.upError'));
+        this.$message.error(this.$t('table.upError'))
       }
     },
     beforeAvatarUpload(file) {
-      const isXLS = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-      const isLt2M = file.size / 1024 / 1024 < 2;
+      const isXLS = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      const isLt2M = file.size / 1024 / 1024 < 2
 
       if (!isXLS) {
-        this.$message.error(this.$t('table.errorOne'));
+        this.$message.error(this.$t('table.errorOne'))
       }
       if (!isLt2M) {
-        this.$message.error(this.$t('table.errorTwo'));
+        this.$message.error(this.$t('table.errorTwo'))
       }
-      return isXLS && isLt2M;
+      return isXLS && isLt2M
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

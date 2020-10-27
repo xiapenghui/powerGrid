@@ -568,6 +568,14 @@ export default {
         this.dialogVisible = false
         this.getList()
         this.$refs.upload.clearFiles()
+      } else {
+        this.$message({
+          message: res.message,
+          type: 'error',
+          duration: 5000
+        })
+        this.dialogVisible = false
+        this.$refs.upload.clearFiles()
       }
     },
     // 失败

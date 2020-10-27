@@ -45,7 +45,7 @@
 
     <el-table
       v-loading="listLoading"
-      :header-cell-style="{background:'#ededed'}"
+      :header-cell-style="{ background: '#ededed' }"
       :data="tableData"
       :height="tableHeight"
       style="width: 100%"
@@ -343,11 +343,7 @@
     </el-table>
 
     <!-- 编辑弹窗 -->
-    <el-dialog
-      title="编辑信息"
-      :close-on-click-modal="false"
-      :visible.sync="dialogFormVisible"
-    >
+    <el-dialog title="编辑信息" :close-on-click-modal="false" :visible.sync="dialogFormVisible">
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
         <div class="bigUpBox">
           <div class="boxLeft">
@@ -423,12 +419,7 @@
     <log-dialog :is-show="dialogTableVisible" :log-total="logTotal" :pagination-log="paginationLog" :data="gridData" @pageChange="getLogList" @closeLog="closeLog" />
 
     <!-- 上传文件弹窗 -->
-    <el-dialog
-      title="导入文件"
-      :close-on-click-modal="false"
-      :visible.sync="dialogVisible"
-      width="30%"
-    >
+    <el-dialog title="导入文件" :close-on-click-modal="false" :visible.sync="dialogVisible" width="30%">
       <el-upload
         ref="upload"
         class="upload-demo"
@@ -526,7 +517,8 @@ export default {
         processCode: [{ required: true, message: '请输入工序号', trigger: 'blur' }],
         processName: [{ required: true, message: '请输入工序名称', trigger: 'blur' }],
         buyerProvince: [{ required: true, message: '请输入客户所属省份', trigger: 'blur' }],
-        planPeriod: [{ required: true, message: '请输入计划工期（天数）', trigger: 'blur' }] }
+        planPeriod: [{ required: true, message: '请输入计划工期（天数）', trigger: 'blur' }]
+      }
     }
   },
   computed: {},
@@ -737,6 +729,14 @@ export default {
         this.$message.success(this.$t('table.upSuccess'))
         this.dialogVisible = false
         this.getList()
+        this.$refs.upload.clearFiles()
+      } else {
+        this.$message({
+          message: res.message,
+          type: 'error',
+          duration: 5000
+        })
+        this.dialogVisible = false
         this.$refs.upload.clearFiles()
       }
     },

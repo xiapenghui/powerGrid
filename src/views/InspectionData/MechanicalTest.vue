@@ -765,14 +765,26 @@ export default {
     // 成功
     handleAvatarSuccess(res, file) {
       if (res.code === 200) {
-        this.$message.success(this.$t('table.upSuccess'))
+        if (res.data.length > 0) {
+          this.$message.success(this.$t('table.upSuccess'))
+          this.dialogVisible = false
+          this.$refs.upload.clearFiles()
+          this.dialogVisibleAllImg = true
+          this.imgList = res.data
+          this.getList()
+        } else {
+          this.dialogVisibleAllImg = false
+          this.getList()
+        }
+      } else {
+        this.$message({
+          message: res.message,
+          type: 'error',
+          duration: 5000
+        })
         this.dialogVisible = false
-        this.getList()
         this.$refs.upload.clearFiles()
       }
-      this.dialogVisibleAllImg = true
-      console.log('res.data', res.data)
-      this.imgList = res.data
     },
     // 失败
     handleAvatarError(res, file) {
