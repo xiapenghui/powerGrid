@@ -5,7 +5,7 @@ import request from '@/utils/request'
 // 用户列表接口
 export function userList(query, data) {
   return request({
-    url: newUrl + '/sys/user/update',
+    url: newUrl + '/api/sys/user/update',
     method: 'post',
     params: query,
     data

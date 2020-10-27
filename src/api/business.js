@@ -5,7 +5,7 @@ import request from '@/utils/request'
 // 所有日志查询接口
 export function allLogs(query, data) {
   return request({
-    url: newUrl + '/sys/logs/dataId',
+    url: newUrl + '/api/sys/logs/dataId',
     method: 'post',
     params: query,
     data

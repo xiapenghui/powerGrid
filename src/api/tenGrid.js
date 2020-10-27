@@ -5,7 +5,7 @@ import request from '@/utils/request'
 // 所有日志查询接口
 export function allLogs(query, data) {
   return request({
-    url: newUrl + '/sys/logs/dataId',
+    url: newUrl + '/api/sys/logs/dataId',
     method: 'post',
     params: query,
     data
@@ -327,7 +327,7 @@ export function mctOk(data) {
 // 供应商管理列表接口
 export function supplierList(query, data) {
   return request({
-    url: newUrl + '/sys/supplier/page',
+    url: newUrl + '/api/sys/supplier/page',
     method: 'post',
     params: query,
     data
@@ -337,7 +337,7 @@ export function supplierList(query, data) {
 // 供应商管理编辑保存接口
 export function supplierEdit(data) {
   return request({
-    url: newUrl + '/sys/supplier/update',
+    url: newUrl + '/api/sys/supplier/update',
     method: 'post',
     data
   })
@@ -346,7 +346,7 @@ export function supplierEdit(data) {
 // 供应商管理删除接口
 export function supplierDellte(data) {
   return request({
-    url: newUrl + '/sys/supplier/delete',
+    url: newUrl + '/api/sys/supplier/delete',
     method: 'post',
     data
   })
@@ -355,7 +355,7 @@ export function supplierDellte(data) {
 // 供应商管理增加接口
 export function supplierAdd(data) {
   return request({
-    url: newUrl + '/sys/supplier/add',
+    url: newUrl + '/api/sys/supplier/add',
     method: 'post',
     data
   })
@@ -364,7 +364,7 @@ export function supplierAdd(data) {
 // 供应商管理增加接口
 export function saleOrg() {
   return request({
-    url: newUrl + '/sys/supplier/saleOrg',
+    url: newUrl + '/api/sys/supplier/saleOrg',
     method: 'get'
   })
 }
@@ -373,7 +373,7 @@ export function saleOrg() {
 // 用户管理列表接口
 export function userList(query, data) {
   return request({
-    url: newUrl + '/sys/user/page',
+    url: newUrl + '/api/sys/user/page',
     method: 'post',
     params: query,
     data
@@ -383,7 +383,7 @@ export function userList(query, data) {
 // 用户管理编辑保存接口
 export function userEdit(data) {
   return request({
-    url: newUrl + '/sys/user/update',
+    url: newUrl + '/api/sys/user/update',
     method: 'post',
     data
   })
@@ -392,7 +392,7 @@ export function userEdit(data) {
 // 用户管理删除接口
 export function userDellte(data) {
   return request({
-    url: newUrl + '/sys/user/delete',
+    url: newUrl + '/api/sys/user/delete',
     method: 'post',
     data
   })
@@ -401,7 +401,7 @@ export function userDellte(data) {
 // 用户管理增加接口
 export function userAdd(data) {
   return request({
-    url: newUrl + '/sys/user/add',
+    url: newUrl + '/api/sys/user/add',
     method: 'post',
     data
   })
