@@ -37,7 +37,17 @@
       </el-row>
     </div>
     <div class="rightBtn"><el-button type="primary" icon="el-icon-download" @click="download">下载数据</el-button></div>
-    <el-table v-loading="listLoading" :data="tableData" :height="tableHeight" style="width: 100%" border element-loading-text="拼命加载中" fit highlight-current-row>
+    <el-table
+      v-loading="listLoading"
+      :header-cell-style="{ background: '#ededed' }"
+      :data="tableData"
+      :height="tableHeight"
+      style="width: 100%"
+      border
+      element-loading-text="拼命加载中"
+      fit
+      highlight-current-row
+    >
       <el-table-column align="center" :label="$t('permission.poNo')" width="120">
         <template slot-scope="scope">
           {{ scope.row.poNo }}

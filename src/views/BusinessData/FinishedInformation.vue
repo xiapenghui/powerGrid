@@ -45,6 +45,7 @@
 
     <el-table
       v-loading="listLoading"
+      :header-cell-style="{background:'#ededed'}"
       :data="tableData"
       :height="tableHeight"
       style="width: 100%"

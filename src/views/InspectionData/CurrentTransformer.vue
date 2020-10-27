@@ -44,6 +44,7 @@
 
     <el-table
       v-loading="listLoading"
+      :header-cell-style="{background:'#ededed'}"
       :data="tableData"
       :height="tableHeight"
       style="width: 100%"
@@ -421,8 +422,20 @@ export default {
       }
     }
   },
-  computed: {},
+  computed: {
+
+  },
   watch: {
+    // editFileList(val) {
+    //   debugger
+    //   if (val.length > 0) {
+    //     const domCar = document.getElementsByClassName('el-upload--picture-card')[0]
+    //     domCar.style.display = 'none'
+    //   } else {
+    //     const domCar = document.getElementsByClassName('el-upload--picture-card')[0]
+    //     domCar.style.display = 'block'
+    //   }
+    // },
     // 监听表格高度
     tableHeight(val) {
       if (!this.timer) {
@@ -719,5 +732,7 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
+// .disabled ::v-deep  .el-upload--picture-card {
+//     display: none !important;
+// }
 </style>
