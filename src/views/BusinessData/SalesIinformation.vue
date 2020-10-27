@@ -567,6 +567,7 @@ export default {
     },
     // 上传
     okUpload() {
+      this.listLoading = true
       saleUpload().then(res => {
         if (res.code === 200) {
           this.$message({
@@ -575,6 +576,7 @@ export default {
           })
         }
         this.getList()
+        this.listLoading = false
       })
     },
     // 文件导入
