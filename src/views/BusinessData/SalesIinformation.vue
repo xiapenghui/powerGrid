@@ -252,6 +252,7 @@
 
     <el-dialog title="导入文件" :visible.sync="dialogVisible" width="30%">
       <el-upload
+        ref="upload"
         class="upload-demo"
         :action="this.GLOBAL.BASE_URL + '/api/eip/so/import/file'"
         :headers="this.myHeaders"
@@ -577,6 +578,7 @@ export default {
         this.$message.success(this.$t('table.upSuccess'))
         this.dialogVisible = false
         this.getList()
+        this.$refs.upload.clearFiles()
       }
     },
     // 失败

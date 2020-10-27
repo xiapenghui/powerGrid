@@ -280,6 +280,7 @@
     <!-- 上传文件弹窗 -->
     <el-dialog title="导入文件" :visible.sync="dialogVisible" width="30%">
       <el-upload
+        ref="upload"
         class="upload-demo"
         :action="this.GLOBAL.BASE_URL + '/api/kvsc/vt/import/file'"
         :headers="this.myHeaders"
@@ -301,7 +302,12 @@
     </el-dialog>
 
     <!-- //批量上传图片弹窗 -->
-    <el-dialog title="批量上传图片" :visible.sync="dialogVisibleAllImg" width="50%">
+    <el-dialog
+      title="批量上传图片"
+      :visible.sync="dialogVisibleAllImg"
+      :close-on-click-modal="false"
+      width="50%"
+    >
       <div class="demo-image__error">
         <div v-for="(item, index) in imgList" :key="index" class="blockImg">
           <el-image style="width:80px; height: 80px" :src="item.imagePath === null ? '' : item.imagePath">
@@ -616,6 +622,7 @@ export default {
         this.$message.success(this.$t('table.upSuccess'))
         this.dialogVisible = false
         this.getList()
+        this.$refs.upload.clearFiles()
       }
       this.dialogVisibleAllImg = true
       console.log('res.data', res.data)
