@@ -30,6 +30,7 @@
     <!-- //导入文件 -->
     <el-dialog :title="newTitle" :visible.sync="dialogVisible" :modal-append-to-body="false" :close-on-click-modal="false" width="30%">
       <el-upload
+        ref="upload"
         v-loading="loading"
         class="upload-demo"
         :action="this.GLOBAL.BASE_URL + '/api/excel/upload'"
@@ -111,9 +112,9 @@ export default {
         if (res.code === 200) {
           this.$message.success('恭喜你，解析成功！')
           this.loading = false
-          this.dialogVisible = false
         } else {
-          this.$message.error('抱歉，解析失败！')
+          this.$message.error(res.message)
+          this.loading = false
         }
       })
       this.dialogVisible = false
@@ -122,6 +123,14 @@ export default {
     handleAvatarSuccess(res, file) {
       if (res.code === 200) {
         this.$message.success(this.$t('table.upSuccess'))
+      } else {
+        this.$message({
+          message: res.message,
+          type: 'error',
+          duration: 5000
+        })
+        this.dialogVisible = false
+        this.$refs.upload.clearFiles()
       }
     },
     // 失败
