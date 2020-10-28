@@ -62,7 +62,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="角色">
+      <el-table-column align="center" label="角色" prop="isAdmin" sortable>
         <template slot-scope="scope">
           <el-tag :class="[scope.row.isAdmin === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isAdmin === 0 ? '管理员' : '普通用户' }}</el-tag>
         </template>
@@ -80,9 +80,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="姓别">
+      <el-table-column align="center" label="姓别" prop="sex" sortable>
         <template slot-scope="scope">
-          <el-tag type="info">{{ scope.row.sex === 0 ? '男' : '女' }}</el-tag>
+          <el-tag :class="[scope.row.sex === 0 ? 'classRed' : 'classGreen']">{{ scope.row.sex === 0 ? '男' : '女' }}</el-tag>
         </template>
       </el-table-column>
 
@@ -98,7 +98,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="创建时间">
+      <el-table-column align="center" label="创建时间" prop="createTime" sortable>
         <template slot-scope="scope">
           {{ scope.row.createTime }}
         </template>

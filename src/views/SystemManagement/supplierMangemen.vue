@@ -56,7 +56,7 @@
     >
       <el-table-column type="selection" align="center" width="55" fixed />
 
-      <el-table-column align="center" label="工厂">
+      <el-table-column align="center" label="工厂" prop="saleOrg" sortable>
         <template slot-scope="scope">
           {{ scope.row.saleOrg }}
         </template>
@@ -80,7 +80,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="创建时间">
+      <el-table-column align="center" label="创建时间" prop="createTime" sortable>
         <template slot-scope="scope">
           {{ scope.row.createTime }}
         </template>
