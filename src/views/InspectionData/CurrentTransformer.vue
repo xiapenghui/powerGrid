@@ -143,7 +143,7 @@
 
       <el-table-column align="center" :label="$t('permission.RawMaterialSNOther')" width="150">
         <template slot-scope="scope">
-          {{ scope.row.RawMaterialSN }}
+          {{ scope.row.rawMaterialSN }}
         </template>
       </el-table-column>
 
@@ -231,7 +231,7 @@
               <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
             </el-form-item>
             <el-tooltip class="item" effect="dark" content="原材料出厂编号(Key)" placement="top-start">
-              <el-form-item label="原材料出厂编号(Key)" prop="RawMaterialSN"><el-input v-model="ruleForm.RawMaterialSN" /></el-form-item>
+              <el-form-item label="原材料出厂编号(Key)" prop="rawMaterialSN"><el-input v-model="ruleForm.rawMaterialSN" /></el-form-item>
             </el-tooltip>
             <el-tooltip class="item" effect="dark" content="一次耐压额定值(kV)" placement="top-start">
               <el-form-item label="一次耐压额定值(kV)"><el-input v-model="ruleForm.pressureValueUn" /></el-form-item>
@@ -427,7 +427,7 @@ export default {
         pdCode: [{ required: true, message: '请输入工序', trigger: 'blur' }],
         checkTime: [{ required: true, message: '请输入采集时间', trigger: 'blur' }],
         putCenterTime: [{ required: true, message: '请输入入数采中心时间', trigger: 'blur' }],
-        RawMaterialSN: [{ required: true, message: '请输入原材料出厂编号(Key)', trigger: 'blur' }]
+        rawMaterialSN: [{ required: true, message: '请输入原材料出厂编号(Key)', trigger: 'blur' }]
       }
     }
   },
