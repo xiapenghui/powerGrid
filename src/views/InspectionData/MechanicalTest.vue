@@ -726,7 +726,7 @@ export default {
       if (row.imagePath !== null) {
         this.editFileList.push({
           name: row.imageFileUrl,
-          url: 'http://39.101.166.244:8888/image/' + row.imagePath
+          url: 'http://39.101.166.244:8888/api/image/' + row.imagePath
         })
       }
       this.ruleForm = JSON.parse(JSON.stringify(row))
