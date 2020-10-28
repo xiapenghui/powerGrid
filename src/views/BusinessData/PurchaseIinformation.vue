@@ -36,7 +36,10 @@
         </el-col>
       </el-row>
     </div>
-    <div class="rightBtn"><el-button type="primary" icon="el-icon-download" @click="download">下载数据</el-button></div>
+    <div class="rightBtn">
+      <el-button v-if="showBtn" type="primary" icon="el-icon-download" @click="download">下载数据</el-button>
+      <el-button v-else type="primary" :loading="true">下载中...</el-button>
+    </div>
     <el-table
       v-loading="listLoading"
       :header-cell-style="{ background: '#ededed' }"
@@ -245,6 +248,7 @@ export default {
       },
       listLoading: true,
       total: 10,
+      showBtn: true, // 默认显示下载数据按钮
       tableHeight: window.innerHeight - fixHeight, // 表格高度
       content1: this.$t('permission.poNo')
     }
@@ -311,7 +315,7 @@ export default {
         poNo: undefined,
         importDate: [
           this.$moment(new Date())
-            .subtract(1, 'months')
+            .subtract(5, 'months')
             .format('YYYY-MM-DD'),
           this.$moment(new Date()).format('YYYY-MM-DD')
         ]
@@ -344,6 +348,7 @@ export default {
     // 下载数据
     download() {
       this.listLoading = true
+      this.showBtn = false
       poDown().then(res => {
         if (res.code === 200) {
           this.getList()
@@ -352,6 +357,7 @@ export default {
             message: '下载成功!'
           })
           this.listLoading = false
+          this.showBtn = true
         } else {
           this.$message({
             type: 'error',
@@ -360,6 +366,7 @@ export default {
         }
       })
       this.listLoading = false
+      this.showBtn = true
     }
   }
 }
