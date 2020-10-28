@@ -254,7 +254,7 @@
         <div class="bigDownBox">
           <el-form-item label="电压附件">
             <el-upload
-              :class="{ uoloadSty: showBtnImg, disUoloadSty: noneBtnImg }"
+              :class="{disUoloadSty: noneBtnImg }"
               action="http://39.101.166.244:8888/api/image/upload"
               :data="this.oneDataImg"
               :headers="this.myHeaders"
@@ -413,7 +413,6 @@ export default {
       oneDataImg: { id: '', imagePath: '', modelName: '电压互感器' }, // 单个图片上传或替换之前的图片
       editRow: {},
       editFileList: [],
-      showBtnImg: true, // 显示上传按钮
       noneBtnImg: false, // 隐藏上传按钮
       limitCountImg: 1, // 上传图片的最大数量
       content1: this.$t('permission.supplierWorkNo'),
@@ -723,6 +722,7 @@ export default {
           item.imagePath = 'http://39.101.166.244:8888' + res.data
         }
       })
+      this.getList()
     },
     // 编辑替换移除图片
     onRemoveImg(file, fileList) {

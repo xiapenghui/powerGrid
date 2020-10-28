@@ -20,7 +20,7 @@ export default {
     SpareInventory: 'Spare Inventory',
     FinishedInformation: 'Finished Information',
     InspectionData: 'Inspection Data',
-    ContactBox: 'Contact Box',
+    ContactBox: 'Moving contact',
     CasingCabinet: 'Casing Cabinet',
     StaticContact: 'Static Contact',
     PostInsulator: 'Post Insulator',

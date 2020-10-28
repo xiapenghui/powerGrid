@@ -857,6 +857,7 @@ export default {
           item.imagePath = 'http://39.101.166.244:8888' + res.data
         }
       })
+      this.getList()
     },
     // 编辑替换移除图片
     onRemoveImg(file, fileList) {

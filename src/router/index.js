@@ -155,87 +155,128 @@ export const constantRoutes = [{
 {
   path: '/InspectionData',
   component: Layout,
-  redirect: '/InspectionData/ContactBox',
+  redirect: '/InspectionData/CircuitTrolley',
   name: 'Table',
   meta: {
     title: 'InspectionData',
     icon: 'tab',
     roles: ['ROLE_ADMIN', 'ROLE_USER']
   },
-  children: [
-
-    {
-      path: 'CurrentTransformer',
-      component: () => import('@/views/InspectionData/CurrentTransformer'),
-      name: 'CurrentTransformer',
-      meta: {
-        title: 'CurrentTransformer'
-      }
-    },
-
-    {
-      path: 'VoltageTransformer',
-      component: () => import('@/views/InspectionData/VoltageTransformer'),
-      name: 'VoltageTransformer',
-      meta: {
-        title: 'VoltageTransformer'
-      }
-    },
-    {
-      path: 'ResistanceCircuit',
-      component: () => import('@/views/InspectionData/ResistanceCircuit'),
-      name: 'ResistanceCircuit',
-      meta: {
-        title: 'ResistanceCircuit'
-      }
-    },
-    {
-      path: 'MechanicalOperation',
-      component: () => import('@/views/InspectionData/MechanicalOperation'),
-      name: 'MechanicalOperation',
-      meta: {
-        title: 'MechanicalOperation'
-      }
-    },
-    {
-      path: 'MechanicalTest',
-      component: () => import('@/views/InspectionData/MechanicalTest'),
-      name: 'MechanicalTest',
-      meta: {
-        title: 'MechanicalTest'
-      }
-    },
-    {
-      path: 'WithstandTest',
-      component: () => import('@/views/InspectionData/WithstandTest'),
-      name: 'WithstandTest',
-      meta: {
-        title: 'WithstandTest'
-      }
-    },
-    {
-      path: 'InsulationTest',
-      component: () => import('@/views/InspectionData/InsulationTest'),
-      name: 'InsulationTest',
-      meta: {
-        title: 'InsulationTest'
-      }
-    },
-    {
-      path: 'ElectricalInterlock',
-      component: () => import('@/views/InspectionData/ElectricalInterlock'),
-      name: 'ElectricalInterlock',
-      meta: {
-        title: 'ElectricalInterlock'
-      }
+  children: [{
+    path: 'CircuitTrolley',
+    component: () => import('@/views/InspectionData/CircuitTrolley'),
+    name: 'CircuitTrolley',
+    meta: {
+      title: 'CircuitTrolley'
     }
+  },
+  {
+    path: 'BusInformation',
+    component: () => import('@/views/InspectionData/BusInformation'),
+    name: 'BusInformation',
+    meta: {
+      title: 'BusInformation'
+    }
+  },
+  {
+    path: 'CabinetMaterial',
+    component: () => import('@/views/InspectionData/CabinetMaterial'),
+    name: 'CabinetMaterial',
+    meta: {
+      title: 'CabinetMaterial'
+    }
+  },
+  {
+    path: 'CurrentTransformer',
+    component: () => import('@/views/InspectionData/CurrentTransformer'),
+    name: 'CurrentTransformer',
+    meta: {
+      title: 'CurrentTransformer'
+    }
+  },
+
+  {
+    path: 'VoltageTransformer',
+    component: () => import('@/views/InspectionData/VoltageTransformer'),
+    name: 'VoltageTransformer',
+    meta: {
+      title: 'VoltageTransformer'
+    }
+  },
+  {
+    path: 'ResistanceCircuit',
+    component: () => import('@/views/InspectionData/ResistanceCircuit'),
+    name: 'ResistanceCircuit',
+    meta: {
+      title: 'ResistanceCircuit'
+    }
+  },
+  {
+    path: 'MechanicalOperation',
+    component: () => import('@/views/InspectionData/MechanicalOperation'),
+    name: 'MechanicalOperation',
+    meta: {
+      title: 'MechanicalOperation'
+    }
+  },
+  {
+    path: 'MechanicalTest',
+    component: () => import('@/views/InspectionData/MechanicalTest'),
+    name: 'MechanicalTest',
+    meta: {
+      title: 'MechanicalTest'
+    }
+  },
+  {
+    path: 'WithstandTest',
+    component: () => import('@/views/InspectionData/WithstandTest'),
+    name: 'WithstandTest',
+    meta: {
+      title: 'WithstandTest'
+    }
+  },
+  {
+    path: 'InsulationTest',
+    component: () => import('@/views/InspectionData/InsulationTest'),
+    name: 'InsulationTest',
+    meta: {
+      title: 'InsulationTest'
+    }
+  },
+
+  {
+    path: 'StaticContact',
+    component: () => import('@/views/InspectionData/StaticContact'),
+    name: 'StaticContact',
+    meta: {
+      title: 'StaticContact'
+    }
+  },
+
+  {
+    path: 'ContactBox',
+    component: () => import('@/views/InspectionData/ContactBox'),
+    name: 'ContactBox',
+    meta: {
+      title: 'ContactBox'
+    }
+  },
+
+  {
+    path: 'ElectricalInterlock',
+    component: () => import('@/views/InspectionData/ElectricalInterlock'),
+    name: 'ElectricalInterlock',
+    meta: {
+      title: 'ElectricalInterlock'
+    }
+  }
 
   ]
 },
 /**
- * asyncRoutes
- * the routes that need to be dynamically loaded based on user roles
- */
+   * asyncRoutes
+   * the routes that need to be dynamically loaded based on user roles
+   */
 // 系统管理
 {
   path: '/SystemManagement',
@@ -248,25 +289,24 @@ export const constantRoutes = [{
     icon: 'lock',
     roles: ['ROLE_ADMIN'] // you can set roles in root nav
   },
-  children: [
-    {
-      path: 'userMangement',
-      component: () => import('@/views/SystemManagement/userMangement'),
-      name: 'userMangement',
-      meta: {
-        title: 'userMangement',
-        roles: ['ROLE_ADMIN']
-      }
-    },
-    {
-      path: 'supplierMangemen',
-      component: () => import('@/views/SystemManagement/supplierMangemen'),
-      name: 'supplierMangemen',
-      meta: {
-        title: 'supplierMangemen',
-        roles: ['ROLE_ADMIN']
-      }
+  children: [{
+    path: 'userMangement',
+    component: () => import('@/views/SystemManagement/userMangement'),
+    name: 'userMangement',
+    meta: {
+      title: 'userMangement',
+      roles: ['ROLE_ADMIN']
     }
+  },
+  {
+    path: 'supplierMangemen',
+    component: () => import('@/views/SystemManagement/supplierMangemen'),
+    name: 'supplierMangemen',
+    meta: {
+      title: 'supplierMangemen',
+      roles: ['ROLE_ADMIN']
+    }
+  }
   ]
 },
 
@@ -331,23 +371,22 @@ export const asyncRoutes = [{
     title: 'SystemManagement',
     icon: 'lock'
   },
-  children: [
-    {
-      path: 'userMangement',
-      component: () => import('@/views/SystemManagement/userMangement'),
-      name: 'userMangement',
-      meta: {
-        title: 'userMangement'
-      }
-    },
-    {
-      path: 'supplierMangemen',
-      component: () => import('@/views/SystemManagement/supplierMangemen'),
-      name: 'supplierMangemen',
-      meta: {
-        title: 'supplierMangemen'
-      }
+  children: [{
+    path: 'userMangement',
+    component: () => import('@/views/SystemManagement/userMangement'),
+    name: 'userMangement',
+    meta: {
+      title: 'userMangement'
     }
+  },
+  {
+    path: 'supplierMangemen',
+    component: () => import('@/views/SystemManagement/supplierMangemen'),
+    name: 'supplierMangemen',
+    meta: {
+      title: 'supplierMangemen'
+    }
+  }
   ]
 }
 
