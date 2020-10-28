@@ -108,11 +108,11 @@ export const constantRoutes = [{
     }
   },
   {
-    path: 'productionList',
-    component: () => import('@/views/BusinessData/productionList'),
-    name: 'productionList',
+    path: 'ProductionList',
+    component: () => import('@/views/BusinessData/ProductionList'),
+    name: 'ProductionList',
     meta: {
-      title: 'productionList'
+      title: 'ProductionList'
     }
   },
 

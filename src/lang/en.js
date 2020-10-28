@@ -38,7 +38,7 @@ export default {
     WithstandTest: 'Withstand Test',
     InsulationTest: 'Insulation Test',
     ElectricalInterlock: 'Electrical Interlock',
-    productionList: 'Production Schedule',
+    ProductionList: 'Production Schedule',
     supplierMangemen: 'Supplier Mangemen',
     // 截止
 
