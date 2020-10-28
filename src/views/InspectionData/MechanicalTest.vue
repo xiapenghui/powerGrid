@@ -367,26 +367,27 @@
             <el-tooltip class="item" effect="dark" content="合闸弹跳（真空断路器）(ms)" placement="top-start">
               <el-form-item label="合闸弹跳（真空断路器）(ms)" prop="closeBounceTime"><el-input v-model="ruleForm.closeBounceTime" /></el-form-item>
             </el-tooltip>
+            <el-form-item label="机械特性附件">
+              <el-upload
+                :class="{disUoloadSty: noneBtnImg }"
+                action="http://39.101.166.244:8888/api/image/upload"
+                :data="this.oneDataImg"
+                :headers="this.myHeaders"
+                :limit="this.limitCountImg"
+                list-type="picture-card"
+                :file-list="editFileList"
+                :on-remove="onRemoveImg"
+                :on-success="onsucessImg"
+                :on-change="imgChange"
+                :on-preview="handlePictureCardPreview"
+              >
+                <i slot="default" class="el-icon-plus" />
+              </el-upload>
+              <el-dialog :visible.sync="dialogVisibleImg"><img width="100%" :src="dialogImageUrl" alt=""></el-dialog>
+            </el-form-item>
           </div>
         </div>
-        <div class="bigDownBox">
-          <el-form-item label="机械特性附件">
-            <el-upload
-              action="http://39.101.166.244:8888/api/image/upload"
-              :data="this.oneDataImg"
-              :headers="this.myHeaders"
-              :limit="1"
-              list-type="picture-card"
-              :file-list="editFileList"
-              :on-remove="onRemoveImg"
-              :on-success="onsucessImg"
-              :on-preview="handlePictureCardPreview"
-            >
-              <i slot="default" class="el-icon-plus" />
-            </el-upload>
-            <el-dialog :visible.sync="dialogVisibleImg"><img width="100%" :src="dialogImageUrl" alt=""></el-dialog>
-          </el-form-item>
-        </div>
+        <!-- <div class="bigDownBox"></div> -->
       </el-form>
 
       <div slot="footer" class="dialog-footer">
@@ -528,6 +529,8 @@ export default {
       oneDataImg: { id: '', imagePath: '', modelName: '机械特性试验' }, // 单个图片上传或替换之前的图片
       editRow: {},
       editFileList: [],
+      noneBtnImg: false, // 隐藏上传按钮
+      limitCountImg: 1, // 上传图片的最大数量
       content1: this.$t('permission.supplierWorkNo'),
       rules: {
         saleOrg: [{ required: true, message: '请输入工厂', trigger: 'blur' }],
@@ -720,6 +723,11 @@ export default {
     },
     // 编辑
     handleEdit(index, row) {
+      if (row.imageFileUrl === null) {
+        this.noneBtnImg = false
+      } else {
+        this.noneBtnImg = true
+      }
       this.editFileList = []
       this.oneDataImg.id = row.id
       this.editRow = row
@@ -851,14 +859,20 @@ export default {
       })
     },
     // 编辑替换移除图片
-    onRemoveImg(file, fileList) {},
+    onRemoveImg(file, fileList) {
+      this.noneBtnImg = fileList.length >= this.limitCountImg
+    },
+    // 超过1张图片隐藏上传按钮，小于1张图片上传按钮显示
+    imgChange(file, fileList) {
+      this.noneBtnImg = fileList.length >= this.limitCountImg
+    },
     // 编辑图片上传成功
     onsucessImg(response, file, fileList) {
       console.log('response', response)
       console.log('file', file)
       console.log('fileList', fileList)
       this.editRow.imageFileUrl = file.name
-      // this.getList()
+      this.getList()
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url
@@ -874,5 +888,8 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.disUoloadSty ::v-deep .el-upload--picture-card {
+  display: none !important;
 }
 </style>

@@ -216,11 +216,7 @@
     </el-table>
 
     <!-- 编辑弹窗 -->
-    <el-dialog
-      title="编辑信息"
-      :close-on-click-modal="false"
-      :visible.sync="dialogFormVisible"
-    >
+    <el-dialog title="编辑信息" :close-on-click-modal="false" :visible.sync="dialogFormVisible">
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
         <div class="bigUpBox">
           <div class="boxLeft">
@@ -267,14 +263,16 @@
         <div class="bigDownBox">
           <el-form-item label="电流附件">
             <el-upload
+              :class="{ uoloadSty: showBtnImg, disUoloadSty: noneBtnImg }"
               action="http://39.101.166.244:8888/api/image/upload"
               :data="this.oneDataImg"
               :headers="this.myHeaders"
-              :limit="1"
+              :limit="this.limitCountImg"
               list-type="picture-card"
               :file-list="editFileList"
               :on-remove="onRemoveImg"
               :on-success="onsucessImg"
+              :on-change="imgChange"
               :on-preview="handlePictureCardPreview"
             >
               <i slot="default" class="el-icon-plus" />
@@ -295,12 +293,7 @@
     <log-dialog :is-show="dialogTableVisible" :log-total="logTotal" :pagination-log="paginationLog" :data="gridData" @pageChange="getLogList" @closeLog="closeLog" />
 
     <!-- 上传文件弹窗 -->
-    <el-dialog
-      title="导入文件"
-      :close-on-click-modal="false"
-      :visible.sync="dialogVisible"
-      width="30%"
-    >
+    <el-dialog title="导入文件" :close-on-click-modal="false" :visible.sync="dialogVisible" width="30%">
       <el-upload
         ref="upload"
         class="upload-demo"
@@ -324,12 +317,7 @@
     </el-dialog>
 
     <!-- //批量上传图片弹窗 -->
-    <el-dialog
-      title="批量上传图片"
-      :visible.sync="dialogVisibleAllImg"
-      :close-on-click-modal="false"
-      width="50%"
-    >
+    <el-dialog title="批量上传图片" :visible.sync="dialogVisibleAllImg" :close-on-click-modal="false" width="50%">
       <div class="demo-image__error">
         <div v-for="(item, index) in imgList" :key="index" class="blockImg">
           <el-image style="width:80px; height: 80px" :src="item.imagePath === null ? '' : item.imagePath">
@@ -424,6 +412,9 @@ export default {
       oneDataImg: { id: '', imagePath: '', modelName: '电流互感器' }, // 单个图片上传或替换之前的图片
       editRow: {},
       editFileList: [],
+      showBtnImg: true, // 显示上传按钮
+      noneBtnImg: false, // 隐藏上传按钮
+      limitCountImg: 1, // 上传图片的最大数量
       content1: this.$t('permission.supplierWorkNo'),
       rules: {
         saleOrg: [{ required: true, message: '请输入工厂', trigger: 'blur' }],
@@ -442,16 +433,6 @@ export default {
   },
   computed: {},
   watch: {
-    // editFileList(val) {
-    //   debugger
-    //   if (val.length > 0) {
-    //     const domCar = document.getElementsByClassName('el-upload--picture-card')[0]
-    //     domCar.style.display = 'none'
-    //   } else {
-    //     const domCar = document.getElementsByClassName('el-upload--picture-card')[0]
-    //     domCar.style.display = 'block'
-    //   }
-    // },
     // 监听表格高度
     tableHeight(val) {
       if (!this.timer) {
@@ -606,6 +587,11 @@ export default {
     },
     // 编辑
     handleEdit(index, row) {
+      if (row.imageFileUrl === null) {
+        this.noneBtnImg = false
+      } else {
+        this.noneBtnImg = true
+      }
       this.editFileList = []
       this.oneDataImg.id = row.id
       this.editRow = row
@@ -738,14 +724,20 @@ export default {
       })
     },
     // 编辑替换移除图片
-    onRemoveImg(file, fileList) {},
+    onRemoveImg(file, fileList) {
+      this.noneBtnImg = fileList.length >= this.limitCountImg
+    },
+    // 超过1张图片隐藏上传按钮，小于1张图片上传按钮显示
+    imgChange(file, fileList) {
+      this.noneBtnImg = fileList.length >= this.limitCountImg
+    },
     // 编辑图片上传成功
     onsucessImg(response, file, fileList) {
       console.log('response', response)
       console.log('file', file)
       console.log('fileList', fileList)
       this.editRow.imageFileUrl = file.name
-      // this.getList()
+      this.getList()
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url
@@ -761,7 +753,7 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-// .disabled ::v-deep  .el-upload--picture-card {
-//     display: none !important;
-// }
+.disUoloadSty ::v-deep .el-upload--picture-card {
+  display: none !important;
+}
 </style>
