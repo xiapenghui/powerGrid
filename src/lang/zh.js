@@ -453,6 +453,8 @@ export default {
     sectionalArea: '截面积',
     electricalConductivity: '电导率(%IACS)',
     inspectionReportFileMP: '（母排）检验报告附件',
+    thickness: '厚度',
+    inspectionReportFileJT: '柜体材质、厚度附件',
 
     // 截止
     roles: '你的权限',
