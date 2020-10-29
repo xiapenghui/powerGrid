@@ -244,23 +244,23 @@ export const constantRoutes = [{
     }
   },
 
-  // {
-  //   path: 'StaticContact',
-  //   component: () => import('@/views/InspectionData/StaticContact'),
-  //   name: 'StaticContact',
-  //   meta: {
-  //     title: 'StaticContact'
-  //   }
-  // },
+  {
+    path: 'StaticContact',
+    component: () => import('@/views/InspectionData/StaticContact'),
+    name: 'StaticContact',
+    meta: {
+      title: 'StaticContact'
+    }
+  },
 
-  // {
-  //   path: 'ContactBox',
-  //   component: () => import('@/views/InspectionData/ContactBox'),
-  //   name: 'ContactBox',
-  //   meta: {
-  //     title: 'ContactBox'
-  //   }
-  // },
+  {
+    path: 'ContactBox',
+    component: () => import('@/views/InspectionData/ContactBox'),
+    name: 'ContactBox',
+    meta: {
+      title: 'ContactBox'
+    }
+  },
 
   {
     path: 'ElectricalInterlock',
