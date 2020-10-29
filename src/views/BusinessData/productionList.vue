@@ -10,6 +10,7 @@
           </el-col>
           <el-col :span="16"><el-input v-model="listQuery.ipoNo" :placeholder="$t('permission.ipoNoInfo')" clearable /></el-col>
         </el-col>
+
         <el-col :span="8">
           <el-col :span="8">
             <el-tooltip class="item" effect="dark" content="创建时间" placement="top-start"><label class="radio-label">创建时间:</label></el-tooltip>
