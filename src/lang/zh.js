@@ -530,7 +530,7 @@ export default {
     upSuccess: '上传成功！',
     upError: '上传失败！',
     errorOne: '上传文件只能是xls或者xlsx格式！',
-    errorTwo: '上传文件大小不能超过 2MB!',
+    errorTwo: '上传文件大小不能超过 50MB!',
     okClose: '确认关闭？'
 
   },

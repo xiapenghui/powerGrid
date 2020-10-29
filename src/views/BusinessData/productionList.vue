@@ -429,6 +429,7 @@
         :before-upload="beforeAvatarUpload"
         :on-success="handleAvatarSuccess"
         :on-error="handleAvatarError"
+        :on-progress="uploadVideoProcess"
         :auto-upload="true"
       >
         <el-button size="small" type="primary">{{ $t('table.clickUp') }}</el-button>
@@ -440,6 +441,7 @@
           {{ $t('table.fileSize') }}
         </div>
       </el-upload>
+      <el-progress v-if="fileFlag" id="progressShow" type="line" :percentage="UploadPercent" />
     </el-dialog>
 
     <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" />
@@ -488,6 +490,8 @@ export default {
       dialogTableVisible: false, // 日志弹出框
       dialogVisible: false, // 文件上传弹出框
       dialogFormVisible: false, // 编辑弹出框
+      UploadPercent: 0,
+      fileFlag: false,
       // content1: this.$t('permission.supplierName'),
       content2: this.$t('permission.ipoNo'),
       rules: {
@@ -723,8 +727,15 @@ export default {
     okImprot() {
       this.dialogVisible = true
     },
+    // 上传进度显示：
+    uploadVideoProcess(event, file, fileList) {
+      this.fileFlag = true
+      this.UploadPercent = Math.floor(event.percent)
+    },
     // 成功
     handleAvatarSuccess(res, file) {
+      this.fileFlag = false
+      this.UploadPercent = 0
       if (res.code === 200) {
         this.$message.success(this.$t('table.upSuccess'))
         this.dialogVisible = false
@@ -748,15 +759,15 @@ export default {
     },
     beforeAvatarUpload(file) {
       const isXLS = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      const isLt2M = file.size / 1024 / 1024 < 2
+      const isLt50M = file.size / 1024 / 1024 < 50
 
       if (!isXLS) {
         this.$message.error(this.$t('table.errorOne'))
       }
-      if (!isLt2M) {
+      if (!isLt50M) {
         this.$message.error(this.$t('table.errorTwo'))
       }
-      return isXLS && isLt2M
+      return isXLS && isLt50M
     }
   }
 }
