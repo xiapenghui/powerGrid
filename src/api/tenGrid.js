@@ -1,5 +1,5 @@
 // const newUrl = 'http://192.168.1.192:8888'
-const newUrl = 'http://39.101.166.244:8888'
+const newUrl = 'http://39.101.166.244'
 import request from '@/utils/request'
 
 // 所有日志查询接口
