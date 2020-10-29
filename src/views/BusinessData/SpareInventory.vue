@@ -405,38 +405,6 @@ export default {
     handleSelectionChange(val) {
       this.selectedData = val
     },
-    // 删除数据
-    // handleDelete(index, row) {
-    //   this.$message({
-    //     type: 'error',
-    //     message: '功能暂未开通！'
-    //   });
-    //   if (this.tableData.length > 0) {
-    //     this.$confirm(this.$t('table.deleteInfo'), this.$t('table.Tips'), {
-    //       confirmButtonText: this.$t('table.confirm'),
-    //       cancelButtonText: this.$t('table.cancel'),
-    //       type: 'warning'
-    //     })
-    //       .then(() => {
-    //         siDellte([row.id]).then(res => {
-    //           if (res.code === 0) {
-    //             this.$message({
-    //               type: 'success',
-    //               message: this.$t('table.deleteSuccess')
-    //             })
-    //             this.getList()
-    //           }
-    //         })
-    //       })
-    //       .catch(() => {
-    //         this.$message({
-    //           type: 'info',
-    //           message: this.$t('table.deleteError')
-    //         })
-    //       })
-    //   }
-    // },
-
     // 点击日志
     clickLogs(row) {
       this.logId = row
@@ -487,7 +455,7 @@ export default {
           })
           .catch(() => {
             this.$message({
-              type: 'info',
+              type: 'error',
               message: this.$t('table.deleteError')
             })
           })

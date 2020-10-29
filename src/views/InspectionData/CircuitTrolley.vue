@@ -394,7 +394,6 @@
         </template>
       </el-table-column>
 
-
       <el-table-column align="center" :label="$t('permission.operations')" fixed="right" width="150">
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">{{ $t('table.edit') }}</el-button>
@@ -405,181 +404,181 @@
 
     <!-- 编辑弹窗 -->
     <el-dialog title="编辑信息" :close-on-click-modal="false" :visible.sync="dialogFormVisible">
-       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
-         <div class="bigUpBox">
-           <div class="boxLeft">
-             <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" :disabled="true" /></el-form-item>
-             <el-form-item label="供应商工单编号" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" /></el-form-item>
-             <el-form-item label="规格型号编码" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
-             <el-tooltip class="item" effect="dark" content="是否是告警问题数据" placement="top-start">
-               <el-form-item label="是否是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
-             </el-tooltip>
-             <el-form-item label="感知过程" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
-             <el-form-item label="采集时间" prop="checkTime">
-               <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
-             </el-form-item>
-             <el-tooltip class="item" effect="dark" content="断路器出厂编号(常州/nature)" placement="top-start">
-               <el-form-item label="断路器出厂编号(常州/nature)" prop="ContactNum"><el-input v-model="ruleForm.ContactNum" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="相对地耐压额定值(kV)" placement="top-start">
-               <el-form-item label="相对地耐压额定值(kV)" prop="pressureValueUn"><el-input v-model="ruleForm.pressureValueUn" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="真空断口耐压额定值(kV)" placement="top-start">
-               <el-form-item label="真空断口耐压额定值(kV)" prop="vacuumVoltageUn"><el-input v-model="ruleForm.vacuumVoltageUn" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="相间耐压额定值(kV)" placement="top-start">
-               <el-form-item label="相间耐压额定值(kV)" prop="phaseVoltageUn"><el-input v-model="ruleForm.phaseVoltageUn" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="耐压持续额定时间(s)" placement="top-start">
-               <el-form-item label="耐压持续额定时间(s)" prop="pressureTimeUn"><el-input v-model="ruleForm.pressureTimeUn" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="额定电流(A)" placement="top-start">
-               <el-form-item label="额定电流(A)" prop="ratedCurrent"><el-input v-model="ruleForm.ratedCurrent" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="A相回路电阻值(μΩ)" placement="top-start">
-               <el-form-item label="A相回路电阻值(μΩ)" prop="loopResistanceA"><el-input v-model="ruleForm.loopResistanceA" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="C相回路电阻值(μΩ)" placement="top-start">
-               <el-form-item label="C相回路电阻值(μΩ)" prop="loopResistanceC"><el-input v-model="ruleForm.loopResistanceC" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="储能电机85%和110%操作电压，储能可靠动作" placement="top-start">
-               <el-form-item label="储能电机85%和110%操作电压，储能可靠动作" prop="eliableStorageOper"><el-input v-model="ruleForm.eliableStorageOper" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="85%~110%额定合闸电压（直流）范围，操作5次，可靠合闸" placement="top-start">
-               <el-form-item label="85%~110%额定合闸电压（直流）范围，操作5次，可靠合闸" prop="nomACReliableSwitch">
-                 <el-input v-model="ruleForm.nomACReliableSwitch" />
-               </el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="分闸电源低于额定30%，操作5次可靠不动作" placement="top-start">
-               <el-form-item label="分闸电源低于额定30%，操作5次可靠不动作" prop="breakReliableNoOper"><el-input v-model="ruleForm.breakReliableNoOper" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="额定操作电压下，分合操作5次，均可靠动作" placement="top-start">
-               <el-form-item label="额定操作电压下，分合操作5次，均可靠动作" prop="breakNomVolReliableOper"><el-input v-model="ruleForm.breakNomVolReliableOper" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="分闸时间额定上限值(ms)" placement="top-start">
-               <el-form-item label="分闸时间额定上限值(ms)" prop="breakTimeMax"><el-input v-model="ruleForm.breakTimeMax" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="A相分闸时间(ms)" placement="top-start">
-               <el-form-item label="A相分闸时间(ms)" prop="breakTimeA"><el-input v-model="ruleForm.breakTimeA" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="C相分闸时间(ms)" placement="top-start">
-               <el-form-item label="C相分闸时间(ms)" prop="breakTimeC"><el-input v-model="ruleForm.breakTimeC" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="合闸时间额定下限值(ms)" placement="top-start">
-               <el-form-item label="合闸时间额定下限值(ms)" prop="closeTimeMin"><el-input v-model="ruleForm.closeTimeMin" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="B相合闸时间(ms)" placement="top-start">
-               <el-form-item label="B相合闸时间(ms)" prop="closeTimeB"><el-input v-model="ruleForm.closeTimeB" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="合闸不同期额定值(ms)" placement="top-start">
-               <el-form-item label="合闸不同期额定值(ms)" prop="closeNotSameTimeUn"><el-input v-model="ruleForm.closeNotSameTimeUn" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="分闸不同期额定值(ms)" placement="top-start">
-               <el-form-item label="分闸不同期额定值(ms)" prop="breakNotSameTimeUn"><el-input v-model="ruleForm.breakNotSameTimeUn" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="合闸弹跳（真空断路器）额定值(ms)" placement="top-start">
-               <el-form-item label="合闸弹跳（真空断路器）额定值(ms)" prop="closeBounceTimeUn"><el-input v-model="ruleForm.closeBounceTimeUn" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="分闸反弹幅值额定值(mm)" placement="top-start">
-               <el-form-item label="分闸反弹幅值额定值(mm)" prop="breakOffAmplitudeUn"><el-input v-model="ruleForm.breakOffAmplitudeUn" /></el-form-item>
-             </el-tooltip>
-           </div>
-           <div class="boxRight">
-             <el-form-item label="采集规范版本号" prop="standardVersion"><el-input v-model="ruleForm.standardVersion" /></el-form-item>
-             <el-tooltip class="item" effect="dark" content="国网侧供应商编码" placement="top-start">
-               <el-form-item label="国网侧供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
-             </el-tooltip>
-             <el-form-item label="物资品类类型" prop="categoryType"><el-input v-model="ruleForm.categoryType" /></el-form-item>
-             <el-form-item label="告警项"><el-input v-model="ruleForm.alarmItem" /></el-form-item>
-             <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
-             <el-form-item label="入数采中心时间" prop="putCenterTime">
-               <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
-             </el-form-item>
-             <el-form-item label="成品序列号" prop="materialSN"><el-input v-model="ruleForm.materialSN" /></el-form-item>
-             <el-tooltip class="item" effect="dark" content="相对地耐压值(kV)" placement="top-start">
-               <el-form-item label="相对地耐压值(kV)" prop="pressureValue"><el-input v-model="ruleForm.pressureValue" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="真空断口耐压值(kV)" placement="top-start">
-               <el-form-item label="真空断口耐压值(kV)" prop="vacuumVoltage"><el-input v-model="ruleForm.vacuumVoltage" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="相间耐压值(kV)" placement="top-start">
-               <el-form-item label="相间耐压值(kV)" prop="phaseVoltage"><el-input v-model="ruleForm.phaseVoltage" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="耐压持续时间(s)" placement="top-start">
-               <el-form-item label="耐压持续时间(s)" prop="pressureTime"><el-input v-model="ruleForm.pressureTime" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="额定回路电阻值(μΩ)" placement="top-start">
-               <el-form-item label="额定回路电阻值(μΩ)" prop="loopResistanceUn"><el-input v-model="ruleForm.loopResistanceUn" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="B相回路电阻值(μΩ)" placement="top-start">
-               <el-form-item label="B相回路电阻值(μΩ)" prop="loopResistanceB"><el-input v-model="ruleForm.loopResistanceB" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="人力分合操作5次，可靠动作" placement="top-start">
-               <el-form-item label="人力分合操作5次，可靠动作" prop="perReliableOper"><el-input v-model="ruleForm.perReliableOper" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="等于或低于30% 额定合闸电压时，操作5次，可靠不动作" placement="top-start">
-               <el-form-item label="等于或低于30% 额定合闸电压时，操作5次，可靠不动作" prop="nomVolReliableOper"><el-input v-model="ruleForm.nomVolReliableOper" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="65%~110%额定分闸电压（直流）范围，操作5次，可靠分闸" placement="top-start">
-               <el-form-item label="65%~110%额定分闸电压（直流）范围，操作5次，可靠分闸" prop="nomDCReliableSwitch">
-                 <el-input v-model="ruleForm.nomDCReliableSwitch" />
-               </el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="分闸电源低于额定30%，操作5次可靠不动作" placement="top-start">
-               <el-form-item label="分闸电源低于额定30%，操作5次可靠不动作" prop="breakReliableNoOper"><el-input v-model="ruleForm.breakReliableNoOper" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="额定操作电压“分-0.3-合分”，可靠动作" placement="top-start">
-               <el-form-item label="额定操作电压“分-0.3-合分”，可靠动作" prop="breakVolReliableOper"><el-input v-model="ruleForm.breakVolReliableOper" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="分闸时间额定下限值(ms)" placement="top-start">
-               <el-form-item label="分闸时间额定下限值(ms)" prop="breakTimeMin"><el-input v-model="ruleForm.breakTimeMin" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="B相分闸时间(ms)" placement="top-start">
-               <el-form-item label="B相分闸时间(ms)" prop="breakTimeB"><el-input v-model="ruleForm.breakTimeB" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="合闸时间额定上限值(ms)" placement="top-start">
-               <el-form-item label="合闸时间额定上限值(ms)" prop="closeTimeMax"><el-input v-model="ruleForm.closeTimeMax" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="A相合闸时间(ms)" placement="top-start">
-               <el-form-item label="A相合闸时间(ms)" prop="closeTimeA"><el-input v-model="ruleForm.closeTimeA" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="C相合闸时间(ms)" placement="top-start">
-               <el-form-item label="C相合闸时间(ms)" prop="closeTimeC"><el-input v-model="ruleForm.closeTimeC" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="合闸不同期(ms)" placement="top-start">
-               <el-form-item label="合闸不同期(ms)" prop="closeNotSameTime"><el-input v-model="ruleForm.closeNotSameTime" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="分闸不同期(ms)" placement="top-start">
-               <el-form-item label="分闸不同期(ms)" prop="breakNotSameTime"><el-input v-model="ruleForm.breakNotSameTime" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="合闸弹跳（真空断路器）(ms)" placement="top-start">
-               <el-form-item label="合闸弹跳（真空断路器）(ms)" prop="closeBounceTime"><el-input v-model="ruleForm.closeBounceTime" /></el-form-item>
-             </el-tooltip>
-             <el-tooltip class="item" effect="dark" content="分闸反弹幅值(mm)" placement="top-start">
-               <el-form-item label="分闸反弹幅值(mm)" prop="breakOffAmplitude"><el-input v-model="ruleForm.breakOffAmplitude" /></el-form-item>
-             </el-tooltip>
-           </div>
-         </div>
-         <div class="bigDownBox">
-           <el-form-item label="（断路器小车）附件">
-             <el-upload
-               :class="{ disUoloadSty: noneBtnImg }"
-               action="http://39.101.166.244:8888/api/image/upload"
-               :data="this.oneDataImg"
-               :headers="this.myHeaders"
-               :limit="this.limitCountImg"
-               list-type="picture-card"
-               :file-list="editFileList"
-               :on-remove="onRemoveImg"
-               :on-success="onsucessImg"
-               :on-change="imgChange"
-               :on-preview="handlePictureCardPreview"
-             >
-               <i slot="default" class="el-icon-plus" />
-             </el-upload>
-             <el-dialog :visible.sync="dialogVisibleImg"><img width="100%" :src="dialogImageUrl" alt="" /></el-dialog>
-           </el-form-item>
-         </div>
+      <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
+        <div class="bigUpBox">
+          <div class="boxLeft">
+            <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" :disabled="true" /></el-form-item>
+            <el-form-item label="供应商工单编号" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" /></el-form-item>
+            <el-form-item label="规格型号编码" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
+            <el-tooltip class="item" effect="dark" content="是否是告警问题数据" placement="top-start">
+              <el-form-item label="是否是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
+            </el-tooltip>
+            <el-form-item label="感知过程" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
+            <el-form-item label="采集时间" prop="checkTime">
+              <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+            </el-form-item>
+            <el-tooltip class="item" effect="dark" content="断路器出厂编号(常州/nature)" placement="top-start">
+              <el-form-item label="断路器出厂编号(常州/nature)" prop="ContactNum"><el-input v-model="ruleForm.ContactNum" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="相对地耐压额定值(kV)" placement="top-start">
+              <el-form-item label="相对地耐压额定值(kV)" prop="pressureValueUn"><el-input v-model="ruleForm.pressureValueUn" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="真空断口耐压额定值(kV)" placement="top-start">
+              <el-form-item label="真空断口耐压额定值(kV)" prop="vacuumVoltageUn"><el-input v-model="ruleForm.vacuumVoltageUn" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="相间耐压额定值(kV)" placement="top-start">
+              <el-form-item label="相间耐压额定值(kV)" prop="phaseVoltageUn"><el-input v-model="ruleForm.phaseVoltageUn" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="耐压持续额定时间(s)" placement="top-start">
+              <el-form-item label="耐压持续额定时间(s)" prop="pressureTimeUn"><el-input v-model="ruleForm.pressureTimeUn" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="额定电流(A)" placement="top-start">
+              <el-form-item label="额定电流(A)" prop="ratedCurrent"><el-input v-model="ruleForm.ratedCurrent" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="A相回路电阻值(μΩ)" placement="top-start">
+              <el-form-item label="A相回路电阻值(μΩ)" prop="loopResistanceA"><el-input v-model="ruleForm.loopResistanceA" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="C相回路电阻值(μΩ)" placement="top-start">
+              <el-form-item label="C相回路电阻值(μΩ)" prop="loopResistanceC"><el-input v-model="ruleForm.loopResistanceC" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="储能电机85%和110%操作电压，储能可靠动作" placement="top-start">
+              <el-form-item label="储能电机85%和110%操作电压，储能可靠动作" prop="eliableStorageOper"><el-input v-model="ruleForm.eliableStorageOper" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="85%~110%额定合闸电压（直流）范围，操作5次，可靠合闸" placement="top-start">
+              <el-form-item label="85%~110%额定合闸电压（直流）范围，操作5次，可靠合闸" prop="nomACReliableSwitch">
+                <el-input v-model="ruleForm.nomACReliableSwitch" />
+              </el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="分闸电源低于额定30%，操作5次可靠不动作" placement="top-start">
+              <el-form-item label="分闸电源低于额定30%，操作5次可靠不动作" prop="breakReliableNoOper"><el-input v-model="ruleForm.breakReliableNoOper" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="额定操作电压下，分合操作5次，均可靠动作" placement="top-start">
+              <el-form-item label="额定操作电压下，分合操作5次，均可靠动作" prop="breakNomVolReliableOper"><el-input v-model="ruleForm.breakNomVolReliableOper" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="分闸时间额定上限值(ms)" placement="top-start">
+              <el-form-item label="分闸时间额定上限值(ms)" prop="breakTimeMax"><el-input v-model="ruleForm.breakTimeMax" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="A相分闸时间(ms)" placement="top-start">
+              <el-form-item label="A相分闸时间(ms)" prop="breakTimeA"><el-input v-model="ruleForm.breakTimeA" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="C相分闸时间(ms)" placement="top-start">
+              <el-form-item label="C相分闸时间(ms)" prop="breakTimeC"><el-input v-model="ruleForm.breakTimeC" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="合闸时间额定下限值(ms)" placement="top-start">
+              <el-form-item label="合闸时间额定下限值(ms)" prop="closeTimeMin"><el-input v-model="ruleForm.closeTimeMin" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="B相合闸时间(ms)" placement="top-start">
+              <el-form-item label="B相合闸时间(ms)" prop="closeTimeB"><el-input v-model="ruleForm.closeTimeB" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="合闸不同期额定值(ms)" placement="top-start">
+              <el-form-item label="合闸不同期额定值(ms)" prop="closeNotSameTimeUn"><el-input v-model="ruleForm.closeNotSameTimeUn" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="分闸不同期额定值(ms)" placement="top-start">
+              <el-form-item label="分闸不同期额定值(ms)" prop="breakNotSameTimeUn"><el-input v-model="ruleForm.breakNotSameTimeUn" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="合闸弹跳（真空断路器）额定值(ms)" placement="top-start">
+              <el-form-item label="合闸弹跳（真空断路器）额定值(ms)" prop="closeBounceTimeUn"><el-input v-model="ruleForm.closeBounceTimeUn" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="分闸反弹幅值额定值(mm)" placement="top-start">
+              <el-form-item label="分闸反弹幅值额定值(mm)" prop="breakOffAmplitudeUn"><el-input v-model="ruleForm.breakOffAmplitudeUn" /></el-form-item>
+            </el-tooltip>
+          </div>
+          <div class="boxRight">
+            <el-form-item label="采集规范版本号" prop="standardVersion"><el-input v-model="ruleForm.standardVersion" /></el-form-item>
+            <el-tooltip class="item" effect="dark" content="国网侧供应商编码" placement="top-start">
+              <el-form-item label="国网侧供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
+            </el-tooltip>
+            <el-form-item label="物资品类类型" prop="categoryType"><el-input v-model="ruleForm.categoryType" /></el-form-item>
+            <el-form-item label="告警项"><el-input v-model="ruleForm.alarmItem" /></el-form-item>
+            <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
+            <el-form-item label="入数采中心时间" prop="putCenterTime">
+              <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+            </el-form-item>
+            <el-form-item label="成品序列号" prop="materialSN"><el-input v-model="ruleForm.materialSN" /></el-form-item>
+            <el-tooltip class="item" effect="dark" content="相对地耐压值(kV)" placement="top-start">
+              <el-form-item label="相对地耐压值(kV)" prop="pressureValue"><el-input v-model="ruleForm.pressureValue" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="真空断口耐压值(kV)" placement="top-start">
+              <el-form-item label="真空断口耐压值(kV)" prop="vacuumVoltage"><el-input v-model="ruleForm.vacuumVoltage" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="相间耐压值(kV)" placement="top-start">
+              <el-form-item label="相间耐压值(kV)" prop="phaseVoltage"><el-input v-model="ruleForm.phaseVoltage" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="耐压持续时间(s)" placement="top-start">
+              <el-form-item label="耐压持续时间(s)" prop="pressureTime"><el-input v-model="ruleForm.pressureTime" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="额定回路电阻值(μΩ)" placement="top-start">
+              <el-form-item label="额定回路电阻值(μΩ)" prop="loopResistanceUn"><el-input v-model="ruleForm.loopResistanceUn" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="B相回路电阻值(μΩ)" placement="top-start">
+              <el-form-item label="B相回路电阻值(μΩ)" prop="loopResistanceB"><el-input v-model="ruleForm.loopResistanceB" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="人力分合操作5次，可靠动作" placement="top-start">
+              <el-form-item label="人力分合操作5次，可靠动作" prop="perReliableOper"><el-input v-model="ruleForm.perReliableOper" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="等于或低于30% 额定合闸电压时，操作5次，可靠不动作" placement="top-start">
+              <el-form-item label="等于或低于30% 额定合闸电压时，操作5次，可靠不动作" prop="nomVolReliableOper"><el-input v-model="ruleForm.nomVolReliableOper" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="65%~110%额定分闸电压（直流）范围，操作5次，可靠分闸" placement="top-start">
+              <el-form-item label="65%~110%额定分闸电压（直流）范围，操作5次，可靠分闸" prop="nomDCReliableSwitch">
+                <el-input v-model="ruleForm.nomDCReliableSwitch" />
+              </el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="分闸电源低于额定30%，操作5次可靠不动作" placement="top-start">
+              <el-form-item label="分闸电源低于额定30%，操作5次可靠不动作" prop="breakReliableNoOper"><el-input v-model="ruleForm.breakReliableNoOper" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="额定操作电压“分-0.3-合分”，可靠动作" placement="top-start">
+              <el-form-item label="额定操作电压“分-0.3-合分”，可靠动作" prop="breakVolReliableOper"><el-input v-model="ruleForm.breakVolReliableOper" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="分闸时间额定下限值(ms)" placement="top-start">
+              <el-form-item label="分闸时间额定下限值(ms)" prop="breakTimeMin"><el-input v-model="ruleForm.breakTimeMin" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="B相分闸时间(ms)" placement="top-start">
+              <el-form-item label="B相分闸时间(ms)" prop="breakTimeB"><el-input v-model="ruleForm.breakTimeB" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="合闸时间额定上限值(ms)" placement="top-start">
+              <el-form-item label="合闸时间额定上限值(ms)" prop="closeTimeMax"><el-input v-model="ruleForm.closeTimeMax" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="A相合闸时间(ms)" placement="top-start">
+              <el-form-item label="A相合闸时间(ms)" prop="closeTimeA"><el-input v-model="ruleForm.closeTimeA" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="C相合闸时间(ms)" placement="top-start">
+              <el-form-item label="C相合闸时间(ms)" prop="closeTimeC"><el-input v-model="ruleForm.closeTimeC" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="合闸不同期(ms)" placement="top-start">
+              <el-form-item label="合闸不同期(ms)" prop="closeNotSameTime"><el-input v-model="ruleForm.closeNotSameTime" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="分闸不同期(ms)" placement="top-start">
+              <el-form-item label="分闸不同期(ms)" prop="breakNotSameTime"><el-input v-model="ruleForm.breakNotSameTime" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="合闸弹跳（真空断路器）(ms)" placement="top-start">
+              <el-form-item label="合闸弹跳（真空断路器）(ms)" prop="closeBounceTime"><el-input v-model="ruleForm.closeBounceTime" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="分闸反弹幅值(mm)" placement="top-start">
+              <el-form-item label="分闸反弹幅值(mm)" prop="breakOffAmplitude"><el-input v-model="ruleForm.breakOffAmplitude" /></el-form-item>
+            </el-tooltip>
+          </div>
+        </div>
+        <div class="bigDownBox">
+          <el-form-item label="（断路器小车）附件">
+            <el-upload
+              :class="{ disUoloadSty: noneBtnImg }"
+              action="http://39.101.166.244:8888/api/image/upload"
+              :data="this.oneDataImg"
+              :headers="this.myHeaders"
+              :limit="this.limitCountImg"
+              list-type="picture-card"
+              :file-list="editFileList"
+              :on-remove="onRemoveImg"
+              :on-success="onsucessImg"
+              :on-change="imgChange"
+              :on-preview="handlePictureCardPreview"
+            >
+              <i slot="default" class="el-icon-plus" />
+            </el-upload>
+            <el-dialog :visible.sync="dialogVisibleImg"><img width="100%" :src="dialogImageUrl" alt=""></el-dialog>
+          </el-form-item>
+        </div>
       </el-form>
 
       <div slot="footer" class="dialog-footer">
@@ -765,7 +764,7 @@ export default {
         closeBounceTimeUn: [{ required: true, message: '请输入合闸弹跳（真空断路器）额定值(ms)', trigger: 'blur' }],
         closeBounceTime: [{ required: true, message: '请输入合闸弹跳（真空断路器）(ms)', trigger: 'blur' }],
         breakOffAmplitudeUn: [{ required: true, message: '请输入分闸反弹幅值额定值(mm)', trigger: 'blur' }],
-        breakOffAmplitude: [{ required: true, message: '请输入分闸反弹幅值(mm)', trigger: 'blur' }],
+        breakOffAmplitude: [{ required: true, message: '请输入分闸反弹幅值(mm)', trigger: 'blur' }]
 
       }
     }
@@ -899,7 +898,7 @@ export default {
           })
           .catch(() => {
             this.$message({
-              type: 'info',
+              type: 'error',
               message: this.$t('table.deleteError')
             })
           })

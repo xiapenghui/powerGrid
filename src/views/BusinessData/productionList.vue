@@ -644,7 +644,7 @@ export default {
             productionDellte(idList).then(res => {
               if (res.code === 0) {
                 this.$message({
-                  type: 'sucscess',
+                  type: 'success',
                   message: this.$t('table.deleteSuccess')
                 })
                 this.getList()
@@ -653,7 +653,7 @@ export default {
           })
           .catch(() => {
             this.$message({
-              type: 'info',
+              type: 'error',
               message: this.$t('table.deleteError')
             })
           })

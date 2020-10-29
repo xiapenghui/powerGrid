@@ -495,7 +495,7 @@ export default {
           })
           .catch(() => {
             this.$message({
-              type: 'info',
+              type: 'error',
               message: this.$t('table.deleteError')
             })
           })
