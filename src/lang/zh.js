@@ -526,7 +526,7 @@ export default {
     xls: 'xls',
     xlsx: 'xlsx',
     or: '或者',
-    fileSize: '文件,且不超过2M',
+    fileSize: '文件,且不超过50M',
     upSuccess: '上传成功！',
     upError: '上传失败！',
     errorOne: '上传文件只能是xls或者xlsx格式！',
