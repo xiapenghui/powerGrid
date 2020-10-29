@@ -420,7 +420,7 @@
 
     <!-- 上传文件弹窗 -->
     <el-dialog title="导入文件" :close-on-click-modal="false" :visible.sync="dialogVisible" width="30%">
-      {{ this.myHeaders }}
+
       <el-upload
         ref="upload"
         class="upload-demo"
@@ -442,6 +442,7 @@
           {{ $t('table.fileSize') }}
         </div>
       </el-upload>
+      {{ this.myHeaders }}
       <el-progress v-if="fileFlag" id="progressShow" type="line" :percentage="UploadPercent" />
     </el-dialog>
 
@@ -457,12 +458,14 @@ import { productionList, productionDellte, productionEdit, productionUpload, all
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import logDialog from '@/components/logDialog' // 日志封装
 const fixHeight = 270
+import { getToken } from '@/utils/auth' // get token from cookie
+const hasToken = getToken()
 export default {
   name: 'ProductionList',
   components: { Pagination, logDialog },
   data() {
     return {
-      myHeaders: { Authorization: this.$token }, // 获取token
+      myHeaders: { Authorization: hasToken }, // 获取token
       // 日志分页
       paginationLog: {
         current: 1,
