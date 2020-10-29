@@ -106,6 +106,36 @@
         </template>
       </el-table-column>
 
+      <el-table-column align="center" :label="$t('permission.factoryCode')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.factoryCode }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.supplierSupportIdOther')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.supplierSupportId }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.productModelOther')" width="150">
+        <template slot-scope="scope">
+          {{ scope.row.productModel }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.equipmentName')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.equipmentName }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.equipmentUniqueCode')" width="150">
+        <template slot-scope="scope">
+          {{ scope.row.equipmentUniqueCode }}
+        </template>
+      </el-table-column>
+
       <el-table-column align="center" :label="$t('permission.isAlarmData')" width="130">
         <template slot-scope="scope">
           {{ scope.row.isAlarmData }}
@@ -144,7 +174,7 @@
 
       <el-table-column align="center" :label="$t('permission.rawMaterialOP')" width="150">
         <template slot-scope="scope">
-          {{ scope.row.rawMaterialSN }}
+          {{ scope.row.materialSN }}
         </template>
       </el-table-column>
 
@@ -157,60 +187,6 @@
       <el-table-column align="center" :label="$t('permission.silveringThickness')" width="120">
         <template slot-scope="scope">
           {{ scope.row.silveringThickness }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.chamfering')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.chamfering }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.ratedCurrentED')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.ratedCurrent }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.longBusbar')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.longBusbar }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.wideBusbar')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.wideBusbar }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.sliceBusbar')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.sliceBusbar }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.stackingType')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.stackingType }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.sectionalArea')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.sectionalArea }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.electricalConductivity')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.electricalConductivity }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.inspectionReportFileMP')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.inspectionReportFile }}
         </template>
       </el-table-column>
 
@@ -230,6 +206,13 @@
             <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" :disabled="true" /></el-form-item>
             <el-form-item label="供应商工单编号" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" /></el-form-item>
             <el-form-item label="规格型号编码" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
+            <el-form-item label="厂区编号"><el-input v-model="ruleForm.factoryCode" /></el-form-item>
+            <el-tooltip class="item" effect="dark" content="供应商产品厂内编号" placement="top-start">
+              <el-form-item label="供应商产品厂内编号" prop="productModel"><el-input v-model="ruleForm.productModel" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="生产设备唯一识别号" placement="top-start">
+              <el-form-item label="生产设备唯一识别号" prop="equipmentUniqueCode"><el-input v-model="ruleForm.equipmentUniqueCode" /></el-form-item>
+            </el-tooltip>
             <el-tooltip class="item" effect="dark" content="是否是告警问题数据" placement="top-start">
               <el-form-item label="是否是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
             </el-tooltip>
@@ -237,13 +220,7 @@
             <el-form-item label="采集时间" prop="checkTime">
               <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
             </el-form-item>
-            <el-form-item label="国网PO" prop="rawMaterialSN"><el-input v-model="ruleForm.rawMaterialSN" /></el-form-item>
-            <el-form-item label="镀银层厚度(μm)" prop="silveringThickness"><el-input v-model="ruleForm.silveringThickness" /></el-form-item>
-            <el-form-item label="额定电流"><el-input v-model="ruleForm.ratedCurrent" /></el-form-item>
-            <el-form-item label="母排宽"><el-input v-model="ruleForm.wideBusbar" /></el-form-item>
-            <el-form-item label="叠放类型"><el-input v-model="ruleForm.stackingType" /></el-form-item>
-            <el-form-item label="电导率(%IACS)" prop="electricalConductivity"><el-input v-model="ruleForm.electricalConductivity" /></el-form-item>
-
+            <el-form-item label="国网PO" prop="materialSN"><el-input v-model="ruleForm.materialSN" /></el-form-item>
           </div>
           <div class="boxRight">
             <el-form-item label="采集规范版本号" prop="standardVersion"><el-input v-model="ruleForm.standardVersion" /></el-form-item>
@@ -251,35 +228,14 @@
               <el-form-item label="国网侧供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
             </el-tooltip>
             <el-form-item label="物资品类类型" prop="categoryType"><el-input v-model="ruleForm.categoryType" /></el-form-item>
+            <el-form-item label="供应商产品编号"><el-input v-model="ruleForm.supplierSupportId" /></el-form-item>
+            <el-form-item label="生产设备名称" prop="equipmentName"><el-input v-model="ruleForm.equipmentName" /></el-form-item>
             <el-form-item label="告警项"><el-input v-model="ruleForm.alarmItem" /></el-form-item>
             <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
             <el-form-item label="入数采中心时间" prop="putCenterTime">
               <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
             </el-form-item>
-            <el-form-item label="材质"><el-input v-model="ruleForm.texture" /></el-form-item>
-            <el-form-item label="倒角"><el-input v-model="ruleForm.chamfering" /></el-form-item>
-            <el-form-item label="母排长"><el-input v-model="ruleForm.longBusbar" /></el-form-item>
-            <el-form-item label="母排片数"><el-input v-model="ruleForm.sliceBusbar" /></el-form-item>
-            <el-form-item label="截面积"><el-input v-model="ruleForm.sectionalArea" /></el-form-item>
-            <el-form-item label="母排附件">
-              <el-upload
-                :class="{ disUoloadSty: noneBtnImg }"
-                action="http://39.101.166.244:8888/api/image/upload"
-                :data="this.oneDataImg"
-                :headers="this.myHeaders"
-                :limit="this.limitCountImg"
-                list-type="picture-card"
-                :file-list="editFileList"
-                :on-remove="onRemoveImg"
-                :on-success="onsucessImg"
-                :on-change="imgChange"
-                :on-preview="handlePictureCardPreview"
-              >
-                <i slot="default" class="el-icon-plus" />
-              </el-upload>
-              <el-dialog :visible.sync="dialogVisibleImg"><img width="100%" :src="dialogImageUrl" alt=""></el-dialog>
-            </el-form-item>
-
+            <el-form-item label="镀银层厚度(μm)" prop="silveringThickness"><el-input v-model="ruleForm.silveringThickness" /></el-form-item>
           </div>
         </div>
         <!-- <div class="bigDownBox"></div> -->
@@ -428,9 +384,8 @@ export default {
         pdCode: [{ required: true, message: '请输入工序', trigger: 'blur' }],
         checkTime: [{ required: true, message: '请输入采集时间', trigger: 'blur' }],
         putCenterTime: [{ required: true, message: '请输入入数采中心时间', trigger: 'blur' }],
-        rawMaterialSN: [{ required: true, message: '请输入国网PO', trigger: 'blur' }],
-        silveringThickness: [{ required: true, message: '请输入镀银层厚度(μm)', trigger: 'blur' }],
-        electricalConductivity: [{ required: true, message: '请输入电导率(%IACS)', trigger: 'blur' }]
+        materialSN: [{ required: true, message: '请输入国网PO', trigger: 'blur' }],
+        silveringThickness: [{ required: true, message: '请输入镀银层厚度(μm)', trigger: 'blur' }]
       }
     }
   },
