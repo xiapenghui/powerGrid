@@ -420,6 +420,7 @@
 
     <!-- 上传文件弹窗 -->
     <el-dialog title="导入文件" :close-on-click-modal="false" :visible.sync="dialogVisible" width="30%">
+      {{ this.myHeaders }}
       <el-upload
         ref="upload"
         class="upload-demo"
