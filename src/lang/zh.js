@@ -441,6 +441,18 @@ export default {
     breakOffAmplitudeUn: '分闸反弹幅值额定值(mm)',
     breakOffAmplitude: '分闸反弹幅值(mm)',
     inspectionReportFile: '（断路器小车）检验报告附件',
+    rawMaterialOP: '国网PO',
+    texture: '材质',
+    chamfering: '倒角',
+    ratedCurrentED: '额定电流',
+    silveringThickness: '镀银层厚度(μm)',
+    longBusbar: '母排长',
+    wideBusbar: '母排宽',
+    sliceBusbar: '母排片数',
+    stackingType: '叠放类型',
+    sectionalArea: '截面积',
+    electricalConductivity: '电导率(%IACS)',
+    inspectionReportFileMP: '（母排）检验报告附件',
 
     // 截止
     roles: '你的权限',
