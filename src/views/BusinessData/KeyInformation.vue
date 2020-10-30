@@ -47,7 +47,7 @@
 
     <el-table
       v-loading="listLoading"
-      :header-cell-style="{background:'#ededed'}"
+      :header-cell-style="{ background: '#ededed' }"
       :data="tableData"
       :height="tableHeight"
       style="width: 100%"
@@ -194,11 +194,7 @@
     </el-table>
 
     <!-- 编辑弹窗 -->
-    <el-dialog
-      title="编辑信息"
-      :close-on-click-modal="false"
-      :visible.sync="dialogFormVisible"
-    >
+    <el-dialog title="编辑信息" :close-on-click-modal="false" :visible.sync="dialogFormVisible">
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
         <div class="bigUpBox">
           <div class="boxLeft">
@@ -247,12 +243,7 @@
     <log-dialog :is-show="dialogTableVisible" :log-total="logTotal" :pagination-log="paginationLog" :data="gridData" @pageChange="getLogList" @closeLog="closeLog" />
 
     <!-- 上传文件弹窗 -->
-    <el-dialog
-      title="导入文件"
-      :close-on-click-modal="false"
-      :visible.sync="dialogVisible"
-      width="30%"
-    >
+    <el-dialog v-loading="improtLoading" title="导入文件" :close-on-click-modal="false" :visible.sync="dialogVisible" width="30%">
       <el-upload
         ref="upload"
         class="upload-demo"
@@ -316,6 +307,7 @@ export default {
       },
       listLoading: true,
       editLoading: false, // 编辑loading
+      improtLoading: false, // 导入文件进度loading
       total: 10,
       selectedData: [], // 批量删除新数组
       tableHeight: window.innerHeight - fixHeight, // 表格高度
@@ -585,6 +577,7 @@ export default {
       if (res.code === 200) {
         this.$message.success(this.$t('table.upSuccess'))
         this.dialogVisible = false
+        this.improtLoading = false
         this.getList()
         this.$refs.upload.clearFiles()
       } else {
@@ -594,6 +587,7 @@ export default {
           duration: 5000
         })
         this.dialogVisible = false
+        this.improtLoading = false
         this.$refs.upload.clearFiles()
       }
     },
@@ -606,7 +600,6 @@ export default {
     beforeAvatarUpload(file) {
       const isXLS = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       const isLt2M = file.size / 1024 / 1024 < 2
-
       if (!isXLS) {
         this.$message.error(this.$t('table.errorOne'))
       }
@@ -615,6 +608,7 @@ export default {
       }
       return isXLS && isLt2M
     }
+
   }
 }
 </script>

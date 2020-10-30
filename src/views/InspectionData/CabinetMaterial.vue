@@ -209,7 +209,7 @@
             <el-form-item label="柜体材质附件">
               <el-upload
                 :class="{ disUoloadSty: noneBtnImg }"
-                action="http://39.101.166.244:8888/api/image/upload"
+                action="http://39.101.166.244/api/image/upload"
                 :data="this.oneDataImg"
                 :headers="this.myHeaders"
                 :limit="this.limitCountImg"
@@ -279,7 +279,7 @@
           ref="uploadImage"
           style="margin-top: 30px"
           class="upload-demo"
-          action="http://39.101.166.244:8888/api/image/upload"
+          action="http://39.101.166.244/api/image/upload"
           :data="this.newDataImg"
           :headers="this.myHeaders"
           :on-preview="handlePreview"
@@ -318,7 +318,7 @@ const fixHeight = 270
 import { getToken } from '@/utils/auth' // get token from cookie
 const hasToken = getToken()
 export default {
-  name: 'CurrentTransformer',
+  name: 'CabinetMaterial',
   components: { Pagination, logDialog },
   data() {
     return {
@@ -585,7 +585,7 @@ export default {
       if (row.imagePath !== null) {
         this.editFileList.push({
           name: row.imageFileUrl,
-          url: 'http://39.101.166.244:8888/api/image/' + row.imagePath
+          url: 'http://39.101.166.244/api/image/' + row.imagePath
         })
       }
       this.ruleForm = JSON.parse(JSON.stringify(row))
@@ -706,7 +706,7 @@ export default {
       // console.log('fileList', fileList)
       this.imgList.map(item => {
         if (item.imageName === file.name) {
-          item.imagePath = 'http://39.101.166.244:8888' + res.data
+          item.imagePath = 'http://39.101.166.244' + res.data
         }
       })
       this.getList()

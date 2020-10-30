@@ -369,7 +369,7 @@ export default {
           }
         }
         ]
-      }
+      },
       rules: {
         soNo: [{ required: true, message: '请输入销售订单号', trigger: 'blur' }],
         buyerName: [{ required: true, message: '请输入采购方公司名称', trigger: 'blur' }],

@@ -146,7 +146,7 @@
 
       <el-table-column align="center" :label="$t('permission.ContactNums')" width="150">
         <template slot-scope="scope">
-          {{ scope.row.ContactNum }}
+          {{ scope.row.contactNum }}
         </template>
       </el-table-column>
 
@@ -420,7 +420,7 @@
               <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
             </el-form-item>
             <el-tooltip class="item" effect="dark" content="断路器出厂编号(常州/nature)" placement="top-start">
-              <el-form-item label="断路器出厂编号(常州/nature)" prop="ContactNum"><el-input v-model="ruleForm.ContactNum" /></el-form-item>
+              <el-form-item label="断路器出厂编号(常州/nature)" prop="contactNum"><el-input v-model="ruleForm.contactNum" /></el-form-item>
             </el-tooltip>
             <el-tooltip class="item" effect="dark" content="相对地耐压额定值(kV)" placement="top-start">
               <el-form-item label="相对地耐压额定值(kV)" prop="pressureValueUn"><el-input v-model="ruleForm.pressureValueUn" /></el-form-item>
@@ -562,10 +562,10 @@
           </div>
         </div>
         <div class="bigDownBox">
-          <el-form-item label="（断路器小车）附件">
+          <el-form-item label="断路器附件">
             <el-upload
               :class="{ disUoloadSty: noneBtnImg }"
-              action="http://39.101.166.244:8888/api/image/upload"
+              action="http://39.101.166.244/api/image/upload"
               :data="this.oneDataImg"
               :headers="this.myHeaders"
               :limit="this.limitCountImg"
@@ -632,7 +632,7 @@
           ref="uploadImage"
           style="margin-top: 30px"
           class="upload-demo"
-          action="http://39.101.166.244:8888/api/image/upload"
+          action="http://39.101.166.244/api/image/upload"
           :data="this.newDataImg"
           :headers="this.myHeaders"
           :on-preview="handlePreview"
@@ -671,7 +671,7 @@ const fixHeight = 270
 import { getToken } from '@/utils/auth' // get token from cookie
 const hasToken = getToken()
 export default {
-  name: 'CurrentTransformer',
+  name: 'CircuitTrolley',
   components: { Pagination, logDialog },
   data() {
     return {
@@ -765,7 +765,7 @@ export default {
         pdCode: [{ required: true, message: '请输入工序', trigger: 'blur' }],
         checkTime: [{ required: true, message: '请输入采集时间', trigger: 'blur' }],
         putCenterTime: [{ required: true, message: '请输入入数采中心时间', trigger: 'blur' }],
-        ContactNum: [{ required: true, message: '请输入断路器出厂编号(常州/nature)', trigger: 'blur' }],
+        contactNum: [{ required: true, message: '请输入断路器出厂编号(常州/nature)', trigger: 'blur' }],
         materialSN: [{ required: true, message: '请输入成品序列号(PDSE)', trigger: 'blur' }],
         pressureValueUn: [{ required: true, message: '请输入相对地耐压额定值(kV)', trigger: 'blur' }],
         pressureValue: [{ required: true, message: '请输入相对地耐压值(kV)', trigger: 'blur' }],
@@ -949,6 +949,7 @@ export default {
     getList() {
       this.listLoading = true
       dlqxcList(this.pagination, this.listQuery).then(res => {
+        debugger
         this.tableData = res.data.records
         this.total = res.data.total
         this.listLoading = false
@@ -977,7 +978,7 @@ export default {
       if (row.imagePath !== null) {
         this.editFileList.push({
           name: row.imageFileUrl,
-          url: 'http://39.101.166.244:8888/api/image/' + row.imagePath
+          url: 'http://39.101.166.244/api/image/' + row.imagePath
         })
       }
       this.ruleForm = JSON.parse(JSON.stringify(row))
@@ -1098,7 +1099,7 @@ export default {
       // console.log('fileList', fileList)
       this.imgList.map(item => {
         if (item.imageName === file.name) {
-          item.imagePath = 'http://39.101.166.244:8888' + res.data
+          item.imagePath = 'http://39.101.166.244' + res.data
         }
       })
       this.getList()
