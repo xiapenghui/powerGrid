@@ -18,9 +18,9 @@
       </router-link>
     </scroll-pane>
     <ul v-show="visible" :style="{left:left+'px',top:top+'px'}" class="contextmenu">
-      <li @click="refreshSelectedTag(selectedTag)">{{ $t('tagsView.refresh') }}</li>
+      <!-- <li @click="refreshSelectedTag(selectedTag)">{{ $t('tagsView.refresh') }}</li> -->
       <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">{{ $t('tagsView.close') }}</li>
-      <li @click="closeOthersTags">{{ $t('tagsView.closeOthers') }}</li>
+      <!-- <li @click="closeOthersTags">{{ $t('tagsView.closeOthers') }}</li> -->
       <li @click="closeAllTags(selectedTag)">{{ $t('tagsView.closeAll') }}</li>
     </ul>
   </div>
@@ -130,16 +130,16 @@ export default {
         }
       })
     },
-    refreshSelectedTag(view) {
-      this.$store.dispatch('tagsView/delCachedView', view).then(() => {
-        const { fullPath } = view
-        this.$nextTick(() => {
-          this.$router.replace({
-            path: '/redirect' + fullPath
-          })
-        })
-      })
-    },
+    // refreshSelectedTag(view) {
+    //   this.$store.dispatch('tagsView/delCachedView', view).then(() => {
+    //     const { fullPath } = view
+    //     this.$nextTick(() => {
+    //       this.$router.replace({
+    //         path: '/redirect' + fullPath
+    //       })
+    //     })
+    //   })
+    // },
     closeSelectedTag(view) {
       this.$store.dispatch('tagsView/delView', view).then(({ visitedViews }) => {
         if (this.isActive(view)) {
@@ -147,12 +147,12 @@ export default {
         }
       })
     },
-    closeOthersTags() {
-      this.$router.push(this.selectedTag)
-      this.$store.dispatch('tagsView/delOthersViews', this.selectedTag).then(() => {
-        this.moveToCurrentTag()
-      })
-    },
+    // closeOthersTags() {
+    //   this.$router.push(this.selectedTag)
+    //   this.$store.dispatch('tagsView/delOthersViews', this.selectedTag).then(() => {
+    //     this.moveToCurrentTag()
+    //   })
+    // },
     closeAllTags(view) {
       this.$store.dispatch('tagsView/delAllViews').then(({ visitedViews }) => {
         if (this.affixTags.some(tag => tag.path === view.path)) {
