@@ -443,7 +443,6 @@
           {{ $t('table.fileSize') }}
         </div>
       </el-upload>
-      <el-progress v-if="fileFlag" id="progressShow" type="line" :percentage="UploadPercent" />
     </el-dialog>
 
     <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" />
@@ -755,7 +754,7 @@ export default {
         if (res.code === 200) {
           this.$message({
             type: 'success',
-            message: '上传成功！'
+            message: '操作成功！'
           })
         }
         this.getList()

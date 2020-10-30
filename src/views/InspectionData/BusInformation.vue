@@ -245,7 +245,6 @@
             <el-form-item label="母排宽"><el-input v-model="ruleForm.wideBusbar" /></el-form-item>
             <el-form-item label="叠放类型"><el-input v-model="ruleForm.stackingType" /></el-form-item>
             <el-form-item label="电导率(%IACS)" prop="electricalConductivity"><el-input v-model="ruleForm.electricalConductivity" /></el-form-item>
-
           </div>
           <div class="boxRight">
             <el-form-item label="采集规范版本号" prop="standardVersion"><el-input v-model="ruleForm.standardVersion" /></el-form-item>
@@ -281,7 +280,6 @@
               </el-upload>
               <el-dialog :visible.sync="dialogVisibleImg"><img width="100%" :src="dialogImageUrl" alt=""></el-dialog>
             </el-form-item>
-
           </div>
         </div>
         <!-- <div class="bigDownBox"></div> -->
@@ -294,7 +292,7 @@
     </el-dialog>
 
     <!-- 日志弹出框 -->
-    <log-dialog :is-show="dialogTableVisible" :log-total="logTotal" :pagination-log="paginationLog" :data="gridData" @pageChange="getLogList" @closeLog="closeLog" />
+    <!-- <log-dialog :is-show="dialogTableVisible" :log-total="logTotal" :pagination-log="paginationLog" :data="gridData" @pageChange="getLogList" @closeLog="closeLog" /> -->
 
     <!-- 上传文件弹窗 -->
     <el-dialog title="导入文件" :close-on-click-modal="false" :visible.sync="dialogVisible" width="30%">
@@ -360,6 +358,98 @@
       </span>
     </el-dialog>
 
+    <!-- 日志弹出框 -->
+    <el-dialog title="日志信息" :visible.sync="dialogTableVisible">
+      <el-table border style="width: 100%" height="50vh" :data="gridData">
+        <el-table-column type="expand">
+          <template slot-scope="props">
+            <el-form label-position="left" inline class="demo-table-expand">
+              <el-form-item label="工厂:">
+                <span>{{ JSON.parse(props.row.requestBody).saleOrg }}</span>
+              </el-form-item>
+              <el-form-item label="采集规范版本号:">
+                <span>{{ JSON.parse(props.row.requestBody).standardVersion }}</span>
+              </el-form-item>
+              <el-form-item label="供应商工单编号:">
+                <span>{{ JSON.parse(props.row.requestBody).supplierWorkNo }}</span>
+              </el-form-item>
+              <el-form-item label="国网侧供应商编码:">
+                <span>{{ JSON.parse(props.row.requestBody).supplierCode }}</span>
+              </el-form-item>
+              <el-form-item label="规格型号编码:">
+                <span>{{ JSON.parse(props.row.requestBody).modelCode }}</span>
+              </el-form-item>
+              <el-form-item label="物资品类类型:">
+                <span>{{ JSON.parse(props.row.requestBody).categoryType }}</span>
+              </el-form-item>
+              <el-form-item label="是否是告警问题数据:">
+                <span>{{ JSON.parse(props.row.requestBody).isAlarmData }}</span>
+              </el-form-item>
+              <el-form-item label="告警项:">
+                <span>{{ JSON.parse(props.row.requestBody).alarmItem }}</span>
+              </el-form-item>
+              <el-form-item label="感知过程:">
+                <span>{{ JSON.parse(props.row.requestBody).processType }}</span>
+              </el-form-item>
+              <el-form-item label="工序:">
+                <span>{{ JSON.parse(props.row.requestBody).pdCode }}</span>
+              </el-form-item>
+              <el-form-item label="采集时间:">
+                <span>{{ JSON.parse(props.row.requestBody).checkTime }}</span>
+              </el-form-item>
+              <el-form-item label="入数采中心时间:">
+                <span>{{ JSON.parse(props.row.requestBody).putCenterTime }}</span>
+              </el-form-item>
+              <el-form-item label="国网PO:">
+                <span>{{ JSON.parse(props.row.requestBody).rawMaterialSN }}</span>
+              </el-form-item>
+              <el-form-item label="材质:">
+                <span>{{ JSON.parse(props.row.requestBody).texture }}</span>
+              </el-form-item>
+              <el-form-item label="镀银层厚度(μm):">
+                <span>{{ JSON.parse(props.row.requestBody).silveringThickness }}</span>
+              </el-form-item>
+              <el-form-item label="倒角:">
+                <span>{{ JSON.parse(props.row.requestBody).chamfering }}</span>
+              </el-form-item>
+              <el-form-item label="额定电流:">
+                <span>{{ JSON.parse(props.row.requestBody).ratedCurrent }}</span>
+              </el-form-item>
+              <el-form-item label="母排长:">
+                <span>{{ JSON.parse(props.row.requestBody).longBusbar }}</span>
+              </el-form-item>
+              <el-form-item label="母排宽:">
+                <span>{{ JSON.parse(props.row.requestBody).wideBusbar }}</span>
+              </el-form-item>
+              <el-form-item label="母排片数:">
+                <span>{{ JSON.parse(props.row.requestBody).sliceBusbar }}</span>
+              </el-form-item>
+              <el-form-item label="叠放类型:">
+                <span>{{ JSON.parse(props.row.requestBody).stackingType }}</span>
+              </el-form-item>
+              <el-form-item label="电导率(%IACS):">
+                <span>{{ JSON.parse(props.row.requestBody).electricalConductivity }}</span>
+              </el-form-item>
+              <el-form-item label="母排附件:">
+                <span>{{ JSON.parse(props.row.requestBody).inspectionReportFile }}</span>
+              </el-form-item>
+            </el-form>
+          </template>
+        </el-table-column>
+        <el-table-column label="创建时间" align="center" prop="createTime" />
+        <el-table-column label="状态" align="center" prop="levelString">
+          <template slot-scope="scope">
+            <el-tag :type="scope.row.levelString" :class="[scope.row.levelString === 'ERROR' ? 'classRed' : 'classGreen']">
+              {{ scope.row.levelString === 'ERROR' ? '错误' : '成功' }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="消息提示" align="center" prop="responseBody" />
+        <el-table-column label="消息日志" align="center" prop="message" />
+      </el-table>
+      <pagination v-show="logTotal > 0" :total="logTotal" :current.sync="paginationLog.current" :size.sync="paginationLog.size" @pagination="getLogList" />
+    </el-dialog>
+
     <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" />
   </div>
 </template>
@@ -370,13 +460,13 @@ import '../../styles/commentBox.scss'
 import i18n from '@/lang'
 import { npList, npDellte, npEdit, allLogs } from '@/api/tenGrid'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
-import logDialog from '@/components/logDialog' // 日志封装
+// import logDialog from '@/components/logDialog' // 日志封装
 const fixHeight = 270
 import { getToken } from '@/utils/auth' // get token from cookie
 const hasToken = getToken()
 export default {
   name: 'BusInformation',
-  components: { Pagination, logDialog },
+  components: { Pagination },
   data() {
     return {
       myHeaders: { Authorization: hasToken }, // 获取token
@@ -414,48 +504,51 @@ export default {
       disabled: false,
       imgList: [], // 批量上传图片数组
       fileList: [],
-      newDataImg: { id: '', imagePath: '', modelName: '电流互感器' }, // 多个图片上传
-      oneDataImg: { id: '', imagePath: '', modelName: '电流互感器' }, // 单个图片上传或替换之前的图片
+      newDataImg: { id: '', imagePath: '', modelName: '母排' }, // 多个图片上传
+      oneDataImg: { id: '', imagePath: '', modelName: '母排' }, // 单个图片上传或替换之前的图片
       editRow: {},
       editFileList: [],
       noneBtnImg: false, // 隐藏上传按钮
       limitCountImg: 1, // 上传图片的最大数量
       content1: this.$t('permission.supplierWorkNo'),
       pickerOptions: {
-        shortcuts: [{
-          text: '最近一周',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-            picker.$emit('pick', [start, end])
+        shortcuts: [
+          {
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近六个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 180)
+              picker.$emit('pick', [start, end])
+            }
           }
-        }, {
-          text: '最近一个月',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-            picker.$emit('pick', [start, end])
-          }
-        }, {
-          text: '最近三个月',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-            picker.$emit('pick', [start, end])
-          }
-        },
-        {
-          text: '最近六个月',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 180)
-            picker.$emit('pick', [start, end])
-          }
-        }
         ]
       },
       rules: {
@@ -557,6 +650,7 @@ export default {
     clickLogs(row) {
       this.logId = row
       allLogs(this.paginationLog, { dataId: row.id }).then(res => {
+        debugger
         if (res.data.records.length > 0) {
           this.dialogTableVisible = true
           this.gridData = res.data.records

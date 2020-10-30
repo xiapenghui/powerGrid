@@ -357,8 +357,8 @@ export default {
       disabled: false,
       imgList: [], // 批量上传图片数组
       fileList: [],
-      newDataImg: { id: '', imagePath: '', modelName: '电流互感器' }, // 多个图片上传
-      oneDataImg: { id: '', imagePath: '', modelName: '电流互感器' }, // 单个图片上传或替换之前的图片
+      newDataImg: { id: '', imagePath: '', modelName: '矩体材质' }, // 多个图片上传
+      oneDataImg: { id: '', imagePath: '', modelName: '矩体材质' }, // 单个图片上传或替换之前的图片
       editRow: {},
       editFileList: [],
       noneBtnImg: false, // 隐藏上传按钮

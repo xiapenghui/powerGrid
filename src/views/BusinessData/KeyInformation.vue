@@ -252,7 +252,7 @@
       <el-upload
         ref="upload"
         v-loading="improtLoading"
-        element-loading-text="文件上传中...."
+        element-loading-text="请稍等,文件上传并解析中...."
         element-loading-spinner="el-icon-loading"
         class="upload-demo"
         :action="this.GLOBAL.BASE_URL + '/api/eip/mi/import/file'"
@@ -457,8 +457,10 @@ export default {
     },
     // 点击日志
     clickLogs(row) {
+      debugger
       this.logId = row
       allLogs(this.paginationLog, { dataId: row.id }).then(res => {
+        debugger
         if (res.data.records.length > 0) {
           this.dialogTableVisible = true
           this.gridData = res.data.records
@@ -569,7 +571,7 @@ export default {
         if (res.code === 200) {
           this.$message({
             type: 'success',
-            message: '上传成功！'
+            message: '操作成功！'
           })
         }
         this.getList()
