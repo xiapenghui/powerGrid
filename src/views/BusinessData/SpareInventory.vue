@@ -18,13 +18,15 @@
           <el-col :span="16">
             <el-date-picker
               v-model="listQuery.importDate"
+              type="daterange"
               format="yyyy-MM-dd"
               value-format="yyyy-MM-dd"
-              type="daterange"
+              unlink-panels
               range-separator="至"
               start-placeholder="开始日期"
               end-placeholder="结束日期"
               :clearable="false"
+              :picker-options="pickerOptions"
               @change="importChange"
             />
           </el-col>
@@ -312,6 +314,43 @@ export default {
       dialogVisible: false, // 文件上传弹出框
       dialogFormVisible: false, // 编辑弹出框
       content1: this.$t('permission.spareProductCode'),
+      pickerOptions: {
+        shortcuts: [{
+          text: '最近一周',
+          onClick(picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', [start, end])
+          }
+        }, {
+          text: '最近一个月',
+          onClick(picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+            picker.$emit('pick', [start, end])
+          }
+        }, {
+          text: '最近三个月',
+          onClick(picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+            picker.$emit('pick', [start, end])
+          }
+        },
+        {
+          text: '最近六个月',
+          onClick(picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 180)
+            picker.$emit('pick', [start, end])
+          }
+        }
+        ]
+      },
       rules: {
         spareProductCode: [{ required: true, message: '请输入备品备件编号', trigger: 'blur' }],
         productDec: [{ required: true, message: '请输入备品备件描述', trigger: 'blur' }],
