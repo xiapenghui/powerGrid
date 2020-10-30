@@ -243,9 +243,18 @@
     <log-dialog :is-show="dialogTableVisible" :log-total="logTotal" :pagination-log="paginationLog" :data="gridData" @pageChange="getLogList" @closeLog="closeLog" />
 
     <!-- 上传文件弹窗 -->
-    <el-dialog v-loading="improtLoading" title="导入文件" :close-on-click-modal="false" :visible.sync="dialogVisible" width="30%">
+    <el-dialog
+      title="导入文件"
+      :close-on-click-modal="false"
+      :visible.sync="dialogVisible"
+      width="30%"
+    >
       <el-upload
         ref="upload"
+        v-loading="improtLoading"
+        element-loading-text="文件上传中...."
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="rgba(0, 101, 105, 1)"
         class="upload-demo"
         :action="this.GLOBAL.BASE_URL + '/api/eip/mi/import/file'"
         :headers="this.myHeaders"
@@ -606,6 +615,7 @@ export default {
       if (!isLt2M) {
         this.$message.error(this.$t('table.errorTwo'))
       }
+      this.improtLoading = true
       return isXLS && isLt2M
     }
 
