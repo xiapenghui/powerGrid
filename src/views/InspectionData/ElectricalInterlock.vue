@@ -360,12 +360,14 @@ import { electricalList, electricalDellte, electricalEdit, allLogs } from '@/api
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
 import logDialog from '@/components/logDialog' // 日志封装
 const fixHeight = 270
+import { getToken } from '@/utils/auth' // get token from cookie
+const hasToken = getToken()
 export default {
   name: 'ElectricalInterlock',
   components: { Pagination, logDialog },
   data() {
     return {
-      myHeaders: { Authorization: this.$token }, // 获取token
+      myHeaders: { Authorization: hasToken }, // 获取token
       // 日志分页
       paginationLog: {
         current: 1,

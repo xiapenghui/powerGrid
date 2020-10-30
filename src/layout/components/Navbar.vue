@@ -67,7 +67,8 @@ import SizeSelect from '@/components/SizeSelect'
 import LangSelect from '@/components/LangSelect'
 import { analysis } from '@/api/tenGrid'
 // import Search from '@/components/HeaderSearch'
-
+import { getToken } from '@/utils/auth' // get token from cookie
+const hasToken = getToken()
 export default {
   components: {
     Breadcrumb,
@@ -79,7 +80,7 @@ export default {
   },
   data() {
     return {
-      myHeaders: { Authorization: this.$token }, // 获取token
+      myHeaders: { Authorization: hasToken }, // 获取token
       dialogVisible: false,
       loading: false,
       newTitle: this.$t('table.upData')

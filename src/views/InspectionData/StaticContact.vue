@@ -326,12 +326,14 @@ import { electricCurrent, electricDellte, electricEdit, allLogs } from '@/api/te
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
 import logDialog from '@/components/logDialog' // 日志封装
 const fixHeight = 270
+import { getToken } from '@/utils/auth' // get token from cookie
+const hasToken = getToken()
 export default {
   name: 'CurrentTransformer',
   components: { Pagination, logDialog },
   data() {
     return {
-      myHeaders: { Authorization: this.$token }, // 获取token
+      myHeaders: { Authorization: hasToken }, // 获取token
       // 日志分页
       paginationLog: {
         current: 1,

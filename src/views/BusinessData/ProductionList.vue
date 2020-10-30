@@ -442,7 +442,6 @@
           {{ $t('table.fileSize') }}
         </div>
       </el-upload>
-      {{ this.myHeaders }}
       <el-progress v-if="fileFlag" id="progressShow" type="line" :percentage="UploadPercent" />
     </el-dialog>
 
