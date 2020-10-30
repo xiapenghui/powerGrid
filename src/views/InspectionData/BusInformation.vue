@@ -299,7 +299,7 @@
       <el-upload
         ref="upload"
         class="upload-demo"
-        :action="this.GLOBAL.BASE_URL + '/api/kvsc/ct/import/file'"
+        :action="this.GLOBAL.BASE_URL + '/api/kvsc/np/import/file'"
         :headers="this.myHeaders"
         :limit="1"
         :before-upload="beforeAvatarUpload"
@@ -366,7 +366,7 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { electricCurrent, electricDellte, electricEdit, allLogs } from '@/api/tenGrid'
+import { npList, npDellte, npEdit, allLogs } from '@/api/tenGrid'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
 import logDialog from '@/components/logDialog' // 日志封装
 const fixHeight = 270
@@ -553,7 +553,7 @@ export default {
               const newFeatid = item.id
               idList.push(newFeatid)
             })
-            electricDellte(idList).then(res => {
+            npDellte(idList).then(res => {
               if (res.code === 0) {
                 this.$message({
                   type: 'success',
@@ -574,7 +574,7 @@ export default {
     // 获取列表
     getList() {
       this.listLoading = true
-      electricCurrent(this.pagination, this.listQuery).then(res => {
+      npList(this.pagination, this.listQuery).then(res => {
         this.tableData = res.data.records
         this.total = res.data.total
         this.listLoading = false
@@ -592,11 +592,11 @@ export default {
     },
     // 编辑
     handleEdit(index, row) {
-      if (row.imageFileUrl === null) {
-        this.noneBtnImg = false
-      } else {
-        this.noneBtnImg = true
-      }
+      // if (row.imageFileUrl === null) {
+      //   this.noneBtnImg = false
+      // } else {
+      //   this.noneBtnImg = true
+      // }
       this.editFileList = []
       this.oneDataImg.id = row.id
       this.editRow = row
@@ -614,7 +614,7 @@ export default {
       this.editLoading = true
       this.$refs[formName].validate(valid => {
         if (valid) {
-          electricEdit(this.ruleForm).then(res => {
+          npEdit(this.ruleForm).then(res => {
             if (res.code === 200) {
               this.$message({
                 type: 'success',

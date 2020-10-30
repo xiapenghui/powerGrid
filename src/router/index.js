@@ -189,6 +189,7 @@ export const constantRoutes = [{
   {
     path: 'CurrentTransformer',
     component: () => import('@/views/InspectionData/CurrentTransformer'),
+    hidden: true,
     name: 'CurrentTransformer',
     meta: {
       title: 'CurrentTransformer'
@@ -198,6 +199,7 @@ export const constantRoutes = [{
   {
     path: 'VoltageTransformer',
     component: () => import('@/views/InspectionData/VoltageTransformer'),
+    hidden: true,
     name: 'VoltageTransformer',
     meta: {
       title: 'VoltageTransformer'

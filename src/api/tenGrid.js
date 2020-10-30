@@ -406,3 +406,201 @@ export function userAdd(data) {
     data
   })
 }
+
+
+// 短路器小车列表
+//短路器小车列表接口
+export function dlqxcList(query, data) {
+  return request({
+    url: newUrl + '/api/kvsc/dlqxc/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+// 短路器小车删除接口
+export function dlqxcDellte(data) {
+  return request({
+    url: newUrl + '/api/kvsc/dlqxc/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 短路器小车编辑保存接口
+export function dlqxcEdit(data) {
+  return request({
+    url: newUrl + '/api/kvsc/dlqxc/update',
+    method: 'post',
+    data
+  })
+}
+
+//  短路器小车批量确认接口
+export function dlqxcOk(data) {
+  return request({
+    url: newUrl + '/api/kvsc/dlqxc/confirm/ids',
+    method: 'post',
+    data
+  })
+}
+
+
+// 母排列表
+//母排列表接口
+export function npList(query, data) {
+  return request({
+    url: newUrl + '/api/kvsc/np/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+// 母排删除接口
+export function npDellte(data) {
+  return request({
+    url: newUrl + '/api/kvsc/np/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 母排编辑保存接口
+export function npEdit(data) {
+  return request({
+    url: newUrl + '/api/kvsc/np/update',
+    method: 'post',
+    data
+  })
+}
+
+//  母排批量确认接口
+export function npOk(data) {
+  return request({
+    url: newUrl + '/api/kvsc/np/confirm/ids',
+    method: 'post',
+    data
+  })
+}
+
+
+
+// 矩体材质厚度列表
+//矩体材质厚度列表接口
+export function cgczhdList(query, data) {
+  return request({
+    url: newUrl + '/api/kvsc/cgczhd/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+// 矩体材质厚度删除接口
+export function cgczhdDellte(data) {
+  return request({
+    url: newUrl + '/api/kvsc/cgczhd/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 矩体材质厚度编辑保存接口
+export function cgczhdEdit(data) {
+  return request({
+    url: newUrl + '/api/kvsc/cgczhd/update',
+    method: 'post',
+    data
+  })
+}
+
+//  矩体材质厚度批量确认接口
+export function cgczhdOk(data) {
+  return request({
+    url: newUrl + '/api/kvsc/cgczhd/confirm/ids',
+    method: 'post',
+    data
+  })
+}
+
+
+
+// 静触头列表
+//静触头列表接口
+export function jctList(query, data) {
+  return request({
+    url: newUrl + '/api/kvsc/jct/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+// 静触头删除接口
+export function jctDellte(data) {
+  return request({
+    url: newUrl + '/api/kvsc/jct/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 静触头编辑保存接口
+export function jctEdit(data) {
+  return request({
+    url: newUrl + '/api/kvsc/jct/update',
+    method: 'post',
+    data
+  })
+}
+
+//  静触头批量确认接口
+export function jctOk(data) {
+  return request({
+    url: newUrl + '/api/kvsc/jct/confirm/ids',
+    method: 'post',
+    data
+  })
+}
+
+
+
+// 静触头列表
+//静触头列表接口
+export function dctList(query, data) {
+  return request({
+    url: newUrl + '/api/kvsc/dct/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+// 静触头删除接口
+export function dctDellte(data) {
+  return request({
+    url: newUrl + '/api/kvsc/dct/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 静触头编辑保存接口
+export function dctEdit(data) {
+  return request({
+    url: newUrl + '/api/kvsc/dct/update',
+    method: 'post',
+    data
+  })
+}
+
+//  静触头批量确认接口
+export function dctOk(data) {
+  return request({
+    url: newUrl + '/api/kvsc/dct/confirm/ids',
+    method: 'post',
+    data
+  })
+}
