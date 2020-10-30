@@ -432,7 +432,6 @@
         :before-upload="beforeAvatarUpload"
         :on-success="handleAvatarSuccess"
         :on-error="handleAvatarError"
-        :on-progress="uploadVideoProcess"
         :auto-upload="true"
       >
         <el-button size="small" type="primary">{{ $t('table.clickUp') }}</el-button>
@@ -495,8 +494,6 @@ export default {
       dialogTableVisible: false, // 日志弹出框
       dialogVisible: false, // 文件上传弹出框
       dialogFormVisible: false, // 编辑弹出框
-      UploadPercent: 0,
-      fileFlag: false,
       // content1: this.$t('permission.supplierName'),
       content2: this.$t('permission.ipoNo'),
       pickerOptions: {
@@ -769,15 +766,8 @@ export default {
     okImprot() {
       this.dialogVisible = true
     },
-    // 上传进度显示：
-    uploadVideoProcess(event, file, fileList) {
-      this.fileFlag = true
-      this.UploadPercent = Math.floor(event.percent)
-    },
     // 成功
     handleAvatarSuccess(res, file) {
-      this.fileFlag = false
-      this.UploadPercent = 0
       if (res.code === 200) {
         this.$message.success(this.$t('table.upSuccess'))
         this.dialogVisible = false

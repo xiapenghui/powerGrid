@@ -680,6 +680,7 @@ export default {
     },
     // 成功
     handleAvatarSuccess(res, file) {
+      debugger
       if (res.code === 200) {
         if (res.data.length > 0) {
           this.$message.success(this.$t('table.upSuccess'))
@@ -689,6 +690,8 @@ export default {
           this.imgList = res.data
           this.getList()
         } else {
+          this.$message.success(this.$t('table.upSuccess'))
+          this.dialogVisible = false
           this.dialogVisibleAllImg = false
           this.getList()
         }

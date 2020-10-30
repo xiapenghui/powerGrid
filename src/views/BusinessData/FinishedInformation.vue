@@ -5,10 +5,10 @@
         <el-col :span="8">
           <el-col :span="8">
             <el-tooltip class="item" effect="dark" :content="content1" placement="top-start">
-              <label class="radio-label">{{ $t('permission.productCode') }}:</label>
+              <label class="radio-label">{{ $t('permission.productCodeOther') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="pagination.productCode" :placeholder="$t('permission.productCode')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="pagination.productCode" :placeholder="$t('permission.productCodeOther')" clearable /></el-col>
         </el-col>
 
         <el-col :span="8">
@@ -79,7 +79,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.productNameOther')" width="150">
+      <el-table-column align="center" :label="$t('permission.productNameOther')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.productName }}
         </template>
@@ -215,7 +215,7 @@
             <el-form-item label="工厂" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" :disabled="true" /></el-form-item>
             <el-form-item label="供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
             <el-form-item label="数据来源" prop="dataSource"><el-input v-model="ruleForm.dataSource" /></el-form-item>
-            <el-form-item label="备注" prop="remark"><el-input v-model="ruleForm.remark" /></el-form-item>
+            <el-form-item label="备注"><el-input v-model="ruleForm.remark" /></el-form-item>
             <el-form-item label="数据拥有方"><el-input v-model="ruleForm.ownerId" /></el-form-item>
             <el-form-item label="国网采购订单号"><el-input v-model="ruleForm.poNo" /></el-form-item>
             <el-form-item label="数据来源" prop="itemDataSource"><el-input v-model="ruleForm.itemDataSource" /></el-form-item>
@@ -240,7 +240,7 @@
                 <el-date-picker v-model="ruleForm.itemDataSourceCreatetime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
               </el-form-item>
             </el-tooltip>
-            <el-form-item label="备注" prop="itemRemark"><el-input v-model="ruleForm.itemRemark" /></el-form-item>
+            <el-form-item label="备注"><el-input v-model="ruleForm.itemRemark" /></el-form-item>
           </div>
         </div>
       </el-form>
@@ -373,8 +373,7 @@ export default {
         productUnit: [{ required: true, message: '请输入计量单位', trigger: 'blur' }],
         batchCode: [{ required: true, message: '请输入入库批次号', trigger: 'blur' }],
         dataSource: [{ required: true, message: '请输入数据来源', trigger: 'blur' }],
-        dataSourceCreateTime: [{ required: true, message: '请输入来源数据创建时间', trigger: 'blur' }],
-        remark: [{ required: true, message: '请输入备注', trigger: 'blur' }]
+        dataSourceCreateTime: [{ required: true, message: '请输入来源数据创建时间', trigger: 'blur' }]
       }
     }
   },

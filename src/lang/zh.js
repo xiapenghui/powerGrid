@@ -457,6 +457,7 @@ export default {
     inspectionReportFileJT: '柜体材质、厚度附件',
     equipmentUniqueCodOther: '供应商产品编号',
     supplierSupportIdOther: '供应商产品编号',
+    ContactNumDLQ: '断路器出厂编号(常州)',
 
     // 截止
     roles: '你的权限',

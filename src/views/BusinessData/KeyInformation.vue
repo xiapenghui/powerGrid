@@ -254,7 +254,6 @@
         v-loading="improtLoading"
         element-loading-text="文件上传中...."
         element-loading-spinner="el-icon-loading"
-        element-loading-background="rgba(0, 101, 105, 1)"
         class="upload-demo"
         :action="this.GLOBAL.BASE_URL + '/api/eip/mi/import/file'"
         :headers="this.myHeaders"

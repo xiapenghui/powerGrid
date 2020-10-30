@@ -176,16 +176,7 @@
 .navbar .right-menu .avatar-container .avatar-wrapper {
   color: #008284 !important;
 }
-// .el-dialog__wrapper  .el-progress--line{
-//   display: none;
-// }
-.el-dialog__wrapper #progressShow {
-  margin-top: 5px;
-  display: block;
-}
-.el-dialog__wrapper .el-progress-bar__inner{
-  background-color: #007a59;
-}
-.el-dialog__wrapper .el-progress__text{
-  margin-left: 15px;
+
+.el-date-editor--daterange.el-input__inner{
+  width: auto;
 }

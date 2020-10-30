@@ -632,6 +632,8 @@ export default {
           this.imgList = res.data
           this.getList()
         } else {
+          this.$message.success(this.$t('table.upSuccess'))
+          this.dialogVisible = false
           this.dialogVisibleAllImg = false
           this.getList()
         }

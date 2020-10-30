@@ -144,7 +144,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.ContactNums')" width="150">
+      <el-table-column align="center" :label="$t('permission.ContactNumDLQ')" width="150">
         <template slot-scope="scope">
           {{ scope.row.contactNum }}
         </template>
@@ -240,43 +240,43 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="left" :label="$t('permission.reliableStorageOper')" width="200">
+      <el-table-column align="center" :label="$t('permission.reliableStorageOper')" width="200">
         <template slot-scope="scope">
           {{ scope.row.reliableStorageOper }}
         </template>
       </el-table-column>
 
-      <el-table-column align="left" :label="$t('permission.nomVolReliableOper')" width="200">
+      <el-table-column align="center" :label="$t('permission.nomVolReliableOper')" width="200">
         <template slot-scope="scope">
           {{ scope.row.nomVolReliableOper }}
         </template>
       </el-table-column>
 
-      <el-table-column align="left" :label="$t('permission.nomACReliableSwitch')" width="200">
+      <el-table-column align="center" :label="$t('permission.nomACReliableSwitch')" width="200">
         <template slot-scope="scope">
           {{ scope.row.nomACReliableSwitch }}
         </template>
       </el-table-column>
 
-      <el-table-column align="left" :label="$t('permission.nomDCReliableSwitch')" width="200">
+      <el-table-column align="center" :label="$t('permission.nomDCReliableSwitch')" width="200">
         <template slot-scope="scope">
           {{ scope.row.nomDCReliableSwitch }}
         </template>
       </el-table-column>
 
-      <el-table-column align="left" :label="$t('permission.breakReliableNoOper')" width="200">
+      <el-table-column align="center" :label="$t('permission.breakReliableNoOper')" width="170">
         <template slot-scope="scope">
           {{ scope.row.breakReliableNoOper }}
         </template>
       </el-table-column>
 
-      <el-table-column align="left" :label="$t('permission.breakNomVolReliableOper')" width="200">
+      <el-table-column align="center" :label="$t('permission.breakNomVolReliableOper')" width="150">
         <template slot-scope="scope">
           {{ scope.row.breakNomVolReliableOper }}
         </template>
       </el-table-column>
 
-      <el-table-column align="left" :label="$t('permission.breakVolReliableOper')" width="200">
+      <el-table-column align="center" :label="$t('permission.breakVolReliableOper')" width="150">
         <template slot-scope="scope">
           {{ scope.row.breakVolReliableOper }}
         </template>
@@ -949,7 +949,6 @@ export default {
     getList() {
       this.listLoading = true
       dlqxcList(this.pagination, this.listQuery).then(res => {
-        debugger
         this.tableData = res.data.records
         this.total = res.data.total
         this.listLoading = false
@@ -1025,6 +1024,8 @@ export default {
           this.imgList = res.data
           this.getList()
         } else {
+          this.$message.success(this.$t('table.upSuccess'))
+          this.dialogVisible = false
           this.dialogVisibleAllImg = false
           this.getList()
         }
