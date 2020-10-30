@@ -28,8 +28,8 @@ export default {
   font-weight: 800;
   color: #4dd9d5;
   font-family: 'Dosis', sans-serif;
-  -webkit-transition: color 0.5s 0.25s;
-  transition: color 0.5s 0.25s;
+  -webkit-transition: color 0s 0s;
+  transition: color 0s 0s;
   overflow: hidden;
   position: relative;
   display: inline-block;
@@ -55,8 +55,8 @@ export default {
   top: 50%;
   -webkit-transform: translate3d(-100%, 0, 0);
   transform: translate3d(-100%, 0, 0);
-  -webkit-transition: -webkit-transform 0.4s;
-  transition: transform 0.4s;
+  -webkit-transition: -webkit-transform 0s;
+  transition: transform 0s;
   -webkit-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
   transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
 }
@@ -82,8 +82,8 @@ export default {
   left: 0;
   width: 100%;
   color: #3888fa;
-  -webkit-transition: -webkit-transform 0.5s;
-  transition: transform 0.5s;
+  -webkit-transition: -webkit-transform 0s;
+  transition: transform 0s;
 }
 
 .link--mallki span:nth-child(2) {
@@ -103,8 +103,8 @@ export default {
 }
 
 .link--mallki:hover span::before {
-  -webkit-transition-delay: 0.3s;
-  transition-delay: 0.3s;
+  -webkit-transition-delay: 0s;
+  transition-delay: 0s;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
   -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);

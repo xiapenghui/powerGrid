@@ -180,7 +180,7 @@ export default {
   right: 0;
   z-index: 9;
   width: calc(100% - #{$sideBarWidth});
-  transition: width 0.2s;
+  transition: width 100ms;
 }
 
 .hideSidebar .fixed-header {

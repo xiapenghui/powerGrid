@@ -170,7 +170,7 @@ export default {
     height: 100%;
     float: left;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0s;
     -webkit-tap-highlight-color: transparent;
 
     &:hover {
@@ -208,7 +208,7 @@ export default {
 
       &.hover-effect {
         cursor: pointer;
-        transition: background 0.2s;
+        transition: background 0s;
 
         &:hover {
           background: rgba(0, 0, 0, 0.025);
