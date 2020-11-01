@@ -398,9 +398,6 @@
       </div>
     </el-dialog>
 
-    <!-- 日志弹出框 -->
-    <log-dialog :is-show="dialogTableVisible" :log-total="logTotal" :pagination-log="paginationLog" :data="gridData" @pageChange="getLogList" @closeLog="closeLog" />
-
     <!-- 上传文件弹窗 -->
     <el-dialog
       title="导入文件"
@@ -475,6 +472,137 @@
       </span>
     </el-dialog>
 
+    <!-- 日志弹出框 -->
+    <el-dialog title="日志信息" :visible.sync="dialogTableVisible">
+      <el-table border style="width: 100%" height="50vh" :data="gridData">
+        <el-table-column type="expand">
+          <template slot-scope="props">
+            <el-form label-position="left" inline class="demo-table-expand">
+              <el-form-item label="工厂:">
+                <span>{{ props.row.requestBody.saleOrg }}</span>
+              </el-form-item>
+              <el-form-item label="采集规范版本号:">
+                <span>{{ props.row.requestBody.standardVersion }}</span>
+              </el-form-item>
+              <el-form-item label="供应商工单编号:">
+                <span>{{ props.row.requestBody.supplierWorkNo }}</span>
+              </el-form-item>
+              <el-form-item label="国网侧供应商编码:">
+                <span>{{ props.row.requestBody.supplierCode }}</span>
+              </el-form-item>
+              <el-form-item label="规格型号编码:">
+                <span>{{ props.row.requestBody.modelCode }}</span>
+              </el-form-item>
+              <el-form-item label="物资品类类型:">
+                <span>{{ props.row.requestBody.categoryType }}</span>
+              </el-form-item>
+              <el-form-item label="厂区编号:">
+                <span>{{ props.row.requestBody.factoryCode }}</span>
+              </el-form-item>
+              <el-form-item label="供应商产品编号:">
+                <span>{{ props.row.requestBody.supplierSupportId }}</span>
+              </el-form-item>
+              <el-form-item label="供应商产品厂内编号:">
+                <span>{{ props.row.requestBody.productModel }}</span>
+              </el-form-item>
+              <el-form-item label="生产设备名称:">
+                <span>{{ props.row.requestBody.equipmentName }}</span>
+              </el-form-item>
+              <el-form-item label="生产设备唯一识别号:">
+                <span>{{ props.row.requestBody.equipmentUniqueCode }}</span>
+              </el-form-item>
+              <el-form-item label="是否是告警问题数据:">
+                <span>{{ props.row.requestBody.isAlarmData }}</span>
+              </el-form-item>
+              <el-form-item label="告警项:">
+                <span>{{ props.row.requestBody.alarmItem }}</span>
+              </el-form-item>
+              <el-form-item label="感知过程:">
+                <span>{{ props.row.requestBody.processType }}</span>
+              </el-form-item>
+              <el-form-item label="工序:">
+                <span>{{ props.row.requestBody.pdCode }}</span>
+              </el-form-item>
+              <el-form-item label="采集时间:">
+                <span>{{ props.row.requestBody.checkTime }}</span>
+              </el-form-item>
+              <el-form-item label="入数采中心时间:">
+                <span>{{ props.row.requestBody.putCenterTime }}</span>
+              </el-form-item>
+              <el-form-item label="断路器出厂编号(常州/nature):">
+                <span>{{ props.row.requestBody.contactNum }}</span>
+              </el-form-item>
+              <el-form-item label="成品序列号(PDSE):">
+                <span>{{ props.row.requestBody.materialSN }}</span>
+              </el-form-item>
+              <el-form-item label="额定分闸时间上限值(ms):">
+                <span>{{ props.row.requestBody.breakTimeMax }}</span>
+              </el-form-item>
+              <el-form-item label="额定分闸时间下限值(ms):">
+                <span>{{ props.row.requestBody.breakTimeMin }}</span>
+              </el-form-item>
+              <el-form-item label="A相分闸时间(ms):">
+                <span>{{ props.row.requestBody.breakTimeA }}</span>
+              </el-form-item>
+              <el-form-item label="B相分闸时间(ms):">
+                <span>{{ props.row.requestBody.breakTimeB }}</span>
+              </el-form-item>
+              <el-form-item label="C相分闸时间(ms):">
+                <span>{{ props.row.requestBody.breakTimeC }}</span>
+              </el-form-item>
+              <el-form-item label="额定合闸时间上限值(ms):">
+                <span>{{ props.row.requestBody.closeTimeMax }}</span>
+              </el-form-item>
+              <el-form-item label="额定合闸时间下限值(ms):">
+                <span>{{ props.row.requestBody.closeTimeMin }}</span>
+              </el-form-item>
+              <el-form-item label="A相合闸时间(ms):">
+                <span>{{ props.row.requestBody.closeTimeA }}</span>
+              </el-form-item>
+              <el-form-item label="B相合闸时间(ms):">
+                <span>{{ props.row.requestBody.closeTimeB }}</span>
+              </el-form-item>
+              <el-form-item label="C相合闸时间(ms):">
+                <span>{{ props.row.requestBody.closeTimeC }}</span>
+              </el-form-item>
+              <el-form-item label="合闸不同期额定值(ms):">
+                <span>{{ props.row.requestBody.closeNotSameTimeUn }}</span>
+              </el-form-item>
+              <el-form-item label="合闸不同期(ms):">
+                <span>{{ props.row.requestBody.closeNotSameTime }}</span>
+              </el-form-item>
+              <el-form-item label="分闸不同期额定值(ms):">
+                <span>{{ props.row.requestBody.breakNotSameTime }}</span>
+              </el-form-item>
+              <el-form-item label="分闸不同期(ms):">
+                <span>{{ props.row.requestBody.texture }}</span>
+              </el-form-item>
+              <el-form-item label="合闸弹跳（真空断路器）额定值(ms):">
+                <span>{{ props.row.requestBody.closeBounceTimeUn }}</span>
+              </el-form-item>
+              <el-form-item label="合闸弹跳（真空断路器）(ms):">
+                <span>{{ props.row.requestBody.closeBounceTime }}</span>
+              </el-form-item>
+              <el-form-item label="机械特性试验报告:">
+                <span>{{ props.row.requestBody.imageFileUrl }}</span>
+              </el-form-item>
+            </el-form>
+          </template>
+        </el-table-column>
+        <el-table-column label="创建时间" align="center" prop="createTime" />
+        <el-table-column label="状态" align="center" prop="levelString">
+          <template slot-scope="scope">
+            <el-tag :type="scope.row.levelString" :class="[scope.row.levelString === 'ERROR' ? 'classRed' : 'classGreen']">
+              {{ scope.row.levelString === 'ERROR' ? '错误' : '成功' }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="消息提示" align="center" prop="responseBody" />
+        <el-table-column label="消息日志" align="center" prop="message" />
+      </el-table>
+      <pagination v-show="logTotal > 0" :total="logTotal" :current.sync="paginationLog.current" :size.sync="paginationLog.size" @pagination="getLogList" />
+    </el-dialog>
+
     <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" />
   </div>
 </template>
@@ -485,13 +613,12 @@ import '../../styles/commentBox.scss'
 import i18n from '@/lang'
 import { mctList, mctDellte, mctEdit, allLogs } from '@/api/tenGrid'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
-import logDialog from '@/components/logDialog' // 日志封装
 const fixHeight = 270
 import { getToken } from '@/utils/auth' // get token from cookie
 const hasToken = getToken()
 export default {
   name: 'MechanicalTest',
-  components: { Pagination, logDialog },
+  components: { Pagination },
   data() {
     return {
       myHeaders: { Authorization: hasToken }, // 获取token
@@ -692,6 +819,9 @@ export default {
       allLogs(this.paginationLog, { dataId: row.id }).then(res => {
         if (res.data.records.length > 0) {
           this.dialogTableVisible = true
+          res.data.records.map(item => {
+            item.requestBody = JSON.parse(item.requestBody)
+          })
           this.gridData = res.data.records
           this.logTotal = res.data.total
         } else {
@@ -843,15 +973,15 @@ export default {
     },
     beforeAvatarUpload(file) {
       const isXLS = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      const isLt2M = file.size / 1024 / 1024 < 2
+      const isLt50M = file.size / 1024 / 1024 < 50
 
       if (!isXLS) {
         this.$message.error(this.$t('table.errorOne'))
       }
-      if (!isLt2M) {
+      if (!isLt50M) {
         this.$message.error(this.$t('table.errorTwo'))
       }
-      return isXLS && isLt2M
+      return isXLS && isLt50M
     },
     // 上传
     onChange(file, fileList) {

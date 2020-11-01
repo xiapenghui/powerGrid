@@ -295,7 +295,7 @@
     <!-- <log-dialog :is-show="dialogTableVisible" :log-total="logTotal" :pagination-log="paginationLog" :data="gridData" @pageChange="getLogList" @closeLog="closeLog" /> -->
 
     <!-- 上传文件弹窗 -->
-    <el-dialog title="导入文件" :close-on-click-modal="false" :visible.sync="dialogVisible" width="30%">
+    <!-- <el-dialog title="导入文件" :close-on-click-modal="false" :visible.sync="dialogVisible" width="30%">
       <el-upload
         ref="upload"
         class="upload-demo"
@@ -316,7 +316,15 @@
           {{ $t('table.fileSize') }}
         </div>
       </el-upload>
-    </el-dialog>
+    </el-dialog> -->
+    <ImprotFile
+      :dialog-visible="dialogVisible"
+      :improt-loading="improtLoading"
+      :production-url="productionUrl"
+      @handleavatarsuccess="handleAvatarSuccess"
+      @beforeavatarupload="beforeAvatarUpload"
+      @fileClose="fileClose"
+    />
 
     <!-- //批量上传图片弹窗 -->
     <el-dialog title="批量上传图片" :visible.sync="dialogVisibleAllImg" :close-on-click-modal="false" width="50%">
@@ -365,73 +373,73 @@
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
               <el-form-item label="工厂:">
-                <span>{{ JSON.parse(props.row.requestBody).saleOrg }}</span>
+                <span>{{ props.row.requestBody.saleOrg }}</span>
               </el-form-item>
               <el-form-item label="采集规范版本号:">
-                <span>{{ JSON.parse(props.row.requestBody).standardVersion }}</span>
+                <span>{{ props.row.requestBody.standardVersion }}</span>
               </el-form-item>
               <el-form-item label="供应商工单编号:">
-                <span>{{ JSON.parse(props.row.requestBody).supplierWorkNo }}</span>
+                <span>{{ props.row.requestBody.supplierWorkNo }}</span>
               </el-form-item>
               <el-form-item label="国网侧供应商编码:">
-                <span>{{ JSON.parse(props.row.requestBody).supplierCode }}</span>
+                <span>{{ props.row.requestBody.supplierCode }}</span>
               </el-form-item>
               <el-form-item label="规格型号编码:">
-                <span>{{ JSON.parse(props.row.requestBody).modelCode }}</span>
+                <span>{{ props.row.requestBody.modelCode }}</span>
               </el-form-item>
               <el-form-item label="物资品类类型:">
-                <span>{{ JSON.parse(props.row.requestBody).categoryType }}</span>
+                <span>{{ props.row.requestBody.categoryType }}</span>
               </el-form-item>
               <el-form-item label="是否是告警问题数据:">
-                <span>{{ JSON.parse(props.row.requestBody).isAlarmData }}</span>
+                <span>{{ props.row.requestBody.isAlarmData }}</span>
               </el-form-item>
               <el-form-item label="告警项:">
-                <span>{{ JSON.parse(props.row.requestBody).alarmItem }}</span>
+                <span>{{ props.row.requestBody.alarmItem }}</span>
               </el-form-item>
               <el-form-item label="感知过程:">
-                <span>{{ JSON.parse(props.row.requestBody).processType }}</span>
+                <span>{{ props.row.requestBody.processType }}</span>
               </el-form-item>
               <el-form-item label="工序:">
-                <span>{{ JSON.parse(props.row.requestBody).pdCode }}</span>
+                <span>{{ props.row.requestBody.pdCode }}</span>
               </el-form-item>
               <el-form-item label="采集时间:">
-                <span>{{ JSON.parse(props.row.requestBody).checkTime }}</span>
+                <span>{{ props.row.requestBody.checkTime }}</span>
               </el-form-item>
               <el-form-item label="入数采中心时间:">
-                <span>{{ JSON.parse(props.row.requestBody).putCenterTime }}</span>
+                <span>{{ props.row.requestBody.putCenterTime }}</span>
               </el-form-item>
               <el-form-item label="国网PO:">
-                <span>{{ JSON.parse(props.row.requestBody).rawMaterialSN }}</span>
+                <span>{{ props.row.requestBody.rawMaterialSN }}</span>
               </el-form-item>
               <el-form-item label="材质:">
-                <span>{{ JSON.parse(props.row.requestBody).texture }}</span>
+                <span>{{ props.row.requestBody.texture }}</span>
               </el-form-item>
               <el-form-item label="镀银层厚度(μm):">
-                <span>{{ JSON.parse(props.row.requestBody).silveringThickness }}</span>
+                <span>{{ props.row.requestBody.silveringThickness }}</span>
               </el-form-item>
               <el-form-item label="倒角:">
-                <span>{{ JSON.parse(props.row.requestBody).chamfering }}</span>
+                <span>{{ props.row.requestBody.chamfering }}</span>
               </el-form-item>
               <el-form-item label="额定电流:">
-                <span>{{ JSON.parse(props.row.requestBody).ratedCurrent }}</span>
+                <span>{{ props.row.requestBody.ratedCurrent }}</span>
               </el-form-item>
               <el-form-item label="母排长:">
-                <span>{{ JSON.parse(props.row.requestBody).longBusbar }}</span>
+                <span>{{ props.row.requestBody.longBusbar }}</span>
               </el-form-item>
               <el-form-item label="母排宽:">
-                <span>{{ JSON.parse(props.row.requestBody).wideBusbar }}</span>
+                <span>{{ props.row.requestBody.wideBusbar }}</span>
               </el-form-item>
               <el-form-item label="母排片数:">
-                <span>{{ JSON.parse(props.row.requestBody).sliceBusbar }}</span>
+                <span>{{ props.row.requestBody.sliceBusbar }}</span>
               </el-form-item>
               <el-form-item label="叠放类型:">
-                <span>{{ JSON.parse(props.row.requestBody).stackingType }}</span>
+                <span>{{ props.row.requestBody.stackingType }}</span>
               </el-form-item>
               <el-form-item label="电导率(%IACS):">
-                <span>{{ JSON.parse(props.row.requestBody).electricalConductivity }}</span>
+                <span>{{ props.row.requestBody.electricalConductivity }}</span>
               </el-form-item>
               <el-form-item label="母排附件:">
-                <span>{{ JSON.parse(props.row.requestBody).inspectionReportFile }}</span>
+                <span>{{ props.row.requestBody.inspectionReportFile }}</span>
               </el-form-item>
             </el-form>
           </template>
@@ -461,14 +469,16 @@ import i18n from '@/lang'
 import { npList, npDellte, npEdit, allLogs } from '@/api/tenGrid'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
 // import logDialog from '@/components/logDialog' // 日志封装
+import ImprotFile from '@/components/ImprotFile' // 文件上传文件封装
 const fixHeight = 270
 import { getToken } from '@/utils/auth' // get token from cookie
 const hasToken = getToken()
 export default {
   name: 'BusInformation',
-  components: { Pagination },
+  components: { Pagination, ImprotFile },
   data() {
     return {
+      productionUrl: this.GLOBAL.BASE_URL + '/api/kvsc/np/import/file',
       myHeaders: { Authorization: hasToken }, // 获取token
       // 日志分页
       paginationLog: {
@@ -492,6 +502,7 @@ export default {
       },
       listLoading: true,
       editLoading: false, // 编辑loading
+      improtLoading: false, // 导入文件进度loading
       total: 10,
       selectedData: [], // 批量删除新数组
       tableHeight: window.innerHeight - fixHeight, // 表格高度
@@ -650,9 +661,11 @@ export default {
     clickLogs(row) {
       this.logId = row
       allLogs(this.paginationLog, { dataId: row.id }).then(res => {
-        debugger
         if (res.data.records.length > 0) {
           this.dialogTableVisible = true
+          res.data.records.map(item => {
+            item.requestBody = JSON.parse(item.requestBody)
+          })
           this.gridData = res.data.records
           this.logTotal = res.data.total
         } else {
@@ -772,21 +785,25 @@ export default {
     okImprot() {
       this.dialogVisible = true
     },
+    // 关闭导入文件弹窗
+    fileClose() {
+      this.dialogVisible = false
+    },
     // 成功
     handleAvatarSuccess(res, file) {
-      debugger
       if (res.code === 200) {
         if (res.data.length > 0) {
           this.$message.success(this.$t('table.upSuccess'))
           this.dialogVisible = false
-          this.$refs.upload.clearFiles()
           this.dialogVisibleAllImg = true
+          this.improtLoading = false
           this.imgList = res.data
           this.getList()
         } else {
           this.$message.success(this.$t('table.upSuccess'))
           this.dialogVisible = false
           this.dialogVisibleAllImg = false
+          this.improtLoading = false
           this.getList()
         }
       } else {
@@ -796,26 +813,21 @@ export default {
           duration: 5000
         })
         this.dialogVisible = false
-        this.$refs.upload.clearFiles()
-      }
-    },
-    // 失败
-    handleAvatarError(res, file) {
-      if (res.code === 500 && res.type === 'error') {
-        this.$message.error(this.$t('table.upError'))
+        this.improtLoading = false
       }
     },
     beforeAvatarUpload(file) {
       const isXLS = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      const isLt2M = file.size / 1024 / 1024 < 2
+      const isLt50M = file.size / 1024 / 1024 < 50
 
       if (!isXLS) {
         this.$message.error(this.$t('table.errorOne'))
       }
-      if (!isLt2M) {
+      if (!isLt50M) {
         this.$message.error(this.$t('table.errorTwo'))
       }
-      return isXLS && isLt2M
+      this.improtLoading = true
+      return isXLS && isLt50M
     },
 
     // 上传

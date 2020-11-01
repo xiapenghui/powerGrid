@@ -319,9 +319,6 @@
       </div>
     </el-dialog>
 
-    <!-- 日志弹出框 -->
-    <log-dialog :is-show="dialogTableVisible" :log-total="logTotal" :pagination-log="paginationLog" :data="gridData" @pageChange="getLogList" @closeLog="closeLog" />
-
     <!-- 上传文件弹窗 -->
     <el-dialog
       title="导入文件"
@@ -350,6 +347,108 @@
         </div>
       </el-upload>
     </el-dialog>
+
+    <!-- 日志弹出框 -->
+    <el-dialog title="日志信息" :visible.sync="dialogTableVisible">
+      <el-table border style="width: 100%" height="50vh" :data="gridData">
+        <el-table-column type="expand">
+          <template slot-scope="props">
+            <el-form label-position="left" inline class="demo-table-expand">
+              <el-form-item label="工厂:">
+                <span>{{ props.row.requestBody.saleOrg }}</span>
+              </el-form-item>
+              <el-form-item label="采集规范版本号:">
+                <span>{{ props.row.requestBody.standardVersion }}</span>
+              </el-form-item>
+              <el-form-item label="供应商工单编号:">
+                <span>{{ props.row.requestBody.supplierWorkNo }}</span>
+              </el-form-item>
+              <el-form-item label="国网侧供应商编码:">
+                <span>{{ props.row.requestBody.supplierCode }}</span>
+              </el-form-item>
+              <el-form-item label="规格型号编码:">
+                <span>{{ props.row.requestBody.modelCode }}</span>
+              </el-form-item>
+              <el-form-item label="物资品类类型:">
+                <span>{{ props.row.requestBody.categoryType }}</span>
+              </el-form-item>
+              <el-form-item label="厂区编号:">
+                <span>{{ props.row.requestBody.factoryCode }}</span>
+              </el-form-item>
+              <el-form-item label="供应商产品编号:">
+                <span>{{ props.row.requestBody.supplierSupportId }}</span>
+              </el-form-item>
+              <el-form-item label="供应商产品厂内编号:">
+                <span>{{ props.row.requestBody.productModel }}</span>
+              </el-form-item>
+              <el-form-item label="生产设备名称:">
+                <span>{{ props.row.requestBody.equipmentName }}</span>
+              </el-form-item>
+              <el-form-item label="生产设备唯一识别号:">
+                <span>{{ props.row.requestBody.equipmentUniqueCode }}</span>
+              </el-form-item>
+              <el-form-item label="是否是告警问题数据:">
+                <span>{{ props.row.requestBody.isAlarmData }}</span>
+              </el-form-item>
+              <el-form-item label="告警项:">
+                <span>{{ props.row.requestBody.alarmItem }}</span>
+              </el-form-item>
+              <el-form-item label="感知过程:">
+                <span>{{ props.row.requestBody.processType }}</span>
+              </el-form-item>
+              <el-form-item label="工序:">
+                <span>{{ props.row.requestBody.pdCode }}</span>
+              </el-form-item>
+              <el-form-item label="采集时间:">
+                <span>{{ props.row.requestBody.checkTime }}</span>
+              </el-form-item>
+              <el-form-item label="入数采中心时间:">
+                <span>{{ props.row.requestBody.putCenterTime }}</span>
+              </el-form-item>
+              <el-form-item label="成品序列号:">
+                <span>{{ props.row.requestBody.materialSN }}</span>
+              </el-form-item>
+              <el-form-item label="断路器处于合闸位置时，断路器小车无法推进或拉出:">
+                <span>{{ props.row.requestBody.breakerClosed }}</span>
+              </el-form-item>
+              <el-form-item label="断路器小车未到工作或试验位置时，断路器无法进行合闸操作:">
+                <span>{{ props.row.requestBody.breakerNotInTest }}</span>
+              </el-form-item>
+              <el-form-item label="断路器手车处于试验位置时，二次插头才可以拔出或插上:">
+                <span>{{ props.row.requestBody.breakerInTest }}</span>
+              </el-form-item>
+              <el-form-item label="当接地开关处在合闸位置时，断路器小车无法从试验位置进入工作位置:">
+                <span>{{ props.row.requestBody.earthSwitchOn }}</span>
+              </el-form-item>
+              <el-form-item label="断路器手车处于工作位置时，无法操作接地开关:">
+                <span>{{ props.row.requestBody.breakerInWorking }}</span>
+              </el-form-item>
+              <el-form-item label="只有当接地开关处于闭合状态时，才能打开电缆室门:">
+                <span>{{ props.row.requestBody.earthSwitchClosed }}</span>
+              </el-form-item>
+              <el-form-item label="电缆室门打开时，无法操作接地开关:">
+                <span>{{ props.row.requestBody.cableChamberDoorOpen }}</span>
+              </el-form-item>
+              <el-form-item label="只有当隔室的元件不带电并接地时，隔室的门或盖板才能打开:">
+                <span>{{ props.row.requestBody.elementUnchargedGround }}</span>
+              </el-form-item>
+            </el-form>
+          </template>
+        </el-table-column>
+        <el-table-column label="创建时间" align="center" prop="createTime" />
+        <el-table-column label="状态" align="center" prop="levelString">
+          <template slot-scope="scope">
+            <el-tag :type="scope.row.levelString" :class="[scope.row.levelString === 'ERROR' ? 'classRed' : 'classGreen']">
+              {{ scope.row.levelString === 'ERROR' ? '错误' : '成功' }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="消息提示" align="center" prop="responseBody" />
+        <el-table-column label="消息日志" align="center" prop="message" />
+      </el-table>
+      <pagination v-show="logTotal > 0" :total="logTotal" :current.sync="paginationLog.current" :size.sync="paginationLog.size" @pagination="getLogList" />
+    </el-dialog>
+
     <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" />
   </div>
 </template>
@@ -360,13 +459,13 @@ import '../../styles/commentBox.scss'
 import i18n from '@/lang'
 import { electricalList, electricalDellte, electricalEdit, allLogs } from '@/api/tenGrid'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
-import logDialog from '@/components/logDialog' // 日志封装
+// import logDialog from '@/components/logDialog' // 日志封装
 const fixHeight = 270
 import { getToken } from '@/utils/auth' // get token from cookie
 const hasToken = getToken()
 export default {
   name: 'ElectricalInterlock',
-  components: { Pagination, logDialog },
+  components: { Pagination },
   data() {
     return {
       myHeaders: { Authorization: hasToken }, // 获取token
@@ -547,6 +646,9 @@ export default {
       allLogs(this.paginationLog, { dataId: row.id }).then(res => {
         if (res.data.records.length > 0) {
           this.dialogTableVisible = true
+          res.data.records.map(item => {
+            item.requestBody = JSON.parse(item.requestBody)
+          })
           this.gridData = res.data.records
           this.logTotal = res.data.total
         } else {
@@ -619,8 +721,8 @@ export default {
     },
     // 编辑
     handleEdit(index, row) {
-      this.dialogFormVisible = true
       this.ruleForm = JSON.parse(JSON.stringify(row))
+      this.dialogFormVisible = true
     },
     // 编辑成功
     submitForm(formName) {
@@ -677,15 +779,15 @@ export default {
     },
     beforeAvatarUpload(file) {
       const isXLS = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      const isLt2M = file.size / 1024 / 1024 < 2
+      const isLt50M = file.size / 1024 / 1024 < 50
 
       if (!isXLS) {
         this.$message.error(this.$t('table.errorOne'))
       }
-      if (!isLt2M) {
+      if (!isLt50M) {
         this.$message.error(this.$t('table.errorTwo'))
       }
-      return isXLS && isLt2M
+      return isXLS && isLt50M
     }
   }
 }

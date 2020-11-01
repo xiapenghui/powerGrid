@@ -555,6 +555,9 @@ export default {
       allLogs(this.paginationLog, { dataId: row.id }).then(res => {
         if (res.data.records.length > 0) {
           this.dialogTableVisible = true
+          res.data.records.map(item => {
+            item.requestBody = JSON.parse(item.requestBody)
+          })
           this.gridData = res.data.records
           this.logTotal = res.data.total
         } else {
@@ -706,15 +709,15 @@ export default {
     },
     beforeAvatarUpload(file) {
       const isXLS = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      const isLt2M = file.size / 1024 / 1024 < 2
+      const isLt50M = file.size / 1024 / 1024 < 50
 
       if (!isXLS) {
         this.$message.error(this.$t('table.errorOne'))
       }
-      if (!isLt2M) {
+      if (!isLt50M) {
         this.$message.error(this.$t('table.errorTwo'))
       }
-      return isXLS && isLt2M
+      return isXLS && isLt50M
     },
 
     // 上传

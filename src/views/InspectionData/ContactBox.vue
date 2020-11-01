@@ -249,9 +249,6 @@
       </div>
     </el-dialog>
 
-    <!-- 日志弹出框 -->
-    <log-dialog :is-show="dialogTableVisible" :log-total="logTotal" :pagination-log="paginationLog" :data="gridData" @pageChange="getLogList" @closeLog="closeLog" />
-
     <!-- 上传文件弹窗 -->
     <el-dialog title="导入文件" :close-on-click-modal="false" :visible.sync="dialogVisible" width="30%">
       <el-upload
@@ -276,44 +273,84 @@
       </el-upload>
     </el-dialog>
 
-    <!-- //批量上传图片弹窗 -->
-    <el-dialog title="批量上传图片" :visible.sync="dialogVisibleAllImg" :close-on-click-modal="false" width="50%">
-      <div class="demo-image__error">
-        <div v-for="(item, index) in imgList" :key="index" class="blockImg">
-          <el-image style="width:80px; height: 80px" :src="item.imagePath === null ? '' : item.imagePath">
-            <div slot="error" class="image-slot"><i class="el-icon-picture-outline" /></div>
-          </el-image>
-          <span class="demonstration">{{ item.imageName }}</span>
-        </div>
-      </div>
-
-      <div class="uploadImg">
-        <el-upload
-          ref="uploadImage"
-          style="margin-top: 30px"
-          class="upload-demo"
-          action="http://39.101.166.244/api/image/upload"
-          :data="this.newDataImg"
-          :headers="this.myHeaders"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          :before-remove="beforeRemove"
-          :on-success="onSuccessImage"
-          :before-upload="beforeUploadImage"
-          :on-change="onChange"
-          multiple
-          :limit="20"
-          :on-exceed="handleExceed"
-          :file-list="fileList"
-        >
-          <el-button size="small" type="primary">选择图片</el-button>
-        </el-upload>
-      </div>
-
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisibleAllImg = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisibleAllImg = false">确 定</el-button>
-      </span>
+    <!-- 日志弹出框 -->
+    <el-dialog title="日志信息" :visible.sync="dialogTableVisible">
+      <el-table border style="width: 100%" height="50vh" :data="gridData">
+        <el-table-column type="expand">
+          <template slot-scope="props">
+            <el-form label-position="left" inline class="demo-table-expand">
+              <el-form-item label="工厂:">
+                <span>{{ props.row.requestBody.saleOrg }}</span>
+              </el-form-item>
+              <el-form-item label="采集规范版本号:">
+                <span>{{ props.row.requestBody.standardVersion }}</span>
+              </el-form-item>
+              <el-form-item label="供应商工单编号:">
+                <span>{{ props.row.requestBody.supplierWorkNo }}</span>
+              </el-form-item>
+              <el-form-item label="国网侧供应商编码:">
+                <span>{{ props.row.requestBody.supplierCode }}</span>
+              </el-form-item>
+              <el-form-item label="规格型号编码:">
+                <span>{{ props.row.requestBody.modelCode }}</span>
+              </el-form-item>
+              <el-form-item label="物资品类类型:">
+                <span>{{ props.row.requestBody.categoryType }}</span>
+              </el-form-item>
+              <el-form-item label="厂区编号:">
+                <span>{{ props.row.requestBody.factoryCode }}</span>
+              </el-form-item>
+              <el-form-item label="供应商产品编号:">
+                <span>{{ props.row.requestBody.supplierSupportId }}</span>
+              </el-form-item>
+              <el-form-item label="供应商产品厂内编号:">
+                <span>{{ props.row.requestBody.productModel }}</span>
+              </el-form-item>
+              <el-form-item label="生产设备名称:">
+                <span>{{ props.row.requestBody.equipmentName }}</span>
+              </el-form-item>
+              <el-form-item label="生产设备唯一识别号:">
+                <span>{{ props.row.requestBody.equipmentUniqueCode }}</span>
+              </el-form-item>
+              <el-form-item label="是否是告警问题数据:">
+                <span>{{ props.row.requestBody.isAlarmData }}</span>
+              </el-form-item>
+              <el-form-item label="告警项:">
+                <span>{{ props.row.requestBody.alarmItem }}</span>
+              </el-form-item>
+              <el-form-item label="感知过程:">
+                <span>{{ props.row.requestBody.processType }}</span>
+              </el-form-item>
+              <el-form-item label="工序:">
+                <span>{{ props.row.requestBody.pdCode }}</span>
+              </el-form-item>
+              <el-form-item label="采集时间:">
+                <span>{{ props.row.requestBody.checkTime }}</span>
+              </el-form-item>
+              <el-form-item label="入数采中心时间:">
+                <span>{{ props.row.requestBody.putCenterTime }}</span>
+              </el-form-item>
+              <el-form-item label="国网PO:">
+                <span>{{ props.row.requestBody.MaterialSN }}</span>
+              </el-form-item>
+              <el-form-item label="镀银层厚度(μm):">
+                <span>{{ props.row.requestBody.silveringThickness }}</span>
+              </el-form-item>
+            </el-form>
+          </template>
+        </el-table-column>
+        <el-table-column label="创建时间" align="center" prop="createTime" />
+        <el-table-column label="状态" align="center" prop="levelString">
+          <template slot-scope="scope">
+            <el-tag :type="scope.row.levelString" :class="[scope.row.levelString === 'ERROR' ? 'classRed' : 'classGreen']">
+              {{ scope.row.levelString === 'ERROR' ? '错误' : '成功' }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="消息提示" align="center" prop="responseBody" />
+        <el-table-column label="消息日志" align="center" prop="message" />
+      </el-table>
+      <pagination v-show="logTotal > 0" :total="logTotal" :current.sync="paginationLog.current" :size.sync="paginationLog.size" @pagination="getLogList" />
     </el-dialog>
 
     <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" />
@@ -326,13 +363,13 @@ import '../../styles/commentBox.scss'
 import i18n from '@/lang'
 import { dctList, dctDellte, dctEdit, allLogs } from '@/api/tenGrid'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
-import logDialog from '@/components/logDialog' // 日志封装
+// import logDialog from '@/components/logDialog' // 日志封装
 const fixHeight = 270
 import { getToken } from '@/utils/auth' // get token from cookie
 const hasToken = getToken()
 export default {
   name: 'ContactBox',
-  components: { Pagination, logDialog },
+  components: { Pagination },
   data() {
     return {
       myHeaders: { Authorization: hasToken }, // 获取token
@@ -364,18 +401,6 @@ export default {
       dialogTableVisible: false, // 日志弹出框
       dialogVisible: false, // 文件上传弹出框
       dialogFormVisible: false, // 编辑弹出框
-      dialogImageUrl: '', // 编辑上传单张图片
-      dialogVisibleImg: false, // 上传图片模态框
-      dialogVisibleAllImg: false, // 批量上传图片
-      disabled: false,
-      imgList: [], // 批量上传图片数组
-      fileList: [],
-      newDataImg: { id: '', imagePath: '', modelName: '电流互感器' }, // 多个图片上传
-      oneDataImg: { id: '', imagePath: '', modelName: '电流互感器' }, // 单个图片上传或替换之前的图片
-      editRow: {},
-      editFileList: [],
-      noneBtnImg: false, // 隐藏上传按钮
-      limitCountImg: 1, // 上传图片的最大数量
       content1: this.$t('permission.supplierWorkNo'),
       pickerOptions: {
         shortcuts: [{
@@ -514,6 +539,9 @@ export default {
       allLogs(this.paginationLog, { dataId: row.id }).then(res => {
         if (res.data.records.length > 0) {
           this.dialogTableVisible = true
+          res.data.records.map(item => {
+            item.requestBody = JSON.parse(item.requestBody)
+          })
           this.gridData = res.data.records
           this.logTotal = res.data.total
         } else {
@@ -527,10 +555,6 @@ export default {
     getLogList(val) {
       this.paginationLog = val
       this.clickLogs(this.logId)
-    },
-    //  关闭日志弹窗
-    closeLog() {
-      this.dialogTableVisible = false
     },
 
     // 批量删除
@@ -586,20 +610,6 @@ export default {
     },
     // 编辑
     handleEdit(index, row) {
-      // if (row.imageFileUrl === null) {
-      //   this.noneBtnImg = false
-      // } else {
-      //   this.noneBtnImg = true
-      // }
-      this.editFileList = []
-      this.oneDataImg.id = row.id
-      this.editRow = row
-      if (row.imagePath !== null) {
-        this.editFileList.push({
-          name: row.imageFileUrl,
-          url: 'http://39.101.166.244/api/image/' + row.imagePath
-        })
-      }
       this.ruleForm = JSON.parse(JSON.stringify(row))
       this.dialogFormVisible = true
     },
@@ -636,17 +646,10 @@ export default {
     // 成功
     handleAvatarSuccess(res, file) {
       if (res.code === 200) {
-        if (res.data.length > 0) {
-          this.$message.success(this.$t('table.upSuccess'))
-          this.dialogVisible = false
-          this.$refs.upload.clearFiles()
-          this.dialogVisibleAllImg = true
-          this.imgList = res.data
-          this.getList()
-        } else {
-          this.dialogVisibleAllImg = false
-          this.getList()
-        }
+        this.$message.success(this.$t('table.upSuccess'))
+        this.dialogVisible = false
+        this.getList()
+        this.$refs.upload.clearFiles()
       } else {
         this.$message({
           message: res.message,
@@ -665,83 +668,15 @@ export default {
     },
     beforeAvatarUpload(file) {
       const isXLS = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      const isLt2M = file.size / 1024 / 1024 < 2
+      const isLt50M = file.size / 1024 / 1024 < 50
 
       if (!isXLS) {
         this.$message.error(this.$t('table.errorOne'))
       }
-      if (!isLt2M) {
+      if (!isLt50M) {
         this.$message.error(this.$t('table.errorTwo'))
       }
-      return isXLS && isLt2M
-    },
-
-    // 上传
-    onChange(file, fileList) {
-      // console.log('file', file)
-    },
-    handleRemove(file, fileList) {
-      // console.log(file, fileList)
-    },
-    handlePreview(file) {
-      // console.log(file)
-    },
-    handleExceed(files, fileList) {
-      this.$message.warning(`当前限制选择 20 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
-    },
-    beforeRemove(file, fileList) {
-      if (file && file.status === 'success') {
-        // 成功时候的方法
-        return this.$confirm(`确定移除 ${file.name}？`)
-      }
-    },
-    beforeUploadImage(file) {
-      // console.log('file', file)
-      const isJPG = file.type === 'image/jpeg'
-      const isPNG = file.type === 'image/png'
-      const self = this
-      var isOK = this.imgList.some(function(item) {
-        if (item.imageName === file.name) {
-          self.newDataImg.id = item.id
-        }
-        return item.imageName === file.name
-      })
-      if (!isJPG && !isPNG) {
-        this.$message.error(` ${file.name}格式错误！`)
-      }
-
-      return isJPG && isOK
-    },
-    onSuccessImage(res, file, fileList) {
-      // console.log('res', res)
-      // console.log('file', file)
-      // console.log('fileList', fileList)
-      this.imgList.map(item => {
-        if (item.imageName === file.name) {
-          item.imagePath = 'http://39.101.166.244' + res.data
-        }
-      })
-      this.getList()
-    },
-    // 编辑替换移除图片
-    onRemoveImg(file, fileList) {
-      this.noneBtnImg = fileList.length >= this.limitCountImg
-    },
-    // 超过1张图片隐藏上传按钮，小于1张图片上传按钮显示
-    imgChange(file, fileList) {
-      this.noneBtnImg = fileList.length >= this.limitCountImg
-    },
-    // 编辑图片上传成功
-    onsucessImg(response, file, fileList) {
-      console.log('response', response)
-      console.log('file', file)
-      console.log('fileList', fileList)
-      this.editRow.imageFileUrl = file.name
-      this.getList()
-    },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url
-      this.dialogVisibleImg = true
+      return isXLS && isLt50M
     }
   }
 }
