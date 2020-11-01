@@ -680,10 +680,6 @@ export default {
       this.paginationLog = val
       this.clickLogs(this.logId)
     },
-    //  关闭日志弹窗
-    closeLog() {
-      this.dialogTableVisible = false
-    },
 
     // 批量删除
     deleteAll() {
@@ -738,11 +734,11 @@ export default {
     },
     // 编辑
     handleEdit(index, row) {
-      // if (row.imageFileUrl === null) {
-      //   this.noneBtnImg = false
-      // } else {
-      //   this.noneBtnImg = true
-      // }
+      if (row.imageFileUrl === null) {
+        this.noneBtnImg = true
+      } else {
+        this.noneBtnImg = false
+      }
       this.editFileList = []
       this.oneDataImg.id = row.id
       this.editRow = row

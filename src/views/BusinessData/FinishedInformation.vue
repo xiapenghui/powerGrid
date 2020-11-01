@@ -253,7 +253,7 @@
     <!-- 日志弹窗 -->
     <log-dialog :is-show="dialogTableVisible" :log-total="logTotal" :pagination-log="paginationLog" :data="gridData" @pageChange="getLogList" @closeLog="closeLog" />
 
-    <el-dialog title="导入文件" :close-on-click-modal="false" :visible.sync="dialogVisible" width="30%">
+    <!-- <el-dialog title="导入文件" :close-on-click-modal="false" :visible.sync="dialogVisible" width="30%">
       <el-upload
         ref="upload"
         class="upload-demo"
@@ -274,7 +274,17 @@
           {{ $t('table.fileSize') }}
         </div>
       </el-upload>
-    </el-dialog>
+    </el-dialog> -->
+    <!-- 上传文件弹窗 -->
+    <ImprotFile
+      :dialog-visible="dialogVisible"
+      :improt-loading="improtLoading"
+      :production-url="productionUrl"
+      @handleavatarsuccess="handleAvatarSuccess"
+      @beforeavatarupload="beforeAvatarUpload"
+      @fileClose="fileClose"
+    />
+
     <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" />
   </div>
 </template>
@@ -286,15 +296,14 @@ import i18n from '@/lang'
 import { piList, piDellte, piEdit, piUpload, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import logDialog from '@/components/logDialog' // 日志封装
+import ImprotFile from '@/components/ImprotFile' // 文件上传文件封装
 const fixHeight = 270
-import { getToken } from '@/utils/auth' // get token from cookie
-const hasToken = getToken()
 export default {
   name: 'FinishedInformation',
-  components: { Pagination, logDialog },
+  components: { Pagination, logDialog, ImprotFile },
   data() {
     return {
-      myHeaders: { Authorization: hasToken }, // 获取token
+      productionUrl: this.GLOBAL.BASE_URL + '/api/eip/pi/import/file',
       // 日志分页
       paginationLog: {
         current: 1,
@@ -317,6 +326,7 @@ export default {
       },
       listLoading: true,
       editLoading: false, // 编辑loading
+      improtLoading: false, // 导入文件进度loading
       total: 10,
       downloadLoading: false,
       selectedData: [], // 批量删除新数组
@@ -531,8 +541,8 @@ export default {
     },
     // 编辑
     handleEdit(index, row) {
-      this.dialogFormVisible = true
       this.ruleForm = JSON.parse(JSON.stringify(row))
+      this.dialogFormVisible = true
     },
     // 编辑成功
     submitForm(formName) {
@@ -579,13 +589,17 @@ export default {
     okImprot() {
       this.dialogVisible = true
     },
+    // 关闭导入文件弹窗
+    fileClose() {
+      this.dialogVisible = false
+    },
     // 成功
     handleAvatarSuccess(res, file) {
       if (res.code === 200) {
         this.$message.success(this.$t('table.upSuccess'))
         this.dialogVisible = false
+        this.improtLoading = false
         this.getList()
-        this.$refs.upload.clearFiles()
       } else {
         this.$message({
           message: res.message,
@@ -593,26 +607,21 @@ export default {
           duration: 5000
         })
         this.dialogVisible = false
-        this.$refs.upload.clearFiles()
-      }
-    },
-    // 失败
-    handleAvatarError(res, file) {
-      if (res.code === 500 && res.type === 'error') {
-        this.$message.error(this.$t('table.upError'))
+        this.improtLoading = false
       }
     },
     beforeAvatarUpload(file) {
       const isXLS = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      const isLt2M = file.size / 1024 / 1024 < 2
+      const isLt50M = file.size / 1024 / 1024 < 50
 
       if (!isXLS) {
         this.$message.error(this.$t('table.errorOne'))
       }
-      if (!isLt2M) {
+      if (!isLt50M) {
         this.$message.error(this.$t('table.errorTwo'))
       }
-      return isXLS && isLt2M
+      this.improtLoading = true
+      return isXLS && isLt50M
     }
   }
 }

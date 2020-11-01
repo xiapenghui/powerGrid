@@ -268,7 +268,7 @@
     </el-dialog>
 
     <!-- 上传文件弹窗 -->
-    <el-dialog
+    <!-- <el-dialog
       title="导入文件"
       :close-on-click-modal="false"
       :visible.sync="dialogVisible"
@@ -294,7 +294,15 @@
           {{ $t('table.fileSize') }}
         </div>
       </el-upload>
-    </el-dialog>
+    </el-dialog> -->
+    <ImprotFile
+      :dialog-visible="dialogVisible"
+      :improt-loading="improtLoading"
+      :production-url="productionUrl"
+      @handleavatarsuccess="handleAvatarSuccess"
+      @beforeavatarupload="beforeAvatarUpload"
+      @fileClose="fileClose"
+    />
 
     <!-- 日志弹出框 -->
     <el-dialog title="日志信息" :visible.sync="dialogTableVisible">
@@ -396,15 +404,15 @@ import i18n from '@/lang'
 import { fcpwvtList, fcpwvtDellte, fcpwvtEdit, allLogs } from '@/api/tenGrid'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
 // import logDialog from '@/components/logDialog' // 日志封装
+import ImprotFile from '@/components/ImprotFile' // 文件上传文件封装
 const fixHeight = 270
-import { getToken } from '@/utils/auth' // get token from cookie
-const hasToken = getToken()
+
 export default {
   name: 'WithstandTest',
-  components: { Pagination },
+  components: { Pagination, ImprotFile },
   data() {
     return {
-      myHeaders: { Authorization: hasToken }, // 获取token
+      productionUrl: this.GLOBAL.BASE_URL + '/api/kvsc/fcpfwvt/import/file',
       // 日志分页
       paginationLog: {
         current: 1,
@@ -427,6 +435,7 @@ export default {
       },
       listLoading: true,
       editLoading: false, // 编辑loading
+      improtLoading: false, // 导入文件进度loading
       total: 10,
       selectedData: [], // 批量删除新数组
       tableHeight: window.innerHeight - fixHeight, // 表格高度
@@ -685,13 +694,17 @@ export default {
     okImprot() {
       this.dialogVisible = true
     },
+    // 关闭导入文件弹窗
+    fileClose() {
+      this.dialogVisible = false
+    },
     // 成功
     handleAvatarSuccess(res, file) {
       if (res.code === 200) {
         this.$message.success(this.$t('table.upSuccess'))
         this.dialogVisible = false
+        this.improtLoading = false
         this.getList()
-        this.$refs.upload.clearFiles()
       } else {
         this.$message({
           message: res.message,
@@ -699,15 +712,15 @@ export default {
           duration: 5000
         })
         this.dialogVisible = false
-        this.$refs.upload.clearFiles()
+        this.improtLoading = false
       }
     },
-    // 失败
-    handleAvatarError(res, file) {
-      if (res.code === 500 && res.type === 'error') {
-        this.$message.error(this.$t('table.upError'))
-      }
-    },
+    // // 失败
+    // handleAvatarError(res, file) {
+    //   if (res.code === 500 && res.type === 'error') {
+    //     this.$message.error(this.$t('table.upError'))
+    //   }
+    // },
     beforeAvatarUpload(file) {
       const isXLS = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       const isLt50M = file.size / 1024 / 1024 < 50
@@ -718,6 +731,7 @@ export default {
       if (!isLt50M) {
         this.$message.error(this.$t('table.errorTwo'))
       }
+      this.improtLoading = true
       return isXLS && isLt50M
     }
   }
