@@ -186,49 +186,49 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.breakerClosed')" width="250">
+      <el-table-column align="center" :render-header="breakerClosed" width="150">
         <template slot-scope="scope">
           {{ scope.row.breakerClosed }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.breakerNotInTest')" width="250">
+      <el-table-column align="center" :render-header="breakerNotInTest" width="150">
         <template slot-scope="scope">
           {{ scope.row.breakerNotInTest }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.breakerInTest')" width="250">
+      <el-table-column align="center" :render-header="breakerInTest" width="150">
         <template slot-scope="scope">
           {{ scope.row.breakerInTest }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.earthSwitchOn')" width="280">
+      <el-table-column align="center" :render-header="earthSwitchOn" width="150">
         <template slot-scope="scope">
           {{ scope.row.earthSwitchOn }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.breakerInWorking')" width="250">
+      <el-table-column align="center" :render-header="breakerInWorking" width="150">
         <template slot-scope="scope">
           {{ scope.row.breakerInWorking }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.earthSwitchClosed')" width="250">
+      <el-table-column align="center" :render-header="earthSwitchClosed" width="150">
         <template slot-scope="scope">
           {{ scope.row.earthSwitchClosed }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.cableChamberDoorOpen')" width="200">
+      <el-table-column align="center" :render-header="cableChamberDoorOpen" width="150">
         <template slot-scope="scope">
           {{ scope.row.cableChamberDoorOpen }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.elementUnchargedGround')" width="250">
+      <el-table-column align="center" :render-header="elementUnchargedGround" width="150">
         <template slot-scope="scope">
           {{ scope.row.elementUnchargedGround }}
         </template>
@@ -451,7 +451,7 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="消息提示" align="center" prop="responseBody" />
+
         <el-table-column label="消息日志" align="center" prop="message" />
       </el-table>
       <pagination v-show="logTotal > 0" :total="logTotal" :current.sync="paginationLog.current" :size.sync="paginationLog.size" @pagination="getLogList" />
@@ -797,6 +797,71 @@ export default {
       }
       this.improtLoading = true
       return isXLS && isLt50M
+    },
+    // 自定义列标题内容
+    breakerClosed(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '断路器处于合闸...'),
+        h('el-popover', { props: { placement: 'top-start', width: '300', trigger: 'hover', content: '断路器处于合闸位置时，断路器小车无法推进或拉出(0 代表否， 1 代表是)' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    breakerNotInTest(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '断路器小车未...'),
+        h('el-popover', { props: { placement: 'top-start', width: '300', trigger: 'hover', content: '断路器小车未到工作或试验位置时，断路器无法进行合闸操作(0 代表否， 1 代表是)' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    breakerInTest(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '断路器手车处于...'),
+        h('el-popover', { props: { placement: 'top-start', width: '300', trigger: 'hover', content: '断路器手车处于试验位置时，二次插头才可以拔出或插上(0代表否，1代表是)' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    earthSwitchOn(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '当接地开关处...'),
+        h('el-popover', { props: { placement: 'top-start', width: '300', trigger: 'hover', content: '当接地开关处在合闸位置时，断路器小车无法从试验位置进入工作位置(0代表否，1代表是)' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    breakerInWorking(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '断路器手车处于...'),
+        h('el-popover', { props: { placement: 'top-start', width: '300', trigger: 'hover', content: '断路器手车处于工作位置时，无法操作接地开关(0代表否，1代表是)' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    earthSwitchClosed(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '只有当接地开关...'),
+        h('el-popover', { props: { placement: 'top-start', width: '300', trigger: 'hover', content: '只有当接地开关处于闭合状态时，才能打开电缆室门(0代表否，1代表是)' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    cableChamberDoorOpen(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '电缆室门打开时...'),
+        h('el-popover', { props: { placement: 'top-start', width: '300', trigger: 'hover', content: '电缆室门打开时，无法操作接地开关(0代表否，1代表是)' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    elementUnchargedGround(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '只有当隔室的元件...'),
+        h('el-popover', { props: { placement: 'top-start', width: '300', trigger: 'hover', content: '只有当隔室的元件不带电并接地时，隔室的门或盖板才能打开(0代表否，1代表是)' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
     }
   }
 }

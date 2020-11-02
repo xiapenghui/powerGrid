@@ -45,7 +45,7 @@
 
     <el-table
       v-loading="listLoading"
-      :header-cell-style="{ background: '#008284',color:'#ffffff' }"
+      :header-cell-style="{ background: '#008284', color: '#ffffff' }"
       :data="tableData"
       :height="tableHeight"
       style="width: 100%"
@@ -185,49 +185,49 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.openCloseFiveManual')" width="200">
+      <el-table-column align="center" :render-header="openCloseFiveManual" width="150">
         <template slot-scope="scope">
           {{ scope.row.openCloseFiveManual }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.eightyFiveOper')" width="200">
+      <el-table-column align="center" :render-header="eightyFiveOper" width="150">
         <template slot-scope="scope">
           {{ scope.row.eightyFiveOper }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.thirtyRatedSwitch')" width="250">
+      <el-table-column align="center" :render-header="thirtyRatedSwitch" width="150">
         <template slot-scope="scope">
           {{ scope.row.thirtyRatedSwitch }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.eightyRatedSwitch')" width="250">
+      <el-table-column align="center" :render-header="eightyRatedSwitch" width="150">
         <template slot-scope="scope">
           {{ scope.row.eightyRatedSwitch }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.sixtyFiveRatedSwitch')" width="250">
+      <el-table-column align="center" :render-header="sixtyFiveRatedSwitch" width="150">
         <template slot-scope="scope">
           {{ scope.row.sixtyFiveRatedSwitch }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.lowerThirtyRated')" width="200">
+      <el-table-column align="center" :render-header="lowerThirtyRated" width="150">
         <template slot-scope="scope">
           {{ scope.row.lowerThirtyRated }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.ratedVolAllReliable')" width="200">
+      <el-table-column align="center" :render-header="ratedVolAllReliable" width="150">
         <template slot-scope="scope">
           {{ scope.row.ratedVolAllReliable }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.ratedVolOpenClose')" width="200">
+      <el-table-column align="center" :render-header="ratedVolOpenClose" width="150">
         <template slot-scope="scope">
           {{ scope.row.ratedVolOpenClose }}
         </template>
@@ -242,11 +242,7 @@
     </el-table>
 
     <!-- 编辑弹窗 -->
-    <el-dialog
-      title="编辑信息"
-      :close-on-click-modal="false"
-      :visible.sync="dialogFormVisible"
-    >
+    <el-dialog title="编辑信息" :close-on-click-modal="false" :visible.sync="dialogFormVisible">
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
         <div class="bigUpBox">
           <div class="boxLeft">
@@ -453,7 +449,7 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="消息提示" align="center" prop="responseBody" />
+        
         <el-table-column label="消息日志" align="center" prop="message" />
       </el-table>
       <pagination v-show="logTotal > 0" :total="logTotal" :current.sync="paginationLog.current" :size.sync="paginationLog.size" @pagination="getLogList" />
@@ -508,40 +504,43 @@ export default {
       dialogFormVisible: false, // 编辑弹出框
       content1: this.$t('permission.supplierWorkNo'),
       pickerOptions: {
-        shortcuts: [{
-          text: '最近一周',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-            picker.$emit('pick', [start, end])
+        shortcuts: [
+          {
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近六个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 180)
+              picker.$emit('pick', [start, end])
+            }
           }
-        }, {
-          text: '最近一个月',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-            picker.$emit('pick', [start, end])
-          }
-        }, {
-          text: '最近三个月',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-            picker.$emit('pick', [start, end])
-          }
-        },
-        {
-          text: '最近六个月',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 180)
-            picker.$emit('pick', [start, end])
-          }
-        }
         ]
       },
       rules: {
@@ -798,6 +797,72 @@ export default {
       }
       this.improtLoading = true
       return isXLS && isLt50M
+    },
+
+    // 自定义列标题内容
+    openCloseFiveManual(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '人力分合操作...'),
+        h('el-popover', { props: { placement: 'top-start', width: '250', trigger: 'hover', content: '人力分合操作5次，可靠动作' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    eightyFiveOper(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '储能电机85%...'),
+        h('el-popover', { props: { placement: 'top-start', width: '250', trigger: 'hover', content: '储能电机85%和110%操作电压，储能可靠动作' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    thirtyRatedSwitch(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '等于或低于30%...'),
+        h('el-popover', { props: { placement: 'top-start', width: '250', trigger: 'hover', content: '等于或低于30% 额定合闸电压时，操作5次，可靠不动作' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    eightyRatedSwitch(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '80%~110%额定...'),
+        h('el-popover', { props: { placement: 'top-start', width: '250', trigger: 'hover', content: '80%~110%额定合闸电压（交流）范围，操作5次，可靠合闸' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    sixtyFiveRatedSwitch(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '请输入65%~110%...'),
+        h('el-popover', { props: { placement: 'top-start', width: '250', trigger: 'hover', content: '请输入65%~110%额定合闸电压（直流）范围，操作5次，可靠合闸' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    lowerThirtyRated(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '请输入分闸电源...'),
+        h('el-popover', { props: { placement: 'top-start', width: '250', trigger: 'hover', content: '请输入分闸电源低于额定30%，操作5次可靠不动作' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    ratedVolAllReliable(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '请输入额定操作...'),
+        h('el-popover', { props: { placement: 'top-start', width: '250', trigger: 'hover', content: '请输入额定操作电压下，分合操作5次，均可靠动作' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    ratedVolOpenClose(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '请输入额定操作...'),
+        h('el-popover', { props: { placement: 'top-start', width: '250', trigger: 'hover', content: '请输入额定操作电压“分-0.3-合分”，可靠动作' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
     }
   }
 }

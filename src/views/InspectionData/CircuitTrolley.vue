@@ -234,49 +234,49 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.perReliableOper')" width="120">
+      <el-table-column align="center" :render-header="perReliableOper" width="120">
         <template slot-scope="scope">
           {{ scope.row.perReliableOper }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.reliableStorageOper')" width="200">
+      <el-table-column align="center" :render-header="reliableStorageOper" width="120">
         <template slot-scope="scope">
           {{ scope.row.reliableStorageOper }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.nomVolReliableOper')" width="200">
+      <el-table-column align="center" :render-header="nomVolReliableOper" width="150">
         <template slot-scope="scope">
           {{ scope.row.nomVolReliableOper }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.nomACReliableSwitch')" width="200">
+      <el-table-column align="center" :render-header="nomACReliableSwitch" width="150">
         <template slot-scope="scope">
           {{ scope.row.nomACReliableSwitch }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.nomDCReliableSwitch')" width="200">
+      <el-table-column align="center" :render-header="nomDCReliableSwitch" width="150">
         <template slot-scope="scope">
           {{ scope.row.nomDCReliableSwitch }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.breakReliableNoOper')" width="170">
+      <el-table-column align="center" :render-header="breakReliableNoOper" width="150">
         <template slot-scope="scope">
           {{ scope.row.breakReliableNoOper }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.breakNomVolReliableOper')" width="150">
+      <el-table-column align="center" :render-header="breakNomVolReliableOper" width="150">
         <template slot-scope="scope">
           {{ scope.row.breakNomVolReliableOper }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.breakVolReliableOper')" width="150">
+      <el-table-column align="center" :render-header="breakVolReliableOper" width="150">
         <template slot-scope="scope">
           {{ scope.row.breakVolReliableOper }}
         </template>
@@ -841,7 +841,7 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="消息提示" align="center" prop="responseBody" />
+        
         <el-table-column label="消息日志" align="center" prop="message" />
       </el-table>
       <pagination v-show="logTotal > 0" :total="logTotal" :current.sync="paginationLog.current" :size.sync="paginationLog.size" @pagination="getLogList" />
@@ -1322,7 +1322,74 @@ export default {
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url
       this.dialogVisibleImg = true
+    },
+
+    // 自定义列标题内容
+    perReliableOper(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '人力分合操作...'),
+        h('el-popover', { props: { placement: 'top-start', width: '250', trigger: 'hover', content: '人力分合操作5次，可靠动作' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    reliableStorageOper(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '储能电机85%...'),
+        h('el-popover', { props: { placement: 'top-start', width: '250', trigger: 'hover', content: '储能电机85%和110%操作电压，储能可靠动作' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    nomVolReliableOper(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '等于或低于30%...'),
+        h('el-popover', { props: { placement: 'top-start', width: '250', trigger: 'hover', content: '等于或低于30% 额定合闸电压时，操作5次，可靠不动作' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    nomACReliableSwitch(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '85%~110%额定...'),
+        h('el-popover', { props: { placement: 'top-start', width: '250', trigger: 'hover', content: '85%~110%额定合闸电压（直流）范围，操作5次，可靠合闸' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    nomDCReliableSwitch(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '65%~110%额定...'),
+        h('el-popover', { props: { placement: 'top-start', width: '250', trigger: 'hover', content: '65%~110%额定分闸电压（直流）范围，操作5次，可靠分闸' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    breakReliableNoOper(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '分闸电源低于...'),
+        h('el-popover', { props: { placement: 'top-start', width: '250', trigger: 'hover', content: '分闸电源低于额定30%，操作5次可靠不动作' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    breakNomVolReliableOper(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '额定操作电压下...'),
+        h('el-popover', { props: { placement: 'top-start', width: '250', trigger: 'hover', content: '额定操作电压下，分合操作5次，均可靠动作' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
+    },
+    breakVolReliableOper(h, { column, $index }, index) {
+      return h('span', {}, [
+        h('span', {}, '额定操作电压...'),
+        h('el-popover', { props: { placement: 'top-start', width: '250', trigger: 'hover', content: '额定操作电压“分-0.3-合分”，可靠动作' }}, [
+          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
+        ])
+      ])
     }
+
   }
 }
 </script>

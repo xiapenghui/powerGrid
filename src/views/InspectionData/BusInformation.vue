@@ -46,7 +46,7 @@
 
     <el-table
       v-loading="listLoading"
-       :header-cell-style="{ background: '#008284',color:'#ffffff' }"
+      :header-cell-style="{ background: '#008284',color:'#ffffff' }"
       :data="tableData"
       :height="tableHeight"
       style="width: 100%"
@@ -452,7 +452,6 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="消息提示" align="center" prop="responseBody" />
         <el-table-column label="消息日志" align="center" prop="message" />
       </el-table>
       <pagination v-show="logTotal > 0" :total="logTotal" :current.sync="paginationLog.current" :size.sync="paginationLog.size" @pagination="getLogList" />

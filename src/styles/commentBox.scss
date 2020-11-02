@@ -177,7 +177,7 @@
   color: #008284 !important;
 }
 
-.el-date-editor--daterange.el-input__inner{
+.el-date-editor--daterange.el-input__inner {
   width: auto;
 }
 .demo-table-expand label {
@@ -193,3 +193,13 @@
 // .el-table thead{
 //   color: #ffffff;
 // }
+
+body .el-popover {
+  background-color: #008284;
+  border: 1px solid #FFFFFF;
+  color: #ffffff;
+
+}
+body .el-popover ::after {
+    border-top-color: red;
+  }
