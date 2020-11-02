@@ -744,8 +744,8 @@ export default {
           url: 'http://39.101.166.244/api/image/' + row.imagePath
           // url: 'http://192.168.1.192:8888/api/image/' + row.imagePath
         })
-        this.noneBtnImg = this.editFileList.length >= this.limitCountImg
       }
+      this.noneBtnImg = this.editFileList.length >= this.limitCountImg
       this.ruleForm = JSON.parse(JSON.stringify(row))
       this.dialogFormVisible = true
     },
