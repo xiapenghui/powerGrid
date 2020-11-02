@@ -46,7 +46,7 @@
 
     <el-table
       v-loading="listLoading"
-       :header-cell-style="{ background: '#008284',color:'#ffffff' }"
+      :header-cell-style="{ background: '#008284',color:'#ffffff' }"
       :data="tableData"
       :height="tableHeight"
       style="width: 100%"
@@ -209,7 +209,7 @@
             <el-form-item label="柜体材质附件">
               <el-upload
                 :class="{ disUoloadSty: noneBtnImg }"
-                action="http://39.101.166.244/api/image/upload"
+                :action="this.imgUrl"
                 :data="this.oneDataImg"
                 :headers="this.myHeaders"
                 :limit="this.limitCountImg"
@@ -284,7 +284,7 @@
           ref="uploadImage"
           style="margin-top: 30px"
           class="upload-demo"
-          action="http://39.101.166.244/api/image/upload"
+          :action="this.imgUrl"
           :data="this.newDataImg"
           :headers="this.myHeaders"
           :on-preview="handlePreview"
@@ -373,7 +373,7 @@
             </el-tag>
           </template>
         </el-table-column>
-        
+
         <el-table-column label="消息日志" align="center" prop="message" />
       </el-table>
       <pagination v-show="logTotal > 0" :total="logTotal" :current.sync="paginationLog.current" :size.sync="paginationLog.size" @pagination="getLogList" />
@@ -399,6 +399,7 @@ export default {
   data() {
     return {
       productionUrl: this.GLOBAL.BASE_URL + '/api/kvsc/cgczhd/import/file',
+      imgUrl: this.GLOIMG.IMG_URL,
       myHeaders: { Authorization: hasToken }, // 获取token
       // 日志分页
       paginationLog: {

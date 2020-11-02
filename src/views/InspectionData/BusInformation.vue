@@ -263,9 +263,10 @@
             <el-form-item label="母排片数"><el-input v-model="ruleForm.sliceBusbar" /></el-form-item>
             <el-form-item label="截面积"><el-input v-model="ruleForm.sectionalArea" /></el-form-item>
             <el-form-item label="母排附件">
+              <!-- action="http://39.101.166.244/api/image/upload" -->
               <el-upload
                 :class="{ disUoloadSty: noneBtnImg }"
-                action="http://39.101.166.244/api/image/upload"
+                :action="this.imgUrl"
                 :data="this.oneDataImg"
                 :headers="this.myHeaders"
                 :limit="this.limitCountImg"
@@ -336,13 +337,13 @@
           <span class="demonstration">{{ item.imageName }}</span>
         </div>
       </div>
-
+      <!-- action="http://39.101.166.244/api/image/upload" -->
       <div class="uploadImg">
         <el-upload
           ref="uploadImage"
           style="margin-top: 30px"
           class="upload-demo"
-          action="http://39.101.166.244/api/image/upload"
+          :action="this.imgUrl"
           :data="this.newDataImg"
           :headers="this.myHeaders"
           :on-preview="handlePreview"
@@ -478,6 +479,7 @@ export default {
   data() {
     return {
       productionUrl: this.GLOBAL.BASE_URL + '/api/kvsc/np/import/file',
+      imgUrl: this.GLOIMG.IMG_URL,
       myHeaders: { Authorization: hasToken }, // 获取token
       // 日志分页
       paginationLog: {

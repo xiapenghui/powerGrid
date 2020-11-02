@@ -22,9 +22,9 @@ router.beforeEach(async(to, from, next) => {
   NProgress.start()
   document.title = getPageTitle(to.meta.title)
   const hasToken = getToken()
-  console.log('hasToken', hasToken)
+  // console.log('hasToken', hasToken)
   if (hasToken) {
-    console.log('to.path', to)
+    // console.log('to.path', to)
     if (to.path === '/login') {
       next({
         path: '/'
@@ -66,7 +66,6 @@ router.beforeEach(async(to, from, next) => {
     if (whiteList.indexOf(to.path) !== -1) {
       next()
     } else {
-      console.log('hhhha1')
       next(`/login?redirect=${to.path}`)
       NProgress.done()
     }

@@ -32,6 +32,11 @@ Vue.prototype.$moment = moment// 赋值使用
 import global_ from '../src/api/Base.vue'
 Vue.prototype.GLOBAL = global_
 axios.defaults.baseURL = global_.BASE_URL
+
+// 图片上传全局变量
+Vue.prototype.GLOIMG = global_
+axios.defaults.imgURL = global_.IMG_URL
+
 axios.defaults.headers.common['Authorization'] = getToken()
 Vue.prototype.$token = getToken()
 

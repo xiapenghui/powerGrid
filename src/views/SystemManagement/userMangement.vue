@@ -279,7 +279,7 @@ export default {
   },
   methods: {
     selectable(row, index) {
-      return row.realname !== 'admin'
+      return row.username !== 'admin'
     },
     // 改变搜索框开始结束时间触发
     importChange(val) {
