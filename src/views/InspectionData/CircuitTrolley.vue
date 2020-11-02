@@ -1165,7 +1165,8 @@ export default {
       if (row.imagePath !== null) {
         this.editFileList.push({
           name: row.imageFileUrl,
-          url: 'http://39.101.166.244/api/image/' + row.imagePath
+          // url: 'http://39.101.166.244/api/image/' + row.imagePath
+          url: 'http://192.168.1.192:8888/api/image/' + row.imagePath
         })
         this.noneBtnImg = this.editFileList.length >= this.limitCountImg
       }
@@ -1295,7 +1296,8 @@ export default {
       // console.log('fileList', fileList)
       this.imgList.map(item => {
         if (item.imageName === file.name) {
-          item.imagePath = 'http://39.101.166.244' + res.data
+          // item.imagePath = 'http://39.101.166.244' + res.data
+          item.imagePath = 'http://192.168.1.192:8888' + res.data
         }
       })
       this.getList()
