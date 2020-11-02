@@ -46,7 +46,7 @@
 
     <el-table
       v-loading="listLoading"
-      :header-cell-style="{ background: '#ededed' }"
+      :header-cell-style="{ background: '#008284',color:'#ffffff' }"
       :data="tableData"
       :height="tableHeight"
       style="width: 100%"
@@ -1141,7 +1141,6 @@ export default {
     getList() {
       this.listLoading = true
       dlqxcList(this.pagination, this.listQuery).then(res => {
-        debugger
         this.tableData = res.data.records
         this.total = res.data.total
         this.listLoading = false

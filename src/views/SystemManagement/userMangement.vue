@@ -44,7 +44,7 @@
 
     <el-table
       v-loading="listLoading"
-      :header-cell-style="{ background: '#ededed' }"
+      :header-cell-style="{ background: '#008284',color:'#ffffff' }"
       :data="tableData"
       :height="tableHeight"
       style="width: 100%"
@@ -196,6 +196,8 @@ export default {
       content1: this.$t('permission.username'),
       dialogType: 'new',
       supplierIdList: [],
+      changeName: [],
+      pushName: '',
       isAdminList: [
         {
           value: 0,
@@ -308,8 +310,16 @@ export default {
     // 多选
     handleSelectionChange(val) {
       this.selectedData = val
+      // val.map(res => {
+      //   this.pushName = res.username
+      // })
+      // const incluName = this.changeName.push(this.pushName)
+      // if (incluName.indexOf('xph') !== 0) {
+      //   alert('1')
+      // } else {
+      //   alert('2')
+      // }
     },
-
     // 批量删除
     deleteAll() {
       if (this.selectedData.length > 0) {
