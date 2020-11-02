@@ -1,5 +1,5 @@
-// const newUrl = 'http://192.168.1.192'
-const newUrl = 'http://39.101.166.244'
+const newUrl = 'http://192.168.1.192:8888'
+// const newUrl = 'http://39.101.166.244'
 import request from '@/utils/request'
 
 // 所有日志查询接口
@@ -407,9 +407,8 @@ export function userAdd(data) {
   })
 }
 
-
 // 短路器小车列表
-//短路器小车列表接口
+// 短路器小车列表接口
 export function dlqxcList(query, data) {
   return request({
     url: newUrl + '/api/kvsc/dlqxc/page',
@@ -446,9 +445,8 @@ export function dlqxcOk(data) {
   })
 }
 
-
 // 母排列表
-//母排列表接口
+// 母排列表接口
 export function npList(query, data) {
   return request({
     url: newUrl + '/api/kvsc/np/page',
@@ -485,10 +483,8 @@ export function npOk(data) {
   })
 }
 
-
-
 // 矩体材质厚度列表
-//矩体材质厚度列表接口
+// 矩体材质厚度列表接口
 export function cgczhdList(query, data) {
   return request({
     url: newUrl + '/api/kvsc/cgczhd/page',
@@ -525,10 +521,8 @@ export function cgczhdOk(data) {
   })
 }
 
-
-
 // 静触头列表
-//静触头列表接口
+// 静触头列表接口
 export function jctList(query, data) {
   return request({
     url: newUrl + '/api/kvsc/jct/page',
@@ -565,10 +559,8 @@ export function jctOk(data) {
   })
 }
 
-
-
 // 静触头列表
-//静触头列表接口
+// 静触头列表接口
 export function dctList(query, data) {
   return request({
     url: newUrl + '/api/kvsc/dct/page',
