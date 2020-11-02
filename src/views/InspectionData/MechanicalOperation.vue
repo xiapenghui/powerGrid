@@ -480,7 +480,7 @@ export default {
       // 日志分页
       paginationLog: {
         current: 1,
-        size: 10
+        size: 20
       },
       logTotal: 0,
       logId: {}, // 日志行数据
