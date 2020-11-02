@@ -13,7 +13,9 @@
 
         <el-col :span="8">
           <el-col :span="8">
-            <el-tooltip class="item" effect="dark" placement="top-start"><label class="radio-label">创建时间:</label></el-tooltip>
+            <el-tooltip class="item" effect="dark" content="创建时间" placement="top-start">
+              <label class="radio-label">创建时间:</label>
+            </el-tooltip>
           </el-col>
           <el-col :span="16">
             <el-date-picker
@@ -54,33 +56,33 @@
       highlight-current-row
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" align="center" width="55" fixed />
+      <el-table-column type="selection" align="center" width="55" fixed :selectable="selectable" />
 
-      <el-table-column align="center" label="用户名">
+      <el-table-column align="center" label="用户名" width="150">
         <template slot-scope="scope">
           {{ scope.row.username }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="角色" prop="isAdmin" sortable>
+      <el-table-column align="center" label="角色" prop="isAdmin" sortable width="150">
         <template slot-scope="scope">
           <el-tag :class="[scope.row.isAdmin === 0 ? 'classRed' : 'classGreen']">{{ scope.row.isAdmin === 0 ? '管理员' : '普通用户' }}</el-tag>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="工厂">
+      <el-table-column align="center" label="工厂" width="150">
         <template slot-scope="scope">
           {{ scope.row.saleOrg }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="姓名">
+      <el-table-column align="center" label="姓名" width="150">
         <template slot-scope="scope">
           {{ scope.row.realname }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="姓别" prop="sex" sortable>
+      <el-table-column align="center" label="姓别" prop="sex" sortable width="100">
         <template slot-scope="scope">
           <el-tag :class="[scope.row.sex === 0 ? 'classRed' : 'classGreen']">{{ scope.row.sex === 0 ? '男' : '女' }}</el-tag>
         </template>
@@ -276,6 +278,9 @@ export default {
     this.getSaleOrg() // 获取所有工厂
   },
   methods: {
+    selectable(row, index) {
+      return row.realname !== 'admin'
+    },
     // 改变搜索框开始结束时间触发
     importChange(val) {
       this.listQuery.importDate[0] = val[0]
@@ -310,15 +315,6 @@ export default {
     // 多选
     handleSelectionChange(val) {
       this.selectedData = val
-      // val.map(res => {
-      //   this.pushName = res.username
-      // })
-      // const incluName = this.changeName.push(this.pushName)
-      // if (incluName.indexOf('xph') !== 0) {
-      //   alert('1')
-      // } else {
-      //   alert('2')
-      // }
     },
     // 批量删除
     deleteAll() {

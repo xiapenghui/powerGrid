@@ -13,7 +13,7 @@
 
         <el-col :span="8">
           <el-col :span="8">
-            <el-tooltip class="item" effect="dark" placement="top-start"><label class="radio-label">创建时间:</label></el-tooltip>
+            <el-tooltip class="item" effect="dark" content="创建时间" placement="top-start"><label class="radio-label">创建时间:</label></el-tooltip>
           </el-col>
           <el-col :span="16">
             <el-date-picker
@@ -44,7 +44,7 @@
 
     <el-table
       v-loading="listLoading"
-       :header-cell-style="{ background: '#008284',color:'#ffffff' }"
+      :header-cell-style="{ background: '#008284',color:'#ffffff' }"
       :data="tableData"
       :height="tableHeight"
       style="width: 100%"
