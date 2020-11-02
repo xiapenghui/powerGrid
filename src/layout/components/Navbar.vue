@@ -32,6 +32,8 @@
       <el-upload
         ref="upload"
         v-loading="loading"
+        element-loading-text="请稍等,文件上传并解析中...."
+        element-loading-spinner="el-icon-loading"
         class="upload-demo"
         :action="this.GLOBAL.BASE_URL + '/api/excel/upload'"
         :headers="this.myHeaders"
@@ -51,9 +53,9 @@
         </div>
       </el-upload>
 
-      <span slot="footer" class="dialog-footer">
+      <!-- <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="closeOk">{{ $t('table.closeOk') }}</el-button>
-      </span>
+      </span> -->
     </el-dialog>
   </div>
 </template>
@@ -65,7 +67,7 @@ import Hamburger from '@/components/Hamburger'
 import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import LangSelect from '@/components/LangSelect'
-import { analysis } from '@/api/tenGrid'
+// import { analysis } from '@/api/tenGrid'
 // import Search from '@/components/HeaderSearch'
 import { getToken } from '@/utils/auth' // get token from cookie
 const hasToken = getToken()
@@ -108,23 +110,26 @@ export default {
       this.$router.push({ path: '/login' })
     },
     // 解析文件
-    closeOk() {
-      this.loading = true
-      analysis().then(res => {
-        if (res.code === 200) {
-          this.$message.success('恭喜你，解析成功！')
-          this.loading = false
-        } else {
-          this.$message.error(res.message)
-          this.loading = false
-        }
-      })
-      this.dialogVisible = false
-    },
+    // closeOk() {
+    //   this.loading = true
+    //   analysis().then(res => {
+    //     if (res.code === 200) {
+    //       this.$message.success('恭喜你，解析成功！')
+    //       this.loading = false
+    //     } else {
+    //       this.$message.error(res.message)
+    //       this.loading = false
+    //     }
+    //   })
+    //   this.dialogVisible = false
+    // },
     // 成功
     handleAvatarSuccess(res, file) {
       if (res.code === 200) {
         this.$message.success(this.$t('table.upSuccess'))
+        this.dialogVisible = false
+        this.loading = false
+        this.$refs.upload.clearFiles()
       } else {
         this.$message({
           message: res.message,
@@ -132,6 +137,7 @@ export default {
           duration: 5000
         })
         this.dialogVisible = false
+        this.loading = false
         this.$refs.upload.clearFiles()
       }
     },
@@ -143,15 +149,16 @@ export default {
     },
     beforeAvatarUpload(file) {
       const isXLS = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      const isLt2M = file.size / 1024 / 1024 < 2
+      const isLt50M = file.size / 1024 / 1024 < 50
 
       if (!isXLS) {
         this.$message.error(this.$t('table.errorOne'))
       }
-      if (!isLt2M) {
+      if (!isLt50M) {
         this.$message.error(this.$t('table.errorTwo'))
       }
-      return isXLS && isLt2M
+      this.loading = true
+      return isXLS && isLt50M
     }
   }
 }
