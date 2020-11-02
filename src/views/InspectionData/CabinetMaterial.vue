@@ -652,11 +652,6 @@ export default {
     },
     // 编辑
     handleEdit(index, row) {
-      if (row.imageFileUrl === null) {
-        this.noneBtnImg = true
-      } else {
-        this.noneBtnImg = false
-      }
       this.editFileList = []
       this.oneDataImg.id = row.id
       this.editRow = row
@@ -665,6 +660,7 @@ export default {
           name: row.imageFileUrl,
           url: 'http://39.101.166.244/api/image/' + row.imagePath
         })
+        this.noneBtnImg = this.editFileList.length >= this.limitCountImg
       }
       this.ruleForm = JSON.parse(JSON.stringify(row))
       this.dialogFormVisible = true

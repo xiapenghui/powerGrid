@@ -902,11 +902,6 @@ export default {
     },
     // 编辑
     handleEdit(index, row) {
-      // if (row.imageFileUrl === null) {
-      //   this.noneBtnImg = true
-      // } else {
-      //   this.noneBtnImg = false
-      // }
       this.editFileList = []
       this.oneDataImg.id = row.id
       this.editRow = row
@@ -915,7 +910,9 @@ export default {
           name: row.imageFileUrl,
           url: 'http://39.101.166.244/api/image/' + row.imagePath
         })
+        this.noneBtnImg = this.editFileList.length >= this.limitCountImg
       }
+
       this.ruleForm = JSON.parse(JSON.stringify(row))
       this.dialogFormVisible = true
     },
@@ -1051,6 +1048,7 @@ export default {
     },
     // 超过1张图片隐藏上传按钮，小于1张图片上传按钮显示
     imgChange(file, fileList) {
+      console.log('fileList', fileList)
       this.noneBtnImg = fileList.length >= this.limitCountImg
     },
     // 编辑图片上传成功
