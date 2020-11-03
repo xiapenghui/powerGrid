@@ -3,7 +3,7 @@
     <el-table border style="width: 100%" height="50vh" :data="data">
       <el-table-column property="username" label="操作人" width="100px" align="center" />
       <el-table-column property="createTime" label="操作时间" width="150px" align="center" />
-      <el-table-column property="createTime" label="状态" width="150px" align="center">
+      <el-table-column property="createTime" label="状态" width="100px" align="center">
         <template slot-scope="scope">
           <el-tag :type="scope.row.levelString" :class="[scope.row.levelString === 'ERROR' ? 'classRed' : 'classGreen']">
             {{ scope.row.levelString === 'ERROR' ? '错误' : '成功' }}

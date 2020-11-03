@@ -443,8 +443,8 @@
             </el-form>
           </template>
         </el-table-column>
-        <el-table-column label="创建时间" align="center" prop="createTime" />
-        <el-table-column label="状态" align="center" prop="levelString">
+        <el-table-column label="创建时间" align="center" prop="createTime" width="150px" />
+        <el-table-column label="状态" align="center" prop="levelString" width="100px">
           <template slot-scope="scope">
             <el-tag :type="scope.row.levelString" :class="[scope.row.levelString === 'ERROR' ? 'classRed' : 'classGreen']">
               {{ scope.row.levelString === 'ERROR' ? '错误' : '成功' }}
