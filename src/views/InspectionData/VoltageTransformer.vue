@@ -367,7 +367,7 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { voltageList, voltageDellte, voltageEdit, allLogs } from '@/api/tenGrid'
+import { voltageList, voltageDellte, voltageEdit, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
 import logDialog from '@/components/logDialog' // 日志封装
 const fixHeight = 270

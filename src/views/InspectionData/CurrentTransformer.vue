@@ -46,7 +46,7 @@
 
     <el-table
       v-loading="listLoading"
-       :header-cell-style="{ background: '#008284',color:'#ffffff' }"
+      :header-cell-style="{ background: '#008284',color:'#ffffff' }"
       :data="tableData"
       :height="tableHeight"
       style="width: 100%"
@@ -366,7 +366,7 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { electricCurrent, electricDellte, electricEdit, allLogs } from '@/api/tenGrid'
+import { electricCurrent, electricDellte, electricEdit, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
 import logDialog from '@/components/logDialog' // 日志封装
 const fixHeight = 270

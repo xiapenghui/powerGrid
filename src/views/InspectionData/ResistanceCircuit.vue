@@ -411,7 +411,7 @@
             </el-tag>
           </template>
         </el-table-column>
-        
+
         <el-table-column label="消息日志" align="center" prop="message" />
       </el-table>
       <pagination v-show="logTotal > 0" :total="logTotal" :current.sync="paginationLog.current" :size.sync="paginationLog.size" @pagination="getLogList" />
@@ -425,7 +425,7 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { mcrList, mcrDellte, mcrEdit, allLogs } from '@/api/tenGrid'
+import { mcrList, mcrDellte, mcrEdit, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
 import ImprotFile from '@/components/ImprotFile' // 文件上传文件封装
 const fixHeight = 270

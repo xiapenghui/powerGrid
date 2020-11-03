@@ -126,7 +126,7 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { supplierList, supplierDellte, supplierEdit, supplierAdd } from '@/api/tenGrid'
+import { supplierList, supplierDellte, supplierEdit, supplierAdd } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
 const fixHeight = 280
 export default {

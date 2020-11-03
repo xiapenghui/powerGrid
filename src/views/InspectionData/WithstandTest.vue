@@ -401,7 +401,7 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { fcpwvtList, fcpwvtDellte, fcpwvtEdit, allLogs } from '@/api/tenGrid'
+import { fcpwvtList, fcpwvtDellte, fcpwvtEdit, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
 // import logDialog from '@/components/logDialog' // 日志封装
 import ImprotFile from '@/components/ImprotFile' // 文件上传文件封装

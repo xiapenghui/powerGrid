@@ -20,6 +20,9 @@ const mutations = {
   SET_NAME: (state, name) => {
     state.name = name
   },
+  SET_REALNAME: (state, realname) => {
+    state.realname = realname
+  },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
   },
@@ -39,6 +42,8 @@ const actions = {
         commit('SET_TOKEN', data.Authorization)
         commit('SET_ROLES', data.roles)
         commit('SET_NAME', username)
+        commit('SET_REALNAME', data.realname)
+
         setToken(data.Authorization)
         setRole(data.roles)
         setUserName(data.username)

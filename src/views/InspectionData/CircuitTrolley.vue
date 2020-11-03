@@ -565,7 +565,7 @@
           <el-form-item label="断路器附件">
             <el-upload
               :class="{ disUoloadSty: noneBtnImg }"
-              :action="this.imgUrl"
+              :action="this.GLOBAL.BASE_URL+'/api/image/upload'"
               :data="this.oneDataImg"
               :headers="this.myHeaders"
               :limit="this.limitCountImg"
@@ -638,7 +638,7 @@
           ref="uploadImage"
           style="margin-top: 30px"
           class="upload-demo"
-          :action="this.imgUrl"
+          :action="this.GLOBAL.BASE_URL+'/api/image/upload'"
           :data="this.newDataImg"
           :headers="this.myHeaders"
           :on-preview="handlePreview"
@@ -855,7 +855,7 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { dlqxcList, dlqxcDellte, dlqxcEdit, allLogs } from '@/api/tenGrid'
+import { dlqxcList, dlqxcDellte, dlqxcEdit, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
 import ImprotFile from '@/components/ImprotFile' // 文件上传文件封装
 const fixHeight = 270
@@ -867,7 +867,6 @@ export default {
   data() {
     return {
       productionUrl: this.GLOBAL.BASE_URL + '/api/kvsc/dlqxc/import/file',
-      imgUrl: this.GLOIMG.IMG_URL,
       myHeaders: { Authorization: hasToken }, // 获取token
       // 日志分页
       paginationLog: {
@@ -1165,7 +1164,7 @@ export default {
       if (row.imagePath !== null) {
         this.editFileList.push({
           name: row.imageFileUrl,
-          url: 'http://39.101.166.244/api/image/' + row.imagePath
+          url: this.GLOBAL.BASE_URL + '/api/image/' + row.imagePath
           // url: 'http://192.168.1.192:8888/api/image/' + row.imagePath
         })
       }
@@ -1296,7 +1295,7 @@ export default {
       // console.log('fileList', fileList)
       this.imgList.map(item => {
         if (item.imageName === file.name) {
-          item.imagePath = 'http://39.101.166.244' + res.data
+          item.imagePath = this.GLOBAL.BASE_URL + res.data
           // item.imagePath = 'http://192.168.1.192:8888' + res.data
         }
       })
