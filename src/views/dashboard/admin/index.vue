@@ -3,23 +3,22 @@
     <div class="display_name">
       欢迎
       <span>{{ realname }}</span>
-      <span>{{ id }}</span>
       登陆库柏爱迪生国网系统
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
 export default {
   name: 'DashboardEditor',
   data() {
-    return {};
+    return {}
   },
   computed: {
     ...mapGetters(['name', 'avatar', 'realname', 'roles', 'id'])
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
