@@ -55,3 +55,13 @@ export function setMenu(menu) {
 export function removeMenu() {
   return Cookies.remove(MenuKey)
 }
+
+// realname
+const realNameKey = 'admin-real-name'
+
+export function getRealName() {
+  return Cookies.get(realNameKey)
+}
+export function setRealName(name) {
+  return Cookies.set(realNameKey, name)
+}

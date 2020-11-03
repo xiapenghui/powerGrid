@@ -47,7 +47,7 @@
 
     <el-table
       v-loading="listLoading"
-       :header-cell-style="{ background: '#008284',color:'#ffffff' }"
+      :header-cell-style="{ background: '#008284',color:'#ffffff' }"
       :data="tableData"
       :height="tableHeight"
       style="width: 100%"
@@ -385,7 +385,7 @@
             <el-form-item label="计划开始日期" prop="planStartDate">
               <el-date-picker v-model="ruleForm.planStartDate" type="date" placeholder="选择日期" value-format="yyyy-MM-dd" />
             </el-form-item>
-            <el-form-item label="实际完成日期"><el-date-picker v-model="ruleForm.actualStartDate" type="date" placeholder="选择日期" value-format="yyyy-MM-dd" /></el-form-item>
+            <el-form-item label="实际开始日期"><el-date-picker v-model="ruleForm.actualStartDate" type="date" placeholder="选择日期" value-format="yyyy-MM-dd" /></el-form-item>
             <el-form-item label="工单状态" prop="woStatus"><el-input v-model="ruleForm.woStatus" /></el-form-item>
             <el-form-item label="采购方总部编码" prop="purchaserHqCode"><el-input v-model="ruleForm.purchaserHqCode" /></el-form-item>
             <el-form-item label="供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>

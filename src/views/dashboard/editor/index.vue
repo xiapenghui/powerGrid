@@ -2,7 +2,6 @@
   <div class="dashboard-editor-container">
     <div class="display_name">
       欢迎
-      <span>{{ name }}</span>
       <span>{{ realname }}</span>
       登陆库柏爱迪生国网系统
     </div>

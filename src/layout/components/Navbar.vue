@@ -20,6 +20,7 @@
           <router-link to="/">
             <el-dropdown-item>{{ $t('navbar.dashboard') }}</el-dropdown-item>
           </router-link>
+          <el-dropdown-item><span style="display:block;" @click="revisePas">修改密码</span></el-dropdown-item>
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">{{ $t('navbar.logOut') }}</span>
           </el-dropdown-item>
@@ -52,10 +53,19 @@
           {{ $t('table.fileSize') }}
         </div>
       </el-upload>
+    </el-dialog>
 
-      <!-- <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="closeOk">{{ $t('table.closeOk') }}</el-button>
-      </span> -->
+    <!-- 修改密 -->
+    <el-dialog title="修改密码" :visible.sync="dialogPassWord" :modal-append-to-body="false" :close-on-click-modal="false" width="30%">
+      <el-form ref="ruleForm" :model="ruleForm" status-icon :rules="rules" label-width="100px" class="demo-ruleForm">
+
+        <el-form-item label="用户名"><el-input v-model="ruleForm.username" type="username" /></el-form-item>
+        <el-form-item label="密码" prop="pass"><el-input v-model="ruleForm.pass" type="password" autocomplete="off" /></el-form-item>
+        <el-form-item label="确认密码" prop="checkPass"><el-input v-model="ruleForm.checkPass" type="password" autocomplete="off" /></el-form-item>
+        <el-form-item style="text-align: center;">
+          <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+        </el-form-item>
+      </el-form>
     </el-dialog>
   </div>
 </template>
@@ -67,7 +77,7 @@ import Hamburger from '@/components/Hamburger'
 import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import LangSelect from '@/components/LangSelect'
-// import { analysis } from '@/api/tenGrid'
+import { userEdit } from '@/api/business'
 // import Search from '@/components/HeaderSearch'
 import { getToken } from '@/utils/auth' // get token from cookie
 const hasToken = getToken()
@@ -81,10 +91,43 @@ export default {
     // Search
   },
   data() {
+    var validatePass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入密码'))
+      } else {
+        if (this.ruleForm.checkPass !== '') {
+          this.$refs.ruleForm.validateField('checkPass')
+        }
+        callback()
+      }
+    }
+    var validatePass2 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'))
+      } else if (value !== this.ruleForm.pass) {
+        callback(new Error('两次输入密码不一致!'))
+      } else {
+        callback()
+      }
+    }
     return {
       myHeaders: { Authorization: hasToken }, // 获取token
       dialogVisible: false,
       loading: false,
+      dialogPassWord: false,
+      ruleForm: {
+        pass: '',
+        checkPass: ''
+      },
+      rules: {
+        pass: [
+          { validator: validatePass, trigger: 'blur' }
+        ],
+        checkPass: [
+          { validator: validatePass2, trigger: 'blur' }
+        ]
+      },
+
       newTitle: this.$t('table.upData')
     }
   },
@@ -109,6 +152,34 @@ export default {
       // this.$router.push(`/login?redirect=${this.$route.fullPath}`)
       this.$router.push({ path: '/login' })
     },
+
+    // 修改密码
+    revisePas() {
+      this.dialogPassWord = true
+    },
+    // 密码提交
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          userEdit(this.ruleForm).then(res => {
+            debugger
+            if (res.code === 200) {
+              this.$message({
+                type: 'success',
+                message: this.$t('table.editSuc')
+              })
+              this.editLoading = false
+              this.dialogFormVisible = false
+              this.getList()
+            }
+          })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+
     // 解析文件
     // closeOk() {
     //   this.loading = true
@@ -249,10 +320,9 @@ export default {
   }
 }
 
-.el-popup-parent--hidden{
+.el-popup-parent--hidden {
   v-deep .v-modal {
     z-index: 5 !important;
   }
 }
-
 </style>

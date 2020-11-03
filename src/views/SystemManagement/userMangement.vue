@@ -84,7 +84,11 @@
 
       <el-table-column align="center" label="姓别" prop="sex" sortable width="100">
         <template slot-scope="scope">
-          <el-tag :class="[scope.row.sex === 0 ? 'classRed' : 'classGreen']">{{ scope.row.sex === 0 ? '男' : '女' }}</el-tag>
+          <!-- <el-tag :class="[scope.row.sex === 0 ? 'classRed' : 'classGreen']">{{ scope.row.sex === 0 ? '男' : '女' }} </el-tag> -->
+          <el-tag v-if="scope.row.sex === 0" class="classRed"> 男</el-tag>
+          <el-tag v-else-if="scope.row.sex === 1" class="classGreen"> 女</el-tag>
+          <el-tag v-else-if="scope.row.sex === null" class="classNone" /></el-tag>
+
         </template>
       </el-table-column>
 
@@ -133,7 +137,9 @@
         </el-form-item>
         <el-form-item label="姓名"><el-input v-model="ruleForm.realname" /></el-form-item>
         <el-form-item label="性别">
-          <el-select v-model="ruleForm.sex" placeholder="请选择"><el-option v-for="item in sexList" :key="item.value" :label="item.label" :value="item.value" /></el-select>
+          <el-select v-model="ruleForm.sex" placeholder="请选择">
+            <el-option v-for="item in sexList" :key="item.value" :label="item.label" :value="item.value" />
+          </el-select>
         </el-form-item>
         <el-form-item label="电话"><el-input v-model="ruleForm.phone" /></el-form-item>
         <el-form-item label="邮箱"><el-input v-model="ruleForm.email" /></el-form-item>
