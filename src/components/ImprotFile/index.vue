@@ -1,6 +1,7 @@
 <template>
   <!-- 上传文件弹窗 -->
   <el-dialog
+    style="margin-top: 35vh;"
     title="导入文件"
     :close-on-click-modal="false"
     :visible.sync="dialogVisible"

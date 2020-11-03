@@ -47,7 +47,7 @@
 
     <el-table
       v-loading="listLoading"
-       :header-cell-style="{ background: '#008284',color:'#ffffff' }"
+      :header-cell-style="{ background: '#008284',color:'#ffffff' }"
       :data="tableData"
       :height="tableHeight"
       style="width: 100%"
@@ -85,7 +85,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.productAmounts')" width="150">
+      <el-table-column align="center" :label="$t('permission.productAmountTwo')" width="150">
         <template slot-scope="scope">
           {{ scope.row.productAmount }}
         </template>

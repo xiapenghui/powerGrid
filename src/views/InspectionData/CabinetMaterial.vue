@@ -67,7 +67,7 @@
       <el-table-column align="center" :label="$t('permission.upload')" width="100">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.isUpload === 0" class="classBlack">未上传</el-tag>
-          <el-tag v-else-if="scope.row.isUpload === 1" class="classGreen">已上传</el-tag>
+          <el-tag v-else-if="scope.row.isUpload === 2" class="classGreen">已上传</el-tag>
           <el-tag v-else class="classRed">上传失败</el-tag>
         </template>
       </el-table-column>
@@ -373,7 +373,7 @@
             </el-tag>
           </template>
         </el-table-column>
-
+        <el-table-column property="modelName" label="模块名称" align="center" />
         <el-table-column label="消息日志" align="center" prop="message" />
       </el-table>
       <pagination v-show="logTotal > 0" :total="logTotal" :current.sync="paginationLog.current" :size.sync="paginationLog.size" @pagination="getLogList" />

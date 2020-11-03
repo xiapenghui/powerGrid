@@ -1,5 +1,5 @@
 import { login, logout, getInfo } from '@/api/user'
-import { getToken, setToken, removeToken, setRole, getRole, setUserName, getUserName, getRealName, setRealName } from '@/utils/auth'
+import { getToken, setToken, removeToken, setRole, getRole, setUserName, getUserName, getRealName, setRealName, getId, setId } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
 const state = {
@@ -8,7 +8,8 @@ const state = {
   avatar: '',
   introduction: '',
   roles: getRole(),
-  realname: getRealName()
+  realname: getRealName(),
+  id: getId()
 }
 
 const mutations = {
@@ -29,6 +30,9 @@ const mutations = {
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
+  },
+  SET_ID: (state, id) => {
+    state.id = id
   }
 }
 
@@ -44,11 +48,13 @@ const actions = {
         commit('SET_ROLES', data.roles)
         commit('SET_NAME', username)
         commit('SET_REALNAME', data.realname)
+        commit('SET_ID', data.id)
 
         setToken(data.Authorization)
         setRole(data.roles)
         setUserName(data.username)
         setRealName(data.realname)
+        setId(data.id)
 
         resolve()
       }).catch(error => {

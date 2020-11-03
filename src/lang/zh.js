@@ -458,6 +458,7 @@ export default {
     equipmentUniqueCodOther: '供应商产品编号',
     supplierSupportIdOther: '供应商产品编号',
     ContactNumDLQ: '断路器出厂编号(常州)',
+    productAmountTwo: '成品库存剩余数量',
 
     // 截止
     roles: '你的权限',

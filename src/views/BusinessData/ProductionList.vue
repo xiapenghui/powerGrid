@@ -68,7 +68,7 @@
       <el-table-column align="center" :label="$t('permission.isUploadProd')" width="100">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.isUploadProd === 0" class="classBlack">未上传</el-tag>
-          <el-tag v-else-if="scope.row.isUploadProd === 1" class="classGreen">已上传</el-tag>
+          <el-tag v-else-if="scope.row.isUploadProd === 2" class="classGreen">已上传</el-tag>
           <el-tag v-else class="classRed">上传失败</el-tag>
         </template>
       </el-table-column>
@@ -76,7 +76,7 @@
       <el-table-column align="center" :label="$t('permission.isUploadWo')" width="100">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.isUploadWo === 0" class="classBlack">未上传</el-tag>
-          <el-tag v-else-if="scope.row.isUploadWo === 1" class="classGreen">已上传</el-tag>
+          <el-tag v-else-if="scope.row.isUploadWo === 2" class="classGreen">已上传</el-tag>
           <el-tag v-else class="classRed">上传失败</el-tag>
         </template>
       </el-table-column>
@@ -84,7 +84,7 @@
       <el-table-column align="center" :label="$t('permission.isUploadSd')" width="100">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.isUploadSd === 0" class="classBlack">未上传</el-tag>
-          <el-tag v-else-if="scope.row.isUploadSd === 1" class="classGreen">已上传</el-tag>
+          <el-tag v-else-if="scope.row.isUploadSd === 2" class="classGreen">已上传</el-tag>
           <el-tag v-else class="classRed">上传失败</el-tag>
         </template>
       </el-table-column>
@@ -92,7 +92,7 @@
       <el-table-column align="center" :label="$t('permission.isUploadPw')" width="100">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.isUploadPw === 0" class="classBlack">未上传</el-tag>
-          <el-tag v-else-if="scope.row.isUploadPw === 1" class="classGreen">已上传</el-tag>
+          <el-tag v-else-if="scope.row.isUploadPw === 2" class="classGreen">已上传</el-tag>
           <el-tag v-else class="classRed">上传失败</el-tag>
         </template>
       </el-table-column>

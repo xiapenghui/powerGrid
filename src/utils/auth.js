@@ -65,3 +65,14 @@ export function getRealName() {
 export function setRealName(name) {
   return Cookies.set(realNameKey, name)
 }
+
+// 获取id
+
+const idKey = 'admin-id'
+
+export function getId() {
+  return Cookies.get(idKey)
+}
+export function setId(name) {
+  return Cookies.set(idKey, name)
+}

@@ -29,7 +29,7 @@
     </div>
 
     <!-- //导入文件 -->
-    <el-dialog :title="newTitle" :visible.sync="dialogVisible" :modal-append-to-body="false" :close-on-click-modal="false" width="30%">
+    <el-dialog style="margin-top: 25vh;" :title="newTitle" :visible.sync="dialogVisible" :modal-append-to-body="false" :close-on-click-modal="false" width="30%">
       <el-upload
         ref="upload"
         v-loading="loading"
@@ -58,13 +58,10 @@
     <!-- 修改密 -->
     <el-dialog title="修改密码" :visible.sync="dialogPassWord" :modal-append-to-body="false" :close-on-click-modal="false" width="30%">
       <el-form ref="ruleForm" :model="ruleForm" status-icon :rules="rules" label-width="100px" class="demo-ruleForm">
-
-        <el-form-item label="用户名"><el-input v-model="ruleForm.username" type="username" /></el-form-item>
-        <el-form-item label="密码" prop="pass"><el-input v-model="ruleForm.pass" type="password" autocomplete="off" /></el-form-item>
-        <el-form-item label="确认密码" prop="checkPass"><el-input v-model="ruleForm.checkPass" type="password" autocomplete="off" /></el-form-item>
-        <el-form-item style="text-align: center;">
-          <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-        </el-form-item>
+        <el-form-item label="用户名:">{{ name }}</el-form-item>
+        <el-form-item label="密码:" prop="password"><el-input v-model="ruleForm.password" type="password" autocomplete="off" /></el-form-item>
+        <el-form-item label="确认密码:" prop="checkPass"><el-input v-model="ruleForm.checkPass" type="password" autocomplete="off" /></el-form-item>
+        <el-form-item style="text-align: center;"><el-button type="primary" @click="submitForm('ruleForm')">提交</el-button></el-form-item>
       </el-form>
     </el-dialog>
   </div>
@@ -104,7 +101,7 @@ export default {
     var validatePass2 = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请再次输入密码'))
-      } else if (value !== this.ruleForm.pass) {
+      } else if (value !== this.ruleForm.password) {
         callback(new Error('两次输入密码不一致!'))
       } else {
         callback()
@@ -116,23 +113,20 @@ export default {
       loading: false,
       dialogPassWord: false,
       ruleForm: {
-        pass: '',
+        id: this.$store.state.user.id,
+        password: '',
         checkPass: ''
       },
       rules: {
-        pass: [
-          { validator: validatePass, trigger: 'blur' }
-        ],
-        checkPass: [
-          { validator: validatePass2, trigger: 'blur' }
-        ]
+        password: [{ validator: validatePass, trigger: 'blur' }],
+        checkPass: [{ validator: validatePass2, trigger: 'blur' }]
       },
 
       newTitle: this.$t('table.upData')
     }
   },
   computed: {
-    ...mapGetters(['sidebar', 'avatar', 'device']),
+    ...mapGetters(['sidebar', 'avatar', 'device', 'realname', 'name', 'id']),
     theme() {
       return this.$store.state.settings.theme
     }
@@ -159,18 +153,18 @@ export default {
     },
     // 密码提交
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(valid => {
         if (valid) {
           userEdit(this.ruleForm).then(res => {
-            debugger
             if (res.code === 200) {
               this.$message({
                 type: 'success',
-                message: this.$t('table.editSuc')
+                message: '修改密码成功,请从新登录!'
               })
-              this.editLoading = false
-              this.dialogFormVisible = false
-              this.getList()
+              this.dialogPassWord = false
+              setTimeout(() => {
+                this.logout()
+              }, 2000)
             }
           })
         } else {
