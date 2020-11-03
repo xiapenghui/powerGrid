@@ -427,6 +427,7 @@ export default {
     operationSuccess: 'The operation was successful',
     operationError: 'Confirmation cancelled',
     editSuc: 'Edit succeeded',
+    addSuc: 'Add succeeded',
     editErr: 'Edit failed',
     // do
     upData: 'File upload',

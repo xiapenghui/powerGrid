@@ -123,6 +123,7 @@ export default {
           this.$store
             .dispatch('user/login', this.loginForm)
             .then(() => {
+              debugger
               console.info('3.vuex 里面的 login 方法被调用 完毕')
               this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
               this.loading = false

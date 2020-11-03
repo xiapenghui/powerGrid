@@ -518,6 +518,7 @@ export default {
     operationSuccess: '操作成功',
     operationError: '已取消确认',
     editSuc: '编辑成功',
+    addSuc: '增加成功',
     editErr: '编辑失败',
     // do
     upData: '文件上传',
