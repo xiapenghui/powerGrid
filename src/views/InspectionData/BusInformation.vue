@@ -453,7 +453,7 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column property="modelName" label="模块名称" align="center" />
+        <el-table-column property="modelName" label="模块名称" align="center" width="150px"/>
         <el-table-column label="消息日志" align="center" prop="message" />
       </el-table>
       <pagination v-show="logTotal > 0" :total="logTotal" :current.sync="paginationLog.current" :size.sync="paginationLog.size" @pagination="getLogList" />

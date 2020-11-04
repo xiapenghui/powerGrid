@@ -10,7 +10,7 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column property="modelName" label="模块名称" align="center" />
+      <el-table-column property="modelName" label="模块名称" align="center" width="150px"/>
       <el-table-column property="message" label="日志消息" align="center" />
     </el-table>
     <pagination v-show="logTotal > 0" :total="logTotal" :current.sync="paginationLog.current" :size.sync="paginationLog.size" @pagination="getLogList" />
