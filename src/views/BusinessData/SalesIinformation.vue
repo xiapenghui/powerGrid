@@ -8,7 +8,7 @@
               <label class="radio-label">{{ $t('permission.poItemIds') }}:</label>
             </el-tooltip>
           </el-col>
-          <el-col :span="16"><el-input v-model="listQuery.soNo" :placeholder="$t('permission.poItemIdInfos')" clearable /></el-col>
+          <el-col :span="16"><el-input v-model="listQuery.soNo" :placeholder="$t('permission.soNoInfo')" clearable /></el-col>
         </el-col>
 
         <el-col :span="8">
@@ -96,6 +96,12 @@
         </template>
       </el-table-column>
 
+      <el-table-column align="center" :label="$t('permission.poItem')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.poItem }}
+        </template>
+      </el-table-column>
+
       <el-table-column align="center" :label="$t('permission.poItemId')" width="120">
         <template slot-scope="scope">
           {{ scope.row.poItemId }}
@@ -120,7 +126,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.productAmount')" width="150">
+      <el-table-column align="center" :label="$t('permission.productAmountNum')" width="150">
         <template slot-scope="scope">
           {{ scope.row.productAmount }}
         </template>
@@ -218,7 +224,7 @@
           <div class="boxLeft">
             <el-form-item label="销售订单号" prop="soNo"><el-input v-model="ruleForm.soNo" /></el-form-item>
             <el-form-item label="销售订单行项目号" prop="soItemNo"><el-input v-model="ruleForm.soItemNo" /></el-form-item>
-            <el-form-item label="采购订单行项目ID" prop="poItemId"><el-input v-model="ruleForm.poItemId" /></el-form-item>
+            <el-form-item label="采购订单行项目号" prop="poItem"><el-input v-model="ruleForm.poItem" /></el-form-item>
             <el-form-item label="物资名称" prop="productName"><el-input v-model="ruleForm.productName" /></el-form-item>
             <el-form-item label="物资数量" prop="productAmount"><el-input v-model="ruleForm.productAmount" /></el-form-item>
             <el-form-item label="采购方总部编码" prop="purchaserHqCode"><el-input v-model="ruleForm.purchaserHqCode" /></el-form-item>
@@ -231,6 +237,7 @@
           <div class="boxRight">
             <el-form-item label="采购方公司名称" prop="buyerName"><el-input v-model="ruleForm.buyerName" /></el-form-item>
             <el-form-item label="采购订单号" prop="poNo"><el-input v-model="ruleForm.poNo" /></el-form-item>
+            <el-form-item label="采购订单行项目ID" prop="poItemId"><el-input v-model="ruleForm.poItemId" /></el-form-item>
             <el-form-item label="物资编码" prop="productCode"><el-input v-model="ruleForm.productCode" /></el-form-item>
             <el-form-item label="物资单位" prop="productUnit"><el-input v-model="ruleForm.productUnit" /></el-form-item>
             <el-form-item label="工厂" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" :disabled="true" /></el-form-item>
@@ -246,7 +253,6 @@
           </div>
         </div>
       </el-form>
-
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
@@ -358,6 +364,7 @@ export default {
         buyerName: [{ required: true, message: '请输入采购方公司名称', trigger: 'blur' }],
         soItemNo: [{ required: true, message: '请输入销售订单行项目号', trigger: 'blur' }],
         poNo: [{ required: true, message: '请输入采购订单号', trigger: 'blur' }],
+        poItem: [{ required: true, message: '请输入采购订单行项目号', trigger: 'blur' }],
         poItemId: [{ required: true, message: '请输入采购订单行项目ID', trigger: 'blur' }],
         productCode: [{ required: true, message: '请输入物资编码', trigger: 'blur' }],
         productName: [{ required: true, message: '请输入物资名称', trigger: 'blur' }],

@@ -459,6 +459,9 @@ export default {
     supplierSupportIdOther: '供应商产品编号',
     ContactNumDLQ: '断路器出厂编号(常州)',
     productAmountTwo: '成品库存剩余数量',
+    soNoInfo: '请输入销售订单号',
+    poItem: '采购订单行项目号',
+    productAmountNum: '物资数量',
 
     // 截止
     roles: '你的权限',
