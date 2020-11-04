@@ -407,7 +407,6 @@ export default {
               }
             })
           } else {
-            debugger
             userAdd(this.ruleForm).then(res => {
               if (res.code === 200) {
                 this.$message({
@@ -417,9 +416,6 @@ export default {
                 this.editLoading = false
                 this.dialogFormVisible = false
                 this.getList()
-              } else {
-                this.editLoading = false
-                this.dialogFormVisible = false
               }
             })
           }
