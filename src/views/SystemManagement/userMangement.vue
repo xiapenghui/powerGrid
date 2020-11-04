@@ -84,11 +84,9 @@
 
       <el-table-column align="center" label="姓别" prop="sex" sortable width="100">
         <template slot-scope="scope">
-          <!-- <el-tag :class="[scope.row.sex === 0 ? 'classRed' : 'classGreen']">{{ scope.row.sex === 0 ? '男' : '女' }} </el-tag> -->
           <el-tag v-if="scope.row.sex === 0" class="classRed"> 男</el-tag>
           <el-tag v-else-if="scope.row.sex === 1" class="classGreen"> 女</el-tag>
           <el-tag v-else-if="scope.row.sex === null" class="classNone" /></el-tag>
-
         </template>
       </el-table-column>
 
@@ -337,7 +335,7 @@ export default {
               idList.push(newFeatid)
             })
             userDellte(idList).then(res => {
-              if (res.code === 0) {
+              if (res.code === 200) {
                 this.$message({
                   type: 'success',
                   message: this.$t('table.deleteSuccess')
@@ -408,6 +406,7 @@ export default {
             })
           } else {
             userAdd(this.ruleForm).then(res => {
+              debugger
               if (res.code === 200) {
                 this.$message({
                   type: 'success',

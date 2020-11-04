@@ -476,7 +476,7 @@ export default {
               idList.push(newFeatid)
             })
             miDellte(idList).then(res => {
-              if (res.code === 0) {
+              if (res.code === 200) {
                 this.$message({
                   type: 'success',
                   message: this.$t('table.deleteSuccess')
