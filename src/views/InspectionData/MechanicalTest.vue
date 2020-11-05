@@ -437,7 +437,7 @@
 
     <!-- //批量上传图片弹窗 -->
     <el-dialog
-      title="批量上传图片"
+      title="批量上传图片(仅支持png和jpg格式文件)"
       :visible.sync="dialogVisibleAllImg"
       :close-on-click-modal="false"
       width="50%"
@@ -622,8 +622,6 @@ import i18n from '@/lang'
 import { mctList, mctDellte, mctEdit, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
 import ImprotFile from '@/components/ImprotFile' // 文件上传文件封装
-import { getToken } from '@/utils/auth' // get token from cookie
-const hasToken = getToken()
 const fixHeight = 270
 export default {
   name: 'MechanicalTest',
@@ -631,7 +629,7 @@ export default {
   data() {
     return {
       productionUrl: this.GLOBAL.BASE_URL + '/api/kvsc/mct/import/file',
-      myHeaders: { Authorization: hasToken }, // 获取token
+      myHeaders: { Authorization: this.$store.getters.token }, // 获取token
       // 日志分页
       paginationLog: {
         current: 1,

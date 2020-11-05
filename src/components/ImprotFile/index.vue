@@ -36,8 +36,6 @@
 </template>
 
 <script>
-import { getToken } from '@/utils/auth' // get token from cookie
-const hasToken = getToken()
 export default {
   name: 'ImprotFlie',
   props: {
@@ -56,7 +54,7 @@ export default {
   },
   data() {
     return {
-      myHeaders: { Authorization: hasToken } // 获取token // 获取token
+      myHeaders: { Authorization: this.$store.getters.token } // 获取token // 获取token
     }
   },
   methods: {
@@ -79,6 +77,7 @@ export default {
       this.$emit('beforeavatarupload', file)
     }
   }
+
 }
 </script>
 

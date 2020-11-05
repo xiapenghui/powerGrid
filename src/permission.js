@@ -22,7 +22,7 @@ router.beforeEach(async(to, from, next) => {
   NProgress.start()
   document.title = getPageTitle(to.meta.title)
   const hasToken = getToken()
-  // console.log('hasToken', hasToken)
+  console.log('hasToken', hasToken)
   if (hasToken) {
     // console.log('to.path', to)
     if (to.path === '/login') {

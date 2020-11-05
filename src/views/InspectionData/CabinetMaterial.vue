@@ -391,15 +391,13 @@ import { cgczhdList, cgczhdDellte, cgczhdEdit, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
 import ImprotFile from '@/components/ImprotFile' // 文件上传文件封装
 const fixHeight = 270
-import { getToken } from '@/utils/auth' // get token from cookie
-const hasToken = getToken()
 export default {
   name: 'CabinetMaterial',
   components: { Pagination, ImprotFile },
   data() {
     return {
       productionUrl: this.GLOBAL.BASE_URL + '/api/kvsc/cgczhd/import/file',
-      myHeaders: { Authorization: hasToken }, // 获取token
+      myHeaders: { Authorization: this.$store.getters.token }, // 获取token
       // 日志分页
       paginationLog: {
         current: 1,

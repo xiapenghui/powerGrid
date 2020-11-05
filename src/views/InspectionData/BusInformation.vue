@@ -328,7 +328,7 @@
     />
 
     <!-- //批量上传图片弹窗 -->
-    <el-dialog title="批量上传图片" :visible.sync="dialogVisibleAllImg" :close-on-click-modal="false" width="50%">
+    <el-dialog title="批量上传图片(仅支持png和jpg格式文件)" :visible.sync="dialogVisibleAllImg" :close-on-click-modal="false" width="50%">
       <div class="demo-image__error">
         <div v-for="(item, index) in imgList" :key="index" class="blockImg">
           <el-image style="width:80px; height: 80px" :src="item.imagePath === null ? '' : item.imagePath">
@@ -472,15 +472,13 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 // import logDialog from '@/components/logDialog' // 日志封装
 import ImprotFile from '@/components/ImprotFile' // 文件上传文件封装
 const fixHeight = 270
-import { getToken } from '@/utils/auth' // get token from cookie
-const hasToken = getToken()
 export default {
   name: 'BusInformation',
   components: { Pagination, ImprotFile },
   data() {
     return {
       productionUrl: this.GLOBAL.BASE_URL + '/api/kvsc/np/import/file',
-      myHeaders: { Authorization: hasToken }, // 获取token
+      myHeaders: { Authorization: this.$store.getters.token }, // 获取token
       // 日志分页
       paginationLog: {
         current: 1,
