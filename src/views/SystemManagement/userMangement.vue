@@ -13,9 +13,7 @@
 
         <el-col :span="8">
           <el-col :span="8">
-            <el-tooltip class="item" effect="dark" content="创建时间" placement="top-start">
-              <label class="radio-label">创建时间:</label>
-            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="创建时间" placement="top-start"><label class="radio-label">创建时间:</label></el-tooltip>
           </el-col>
           <el-col :span="16">
             <el-date-picker
@@ -46,7 +44,7 @@
 
     <el-table
       v-loading="listLoading"
-      :header-cell-style="{ background: '#008284',color:'#ffffff' }"
+      :header-cell-style="{ background: '#008284', color: '#ffffff' }"
       :data="tableData"
       :height="tableHeight"
       style="width: 100%"
@@ -84,9 +82,9 @@
 
       <el-table-column align="center" label="姓别" prop="sex" sortable width="100">
         <template slot-scope="scope">
-          <el-tag v-if="scope.row.sex === 0" class="classRed"> 男</el-tag>
-          <el-tag v-else-if="scope.row.sex === 1" class="classGreen"> 女</el-tag>
-          <el-tag v-else-if="scope.row.sex === null" class="classNone" /></el-tag>
+          <el-tag v-if="scope.row.sex === 0" class="classRed">男</el-tag>
+          <el-tag v-else-if="scope.row.sex === 1" class="classGreen">女</el-tag>
+          <el-tag v-else-if="scope.row.sex === null" class="classNone" />
         </template>
       </el-table-column>
 
@@ -116,11 +114,7 @@
     </el-table>
 
     <!-- 编辑弹窗 -->
-    <el-dialog
-      :close-on-click-modal="false"
-      :visible.sync="dialogFormVisible"
-      :title="dialogType === 'edit' ? $t('permission.editUser') : $t('permission.addUser')"
-    >
+    <el-dialog :close-on-click-modal="false" :visible.sync="dialogFormVisible" :title="dialogType === 'edit' ? $t('permission.editUser') : $t('permission.addUser')">
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="100px" label-position="left">
         <el-form-item label="用户名" prop="username"><el-input v-model="ruleForm.username" /></el-form-item>
         <el-form-item v-if="isPassword" label="密码" prop="password"><el-input v-model="ruleForm.password" /></el-form-item>
@@ -135,9 +129,7 @@
         </el-form-item>
         <el-form-item label="姓名"><el-input v-model="ruleForm.realname" /></el-form-item>
         <el-form-item label="性别">
-          <el-select v-model="ruleForm.sex" placeholder="请选择">
-            <el-option v-for="item in sexList" :key="item.value" :label="item.label" :value="item.value" />
-          </el-select>
+          <el-select v-model="ruleForm.sex" placeholder="请选择"><el-option v-for="item in sexList" :key="item.value" :label="item.label" :value="item.value" /></el-select>
         </el-form-item>
         <el-form-item label="电话"><el-input v-model="ruleForm.phone" /></el-form-item>
         <el-form-item label="邮箱"><el-input v-model="ruleForm.email" /></el-form-item>

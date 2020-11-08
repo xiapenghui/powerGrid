@@ -45,7 +45,7 @@
 
     <el-table
       v-loading="listLoading"
-      :header-cell-style="{ background: '#008284',color:'#ffffff' }"
+      :header-cell-style="{ background: '#008284', color: '#ffffff' }"
       :data="tableData"
       :height="tableHeight"
       style="width: 100%"
@@ -212,11 +212,7 @@
     </el-table>
 
     <!-- 编辑弹窗 -->
-    <el-dialog
-      title="编辑信息"
-      :close-on-click-modal="false"
-      :visible.sync="dialogFormVisible"
-    >
+    <el-dialog title="编辑信息" :close-on-click-modal="false" :visible.sync="dialogFormVisible">
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
         <div class="bigUpBox">
           <div class="boxLeft">
@@ -256,7 +252,7 @@
         <div class="bigDownBox">
           <el-form-item label="电压附件">
             <el-upload
-              :class="{disUoloadSty: noneBtnImg }"
+              :class="{ disUoloadSty: noneBtnImg }"
               action="http://39.101.166.244/api/image/upload"
               :data="this.oneDataImg"
               :headers="this.myHeaders"
@@ -286,12 +282,7 @@
     <log-dialog :is-show="dialogTableVisible" :log-total="logTotal" :pagination-log="paginationLog" :data="gridData" @pageChange="getLogList" @closeLog="closeLog" />
 
     <!-- 上传文件弹窗 -->
-    <el-dialog
-      title="导入文件"
-      :close-on-click-modal="false"
-      :visible.sync="dialogVisible"
-      width="30%"
-    >
+    <el-dialog title="导入文件" :close-on-click-modal="false" :visible.sync="dialogVisible" width="30%">
       <el-upload
         ref="upload"
         class="upload-demo"
@@ -315,12 +306,7 @@
     </el-dialog>
 
     <!-- //批量上传图片弹窗 -->
-    <el-dialog
-      title="批量上传图片"
-      :visible.sync="dialogVisibleAllImg"
-      :close-on-click-modal="false"
-      width="50%"
-    >
+    <el-dialog title="批量上传图片" :visible.sync="dialogVisibleAllImg" :close-on-click-modal="false" width="50%">
       <div class="demo-image__error">
         <div v-for="(item, index) in imgList" :key="index" class="blockImg">
           <el-image style="width:80px; height: 80px" :src="item.imagePath === null ? '' : item.imagePath">
@@ -421,40 +407,43 @@ export default {
       limitCountImg: 1, // 上传图片的最大数量
       content1: this.$t('permission.supplierWorkNo'),
       pickerOptions: {
-        shortcuts: [{
-          text: '最近一周',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-            picker.$emit('pick', [start, end])
+        shortcuts: [
+          {
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近六个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 180)
+              picker.$emit('pick', [start, end])
+            }
           }
-        }, {
-          text: '最近一个月',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-            picker.$emit('pick', [start, end])
-          }
-        }, {
-          text: '最近三个月',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-            picker.$emit('pick', [start, end])
-          }
-        },
-        {
-          text: '最近六个月',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 180)
-            picker.$emit('pick', [start, end])
-          }
-        }
         ]
       },
       rules: {
@@ -596,7 +585,7 @@ export default {
               if (res.code === 200) {
                 this.$message({
                   type: 'success',
-                  message: this.$t('table.deleteSuccess')
+                  message: res.message
                 })
                 this.getList()
               }
@@ -788,7 +777,6 @@ export default {
       this.dialogImageUrl = file.url
       this.dialogVisibleImg = true
     }
-
   }
 }
 </script>

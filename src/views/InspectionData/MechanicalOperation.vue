@@ -690,7 +690,7 @@ export default {
               if (res.code === 200) {
                 this.$message({
                   type: 'success',
-                  message: this.$t('table.deleteSuccess')
+                  message: res.message
                 })
                 this.getList()
               }
