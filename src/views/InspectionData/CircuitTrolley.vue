@@ -420,7 +420,7 @@
               <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
             </el-form-item>
             <el-tooltip class="item" effect="dark" content="断路器出厂编号(常州/nature)" placement="top-start">
-              <el-form-item label="断路器出厂编号(常州/nature)" prop="contactNum"><el-input v-model="ruleForm.contactNum" /></el-form-item>
+              <el-form-item label="断路器出厂编号(常州/nature)"><el-input v-model="ruleForm.contactNum" /></el-form-item>
             </el-tooltip>
             <el-tooltip class="item" effect="dark" content="相对地耐压额定值(kV)" placement="top-start">
               <el-form-item label="相对地耐压额定值(kV)" prop="pressureValueUn"><el-input v-model="ruleForm.pressureValueUn" /></el-form-item>
@@ -496,7 +496,7 @@
             <el-form-item label="入数采中心时间" prop="putCenterTime">
               <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
             </el-form-item>
-            <el-form-item label="成品序列号" prop="materialSN"><el-input v-model="ruleForm.materialSN" /></el-form-item>
+            <el-form-item label="成品序列号"><el-input v-model="ruleForm.materialSN" /></el-form-item>
             <el-tooltip class="item" effect="dark" content="相对地耐压值(kV)" placement="top-start">
               <el-form-item label="相对地耐压值(kV)" prop="pressureValue"><el-input v-model="ruleForm.pressureValue" /></el-form-item>
             </el-tooltip>
@@ -956,8 +956,8 @@ export default {
         pdCode: [{ required: true, message: '请输入工序', trigger: 'blur' }],
         checkTime: [{ required: true, message: '请输入采集时间', trigger: 'blur' }],
         putCenterTime: [{ required: true, message: '请输入入数采中心时间', trigger: 'blur' }],
-        contactNum: [{ required: true, message: '请输入断路器出厂编号(常州/nature)', trigger: 'blur' }],
-        materialSN: [{ required: true, message: '请输入成品序列号(PDSE)', trigger: 'blur' }],
+        // contactNum: [{ required: true, message: '请输入断路器出厂编号(常州/nature)', trigger: 'blur' }],
+        // materialSN: [{ required: true, message: '请输入成品序列号(PDSE)', trigger: 'blur' }],
         pressureValueUn: [{ required: true, message: '请输入相对地耐压额定值(kV)', trigger: 'blur' }],
         pressureValue: [{ required: true, message: '请输入相对地耐压值(kV)', trigger: 'blur' }],
         vacuumVoltageUn: [{ required: true, message: '请输入真空断口耐压额定值(kV)', trigger: 'blur' }],
