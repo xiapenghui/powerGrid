@@ -410,17 +410,17 @@
         <div class="bigUpBox">
           <div class="boxLeft">
             <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" :disabled="true" /></el-form-item>
-            <el-form-item label="供应商工单编号" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" /></el-form-item>
+            <el-form-item label="供应商工单编号" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" :disabled="true" /></el-form-item>
             <el-form-item label="规格型号编码" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
             <el-tooltip class="item" effect="dark" content="是否是告警问题数据" placement="top-start">
               <el-form-item label="是否是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
             </el-tooltip>
             <el-form-item label="感知过程" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
             <el-form-item label="采集时间" prop="checkTime">
-              <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+              <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" :disabled="true" placeholder="选择日期时间" />
             </el-form-item>
             <el-tooltip class="item" effect="dark" content="断路器出厂编号(常州/nature)" placement="top-start">
-              <el-form-item label="断路器出厂编号(常州/nature)"><el-input v-model="ruleForm.contactNum" /></el-form-item>
+              <el-form-item label="断路器出厂编号(常州/nature)"><el-input v-model="ruleForm.contactNum" :disabled="true" /></el-form-item>
             </el-tooltip>
             <el-tooltip class="item" effect="dark" content="相对地耐压额定值(kV)" placement="top-start">
               <el-form-item label="相对地耐压额定值(kV)" prop="pressureValueUn"><el-input v-model="ruleForm.pressureValueUn" /></el-form-item>
@@ -496,7 +496,7 @@
             <el-form-item label="入数采中心时间" prop="putCenterTime">
               <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
             </el-form-item>
-            <el-form-item label="成品序列号"><el-input v-model="ruleForm.materialSN" /></el-form-item>
+            <el-form-item label="成品序列号"><el-input v-model="ruleForm.materialSN" :disabled="true" /></el-form-item>
             <el-tooltip class="item" effect="dark" content="相对地耐压值(kV)" placement="top-start">
               <el-form-item label="相对地耐压值(kV)" prop="pressureValue"><el-input v-model="ruleForm.pressureValue" /></el-form-item>
             </el-tooltip>

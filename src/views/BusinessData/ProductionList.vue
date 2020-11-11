@@ -349,8 +349,8 @@
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
         <div class="bigUpBox">
           <div class="boxLeft">
-            <el-form-item label="销售订单号码" prop="soNo"><el-input v-model="ruleForm.soNo" /></el-form-item>
-            <el-form-item label="生产订单号" prop="ipoNo"><el-input v-model="ruleForm.ipoNo" /></el-form-item>
+            <el-form-item label="销售订单号码" prop="soNo"><el-input v-model="ruleForm.soNo" :disabled="true" /></el-form-item>
+            <el-form-item label="生产订单号" prop="ipoNo"><el-input v-model="ruleForm.ipoNo" :disabled="true" /></el-form-item>
             <el-form-item label="厂家物料名称" prop="materialsName"><el-input v-model="ruleForm.materialsName" /></el-form-item>
             <el-form-item label="计量单位" prop="unit"><el-input v-model="ruleForm.unit" /></el-form-item>
             <el-form-item label="计划完成日期" prop="planFinishDate">
@@ -362,7 +362,7 @@
             <el-form-item label="供应商名称" prop="supplierName"><el-input v-model="ruleForm.supplierName" /></el-form-item>
             <el-form-item label="种类编码" prop="subclassCode"><el-input v-model="ruleForm.subclassCode" /></el-form-item>
             <el-tooltip class="item" effect="dark" content="采购订单行项目id" placement="top-start">
-              <el-form-item label="采购订单行项目id" prop="poItemId"><el-input v-model="ruleForm.poItemId" /></el-form-item>
+              <el-form-item label="采购订单行项目id" prop="poItemId"><el-input v-model="ruleForm.poItemId" :disabled="true" /></el-form-item>
             </el-tooltip>
             <el-form-item label="厂家物资单位" prop="materialsUnit"><el-input v-model="ruleForm.materialsUnit" /></el-form-item>
             <el-form-item label="物资id分组"><el-input v-model="ruleForm.productIdGrpNo" /></el-form-item>
@@ -378,7 +378,7 @@
           </div>
           <div class="boxRight">
             <el-tooltip class="item" effect="dark" content="销售订单行项目号" placement="top-start">
-              <el-form-item label="销售订单行项目号" prop="soItemNo"><el-input v-model="ruleForm.soItemNo" /></el-form-item>
+              <el-form-item label="销售订单行项目号" prop="soItemNo"><el-input v-model="ruleForm.soItemNo" :disabled="true" /></el-form-item>
             </el-tooltip>
             <el-form-item label="厂家物料编码" prop="materialsCode"><el-input v-model="ruleForm.materialsCode" /></el-form-item>
             <el-form-item label="生产数量" prop="amount"><el-input v-model="ruleForm.amount" /></el-form-item>
@@ -390,7 +390,7 @@
             <el-form-item label="采购方总部编码" prop="purchaserHqCode"><el-input v-model="ruleForm.purchaserHqCode" /></el-form-item>
             <el-form-item label="供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
             <el-form-item label="品类编码" prop="categoryCode"><el-input v-model="ruleForm.categoryCode" /></el-form-item>
-            <el-form-item label="排产计划编码" prop="scheduleCode"><el-input v-model="ruleForm.scheduleCode" /></el-form-item>
+            <el-form-item label="排产计划编码" prop="scheduleCode"><el-input v-model="ruleForm.scheduleCode" :disabled="true" /></el-form-item>
             <el-form-item label="数据关联类型"><el-input v-model="ruleForm.dataType" /></el-form-item>
             <el-form-item label="厂家物料描述" prop="materialsDesc"><el-input v-model="ruleForm.materialsDesc" /></el-form-item>
             <el-form-item label="物资id类型"><el-input v-model="ruleForm.productIdType" /></el-form-item>

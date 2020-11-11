@@ -222,8 +222,8 @@
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
         <div class="bigUpBox">
           <div class="boxLeft">
-            <el-form-item label="销售订单号" prop="soNo"><el-input v-model="ruleForm.soNo" /></el-form-item>
-            <el-form-item label="销售订单行项目号" prop="soItemNo"><el-input v-model="ruleForm.soItemNo" /></el-form-item>
+            <el-form-item label="销售订单号" prop="soNo"><el-input v-model="ruleForm.soNo" :disabled="true" /></el-form-item>
+            <el-form-item label="销售订单行项目号" prop="soItemNo"><el-input v-model="ruleForm.soItemNo" :disabled="true" /></el-form-item>
             <el-form-item label="采购订单行项目号" prop="poItem"><el-input v-model="ruleForm.poItem" /></el-form-item>
             <el-form-item label="物资名称" prop="productName"><el-input v-model="ruleForm.productName" /></el-form-item>
             <el-form-item label="物资数量" prop="productAmount"><el-input v-model="ruleForm.productAmount" /></el-form-item>
@@ -236,8 +236,8 @@
           </div>
           <div class="boxRight">
             <el-form-item label="采购方公司名称" prop="buyerName"><el-input v-model="ruleForm.buyerName" /></el-form-item>
-            <el-form-item label="采购订单号" prop="poNo"><el-input v-model="ruleForm.poNo" /></el-form-item>
-            <el-form-item label="采购订单行项目ID" prop="poItemId"><el-input v-model="ruleForm.poItemId" /></el-form-item>
+            <el-form-item label="采购订单号" prop="poNo"><el-input v-model="ruleForm.poNo" :disabled="true" /></el-form-item>
+            <el-form-item label="采购订单行项目ID" prop="poItemId"><el-input v-model="ruleForm.poItemId" :disabled="true" /></el-form-item>
             <el-form-item label="物资编码" prop="productCode"><el-input v-model="ruleForm.productCode" /></el-form-item>
             <el-form-item label="物资单位" prop="productUnit"><el-input v-model="ruleForm.productUnit" /></el-form-item>
             <el-form-item label="工厂" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" :disabled="true" /></el-form-item>

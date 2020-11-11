@@ -161,21 +161,21 @@
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
         <div class="bigUpBox">
           <div class="boxLeft">
-            <el-form-item label="实物ID" prop="entityCode"><el-input v-model="ruleForm.entityCode" /></el-form-item>
+            <el-form-item label="实物ID" prop="entityCode"><el-input v-model="ruleForm.entityCode" :disabled="true" /></el-form-item>
             <el-form-item label="实物生产状态" prop="entityStatus"><el-input v-model="ruleForm.entityStatus" /></el-form-item>
             <el-form-item label="采购方总部编码" prop="purchaserHqCode"><el-input v-model="ruleForm.purchaserHqCode" /></el-form-item>
             <el-form-item label="供应商名称" prop="supplierName"><el-input v-model="ruleForm.supplierName" /></el-form-item>
-            <el-tooltip class="item" effect="dark" content="来源数据创建时间" placement="top-start">
+            <!-- <el-tooltip class="item" effect="dark" content="来源数据创建时间" placement="top-start">
               <el-form-item label="来源数据创建时间" prop="dataSourceCreateTime">
                 <el-date-picker v-model="ruleForm.dataSourceCreateTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
-              </el-form-item>
+              </el-form-item> -->
             </el-tooltip>
             <el-form-item label="备注"><el-input v-model="ruleForm.entityStatus" /></el-form-item>
             <el-form-item label="数据可见方"><el-input v-model="ruleForm.openId" /></el-form-item>
           </div>
           <div class="boxRight">
             <el-tooltip class="item" effect="dark" content="采购订单行项目id" placement="top-start">
-              <el-form-item label="采购订单行项目id" prop="poItemId"><el-input v-model="ruleForm.poItemId" /></el-form-item>
+              <el-form-item label="采购订单行项目id" prop="poItemId"><el-input v-model="ruleForm.poItemId" :disabled="true" /></el-form-item>
             </el-tooltip>
             <el-form-item label="工厂" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" :disabled="true" /></el-form-item>
             <el-form-item label="供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
@@ -326,8 +326,8 @@ export default {
         purchaserHqCode: [{ required: true, message: '请输入采购方总部编码', trigger: 'blur' }],
         supplierCode: [{ required: true, message: '请输入供应商编码', trigger: 'blur' }],
         supplierName: [{ required: true, message: '请输入供应商名称', trigger: 'blur' }],
-        dataSource: [{ required: true, message: '请输入数据来源', trigger: 'blur' }],
-        dataSourceCreateTime: [{ required: true, message: '请输入来源数据创建时间', trigger: 'blur' }]
+        dataSource: [{ required: true, message: '请输入数据来源', trigger: 'blur' }]
+        // dataSourceCreateTime: [{ required: true, message: '请输入来源数据创建时间', trigger: 'blur' }]
       }
     }
   },

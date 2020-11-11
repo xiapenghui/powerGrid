@@ -103,11 +103,11 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.itemProductAmount')" width="200">
+      <!-- <el-table-column align="center" :label="$t('permission.itemProductAmount')" width="200">
         <template slot-scope="scope">
           {{ scope.row.itemProductAmount }}
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
         <template slot-scope="scope">
@@ -181,11 +181,11 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.dataSourceCreatetime')" width="150">
+      <!--  <el-table-column align="center" :label="$t('permission.dataSourceCreatetime')" width="150">
         <template slot-scope="scope">
           {{ scope.row.dataSourceCreatetime }}
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column align="center" :label="$t('permission.remark')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
@@ -207,7 +207,7 @@
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
         <div class="bigUpBox">
           <div class="boxLeft">
-            <el-form-item label="产成品编码" prop="productCode"><el-input v-model="ruleForm.productCode" /></el-form-item>
+            <el-form-item label="产成品编码" prop="productCode"><el-input v-model="ruleForm.productCode" :disabled="true" /></el-form-item>
             <el-tooltip class="item" effect="dark" content="产成品库存剩余数量" placement="top-start">
               <el-form-item label="产成品库存剩余数量" prop="productAmount"><el-input v-model="ruleForm.productAmount" /></el-form-item>
             </el-tooltip>
@@ -217,30 +217,31 @@
             <el-form-item label="数据来源" prop="dataSource"><el-input v-model="ruleForm.dataSource" /></el-form-item>
             <el-form-item label="备注"><el-input v-model="ruleForm.remark" /></el-form-item>
             <el-form-item label="数据拥有方"><el-input v-model="ruleForm.ownerId" /></el-form-item>
-            <el-form-item label="国网采购订单号"><el-input v-model="ruleForm.poNo" /></el-form-item>
-            <el-form-item label="数据来源" prop="itemDataSource"><el-input v-model="ruleForm.itemDataSource" /></el-form-item>
+
           </div>
           <div class="boxRight">
             <el-form-item label="产成品名称" prop="productName"><el-input v-model="ruleForm.productName" /></el-form-item>
             <el-form-item label="计量单位" prop="productUnit"><el-input v-model="ruleForm.productUnit" /></el-form-item>
-            <el-tooltip class="item" effect="dark" content="当前入库批次库存剩余数量" placement="top-start">
+            <!--  <el-tooltip class="item" effect="dark" content="当前入库批次库存剩余数量" placement="top-start">
               <el-form-item label="当前入库批次库存剩余数量" prop="itemProductAmount"><el-input v-model="ruleForm.itemProductAmount" /></el-form-item>
-            </el-tooltip>
+            </el-tooltip> -->
             <el-form-item label="采购方总部编码" prop="purchaserHqCode"><el-input v-model="ruleForm.purchaserHqCode" /></el-form-item>
             <el-form-item label="供应商名称" prop="supplierName"><el-input v-model="ruleForm.supplierName" /></el-form-item>
-            <el-tooltip class="item" effect="dark" content="来源数据创建时间" placement="top-start">
+            <!-- <el-tooltip class="item" effect="dark" content="来源数据创建时间" placement="top-start">
               <el-form-item label="来源数据创建时间" prop="dataSourceCreateTime">
                 <el-date-picker v-model="ruleForm.dataSourceCreateTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
               </el-form-item>
-            </el-tooltip>
+            </el-tooltip> -->
             <el-form-item label="数据可见方"><el-input v-model="ruleForm.openId" /></el-form-item>
             <el-form-item label="采购方公司名称" prop="itemPurchaseName"><el-input v-model="ruleForm.itemPurchaseName" /></el-form-item>
-            <el-tooltip class="item" effect="dark" content="来源数据创建时间" placement="top-start">
+            <el-form-item label="国网采购订单号"><el-input v-model="ruleForm.poNo" /></el-form-item>
+            <el-form-item label="数据来源" prop="itemDataSource"><el-input v-model="ruleForm.itemDataSource" /></el-form-item>
+            <!-- <el-tooltip class="item" effect="dark" content="来源数据创建时间" placement="top-start">
               <el-form-item label="来源数据创建时间" prop="itemDataSourceCreatetime">
                 <el-date-picker v-model="ruleForm.itemDataSourceCreatetime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
               </el-form-item>
-            </el-tooltip>
-            <el-form-item label="备注"><el-input v-model="ruleForm.itemRemark" /></el-form-item>
+            </el-tooltip> -->
+            <!-- <el-form-item label="备注"><el-input v-model="ruleForm.itemRemark" /></el-form-item> -->
           </div>
         </div>
       </el-form>
@@ -379,11 +380,11 @@ export default {
         supplierName: [{ required: true, message: '请输入供应商名称', trigger: 'blur' }],
         productCode: [{ required: true, message: '请输入产成品编码', trigger: 'blur' }],
         productName: [{ required: true, message: '请输入产成品名称', trigger: 'blur' }],
-        productAmount: [{ required: true, message: '请输入产成品库存剩余数量', trigger: 'blur' }],
+        // itemProductAmount: [{ required: true, message: '请输入产成品库存剩余数量', trigger: 'blur' }],
         productUnit: [{ required: true, message: '请输入计量单位', trigger: 'blur' }],
         batchCode: [{ required: true, message: '请输入入库批次号', trigger: 'blur' }],
-        dataSource: [{ required: true, message: '请输入数据来源', trigger: 'blur' }],
-        dataSourceCreateTime: [{ required: true, message: '请输入来源数据创建时间', trigger: 'blur' }]
+        dataSource: [{ required: true, message: '请输入数据来源', trigger: 'blur' }]
+        // dataSourceCreateTime: [{ required: true, message: '请输入来源数据创建时间', trigger: 'blur' }]
       }
     }
   },
