@@ -267,7 +267,7 @@
             </el-tooltip>
 
             <el-tooltip class="item" content="断路器处于合闸位置时，断路器小车无法推进或拉出" placement="top-start">
-              <el-form-item label="断路器处于合闸位置时，断路器小车无法推进或拉出" prop="pressureTime">
+              <el-form-item label="断路器处于合闸位置时，断路器小车无法推进或拉出" prop="breakerClosed">
                 <el-select v-model="ruleForm.breakerClosed" placeholder="请选择">
                   <el-option v-for="item in breakerClosedList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -275,7 +275,7 @@
             </el-tooltip>
 
             <el-tooltip class="item" content="断路器手车处于试验位置时，二次插头才可以拔出或插上" placement="top-start">
-              <el-form-item label="断路器手车处于试验位置时，二次插头才可以拔出或插上" prop="pressureTime">
+              <el-form-item label="断路器手车处于试验位置时，二次插头才可以拔出或插上" prop="breakerInTest">
                 <el-select v-model="ruleForm.breakerInTest" placeholder="请选择">
                   <el-option v-for="item in breakerInTestList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -283,7 +283,7 @@
             </el-tooltip>
 
             <el-tooltip class="item" content="断路器手车处于工作位置时，无法操作接地开关" placement="top-start">
-              <el-form-item label="断路器手车处于工作位置时，无法操作接地开关" prop="pressureTime">
+              <el-form-item label="断路器手车处于工作位置时，无法操作接地开关" prop="breakerInWorking">
                 <el-select v-model="ruleForm.breakerInWorking" placeholder="请选择">
                   <el-option v-for="item in breakerInWorkingList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -291,7 +291,7 @@
             </el-tooltip>
 
             <el-tooltip class="item" content="电缆室门打开时，无法操作接地开关" placement="top-start">
-              <el-form-item label="电缆室门打开时，无法操作接地开关" prop="pressureTime">
+              <el-form-item label="电缆室门打开时，无法操作接地开关" prop="cableChamberDoorOpen">
                 <el-select v-model="ruleForm.cableChamberDoorOpen" placeholder="请选择">
                   <el-option v-for="item in cableChamberDoorOpenList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -315,7 +315,7 @@
             <el-form-item label="成品序列号" prop="materialSN"><el-input v-model="ruleForm.materialSN" :disabled="true" /></el-form-item>
 
             <el-tooltip class="item" content="断路器小车未到工作或试验位置时，断路器无法进行合闸操作" placement="top-start">
-              <el-form-item label="断路器小车未到工作或试验位置时，断路器无法进行合闸操作" prop="pressureTime">
+              <el-form-item label="断路器小车未到工作或试验位置时，断路器无法进行合闸操作" prop="breakerNotInTest">
                 <el-select v-model="ruleForm.breakerNotInTest" placeholder="请选择">
                   <el-option v-for="item in breakerNotInTestList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -323,7 +323,7 @@
             </el-tooltip>
 
             <el-tooltip class="item" content="当接地开关处在合闸位置时，断路器小车无法从试验位置进入工作位置" placement="top-start">
-              <el-form-item label="当接地开关处在合闸位置时，断路器小车无法从试验位置进入工作位置" prop="pressureTime">
+              <el-form-item label="当接地开关处在合闸位置时，断路器小车无法从试验位置进入工作位置" prop="earthSwitchOn">
                 <el-select v-model="ruleForm.earthSwitchOn" placeholder="请选择">
                   <el-option v-for="item in earthSwitchOnList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -331,7 +331,7 @@
             </el-tooltip>
 
             <el-tooltip class="item" content="只有当接地开关处于闭合状态时，才能打开电缆室门" placement="top-start">
-              <el-form-item label="只有当接地开关处于闭合状态时，才能打开电缆室门" prop="pressureTime">
+              <el-form-item label="只有当接地开关处于闭合状态时，才能打开电缆室门" prop="earthSwitchClosed">
                 <el-select v-model="ruleForm.earthSwitchClosed" placeholder="请选择">
                   <el-option v-for="item in earthSwitchClosedList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -339,7 +339,7 @@
             </el-tooltip>
 
             <el-tooltip class="item" content="只有当隔室的元件不带电并接地时，隔室的门或盖板才能打开" placement="top-start">
-              <el-form-item label="只有当隔室的元件不带电并接地时，隔室的门或盖板才能打开" prop="pressureTime">
+              <el-form-item label="只有当隔室的元件不带电并接地时，隔室的门或盖板才能打开" prop="elementUnchargedGround">
                 <el-select v-model="ruleForm.elementUnchargedGround" placeholder="请选择">
                   <el-option v-for="item in elementUnchargedGroundList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -681,14 +681,14 @@ export default {
         putCenterTime: [{ required: true, message: '请输入入数采中心时间', trigger: 'blur' }],
         contactNum: [{ required: true, message: '请输入断路器出厂编号', trigger: 'blur' }],
         materialSN: [{ required: true, message: '请输入成品序列号', trigger: 'blur' }],
-        breakerClosed: [{ required: true, message: '请输入0或者1', trigger: 'blur' }],
-        breakerNotInTest: [{ required: true, message: '请输入0或者1', trigger: 'blur' }],
-        breakerInTest: [{ required: true, message: '请输入0或者1', trigger: 'blur' }],
-        earthSwitchOn: [{ required: true, message: '请输入0或者1', trigger: 'blur' }],
-        breakerInWorking: [{ required: true, message: '请输入0或者1', trigger: 'blur' }],
-        earthSwitchClosed: [{ required: true, message: '请输入0或者1', trigger: 'blur' }],
-        cableChamberDoorOpen: [{ required: true, message: '请输入0或者1', trigger: 'blur' }],
-        elementUnchargedGround: [{ required: true, message: '请输入0或者1', trigger: 'blur' }]
+        breakerClosed: [{ required: true, message: '请输入0或者1', trigger: 'change' }],
+        breakerNotInTest: [{ required: true, message: '请输入0或者1', trigger: 'change' }],
+        breakerInTest: [{ required: true, message: '请输入0或者1', trigger: 'change' }],
+        earthSwitchOn: [{ required: true, message: '请输入0或者1', trigger: 'change' }],
+        breakerInWorking: [{ required: true, message: '请输入0或者1', trigger: 'change' }],
+        earthSwitchClosed: [{ required: true, message: '请输入0或者1', trigger: 'change' }],
+        cableChamberDoorOpen: [{ required: true, message: '请输入0或者1', trigger: 'change' }],
+        elementUnchargedGround: [{ required: true, message: '请输入0或者1', trigger: 'change' }]
       }
     }
   },

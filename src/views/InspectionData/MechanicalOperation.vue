@@ -266,7 +266,7 @@
             </el-tooltip>
 
             <el-tooltip class="itemrk" content="人力分合操作5次，可靠动作" placement="top-start">
-              <el-form-item label="人力分合操作5次，可靠动作" prop="pressureTime">
+              <el-form-item label="人力分合操作5次，可靠动作" prop="openCloseFiveManual">
                 <el-select v-model="ruleForm.openCloseFiveManual" placeholder="请选择">
                   <el-option v-for="item in openCloseFiveManualList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -274,7 +274,7 @@
             </el-tooltip>
 
             <el-tooltip class="itemrk" content="等于或低于30% 额定合闸电压时,可靠不动作" placement="top-start">
-              <el-form-item label="等于或低于30% 额定合闸电压时,可靠不动作" prop="pressureTime">
+              <el-form-item label="等于或低于30% 额定合闸电压时,可靠不动作" prop="thirtyRatedSwitch">
                 <el-select v-model="ruleForm.thirtyRatedSwitch" placeholder="请选择">
                   <el-option v-for="item in thirtyRatedSwitchList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -282,7 +282,7 @@
             </el-tooltip>
 
             <el-tooltip class="itemrk" content="65%~110%额定合闸电压（直流）范围，可靠合闸" placement="top-start">
-              <el-form-item label="65%~110%额定合闸电压（直流）范围，可靠合闸" prop="pressureTime">
+              <el-form-item label="65%~110%额定合闸电压（直流）范围，可靠合闸" prop="sixtyFiveRatedSwitch">
                 <el-select v-model="ruleForm.sixtyFiveRatedSwitch" placeholder="请选择">
                   <el-option v-for="item in sixtyFiveRatedSwitchList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -290,7 +290,7 @@
             </el-tooltip>
 
             <el-tooltip class="itemrk" content="额定操作电压下，分合操作5次，均可靠动作" placement="top-start">
-              <el-form-item label="额定操作电压下，分合操作5次，均可靠动作" prop="pressureTime">
+              <el-form-item label="额定操作电压下，分合操作5次，均可靠动作" prop="ratedVolAllReliable">
                 <el-select v-model="ruleForm.ratedVolAllReliable" placeholder="请选择">
                   <el-option v-for="item in ratedVolAllReliableList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -314,7 +314,7 @@
             <el-form-item label="成品序列号" prop="materialSN"><el-input v-model="ruleForm.materialSN" :disabled="true" /></el-form-item>
 
             <el-tooltip class="itemrk" content="储能电机85%和110%操作电压，储能可靠动作" placement="top-start">
-              <el-form-item label="储能电机85%和110%操作电压，储能可靠动作" prop="pressureTime">
+              <el-form-item label="储能电机85%和110%操作电压，储能可靠动作" prop="eightyFiveOper">
                 <el-select v-model="ruleForm.eightyFiveOper" placeholder="请选择">
                   <el-option v-for="item in eightyFiveOperList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -322,7 +322,7 @@
             </el-tooltip>
 
             <el-tooltip class="itemrk" content="80%~110%额定合闸电压（交流）范围，可靠合闸" placement="top-start">
-              <el-form-item label="80%~110%额定合闸电压（交流）范围，可靠合闸" prop="pressureTime">
+              <el-form-item label="80%~110%额定合闸电压（交流）范围，可靠合闸" prop="eightyRatedSwitch">
                 <el-select v-model="ruleForm.eightyRatedSwitch" placeholder="请选择">
                   <el-option v-for="item in eightyRatedSwitchList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -330,7 +330,7 @@
             </el-tooltip>
 
             <el-tooltip class="itemrk" content="分闸电源低于额定30%，操作5次可靠不动作" placement="top-start">
-              <el-form-item label="分闸电源低于额定30%，操作5次可靠不动作" prop="pressureTime">
+              <el-form-item label="分闸电源低于额定30%，操作5次可靠不动作" prop="lowerThirtyRated">
                 <el-select v-model="ruleForm.lowerThirtyRated" placeholder="请选择">
                   <el-option v-for="item in lowerThirtyRatedList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -338,7 +338,7 @@
             </el-tooltip>
 
             <el-tooltip class="itemrk" content="额定操作电压“分-0.3-合分”，可靠动作" placement="top-start">
-              <el-form-item label="额定操作电压“分-0.3-合分”，可靠动作" prop="pressureTime">
+              <el-form-item label="额定操作电压“分-0.3-合分”，可靠动作" prop="ratedVolOpenClose">
                 <el-select v-model="ruleForm.ratedVolOpenClose" placeholder="请选择">
                   <el-option v-for="item in ratedVolOpenCloseList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -684,13 +684,13 @@ export default {
         contactNum: [{ required: true, message: '请输入断路器出厂编号', trigger: 'blur' }],
         materialSN: [{ required: true, message: '请输入成品序列号', trigger: 'blur' }],
         openCloseFiveManual: [{ required: true, message: '请输入人力分合操作5次，可靠动作', trigger: 'blur' }],
-        eightyFiveOper: [{ required: true, message: '请输入储能电机85%和110%操作电压，储能可靠动作', trigger: 'blur' }],
-        thirtyRatedSwitch: [{ required: true, message: '请输入等于或低于30% 额定合闸电压时，操作5次，可靠不动作', trigger: 'blur' }],
-        eightyRatedSwitch: [{ required: true, message: '请输入80%~110%额定合闸电压（交流）范围，操作5次，可靠合闸', trigger: 'blur' }],
-        sixtyFiveRatedSwitch: [{ required: true, message: '请输入65%~110%额定合闸电压（直流）范围，操作5次，可靠合闸', trigger: 'blur' }],
-        lowerThirtyRated: [{ required: true, message: '请输入分闸电源低于额定30%，操作5次可靠不动作', trigger: 'blur' }],
-        ratedVolAllReliable: [{ required: true, message: '请输入额定操作电压下，分合操作5次，均可靠动作', trigger: 'blur' }],
-        ratedVolOpenClose: [{ required: true, message: '请输入额定操作电压“分-0.3-合分”，可靠动作', trigger: 'blur' }]
+        eightyFiveOper: [{ required: true, message: '请输入储能电机85%和110%操作电压，储能可靠动作', trigger: 'change' }],
+        thirtyRatedSwitch: [{ required: true, message: '请输入等于或低于30% 额定合闸电压时，操作5次，可靠不动作', trigger: 'change' }],
+        eightyRatedSwitch: [{ required: true, message: '请输入80%~110%额定合闸电压（交流）范围，操作5次，可靠合闸', trigger: 'change' }],
+        sixtyFiveRatedSwitch: [{ required: true, message: '请输入65%~110%额定合闸电压（直流）范围，操作5次，可靠合闸', trigger: 'change' }],
+        lowerThirtyRated: [{ required: true, message: '请输入分闸电源低于额定30%，操作5次可靠不动作', trigger: 'change' }],
+        ratedVolAllReliable: [{ required: true, message: '请输入额定操作电压下，分合操作5次，均可靠动作', trigger: 'change' }],
+        ratedVolOpenClose: [{ required: true, message: '请输入额定操作电压“分-0.3-合分”，可靠动作', trigger: 'change' }]
       }
     }
   },

@@ -438,7 +438,7 @@
               <el-form-item label="额定电流(A)" prop="ratedCurrent"><el-input v-model="ruleForm.ratedCurrent" /></el-form-item>
             </el-tooltip>
             <el-tooltip class="item" effect="dark" content="A相回路电阻值(μΩ)" placement="top-start">
-              <el-form-item label="A相回路电阻值(μΩ)" prop="pressureTime">
+              <el-form-item label="A相回路电阻值(μΩ)" prop="loopResistanceA">
                 <el-select v-model="ruleForm.loopResistanceA" placeholder="请选择">
                   <el-option v-for="item in loopResistanceAList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -446,7 +446,7 @@
             </el-tooltip>
 
             <el-tooltip class="item" content="C相回路电阻值(μΩ)" placement="top-start">
-              <el-form-item label="C相回路电阻值(μΩ)" prop="pressureTime">
+              <el-form-item label="C相回路电阻值(μΩ)" prop="loopResistanceC">
                 <el-select v-model="ruleForm.loopResistanceC" placeholder="请选择">
                   <el-option v-for="item in loopResistanceCList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -454,7 +454,7 @@
             </el-tooltip>
 
             <el-tooltip class="itemrk" content="储能电机85%和110%操作电压，储能可靠动作" placement="top-start">
-              <el-form-item label="储能电机85%和110%操作电压，储能可靠动作" prop="pressureTime">
+              <el-form-item label="储能电机85%和110%操作电压，储能可靠动作" prop="reliableStorageOper">
                 <el-select v-model="ruleForm.reliableStorageOper" placeholder="请选择">
                   <el-option v-for="item in reliableStorageOperList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -462,7 +462,7 @@
             </el-tooltip>
 
             <el-tooltip class="itemrk" content="85%~110%额定合闸电压（直流）范围，操作5次，可靠合闸" placement="top-start">
-              <el-form-item label="85%~110%额定合闸电压（直流）范围，操作5次，可靠合闸" prop="pressureTime">
+              <el-form-item label="85%~110%额定合闸电压（直流）范围，操作5次，可靠合闸" prop="nomACReliableSwitch">
                 <el-select v-model="ruleForm.nomACReliableSwitch" placeholder="请选择">
                   <el-option v-for="item in nomACReliableSwitchList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -470,7 +470,7 @@
             </el-tooltip>
 
             <el-tooltip class="itemrk" content="额定操作电压下，分合操作5次，均可靠动作" placement="top-start">
-              <el-form-item label="额定操作电压下，分合操作5次，均可靠动作" prop="pressureTime">
+              <el-form-item label="额定操作电压下，分合操作5次，均可靠动作" prop="breakNomVolReliableOper">
                 <el-select v-model="ruleForm.breakNomVolReliableOper" placeholder="请选择">
                   <el-option v-for="item in breakNomVolReliableOperList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -534,7 +534,7 @@
             </el-tooltip>
 
             <el-tooltip class="item" effect="dark" content="额定回路电阻值(μΩ)" placement="top-start">
-              <el-form-item label="额定回路电阻值(μΩ)" prop="pressureTime">
+              <el-form-item label="额定回路电阻值(μΩ)" prop="loopResistanceUn">
                 <el-select v-model="ruleForm.loopResistanceUn" placeholder="请选择">
                   <el-option v-for="item in loopResistanceUnList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -542,7 +542,7 @@
             </el-tooltip>
 
             <el-tooltip class="item" effect="dark" content="B相回路电阻值(μΩ)" placement="top-start">
-              <el-form-item label="B相回路电阻值(μΩ)" prop="pressureTime">
+              <el-form-item label="B相回路电阻值(μΩ)" prop="loopResistanceB">
                 <el-select v-model="ruleForm.loopResistanceB" placeholder="请选择">
                   <el-option v-for="item in loopResistanceBList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -550,7 +550,7 @@
             </el-tooltip>
 
             <el-tooltip class="item" effect="dark" content="人力分合操作5次，可靠动作" placement="top-start">
-              <el-form-item label="人力分合操作5次，可靠动作" prop="pressureTime">
+              <el-form-item label="人力分合操作5次，可靠动作" prop="perReliableOper">
                 <el-select v-model="ruleForm.perReliableOper" placeholder="请选择">
                   <el-option v-for="item in perReliableOperList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -558,7 +558,7 @@
             </el-tooltip>
 
             <el-tooltip class="item" effect="dark" content="等于或低于30% 额定合闸电压时，操作5次，可靠不动作" placement="top-start">
-              <el-form-item label="等于或低于30% 额定合闸电压时，操作5次，可靠不动作" prop="pressureTime">
+              <el-form-item label="等于或低于30% 额定合闸电压时，操作5次，可靠不动作" prop="nomVolReliableOper">
                 <el-select v-model="ruleForm.nomVolReliableOper" placeholder="请选择">
                   <el-option v-for="item in nomVolReliableOperList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -566,7 +566,7 @@
             </el-tooltip>
 
             <el-tooltip class="item" effect="dark" content="65%~110%额定分闸电压（直流）范围，操作5次，可靠分闸" placement="top-start">
-              <el-form-item label="65%~110%额定分闸电压（直流）范围，操作5次，可靠分闸" prop="pressureTime">
+              <el-form-item label="65%~110%额定分闸电压（直流）范围，操作5次，可靠分闸" prop="nomDCReliableSwitch">
                 <el-select v-model="ruleForm.nomDCReliableSwitch" placeholder="请选择">
                   <el-option v-for="item in nomDCReliableSwitchList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -574,7 +574,7 @@
             </el-tooltip>
 
             <el-tooltip class="item" effect="dark" content="分闸电源低于额定30%，操作5次可靠不动作" placement="top-start">
-              <el-form-item label="分闸电源低于额定30%，操作5次可靠不动作" prop="pressureTime">
+              <el-form-item label="分闸电源低于额定30%，操作5次可靠不动作" prop="breakReliableNoOper">
                 <el-select v-model="ruleForm.breakReliableNoOper" placeholder="请选择">
                   <el-option v-for="item in breakReliableNoOperList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -582,7 +582,7 @@
             </el-tooltip>
 
             <el-tooltip class="item" effect="dark" content="额定操作电压“分-0.3-合分”，可靠动作" placement="top-start">
-              <el-form-item label="额定操作电压“分-0.3-合分”，可靠动作" prop="pressureTime">
+              <el-form-item label="额定操作电压“分-0.3-合分”，可靠动作" prop="breakVolReliableOper">
                 <el-select v-model="ruleForm.breakVolReliableOper" placeholder="请选择">
                   <el-option v-for="item in breakVolReliableOperList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
@@ -1167,13 +1167,13 @@ export default {
         loopResistanceB: [{ required: true, message: '请输入B相回路电阻值(μΩ)', trigger: 'blur' }],
         loopResistanceC: [{ required: true, message: '请输入C相回路电阻值(μΩ)', trigger: 'blur' }],
         perReliableOper: [{ required: true, message: '请输入人力分合操作5次，可靠动作', trigger: 'blur' }],
-        reliableStorageOper: [{ required: true, message: '请输入储能电机85%和110%操作电压，储能可靠动作', trigger: 'blur' }],
-        nomVolReliableOper: [{ required: true, message: '请输入等于或低于30% 额定合闸电压时，操作5次，可靠不动作', trigger: 'blur' }],
-        nomACReliableSwitch: [{ required: true, message: '请输入85%~110%额定合闸电压（直流）范围，操作5次，可靠合闸', trigger: 'blur' }],
-        nomDCReliableSwitch: [{ required: true, message: '请输入65%~110%额定分闸电压（直流）范围，操作5次，可靠分闸', trigger: 'blur' }],
-        breakReliableNoOper: [{ required: true, message: '请输入分闸电源低于额定30%，操作5次可靠不动作', trigger: 'blur' }],
-        breakNomVolReliableOper: [{ required: true, message: '请输入额定操作电压下，分合操作5次，均可靠动作', trigger: 'blur' }],
-        breakVolReliableOper: [{ required: true, message: '请输入额定操作电压“分-0.3-合分”，可靠动作', trigger: 'blur' }],
+        reliableStorageOper: [{ required: true, message: '请输入储能电机85%和110%操作电压，储能可靠动作', trigger: 'change' }],
+        nomVolReliableOper: [{ required: true, message: '请输入等于或低于30% 额定合闸电压时，操作5次，可靠不动作', trigger: 'change' }],
+        nomACReliableSwitch: [{ required: true, message: '请输入85%~110%额定合闸电压（直流）范围，操作5次，可靠合闸', trigger: 'change' }],
+        nomDCReliableSwitch: [{ required: true, message: '请输入65%~110%额定分闸电压（直流）范围，操作5次，可靠分闸', trigger: 'change' }],
+        breakReliableNoOper: [{ required: true, message: '请输入分闸电源低于额定30%，操作5次可靠不动作', trigger: 'change' }],
+        breakNomVolReliableOper: [{ required: true, message: '请输入额定操作电压下，分合操作5次，均可靠动作', trigger: 'change' }],
+        breakVolReliableOper: [{ required: true, message: '请输入额定操作电压“分-0.3-合分”，可靠动作', trigger: 'change' }],
         breakTimeMax: [{ required: true, message: '请输入分闸时间额定上限值(ms)', trigger: 'blur' }],
         breakTimeMin: [{ required: true, message: '请输入分闸时间额定下限值(ms)', trigger: 'blur' }],
         breakTimeA: [{ required: true, message: '请输入A相分闸时间(ms)', trigger: 'blur' }],
