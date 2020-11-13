@@ -187,49 +187,49 @@
 
       <el-table-column align="center" :render-header="openCloseFiveManual" width="150">
         <template slot-scope="scope">
-          {{ scope.row.openCloseFiveManual }}
+          {{ scope.row.openCloseFiveManual === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="eightyFiveOper" width="150">
         <template slot-scope="scope">
-          {{ scope.row.eightyFiveOper }}
+          {{ scope.row.eightyFiveOper === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="thirtyRatedSwitch" width="150">
         <template slot-scope="scope">
-          {{ scope.row.thirtyRatedSwitch }}
+          {{ scope.row.thirtyRatedSwitch=== 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="eightyRatedSwitch" width="150">
         <template slot-scope="scope">
-          {{ scope.row.eightyRatedSwitch }}
+          {{ scope.row.eightyRatedSwitch=== 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="sixtyFiveRatedSwitch" width="150">
         <template slot-scope="scope">
-          {{ scope.row.sixtyFiveRatedSwitch }}
+          {{ scope.row.sixtyFiveRatedSwitch === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="lowerThirtyRated" width="150">
         <template slot-scope="scope">
-          {{ scope.row.lowerThirtyRated }}
+          {{ scope.row.lowerThirtyRated === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="ratedVolAllReliable" width="150">
         <template slot-scope="scope">
-          {{ scope.row.ratedVolAllReliable }}
+          {{ scope.row.ratedVolAllReliable=== 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="ratedVolOpenClose" width="150">
         <template slot-scope="scope">
-          {{ scope.row.ratedVolOpenClose }}
+          {{ scope.row.ratedVolOpenClose === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
@@ -262,20 +262,41 @@
               <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" :disabled="true" />
             </el-form-item>
             <el-tooltip class="item" effect="dark" content="断路器出厂编号(常州)" placement="top-start">
-              <el-form-item label="断路器出厂编号(常州)" prop="contactNum"><el-input v-model="ruleForm.contactNum" :disabled="true" /></el-form-item>
+              <el-form-item label="断路器出厂编号(常州)"><el-input v-model="ruleForm.contactNum" :disabled="true" /></el-form-item>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="人力分合操作5次，可靠动作" placement="top-start">
-              <el-form-item label="人力分合操作5次，可靠动作" prop="openCloseFiveManual"><el-input v-model="ruleForm.openCloseFiveManual" /></el-form-item>
+
+            <el-tooltip class="itemrk" content="人力分合操作5次，可靠动作" placement="top-start">
+              <el-form-item label="人力分合操作5次，可靠动作" prop="pressureTime">
+                <el-select v-model="ruleForm.openCloseFiveManual" placeholder="请选择">
+                  <el-option v-for="item in openCloseFiveManualList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="等于或低于30% 额定合闸电压时,可靠不动作" placement="top-start">
-              <el-form-item label="等于或低于30% 额定合闸电压时,可靠不动作" prop="thirtyRatedSwitch"><el-input v-model="ruleForm.thirtyRatedSwitch" /></el-form-item>
+
+            <el-tooltip class="itemrk" content="等于或低于30% 额定合闸电压时,可靠不动作" placement="top-start">
+              <el-form-item label="等于或低于30% 额定合闸电压时,可靠不动作" prop="pressureTime">
+                <el-select v-model="ruleForm.thirtyRatedSwitch" placeholder="请选择">
+                  <el-option v-for="item in thirtyRatedSwitchList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="65%~110%额定合闸电压（直流）范围，可靠合闸" placement="top-start">
-              <el-form-item label="65%~110%额定合闸电压（直流）范围，可靠合闸" prop="sixtyFiveRatedSwitch"><el-input v-model="ruleForm.sixtyFiveRatedSwitch" /></el-form-item>
+
+            <el-tooltip class="itemrk" content="65%~110%额定合闸电压（直流）范围，可靠合闸" placement="top-start">
+              <el-form-item label="65%~110%额定合闸电压（直流）范围，可靠合闸" prop="pressureTime">
+                <el-select v-model="ruleForm.sixtyFiveRatedSwitch" placeholder="请选择">
+                  <el-option v-for="item in sixtyFiveRatedSwitchList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="额定操作电压下，分合操作5次，均可靠动作" placement="top-start">
-              <el-form-item label="额定操作电压下，分合操作5次，均可靠动作" prop="ratedVolAllReliable"><el-input v-model="ruleForm.ratedVolAllReliable" /></el-form-item>
+
+            <el-tooltip class="itemrk" content="额定操作电压下，分合操作5次，均可靠动作" placement="top-start">
+              <el-form-item label="额定操作电压下，分合操作5次，均可靠动作" prop="pressureTime">
+                <el-select v-model="ruleForm.ratedVolAllReliable" placeholder="请选择">
+                  <el-option v-for="item in ratedVolAllReliableList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
             </el-tooltip>
+
           </div>
           <div class="boxRight">
             <el-form-item label="采集规范版本号" prop="standardVersion"><el-input v-model="ruleForm.standardVersion" /></el-form-item>
@@ -288,21 +309,42 @@
             <el-form-item label="告警项"><el-input v-model="ruleForm.alarmItem" /></el-form-item>
             <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
             <el-form-item label="入数采中心时间" prop="putCenterTime">
-              <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" :disabled="true" />
+              <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
             </el-form-item>
             <el-form-item label="成品序列号" prop="materialSN"><el-input v-model="ruleForm.materialSN" :disabled="true" /></el-form-item>
-            <el-tooltip class="item" effect="dark" content="储能电机85%和110%操作电压，储能可靠动作" placement="top-start">
-              <el-form-item label="储能电机85%和110%操作电压，储能可靠动作" prop="eightyFiveOper"><el-input v-model="ruleForm.eightyFiveOper" /></el-form-item>
+
+            <el-tooltip class="itemrk" content="储能电机85%和110%操作电压，储能可靠动作" placement="top-start">
+              <el-form-item label="储能电机85%和110%操作电压，储能可靠动作" prop="pressureTime">
+                <el-select v-model="ruleForm.eightyFiveOper" placeholder="请选择">
+                  <el-option v-for="item in eightyFiveOperList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="80%~110%额定合闸电压（交流）范围，可靠合闸" placement="top-start">
-              <el-form-item label="80%~110%额定合闸电压（交流）范围，可靠合闸" prop="eightyRatedSwitch"><el-input v-model="ruleForm.eightyRatedSwitch" /></el-form-item>
+
+            <el-tooltip class="itemrk" content="80%~110%额定合闸电压（交流）范围，可靠合闸" placement="top-start">
+              <el-form-item label="80%~110%额定合闸电压（交流）范围，可靠合闸" prop="pressureTime">
+                <el-select v-model="ruleForm.eightyRatedSwitch" placeholder="请选择">
+                  <el-option v-for="item in eightyRatedSwitchList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="分闸电源低于额定30%，操作5次可靠不动作" placement="top-start">
-              <el-form-item label="分闸电源低于额定30%，操作5次可靠不动作" prop="lowerThirtyRated"><el-input v-model="ruleForm.lowerThirtyRated" /></el-form-item>
+
+            <el-tooltip class="itemrk" content="分闸电源低于额定30%，操作5次可靠不动作" placement="top-start">
+              <el-form-item label="分闸电源低于额定30%，操作5次可靠不动作" prop="pressureTime">
+                <el-select v-model="ruleForm.lowerThirtyRated" placeholder="请选择">
+                  <el-option v-for="item in lowerThirtyRatedList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="额定操作电压“分-0.3-合分”，可靠动作" placement="top-start">
-              <el-form-item label="额定操作电压“分-0.3-合分”，可靠动作" prop="ratedVolOpenClose"><el-input v-model="ruleForm.ratedVolOpenClose" /></el-form-item>
+
+            <el-tooltip class="itemrk" content="额定操作电压“分-0.3-合分”，可靠动作" placement="top-start">
+              <el-form-item label="额定操作电压“分-0.3-合分”，可靠动作" prop="pressureTime">
+                <el-select v-model="ruleForm.ratedVolOpenClose" placeholder="请选择">
+                  <el-option v-for="item in ratedVolOpenCloseList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
             </el-tooltip>
+
           </div>
         </div>
       </el-form>
@@ -503,6 +545,88 @@ export default {
       dialogVisible: false, // 文件上传弹出框
       dialogFormVisible: false, // 编辑弹出框
       content1: this.$t('permission.supplierWorkNo'),
+      eightyFiveOperList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+      eightyRatedSwitchList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+
+      lowerThirtyRatedList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+      ratedVolOpenCloseList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+      openCloseFiveManualList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+      thirtyRatedSwitchList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+      sixtyFiveRatedSwitchList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+      ratedVolAllReliableList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+
       pickerOptions: {
         shortcuts: [
           {

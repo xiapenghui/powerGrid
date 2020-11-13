@@ -235,7 +235,7 @@
             <el-form-item label="告警项"><el-input v-model="ruleForm.alarmItem" /></el-form-item>
             <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
             <el-form-item label="入数采中心时间" prop="putCenterTime">
-              <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" :disabled="true" />
+              <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
             </el-form-item>
             <el-form-item label="镀银层厚度(μm)" prop="silveringThickness"><el-input v-model="ruleForm.silveringThickness" /></el-form-item>
           </div>

@@ -46,7 +46,7 @@
 
     <el-table
       v-loading="listLoading"
-      :header-cell-style="{ background: '#008284',color:'#ffffff' }"
+      :header-cell-style="{ background: '#008284', color: '#ffffff' }"
       :data="tableData"
       :height="tableHeight"
       style="width: 100%"
@@ -188,49 +188,49 @@
 
       <el-table-column align="center" :render-header="breakerClosed" width="150">
         <template slot-scope="scope">
-          {{ scope.row.breakerClosed }}
+          {{ scope.row.breakerClosed === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="breakerNotInTest" width="150">
         <template slot-scope="scope">
-          {{ scope.row.breakerNotInTest }}
+          {{ scope.row.breakerNotInTest === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="breakerInTest" width="150">
         <template slot-scope="scope">
-          {{ scope.row.breakerInTest }}
+          {{ scope.row.breakerInTest === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="earthSwitchOn" width="150">
         <template slot-scope="scope">
-          {{ scope.row.earthSwitchOn }}
+          {{ scope.row.earthSwitchOn === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="breakerInWorking" width="150">
         <template slot-scope="scope">
-          {{ scope.row.breakerInWorking }}
+          {{ scope.row.breakerInWorking === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="earthSwitchClosed" width="150">
         <template slot-scope="scope">
-          {{ scope.row.earthSwitchClosed }}
+          {{ scope.row.earthSwitchClosed === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="cableChamberDoorOpen" width="150">
         <template slot-scope="scope">
-          {{ scope.row.cableChamberDoorOpen }}
+          {{ scope.row.cableChamberDoorOpen === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="elementUnchargedGround" width="150">
         <template slot-scope="scope">
-          {{ scope.row.elementUnchargedGround }}
+          {{ scope.row.elementUnchargedGround === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
@@ -243,11 +243,7 @@
     </el-table>
 
     <!-- 编辑弹窗 -->
-    <el-dialog
-      title="编辑信息"
-      :close-on-click-modal="false"
-      :visible.sync="dialogFormVisible"
-    >
+    <el-dialog title="编辑信息" :close-on-click-modal="false" :visible.sync="dialogFormVisible">
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
         <div class="bigUpBox">
           <div class="boxLeft">
@@ -267,20 +263,41 @@
               <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" :disabled="true" />
             </el-form-item>
             <el-tooltip class="item" effect="dark" content="合同出厂编号(常州)" placement="top-start">
-              <el-form-item label="合同出厂编号(常州)" prop="contactNum"><el-input v-model="ruleForm.contactNum" /></el-form-item>
+              <el-form-item label="合同出厂编号(常州)"><el-input v-model="ruleForm.contactNum" /></el-form-item>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="断路器处于合闸位置时，断路器小车无法推进或拉出" placement="top-start">
-              <el-form-item label="断路器处于合闸位置时，断路器小车无法推进或拉出" prop="breakerClosed"><el-input v-model="ruleForm.breakerClosed" /></el-form-item>
+
+            <el-tooltip class="item" content="断路器处于合闸位置时，断路器小车无法推进或拉出" placement="top-start">
+              <el-form-item label="断路器处于合闸位置时，断路器小车无法推进或拉出" prop="pressureTime">
+                <el-select v-model="ruleForm.breakerClosed" placeholder="请选择">
+                  <el-option v-for="item in breakerClosedList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="断路器手车处于试验位置时，二次插头才可以拔出或插上" placement="top-start">
-              <el-form-item label="断路器手车处于试验位置时，二次插头才可以拔出或插上" prop="breakerInTest"><el-input v-model="ruleForm.breakerInTest" /></el-form-item>
+
+            <el-tooltip class="item" content="断路器手车处于试验位置时，二次插头才可以拔出或插上" placement="top-start">
+              <el-form-item label="断路器手车处于试验位置时，二次插头才可以拔出或插上" prop="pressureTime">
+                <el-select v-model="ruleForm.breakerInTest" placeholder="请选择">
+                  <el-option v-for="item in breakerInTestList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="断路器手车处于工作位置时，无法操作接地开关" placement="top-start">
-              <el-form-item label="断路器手车处于工作位置时，无法操作接地开关" prop="breakerInWorking"><el-input v-model="ruleForm.breakerInWorking" /></el-form-item>
+
+            <el-tooltip class="item" content="断路器手车处于工作位置时，无法操作接地开关" placement="top-start">
+              <el-form-item label="断路器手车处于工作位置时，无法操作接地开关" prop="pressureTime">
+                <el-select v-model="ruleForm.breakerInWorking" placeholder="请选择">
+                  <el-option v-for="item in breakerInWorkingList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="电缆室门打开时，无法操作接地开关" placement="top-start">
-              <el-form-item label="电缆室门打开时，无法操作接地开关" prop="cableChamberDoorOpen"><el-input v-model="ruleForm.cableChamberDoorOpen" /></el-form-item>
+
+            <el-tooltip class="item" content="电缆室门打开时，无法操作接地开关" placement="top-start">
+              <el-form-item label="电缆室门打开时，无法操作接地开关" prop="pressureTime">
+                <el-select v-model="ruleForm.cableChamberDoorOpen" placeholder="请选择">
+                  <el-option v-for="item in cableChamberDoorOpenList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
             </el-tooltip>
+
           </div>
           <div class="boxRight">
             <el-form-item label="采集规范版本号" prop="standardVersion"><el-input v-model="ruleForm.standardVersion" /></el-form-item>
@@ -293,23 +310,42 @@
             <el-form-item label="是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
             <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
             <el-form-item label="入数采中心时间" prop="putCenterTime">
-              <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" :disabled="true" />
+              <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
             </el-form-item>
             <el-form-item label="成品序列号" prop="materialSN"><el-input v-model="ruleForm.materialSN" :disabled="true" /></el-form-item>
-            <el-tooltip class="item" effect="dark" content="断路器小车未到工作或试验位置时，断路器无法进行合闸操作" placement="top-start">
-              <el-form-item label="断路器小车未到工作或试验位置时，断路器无法进行合闸操作" prop="breakerNotInTest"><el-input v-model="ruleForm.breakerNotInTest" /></el-form-item>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="当接地开关处在合闸位置时，断路器小车无法从试验位置进入工作位置" placement="top-start">
-              <el-form-item label="当接地开关处在合闸位置时，断路器小车无法从试验位置进入工作位置" prop="earthSwitchOn"><el-input v-model="ruleForm.earthSwitchOn" /></el-form-item>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="只有当接地开关处于闭合状态时，才能打开电缆室门" placement="top-start">
-              <el-form-item label="只有当接地开关处于闭合状态时，才能打开电缆室门" prop="earthSwitchClosed"><el-input v-model="ruleForm.earthSwitchClosed" /></el-form-item>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="只有当隔室的元件不带电并接地时，隔室的门或盖板才能打开" placement="top-start">
-              <el-form-item label="只有当隔室的元件不带电并接地时，隔室的门或盖板才能打开" prop="elementUnchargedGround">
-                <el-input v-model="ruleForm.elementUnchargedGround" />
+
+            <el-tooltip class="item" content="断路器小车未到工作或试验位置时，断路器无法进行合闸操作" placement="top-start">
+              <el-form-item label="断路器小车未到工作或试验位置时，断路器无法进行合闸操作" prop="pressureTime">
+                <el-select v-model="ruleForm.breakerNotInTest" placeholder="请选择">
+                  <el-option v-for="item in breakerNotInTestList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
               </el-form-item>
             </el-tooltip>
+
+            <el-tooltip class="item" content="当接地开关处在合闸位置时，断路器小车无法从试验位置进入工作位置" placement="top-start">
+              <el-form-item label="当接地开关处在合闸位置时，断路器小车无法从试验位置进入工作位置" prop="pressureTime">
+                <el-select v-model="ruleForm.earthSwitchOn" placeholder="请选择">
+                  <el-option v-for="item in earthSwitchOnList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
+            </el-tooltip>
+
+            <el-tooltip class="item" content="只有当接地开关处于闭合状态时，才能打开电缆室门" placement="top-start">
+              <el-form-item label="只有当接地开关处于闭合状态时，才能打开电缆室门" prop="pressureTime">
+                <el-select v-model="ruleForm.earthSwitchClosed" placeholder="请选择">
+                  <el-option v-for="item in earthSwitchClosedList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
+            </el-tooltip>
+
+            <el-tooltip class="item" content="只有当隔室的元件不带电并接地时，隔室的门或盖板才能打开" placement="top-start">
+              <el-form-item label="只有当隔室的元件不带电并接地时，隔室的门或盖板才能打开" prop="pressureTime">
+                <el-select v-model="ruleForm.elementUnchargedGround" placeholder="请选择">
+                  <el-option v-for="item in elementUnchargedGroundList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
+            </el-tooltip>
+
           </div>
         </div>
       </el-form>
@@ -506,41 +542,127 @@ export default {
       dialogVisible: false, // 文件上传弹出框
       dialogFormVisible: false, // 编辑弹出框
       content1: this.$t('permission.supplierWorkNo'),
-      pickerOptions: {
-        shortcuts: [{
-          text: '最近一周',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-            picker.$emit('pick', [start, end])
-          }
-        }, {
-          text: '最近一个月',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-            picker.$emit('pick', [start, end])
-          }
-        }, {
-          text: '最近三个月',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-            picker.$emit('pick', [start, end])
-          }
+      breakerClosedList: [
+        {
+          value: 0,
+          label: '否'
         },
         {
-          text: '最近六个月',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 180)
-            picker.$emit('pick', [start, end])
-          }
+          value: 1,
+          label: '是'
         }
+      ],
+      breakerInTestList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+      breakerInWorkingList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+      cableChamberDoorOpenList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+      breakerNotInTestList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+
+      earthSwitchOnList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+
+      earthSwitchClosedList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+      elementUnchargedGroundList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+
+      pickerOptions: {
+        shortcuts: [
+          {
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近六个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 180)
+              picker.$emit('pick', [start, end])
+            }
+          }
         ]
       },
       rules: {
@@ -810,9 +932,11 @@ export default {
     breakerNotInTest(h, { column, $index }, index) {
       return h('span', {}, [
         h('span', {}, '断路器小车未...'),
-        h('el-popover', { props: { placement: 'top-start', width: '300', trigger: 'hover', content: '断路器小车未到工作或试验位置时，断路器无法进行合闸操作(0 代表否， 1 代表是)' }}, [
-          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
-        ])
+        h(
+          'el-popover',
+          { props: { placement: 'top-start', width: '300', trigger: 'hover', content: '断路器小车未到工作或试验位置时，断路器无法进行合闸操作(0 代表否， 1 代表是)' }},
+          [h('i', { slot: 'reference', class: 'el-icon-question' }, '')]
+        )
       ])
     },
     breakerInTest(h, { column, $index }, index) {
@@ -826,9 +950,11 @@ export default {
     earthSwitchOn(h, { column, $index }, index) {
       return h('span', {}, [
         h('span', {}, '当接地开关处...'),
-        h('el-popover', { props: { placement: 'top-start', width: '300', trigger: 'hover', content: '当接地开关处在合闸位置时，断路器小车无法从试验位置进入工作位置(0代表否，1代表是)' }}, [
-          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
-        ])
+        h(
+          'el-popover',
+          { props: { placement: 'top-start', width: '300', trigger: 'hover', content: '当接地开关处在合闸位置时，断路器小车无法从试验位置进入工作位置(0代表否，1代表是)' }},
+          [h('i', { slot: 'reference', class: 'el-icon-question' }, '')]
+        )
       ])
     },
     breakerInWorking(h, { column, $index }, index) {
@@ -858,9 +984,11 @@ export default {
     elementUnchargedGround(h, { column, $index }, index) {
       return h('span', {}, [
         h('span', {}, '只有当隔室的元件...'),
-        h('el-popover', { props: { placement: 'top-start', width: '300', trigger: 'hover', content: '只有当隔室的元件不带电并接地时，隔室的门或盖板才能打开(0代表否，1代表是)' }}, [
-          h('i', { slot: 'reference', class: 'el-icon-question' }, '')
-        ])
+        h(
+          'el-popover',
+          { props: { placement: 'top-start', width: '300', trigger: 'hover', content: '只有当隔室的元件不带电并接地时，隔室的门或盖板才能打开(0代表否，1代表是)' }},
+          [h('i', { slot: 'reference', class: 'el-icon-question' }, '')]
+        )
       ])
     }
   }

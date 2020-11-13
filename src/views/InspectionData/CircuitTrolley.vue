@@ -46,7 +46,7 @@
 
     <el-table
       v-loading="listLoading"
-      :header-cell-style="{ background: '#008284',color:'#ffffff' }"
+      :header-cell-style="{ background: '#008284', color: '#ffffff' }"
       :data="tableData"
       :height="tableHeight"
       style="width: 100%"
@@ -212,73 +212,73 @@
 
       <el-table-column align="center" :label="$t('permission.loopResistanceUn')" width="100">
         <template slot-scope="scope">
-          {{ scope.row.loopResistanceUn }}
+          {{ scope.row.loopResistanceUn === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.loopResistanceA')" width="120">
         <template slot-scope="scope">
-          {{ scope.row.loopResistanceA }}
+          {{ scope.row.loopResistanceA === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.loopResistanceB')" width="120">
         <template slot-scope="scope">
-          {{ scope.row.loopResistanceB }}
+          {{ scope.row.loopResistanceB === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :label="$t('permission.loopResistanceC')" width="120">
         <template slot-scope="scope">
-          {{ scope.row.loopResistanceC }}
+          {{ scope.row.loopResistanceC === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="perReliableOper" width="120">
         <template slot-scope="scope">
-          {{ scope.row.perReliableOper }}
+          {{ scope.row.perReliableOper === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="reliableStorageOper" width="120">
         <template slot-scope="scope">
-          {{ scope.row.reliableStorageOper }}
+          {{ scope.row.reliableStorageOper === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="nomVolReliableOper" width="150">
         <template slot-scope="scope">
-          {{ scope.row.nomVolReliableOper }}
+          {{ scope.row.nomVolReliableOper === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="nomACReliableSwitch" width="150">
         <template slot-scope="scope">
-          {{ scope.row.nomACReliableSwitch }}
+          {{ scope.row.nomACReliableSwitch === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="nomDCReliableSwitch" width="150">
         <template slot-scope="scope">
-          {{ scope.row.nomDCReliableSwitch }}
+          {{ scope.row.nomDCReliableSwitch === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="breakReliableNoOper" width="150">
         <template slot-scope="scope">
-          {{ scope.row.breakReliableNoOper }}
+          {{ scope.row.breakReliableNoOper === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="breakNomVolReliableOper" width="150">
         <template slot-scope="scope">
-          {{ scope.row.breakNomVolReliableOper }}
+          {{ scope.row.breakNomVolReliableOper === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
       <el-table-column align="center" :render-header="breakVolReliableOper" width="150">
         <template slot-scope="scope">
-          {{ scope.row.breakVolReliableOper }}
+          {{ scope.row.breakVolReliableOper === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
@@ -438,25 +438,45 @@
               <el-form-item label="额定电流(A)" prop="ratedCurrent"><el-input v-model="ruleForm.ratedCurrent" /></el-form-item>
             </el-tooltip>
             <el-tooltip class="item" effect="dark" content="A相回路电阻值(μΩ)" placement="top-start">
-              <el-form-item label="A相回路电阻值(μΩ)" prop="loopResistanceA"><el-input v-model="ruleForm.loopResistanceA" /></el-form-item>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="C相回路电阻值(μΩ)" placement="top-start">
-              <el-form-item label="C相回路电阻值(μΩ)" prop="loopResistanceC"><el-input v-model="ruleForm.loopResistanceC" /></el-form-item>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="储能电机85%和110%操作电压，储能可靠动作" placement="top-start">
-              <el-form-item label="储能电机85%和110%操作电压，储能可靠动作" prop="eliableStorageOper"><el-input v-model="ruleForm.eliableStorageOper" /></el-form-item>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="85%~110%额定合闸电压（直流）范围，操作5次，可靠合闸" placement="top-start">
-              <el-form-item label="85%~110%额定合闸电压（直流）范围，操作5次，可靠合闸" prop="nomACReliableSwitch">
-                <el-input v-model="ruleForm.nomACReliableSwitch" />
+              <el-form-item label="A相回路电阻值(μΩ)" prop="pressureTime">
+                <el-select v-model="ruleForm.loopResistanceA" placeholder="请选择">
+                  <el-option v-for="item in loopResistanceAList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
               </el-form-item>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="分闸电源低于额定30%，操作5次可靠不动作" placement="top-start">
-              <el-form-item label="分闸电源低于额定30%，操作5次可靠不动作" prop="breakReliableNoOper"><el-input v-model="ruleForm.breakReliableNoOper" /></el-form-item>
+
+            <el-tooltip class="item" content="C相回路电阻值(μΩ)" placement="top-start">
+              <el-form-item label="C相回路电阻值(μΩ)" prop="pressureTime">
+                <el-select v-model="ruleForm.loopResistanceC" placeholder="请选择">
+                  <el-option v-for="item in loopResistanceCList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="额定操作电压下，分合操作5次，均可靠动作" placement="top-start">
-              <el-form-item label="额定操作电压下，分合操作5次，均可靠动作" prop="breakNomVolReliableOper"><el-input v-model="ruleForm.breakNomVolReliableOper" /></el-form-item>
+
+            <el-tooltip class="itemrk" content="储能电机85%和110%操作电压，储能可靠动作" placement="top-start">
+              <el-form-item label="储能电机85%和110%操作电压，储能可靠动作" prop="pressureTime">
+                <el-select v-model="ruleForm.reliableStorageOper" placeholder="请选择">
+                  <el-option v-for="item in reliableStorageOperList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
             </el-tooltip>
+
+            <el-tooltip class="itemrk" content="85%~110%额定合闸电压（直流）范围，操作5次，可靠合闸" placement="top-start">
+              <el-form-item label="85%~110%额定合闸电压（直流）范围，操作5次，可靠合闸" prop="pressureTime">
+                <el-select v-model="ruleForm.nomACReliableSwitch" placeholder="请选择">
+                  <el-option v-for="item in nomACReliableSwitchList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
+            </el-tooltip>
+
+            <el-tooltip class="itemrk" content="额定操作电压下，分合操作5次，均可靠动作" placement="top-start">
+              <el-form-item label="额定操作电压下，分合操作5次，均可靠动作" prop="pressureTime">
+                <el-select v-model="ruleForm.breakNomVolReliableOper" placeholder="请选择">
+                  <el-option v-for="item in breakNomVolReliableOperList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
+            </el-tooltip>
+
             <el-tooltip class="item" effect="dark" content="分闸时间额定上限值(ms)" placement="top-start">
               <el-form-item label="分闸时间额定上限值(ms)" prop="breakTimeMax"><el-input v-model="ruleForm.breakTimeMax" /></el-form-item>
             </el-tooltip>
@@ -484,6 +504,9 @@
             <el-tooltip class="item" effect="dark" content="分闸反弹幅值额定值(mm)" placement="top-start">
               <el-form-item label="分闸反弹幅值额定值(mm)" prop="breakOffAmplitudeUn"><el-input v-model="ruleForm.breakOffAmplitudeUn" /></el-form-item>
             </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="分闸反弹幅值(mm)" placement="top-start">
+              <el-form-item label="分闸反弹幅值(mm)" prop="breakOffAmplitude"><el-input v-model="ruleForm.breakOffAmplitude" /></el-form-item>
+            </el-tooltip>
           </div>
           <div class="boxRight">
             <el-form-item label="采集规范版本号" prop="standardVersion"><el-input v-model="ruleForm.standardVersion" /></el-form-item>
@@ -509,29 +532,63 @@
             <el-tooltip class="item" effect="dark" content="耐压持续时间(s)" placement="top-start">
               <el-form-item label="耐压持续时间(s)" prop="pressureTime"><el-input v-model="ruleForm.pressureTime" /></el-form-item>
             </el-tooltip>
+
             <el-tooltip class="item" effect="dark" content="额定回路电阻值(μΩ)" placement="top-start">
-              <el-form-item label="额定回路电阻值(μΩ)" prop="loopResistanceUn"><el-input v-model="ruleForm.loopResistanceUn" /></el-form-item>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="B相回路电阻值(μΩ)" placement="top-start">
-              <el-form-item label="B相回路电阻值(μΩ)" prop="loopResistanceB"><el-input v-model="ruleForm.loopResistanceB" /></el-form-item>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="人力分合操作5次，可靠动作" placement="top-start">
-              <el-form-item label="人力分合操作5次，可靠动作" prop="perReliableOper"><el-input v-model="ruleForm.perReliableOper" /></el-form-item>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="等于或低于30% 额定合闸电压时，操作5次，可靠不动作" placement="top-start">
-              <el-form-item label="等于或低于30% 额定合闸电压时，操作5次，可靠不动作" prop="nomVolReliableOper"><el-input v-model="ruleForm.nomVolReliableOper" /></el-form-item>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="65%~110%额定分闸电压（直流）范围，操作5次，可靠分闸" placement="top-start">
-              <el-form-item label="65%~110%额定分闸电压（直流）范围，操作5次，可靠分闸" prop="nomDCReliableSwitch">
-                <el-input v-model="ruleForm.nomDCReliableSwitch" />
+              <el-form-item label="额定回路电阻值(μΩ)" prop="pressureTime">
+                <el-select v-model="ruleForm.loopResistanceUn" placeholder="请选择">
+                  <el-option v-for="item in loopResistanceUnList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
               </el-form-item>
             </el-tooltip>
+
+            <el-tooltip class="item" effect="dark" content="B相回路电阻值(μΩ)" placement="top-start">
+              <el-form-item label="B相回路电阻值(μΩ)" prop="pressureTime">
+                <el-select v-model="ruleForm.loopResistanceB" placeholder="请选择">
+                  <el-option v-for="item in loopResistanceBList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
+            </el-tooltip>
+
+            <el-tooltip class="item" effect="dark" content="人力分合操作5次，可靠动作" placement="top-start">
+              <el-form-item label="人力分合操作5次，可靠动作" prop="pressureTime">
+                <el-select v-model="ruleForm.perReliableOper" placeholder="请选择">
+                  <el-option v-for="item in perReliableOperList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
+            </el-tooltip>
+
+            <el-tooltip class="item" effect="dark" content="等于或低于30% 额定合闸电压时，操作5次，可靠不动作" placement="top-start">
+              <el-form-item label="等于或低于30% 额定合闸电压时，操作5次，可靠不动作" prop="pressureTime">
+                <el-select v-model="ruleForm.nomVolReliableOper" placeholder="请选择">
+                  <el-option v-for="item in nomVolReliableOperList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
+            </el-tooltip>
+
+            <el-tooltip class="item" effect="dark" content="65%~110%额定分闸电压（直流）范围，操作5次，可靠分闸" placement="top-start">
+              <el-form-item label="65%~110%额定分闸电压（直流）范围，操作5次，可靠分闸" prop="pressureTime">
+                <el-select v-model="ruleForm.nomDCReliableSwitch" placeholder="请选择">
+                  <el-option v-for="item in nomDCReliableSwitchList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
+            </el-tooltip>
+
             <el-tooltip class="item" effect="dark" content="分闸电源低于额定30%，操作5次可靠不动作" placement="top-start">
-              <el-form-item label="分闸电源低于额定30%，操作5次可靠不动作" prop="breakReliableNoOper"><el-input v-model="ruleForm.breakReliableNoOper" /></el-form-item>
+              <el-form-item label="分闸电源低于额定30%，操作5次可靠不动作" prop="pressureTime">
+                <el-select v-model="ruleForm.breakReliableNoOper" placeholder="请选择">
+                  <el-option v-for="item in breakReliableNoOperList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
             </el-tooltip>
+
             <el-tooltip class="item" effect="dark" content="额定操作电压“分-0.3-合分”，可靠动作" placement="top-start">
-              <el-form-item label="额定操作电压“分-0.3-合分”，可靠动作" prop="breakVolReliableOper"><el-input v-model="ruleForm.breakVolReliableOper" /></el-form-item>
+              <el-form-item label="额定操作电压“分-0.3-合分”，可靠动作" prop="pressureTime">
+                <el-select v-model="ruleForm.breakVolReliableOper" placeholder="请选择">
+                  <el-option v-for="item in breakVolReliableOperList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
             </el-tooltip>
+
             <el-tooltip class="item" effect="dark" content="分闸时间额定下限值(ms)" placement="top-start">
               <el-form-item label="分闸时间额定下限值(ms)" prop="breakTimeMin"><el-input v-model="ruleForm.breakTimeMin" /></el-form-item>
             </el-tooltip>
@@ -556,31 +613,27 @@
             <el-tooltip class="item" effect="dark" content="合闸弹跳（真空断路器）(ms)" placement="top-start">
               <el-form-item label="合闸弹跳（真空断路器）(ms)" prop="closeBounceTime"><el-input v-model="ruleForm.closeBounceTime" /></el-form-item>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="分闸反弹幅值(mm)" placement="top-start">
-              <el-form-item label="分闸反弹幅值(mm)" prop="breakOffAmplitude"><el-input v-model="ruleForm.breakOffAmplitude" /></el-form-item>
-            </el-tooltip>
+            <el-form-item label="断路器附件">
+              <el-upload
+                :class="{ disUoloadSty: noneBtnImg }"
+                :action="this.GLOBAL.BASE_URL + '/api/image/upload'"
+                :data="this.oneDataImg"
+                :headers="this.myHeaders"
+                :limit="this.limitCountImg"
+                list-type="picture-card"
+                :file-list="editFileList"
+                :on-remove="onRemoveImg"
+                :on-success="onsucessImg"
+                :on-change="imgChange"
+                :on-preview="handlePictureCardPreview"
+              >
+                <i slot="default" class="el-icon-plus" />
+              </el-upload>
+              <el-dialog :visible.sync="dialogVisibleImg"><img width="100%" :src="dialogImageUrl" alt=""></el-dialog>
+            </el-form-item>
           </div>
         </div>
-        <div class="bigDownBox">
-          <el-form-item label="断路器附件">
-            <el-upload
-              :class="{ disUoloadSty: noneBtnImg }"
-              :action="this.GLOBAL.BASE_URL+'/api/image/upload'"
-              :data="this.oneDataImg"
-              :headers="this.myHeaders"
-              :limit="this.limitCountImg"
-              list-type="picture-card"
-              :file-list="editFileList"
-              :on-remove="onRemoveImg"
-              :on-success="onsucessImg"
-              :on-change="imgChange"
-              :on-preview="handlePictureCardPreview"
-            >
-              <i slot="default" class="el-icon-plus" />
-            </el-upload>
-            <el-dialog :visible.sync="dialogVisibleImg"><img width="100%" :src="dialogImageUrl" alt=""></el-dialog>
-          </el-form-item>
-        </div>
+        <div class="bigDownBox" />
       </el-form>
 
       <div slot="footer" class="dialog-footer">
@@ -638,7 +691,7 @@
           ref="uploadImage"
           style="margin-top: 30px"
           class="upload-demo"
-          :action="this.GLOBAL.BASE_URL+'/api/image/upload'"
+          :action="this.GLOBAL.BASE_URL + '/api/image/upload'"
           :data="this.newDataImg"
           :headers="this.myHeaders"
           :on-preview="handlePreview"
@@ -907,42 +960,184 @@ export default {
       editFileList: [],
       noneBtnImg: false, // 隐藏上传按钮
       limitCountImg: 1, // 上传图片的最大数量
-      content1: this.$t('permission.supplierWorkNo'),
-      pickerOptions: {
-        shortcuts: [{
-          text: '最近一周',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-            picker.$emit('pick', [start, end])
-          }
-        }, {
-          text: '最近一个月',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-            picker.$emit('pick', [start, end])
-          }
-        }, {
-          text: '最近三个月',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-            picker.$emit('pick', [start, end])
-          }
+      loopResistanceUnList: [
+        {
+          value: 0,
+          label: '否'
         },
         {
-          text: '最近六个月',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 180)
-            picker.$emit('pick', [start, end])
-          }
+          value: 1,
+          label: '是'
         }
+      ],
+      loopResistanceBList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+      perReliableOperList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+      nomVolReliableOperList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+
+      nomDCReliableSwitchList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+
+      breakReliableNoOperList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+
+      breakVolReliableOperList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+
+      loopResistanceAList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+
+      loopResistanceCList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+
+      eliableStorageOperList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+      reliableStorageOperList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+
+      nomACReliableSwitchList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+
+      breakNomVolReliableOperList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
+
+      content1: this.$t('permission.supplierWorkNo'),
+      pickerOptions: {
+        shortcuts: [
+          {
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近六个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 180)
+              picker.$emit('pick', [start, end])
+            }
+          }
         ]
       },
       rules: {
@@ -997,7 +1192,6 @@ export default {
         closeBounceTime: [{ required: true, message: '请输入合闸弹跳（真空断路器）(ms)', trigger: 'blur' }],
         breakOffAmplitudeUn: [{ required: true, message: '请输入分闸反弹幅值额定值(mm)', trigger: 'blur' }],
         breakOffAmplitude: [{ required: true, message: '请输入分闸反弹幅值(mm)', trigger: 'blur' }]
-
       }
     }
   },
@@ -1139,6 +1333,7 @@ export default {
     getList() {
       this.listLoading = true
       dlqxcList(this.pagination, this.listQuery).then(res => {
+        debugger
         this.tableData = res.data.records
         this.total = res.data.total
         this.listLoading = false
@@ -1385,7 +1580,6 @@ export default {
         ])
       ])
     }
-
   }
 }
 </script>
