@@ -252,7 +252,7 @@
             <el-form-item label="物资品类类型" prop="categoryType"><el-input v-model="ruleForm.categoryType" /></el-form-item>
             <el-form-item label="告警项"><el-input v-model="ruleForm.alarmItem" /></el-form-item>
             <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
-            <el-form-item label="入数采中心时间" prop="putCenterTime">
+            <el-form-item label="入数采中心时间">
               <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
             </el-form-item>
             <el-form-item label="一次额定电流(A)"><el-input v-model="ruleForm.ratedCurrent" /></el-form-item>

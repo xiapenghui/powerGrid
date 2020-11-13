@@ -251,7 +251,7 @@
             <el-form-item label="生产设备名称" prop="equipmentName"><el-input v-model="ruleForm.equipmentName" /></el-form-item>
             <el-form-item label="是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
             <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
-            <el-form-item label="入数采中心时间" prop="putCenterTime">
+            <el-form-item label="入数采中心时间">
               <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
             </el-form-item>
             <el-form-item label="成品序列号" prop="materialSN"><el-input v-model="ruleForm.materialSN" :disabled="true" /></el-form-item>
