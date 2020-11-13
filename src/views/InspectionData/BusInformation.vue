@@ -46,7 +46,7 @@
 
     <el-table
       v-loading="listLoading"
-      :header-cell-style="{ background: '#008284',color:'#ffffff' }"
+      :header-cell-style="{ background: '#008284', color: '#ffffff' }"
       :data="tableData"
       :height="tableHeight"
       style="width: 100%"
@@ -110,7 +110,7 @@
 
       <el-table-column align="center" :label="$t('permission.isAlarmData')" width="130">
         <template slot-scope="scope">
-          {{ scope.row.isAlarmData }}
+          {{ scope.row.isAlarmData === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
@@ -232,9 +232,15 @@
             <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" :disabled="true" /></el-form-item>
             <el-form-item label="供应商工单编号" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" :disabled="true" /></el-form-item>
             <el-form-item label="规格型号编码" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
-            <el-tooltip class="item" effect="dark" content="是否是告警问题数据" placement="top-start">
-              <el-form-item label="是否是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
+
+            <el-tooltip class="item" content="是否是告警问题数据" placement="top-start">
+              <el-form-item label="是否是告警问题数据" prop="isAlarmData">
+                <el-select v-model="ruleForm.isAlarmData" placeholder="请选择">
+                  <el-option v-for="item in isAlarmDataList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
             </el-tooltip>
+
             <el-form-item label="感知过程" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
             <el-form-item label="采集时间" prop="checkTime">
               <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" :disabled="true" />
@@ -252,7 +258,11 @@
               <el-form-item label="国网侧供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
             </el-tooltip>
             <el-form-item label="物资品类类型" prop="categoryType"><el-input v-model="ruleForm.categoryType" /></el-form-item>
-            <el-form-item label="告警项"><el-input v-model="ruleForm.alarmItem" /></el-form-item>
+
+            <el-form-item label="告警项" prop="alarmItem" :rules="[{ required: isAlarmItem, message: '请输入告警项', trigger: 'blur' }]">
+              <el-input v-model="ruleForm.alarmItem" />
+            </el-form-item>
+
             <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
             <el-form-item label="入数采中心时间">
               <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
@@ -266,7 +276,7 @@
               <!-- action="http://39.101.166.244/api/image/upload" -->
               <el-upload
                 :class="{ disUoloadSty: noneBtnImg }"
-                :action="this.GLOBAL.BASE_URL+'/api/image/upload'"
+                :action="this.GLOBAL.BASE_URL + '/api/image/upload'"
                 :data="this.oneDataImg"
                 :headers="this.myHeaders"
                 :limit="this.limitCountImg"
@@ -343,7 +353,7 @@
           ref="uploadImage"
           style="margin-top: 30px"
           class="upload-demo"
-          :action="this.GLOBAL.BASE_URL+'/api/image/upload'"
+          :action="this.GLOBAL.BASE_URL + '/api/image/upload'"
           :data="this.newDataImg"
           :headers="this.myHeaders"
           :on-preview="handlePreview"
@@ -520,7 +530,18 @@ export default {
       editFileList: [],
       noneBtnImg: false, // 隐藏上传按钮
       limitCountImg: 1, // 上传图片的最大数量
+      isAlarmItem: false,
       content1: this.$t('permission.supplierWorkNo'),
+      isAlarmDataList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
       pickerOptions: {
         shortcuts: [
           {
@@ -580,6 +601,17 @@ export default {
   },
   computed: {},
   watch: {
+    // 监听警告0或1
+    'ruleForm.isAlarmData': {
+      handler(val) {
+        this.ruleForm.isAlarmData = val
+        if (val === 0) {
+          this.isAlarmItem = false
+        } else {
+          this.isAlarmItem = true
+        }
+      }
+    },
     // 监听表格高度
     tableHeight(val) {
       if (!this.timer) {

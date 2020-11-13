@@ -140,7 +140,7 @@
 
       <el-table-column align="center" :label="$t('permission.isAlarmData')" width="150">
         <template slot-scope="scope">
-          {{ scope.row.isAlarmData }}
+          {{ scope.row.isAlarmData === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
@@ -231,7 +231,11 @@
             <el-tooltip class="item" effect="dark" content="生产设备唯一识别号" placement="top-start">
               <el-form-item label="生产设备唯一识别号" prop="equipmentUniqueCode"><el-input v-model="ruleForm.equipmentUniqueCode" /></el-form-item>
             </el-tooltip>
-            <el-form-item label="告警项"><el-input v-model="ruleForm.alarmItem" /></el-form-item>
+
+            <el-form-item label="告警项" prop="alarmItem" :rules="[ { required: isAlarmItem, message: '请输入告警项', trigger: 'blur' }]">
+              <el-input v-model="ruleForm.alarmItem" />
+            </el-form-item>
+
             <el-form-item label="感知过程" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
             <el-form-item label="采集时间" prop="checkTime">
               <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" :disabled="true" />
@@ -249,7 +253,15 @@
             <el-form-item label="物资品类类型" prop="categoryType"><el-input v-model="ruleForm.categoryType" /></el-form-item>
             <el-form-item label="供应商产品编号"><el-input v-model="ruleForm.supplierSupportId" /></el-form-item>
             <el-form-item label="生产设备名称" prop="equipmentName"><el-input v-model="ruleForm.equipmentName" /></el-form-item>
-            <el-form-item label="是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
+
+            <el-tooltip class="item" content="是否是告警问题数据" placement="top-start">
+              <el-form-item label="是否是告警问题数据" prop="isAlarmData">
+                <el-select v-model="ruleForm.isAlarmData" placeholder="请选择">
+                  <el-option v-for="item in isAlarmDataList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
+            </el-tooltip>
+
             <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
             <el-form-item label="入数采中心时间">
               <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
@@ -443,6 +455,17 @@ export default {
       dialogVisible: false, // 文件上传弹出框
       dialogFormVisible: false, // 编辑弹出框
       content1: this.$t('permission.supplierWorkNo'),
+      isAlarmItem: false,
+      isAlarmDataList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
       pickerOptions: {
         shortcuts: [{
           text: '最近一周',
@@ -504,6 +527,17 @@ export default {
   },
   computed: {},
   watch: {
+    // 监听警告0或1
+    'ruleForm.isAlarmData': {
+      handler(val) {
+        this.ruleForm.isAlarmData = val
+        if (val === 0) {
+          this.isAlarmItem = false
+        } else {
+          this.isAlarmItem = true
+        }
+      }
+    },
     // 监听表格高度
     tableHeight(val) {
       if (!this.timer) {
