@@ -109,11 +109,11 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.poItemId')" width="120">
+      <!-- <el-table-column align="center" :label="$t('permission.poItemId')" width="120">
         <template slot-scope="scope">
           {{ scope.row.poItemId }}
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column align="center" :label="$t('permission.soNo')" width="100">
         <template slot-scope="scope">
@@ -358,7 +358,7 @@
           <div class="boxLeft">
             <el-form-item label="销售订单号码" prop="soNo"><el-input v-model="ruleForm.soNo" :disabled="true" /></el-form-item>
             <el-form-item label="生产订单号" prop="ipoNo"><el-input v-model="ruleForm.ipoNo" :disabled="true" /></el-form-item>
-            <el-form-item label="采购订单编码" prop="poNo"><el-input v-model="ruleForm.poNo" /></el-form-item>
+            <el-form-item label="采购订单编码" prop="poNo"><el-input v-model="ruleForm.poNo" :disabled="true" /></el-form-item>
 
             <el-form-item label="厂家物料名称" prop="materialsName"><el-input v-model="ruleForm.materialsName" /></el-form-item>
             <el-form-item label="计量单位" prop="unit"><el-input v-model="ruleForm.unit" /></el-form-item>
@@ -371,7 +371,7 @@
             <el-form-item label="供应商名称" prop="supplierName"><el-input v-model="ruleForm.supplierName" /></el-form-item>
             <el-form-item label="种类编码" prop="subclassCode"><el-input v-model="ruleForm.subclassCode" /></el-form-item>
             <el-tooltip class="item" effect="dark" content="采购订单行项目id" placement="top-start">
-              <el-form-item label="采购订单行项目id" prop="poItemId"><el-input v-model="ruleForm.poItemId" :disabled="true" /></el-form-item>
+              <!-- <el-form-item label="采购订单行项目id" prop="poItemId"><el-input v-model="ruleForm.poItemId" :disabled="true" /></el-form-item> -->
             </el-tooltip>
             <el-form-item label="厂家物资单位" prop="materialsUnit"><el-input v-model="ruleForm.materialsUnit" /></el-form-item>
             <el-form-item label="物资id分组"><el-input v-model="ruleForm.productIdGrpNo" /></el-form-item>
@@ -560,7 +560,7 @@ export default {
         soItemNo: [{ required: true, message: '请输入销售订单行项目号', trigger: 'blur' }],
         ipoNo: [{ required: true, message: '请输入生产订单号', trigger: 'blur' }],
         materialsCode: [{ required: true, message: '请输入厂家物料编码', trigger: 'blur' }],
-        poNo: [{ required: true, message: '请输入采购订单编码', trigger: 'blur' }],
+        // poNo: [{ required: true, message: '请输入采购订单编码', trigger: 'blur' }],
         materialsName: [{ required: true, message: '请输入厂家物料名称', trigger: 'blur' }],
         amount: [{ required: true, message: '请输入生产数量', trigger: 'blur' }],
         unit: [{ required: true, message: '请输入计量单位', trigger: 'blur' }],
@@ -575,7 +575,7 @@ export default {
         categoryCode: [{ required: true, message: '请输入品类编码 ', trigger: 'blur' }],
         subclassCode: [{ required: true, message: '请输入种类编码 ', trigger: 'blur' }],
         scheduleCode: [{ required: true, message: '请输入排产计划编码 ', trigger: 'blur' }],
-        poItemId: [{ required: true, message: '请输入采购订单行项目id ', trigger: 'blur' }],
+        // poItemId: [{ required: true, message: '请输入采购订单行项目id ', trigger: 'blur' }],
         materialsUnit: [{ required: true, message: '请输入厂家物资单位 ', trigger: 'blur' }],
         materialsDesc: [{ required: true, message: '请输入厂家物料描述 ', trigger: 'blur' }],
         dataSource: [{ required: true, message: '请输入数据来源 ', trigger: 'blur' }],
