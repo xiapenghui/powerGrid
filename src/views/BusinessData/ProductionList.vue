@@ -96,14 +96,16 @@
           <el-tag v-else class="classRed">上传失败</el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center" :label="$t('permission.soNo')" width="100">
+
+      <el-table-column align="center" :label="$t('permission.ipoNo')" width="120">
         <template slot-scope="scope">
-          {{ scope.row.soNo }}
+          {{ scope.row.ipoNo }}
         </template>
       </el-table-column>
-      <el-table-column align="center" :label="$t('permission.soItemNo')" width="120">
+
+      <el-table-column align="center" :label="$t('permission.poNo')" width="120">
         <template slot-scope="scope">
-          {{ scope.row.soItemNo }}
+          {{ scope.row.poNo }}
         </template>
       </el-table-column>
 
@@ -113,9 +115,14 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.ipoNo')" width="120">
+      <el-table-column align="center" :label="$t('permission.soNo')" width="100">
         <template slot-scope="scope">
-          {{ scope.row.ipoNo }}
+          {{ scope.row.soNo }}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" :label="$t('permission.soItemNo')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.soItemNo }}
         </template>
       </el-table-column>
 
@@ -351,6 +358,8 @@
           <div class="boxLeft">
             <el-form-item label="销售订单号码" prop="soNo"><el-input v-model="ruleForm.soNo" :disabled="true" /></el-form-item>
             <el-form-item label="生产订单号" prop="ipoNo"><el-input v-model="ruleForm.ipoNo" :disabled="true" /></el-form-item>
+            <el-form-item label="采购订单编码" prop="poNo"><el-input v-model="ruleForm.poNo" /></el-form-item>
+
             <el-form-item label="厂家物料名称" prop="materialsName"><el-input v-model="ruleForm.materialsName" /></el-form-item>
             <el-form-item label="计量单位" prop="unit"><el-input v-model="ruleForm.unit" /></el-form-item>
             <el-form-item label="计划完成日期" prop="planFinishDate">
@@ -551,6 +560,7 @@ export default {
         soItemNo: [{ required: true, message: '请输入销售订单行项目号', trigger: 'blur' }],
         ipoNo: [{ required: true, message: '请输入生产订单号', trigger: 'blur' }],
         materialsCode: [{ required: true, message: '请输入厂家物料编码', trigger: 'blur' }],
+        poNo: [{ required: true, message: '请输入采购订单编码', trigger: 'blur' }],
         materialsName: [{ required: true, message: '请输入厂家物料名称', trigger: 'blur' }],
         amount: [{ required: true, message: '请输入生产数量', trigger: 'blur' }],
         unit: [{ required: true, message: '请输入计量单位', trigger: 'blur' }],
