@@ -107,6 +107,12 @@
         </template>
       </el-table-column>
 
+      <el-table-column align="center" :label="$t('permission.poItemId')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.poItemId }}
+        </template>
+      </el-table-column>
+
       <el-table-column align="center" :label="$t('permission.ipoNo')" width="120">
         <template slot-scope="scope">
           {{ scope.row.ipoNo }}
@@ -212,12 +218,6 @@
       <el-table-column align="center" :label="$t('permission.scheduleCode')" width="120">
         <template slot-scope="scope">
           {{ scope.row.scheduleCode }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.poItemId')" width="120">
-        <template slot-scope="scope">
-          {{ scope.row.poItemId }}
         </template>
       </el-table-column>
 
