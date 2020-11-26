@@ -147,6 +147,14 @@ export const constantRoutes = [{
     meta: {
       title: 'FinishedInformation'
     }
+  },
+  {
+    path: 'SupplyList',
+    component: () => import('@/views/BusinessData/SupplyList'),
+    name: 'SupplyList',
+    meta: {
+      title: 'SupplyList'
+    }
   }
   ]
 },
@@ -184,25 +192,6 @@ export const constantRoutes = [{
     name: 'CabinetMaterial',
     meta: {
       title: 'CabinetMaterial'
-    }
-  },
-  {
-    path: 'CurrentTransformer',
-    component: () => import('@/views/InspectionData/CurrentTransformer'),
-    hidden: true,
-    name: 'CurrentTransformer',
-    meta: {
-      title: 'CurrentTransformer'
-    }
-  },
-
-  {
-    path: 'VoltageTransformer',
-    component: () => import('@/views/InspectionData/VoltageTransformer'),
-    hidden: true,
-    name: 'VoltageTransformer',
-    meta: {
-      title: 'VoltageTransformer'
     }
   },
   {
@@ -270,6 +259,87 @@ export const constantRoutes = [{
     name: 'ElectricalInterlock',
     meta: {
       title: 'ElectricalInterlock'
+    }
+  },
+  {
+    path: 'HeadBox',
+    component: () => import('@/views/InspectionData/HeadBox'),
+    name: 'HeadBox',
+    meta: {
+      title: 'HeadBox'
+    }
+  },
+  {
+    path: 'CabinetBush',
+    component: () => import('@/views/InspectionData/CabinetBush'),
+    name: 'CabinetBush',
+    meta: {
+      title: 'CabinetBush'
+    }
+  },
+  {
+    path: 'ColumnInsulation',
+    component: () => import('@/views/InspectionData/ColumnInsulation'),
+    name: 'ColumnInsulation',
+    meta: {
+      title: 'ColumnInsulation'
+    }
+  },
+  {
+    path: 'CurrentTransformer',
+    component: () => import('@/views/InspectionData/CurrentTransformer'),
+    name: 'CurrentTransformer',
+    meta: {
+      title: 'CurrentTransformer'
+    }
+  },
+
+  {
+    path: 'VoltageTransformer',
+    component: () => import('@/views/InspectionData/VoltageTransformer'),
+    name: 'VoltageTransformer',
+    meta: {
+      title: 'VoltageTransformer'
+    }
+  },
+  {
+    path: 'LightnArreste',
+    component: () => import('@/views/InspectionData/LightnArreste'),
+    name: 'LightnArreste',
+    meta: {
+      title: 'LightnArreste'
+    }
+  },
+  {
+    path: 'DotDisplay',
+    component: () => import('@/views/InspectionData/DotDisplay'),
+    name: 'DotDisplay',
+    meta: {
+      title: 'DotDisplay'
+    }
+  },
+  {
+    path: 'FuseBox',
+    component: () => import('@/views/InspectionData/FuseBox'),
+    name: 'FuseBox',
+    meta: {
+      title: 'FuseBox'
+    }
+  },
+  {
+    path: 'LightImpulse',
+    component: () => import('@/views/InspectionData/LightImpulse'),
+    name: 'LightImpulse',
+    meta: {
+      title: 'LightImpulse'
+    }
+  },
+  {
+    path: 'DischargeTest',
+    component: () => import('@/views/InspectionData/DischargeTest'),
+    name: 'DischargeTest',
+    meta: {
+      title: 'DischargeTest'
     }
   }
 

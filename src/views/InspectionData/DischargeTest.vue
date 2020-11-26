@@ -108,6 +108,30 @@
         </template>
       </el-table-column>
 
+      <el-table-column align="center" :label="$t('permission.factoryCode')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.factoryCode }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.supplierSupportId')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.supplierSupportId }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.equipmentName')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.equipmentName }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" :label="$t('permission.equipmentUniqueCode')" width="120">
+        <template slot-scope="scope">
+          {{ scope.row.equipmentUniqueCode }}
+        </template>
+      </el-table-column>
+
       <el-table-column align="center" :label="$t('permission.isAlarmData')" width="130">
         <template slot-scope="scope">
           {{ scope.row.isAlarmData === 1 ? '是' : '否' }}
@@ -138,39 +162,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.rawMaterialSN')" width="150">
+      <el-table-column align="center" :label="$t('permission.rawMaterialJT')" width="150">
         <template slot-scope="scope">
-          {{ scope.row.rawMaterialSN }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.ratedCurrent')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.ratedCurrent }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.pressureValueUn')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.pressureValueUn }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.pressureValue')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.pressureValue }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.pressureTimeUn')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.pressureTimeUn }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.pressureTime')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.pressureTime }}
+          {{ scope.row.materialSN }}
         </template>
       </el-table-column>
 
@@ -180,27 +174,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.dischargeA')" width="150">
+      <el-table-column align="center" :label="$t('permission.discharge')" width="120">
         <template slot-scope="scope">
-          {{ scope.row.dischargeA }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.dischargeB')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.dischargeB }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.dischargeC')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.dischargeC }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.inspectionReportFileDL')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.inspectionReportFile }}
+          {{ scope.row.discharge }}
         </template>
       </el-table-column>
 
@@ -220,7 +196,8 @@
             <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" :disabled="true" /></el-form-item>
             <el-form-item label="供应商工单编号" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" :disabled="true" /></el-form-item>
             <el-form-item label="规格型号编码" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
-
+            <el-form-item label="厂区编号"><el-input v-model="ruleForm.factoryCode" /></el-form-item>
+            <el-form-item label="生产设备名称" prop="equipmentName"><el-input v-model="ruleForm.equipmentName" /></el-form-item>
             <el-tooltip class="item" content="是否是告警问题数据" placement="top-start">
               <el-form-item label="是否是告警问题数据" prop="isAlarmData">
                 <el-select v-model="ruleForm.isAlarmData" placeholder="请选择">
@@ -228,18 +205,11 @@
                 </el-select>
               </el-form-item>
             </el-tooltip>
-
             <el-form-item label="感知过程" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
             <el-form-item label="采集时间" prop="checkTime">
               <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" :disabled="true" />
             </el-form-item>
-
-            <el-form-item label="一次额定电流(A)"><el-input v-model="ruleForm.ratedCurrent" /></el-form-item>
-            <el-form-item label="一次耐压值(kV)"><el-input v-model="ruleForm.pressureValue" /></el-form-item>
-            <el-form-item label="耐压持续时间(S)"><el-input v-model="ruleForm.pressureTime" /></el-form-item>
-            <el-form-item label="A相局放量(pC)"><el-input v-model="ruleForm.dischargeA" /></el-form-item>
-            <el-form-item label="C相局放量(pC)"><el-input v-model="ruleForm.dischargeC" /></el-form-item>
-
+            <el-form-item label="额定局放量(pC)"><el-input v-model="ruleForm.dischargeUn" /></el-form-item>
           </div>
           <div class="boxRight">
             <el-form-item label="采集规范版本号" prop="standardVersion"><el-input v-model="ruleForm.standardVersion" /></el-form-item>
@@ -247,39 +217,17 @@
               <el-form-item label="国网侧供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
             </el-tooltip>
             <el-form-item label="物资品类类型" prop="categoryType"><el-input v-model="ruleForm.categoryType" /></el-form-item>
-
+            <el-form-item label="供应商产品编号"><el-input v-model="ruleForm.supplierSupportId" /></el-form-item>
+            <el-form-item label="生产设备唯一识别号" prop="equipmentUniqueCode"><el-input v-model="ruleForm.equipmentUniqueCode" /></el-form-item>
             <el-form-item label="告警项" prop="alarmItem" :rules="[{ required: isAlarmItem, message: '请输入告警项', trigger: 'blur' }]">
               <el-input v-model="ruleForm.alarmItem" />
             </el-form-item>
             <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
-            <el-form-item label="CT出厂编号" prop="rawMaterialSN"><el-input v-model="ruleForm.rawMaterialSN" :disabled="true" /></el-form-item>
-            <el-form-item label="一次耐压额定值(kV)"><el-input v-model="ruleForm.pressureValueUn" /></el-form-item>
-            <el-form-item label="耐压持续额定时间(S)"><el-input v-model="ruleForm.pressureTimeUn" /></el-form-item>
-            <el-form-item label="额定局放量(pC)"><el-input v-model="ruleForm.dischargeUn" /></el-form-item>
-            <el-form-item label="B相局放量(pC)"><el-input v-model="ruleForm.dischargeB" /></el-form-item>
-
-            <el-form-item label="电流互感器附件">
-              <el-upload
-                :class="{ disUoloadSty: noneBtnImg }"
-                :action="this.GLOBAL.BASE_URL + '/api/image/upload'"
-                :data="this.oneDataImg"
-                :headers="this.myHeaders"
-                :limit="this.limitCountImg"
-                list-type="picture-card"
-                :file-list="editFileList"
-                :on-remove="onRemoveImg"
-                :on-success="onsucessImg"
-                :on-change="imgChange"
-                :on-preview="handlePictureCardPreview"
-              >
-                <i slot="default" class="el-icon-plus" />
-              </el-upload>
-              <el-dialog :visible.sync="dialogVisibleImg"><img width="100%" :src="dialogImageUrl" alt=""></el-dialog>
-            </el-form-item>
+            <el-form-item label="柜体序列号" prop="materialSN"><el-input v-model="ruleForm.mterialSN" :disabled="true" /></el-form-item>
+            <el-form-item label="局放量(pC)"><el-input v-model="ruleForm.discharge" /></el-form-item>
           </div>
-        </div>
-        <!-- <div class="bigDownBox"></div> -->
-      </el-form>
+          <!-- <div class="bigDownBox"></div> -->
+        </div></el-form>
 
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -295,46 +243,6 @@
       @beforeavatarupload="beforeAvatarUpload"
       @fileClose="fileClose"
     />
-
-    <!-- //批量上传图片弹窗 -->
-    <el-dialog title="批量上传图片(仅支持png和jpg格式文件)" :visible.sync="dialogVisibleAllImg" :close-on-click-modal="false" width="50%">
-      <div class="demo-image__error">
-        <div v-for="(item, index) in imgList" :key="index" class="blockImg">
-          <el-image style="width:80px; height: 80px" :src="item.imagePath === null ? '' : item.imagePath">
-            <div slot="error" class="image-slot"><i class="el-icon-picture-outline" /></div>
-          </el-image>
-          <span class="demonstration">{{ item.imageName }}</span>
-        </div>
-      </div>
-      <!-- action="http://39.101.166.244/api/image/upload" -->
-      <div class="uploadImg">
-        <el-upload
-          ref="uploadImage"
-          style="margin-top: 30px"
-          class="upload-demo"
-          :action="this.GLOBAL.BASE_URL + '/api/image/upload'"
-          :data="this.newDataImg"
-          :headers="this.myHeaders"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          :before-remove="beforeRemove"
-          :on-success="onSuccessImage"
-          :before-upload="beforeUploadImage"
-          :on-change="onChange"
-          multiple
-          :limit="20"
-          :on-exceed="handleExceed"
-          :file-list="fileList"
-        >
-          <el-button size="small" type="primary">选择图片</el-button>
-        </el-upload>
-      </div>
-
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisibleAllImg = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisibleAllImg = false">确 定</el-button>
-      </span>
-    </el-dialog>
 
     <!-- 日志弹出框 -->
     <el-dialog title="日志信息" :visible.sync="dialogTableVisible">
@@ -360,6 +268,18 @@
               <el-form-item label="物资品类类型:">
                 <span>{{ props.row.requestBody.categoryType }}</span>
               </el-form-item>
+              <el-form-item label="厂区编号:">
+                <span>{{ props.row.requestBody.factoryCode }}</span>
+              </el-form-item>
+              <el-form-item label="供应商产品编号:">
+                <span>{{ props.row.requestBody.supplierSupportId }}</span>
+              </el-form-item>
+              <el-form-item label="生产设备名称:">
+                <span>{{ props.row.requestBody.equipmentName }}</span>
+              </el-form-item>
+              <el-form-item label="生产设备唯一识别号:">
+                <span>{{ props.row.requestBody.equipmentUniqueCode }}</span>
+              </el-form-item>
               <el-form-item label="是否是告警问题数据:">
                 <span>{{ props.row.requestBody.isAlarmData }}</span>
               </el-form-item>
@@ -375,40 +295,14 @@
               <el-form-item label="采集时间:">
                 <span>{{ props.row.requestBody.checkTime }}</span>
               </el-form-item>
-              <el-form-item label="CT出厂编号:">
-                <span>{{ props.row.requestBody.rawMaterialSN }}</span>
+              <el-form-item label="柜体序列号:">
+                <span>{{ props.row.requestBody.materialSN }}</span>
               </el-form-item>
-
-              <el-form-item label="一次额定电流(A):">
-                <span>{{ props.row.requestBody.ratedCurrent }}</span>
-              </el-form-item>
-              <el-form-item label="一次耐压额定值(kV):">
-                <span>{{ props.row.requestBody.pressureValueUn }}</span>
-              </el-form-item>
-              <el-form-item label="一次耐压值(kV):">
-                <span>{{ props.row.requestBody.pressureValue }}</span>
-              </el-form-item>
-              <el-form-item label="耐压持续额定时间(S):">
-                <span>{{ props.row.requestBody.pressureTimeUn }}</span>
-              </el-form-item>
-              <el-form-item label="耐压持续时间(S):">
-                <span>{{ props.row.requestBody.pressureTime }}</span>
-              </el-form-item>
-
               <el-form-item label="额定局放量(pC):">
                 <span>{{ props.row.requestBody.dischargeUn }}</span>
               </el-form-item>
-              <el-form-item label="A相局放量(pC):">
-                <span>{{ props.row.requestBody.dischargeA }}</span>
-              </el-form-item>
-              <el-form-item label="B相局放量(pC):">
-                <span>{{ props.row.requestBody.dischargeB }}</span>
-              </el-form-item>
-              <el-form-item label="C相局放量(pC):">
-                <span>{{ props.row.requestBody.dischargeC }}</span>
-              </el-form-item>
-              <el-form-item label="电流互感器附件:">
-                <span>{{ props.row.requestBody.inspectionReportFile }}</span>
+              <el-form-item label="局放量(pC):">
+                <span>{{ props.row.requestBody.discharge }}</span>
               </el-form-item>
             </el-form>
           </template>
@@ -440,7 +334,7 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 import ImprotFile from '@/components/ImprotFile' // 文件上传文件封装
 const fixHeight = 270
 export default {
-  name: 'CurrentTransformer',
+  name: 'DischargeTest',
   components: { Pagination, ImprotFile },
   data() {
     return {
@@ -475,18 +369,11 @@ export default {
       dialogTableVisible: false, // 日志弹出框
       dialogVisible: false, // 文件上传弹出框
       dialogFormVisible: false, // 编辑弹出框
-      dialogImageUrl: '', // 编辑上传单张图片
-      dialogVisibleImg: false, // 上传图片模态框
-      dialogVisibleAllImg: false, // 批量上传图片
       disabled: false,
-      imgList: [], // 批量上传图片数组
       fileList: [],
-      newDataImg: { id: '', imagePath: '', modelName: '电流互感器' }, // 多个图片上传
-      oneDataImg: { id: '', imagePath: '', modelName: '电流互感器' }, // 单个图片上传或替换之前的图片
       editRow: {},
       editFileList: [],
       noneBtnImg: false, // 隐藏上传按钮
-      limitCountImg: 1, // 上传图片的最大数量
       isAlarmItem: false,
       content1: this.$t('permission.supplierWorkNo'),
       isAlarmDataList: [
@@ -546,10 +433,12 @@ export default {
         supplierCode: [{ required: true, message: '请输入国网侧供应商编码', trigger: 'blur' }],
         modelCode: [{ required: true, message: '请输入规格型号编码', trigger: 'blur' }],
         categoryType: [{ required: true, message: '请输入物资品类类型', trigger: 'blur' }],
+        equipmentName: [{ required: true, message: '请输入生产设备名称', trigger: 'blur' }],
+        equipmentUniqueCode: [{ required: true, message: '请输入生产设备唯一识别号', trigger: 'blur' }],
         processType: [{ required: true, message: '请输入感知过程', trigger: 'blur' }],
         pdCode: [{ required: true, message: '请输入工序', trigger: 'blur' }],
         checkTime: [{ required: true, message: '请输入采集时间', trigger: 'blur' }],
-        rawMaterialSN: [{ required: true, message: '请输入PT出厂编号', trigger: 'blur' }]
+        materialSN: [{ required: true, message: '请输入柜体序列号', trigger: 'blur' }]
       }
     }
   },
@@ -720,16 +609,7 @@ export default {
     // 编辑
     handleEdit(index, row) {
       this.editFileList = []
-      this.oneDataImg.id = row.id
       this.editRow = row
-      if (row.imagePath !== null) {
-        this.editFileList.push({
-          name: row.imageFileUrl,
-          url: this.GLOBAL.BASE_URL + '/api/image/' + row.imagePath
-          // url: 'http://192.168.1.192:8888/api/image/' + row.imagePath
-        })
-      }
-      this.noneBtnImg = this.editFileList.length >= this.limitCountImg
       this.ruleForm = JSON.parse(JSON.stringify(row))
       this.dialogFormVisible = true
     },
@@ -773,14 +653,12 @@ export default {
         if (res.data.length > 0) {
           this.$message.success(this.$t('table.upSuccess'))
           this.dialogVisible = false
-          this.dialogVisibleAllImg = true
           this.improtLoading = false
           this.imgList = res.data
           this.getList()
         } else {
           this.$message.success(this.$t('table.upSuccess'))
           this.dialogVisible = false
-          this.dialogVisibleAllImg = false
           this.improtLoading = false
           this.getList()
         }
@@ -812,9 +690,7 @@ export default {
     onChange(file, fileList) {
       // console.log('file', file)
     },
-    handleRemove(file, fileList) {
-      // console.log(file, fileList)
-    },
+
     handlePreview(file) {
       // console.log(file)
     },
@@ -826,56 +702,8 @@ export default {
         // 成功时候的方法
         return this.$confirm(`确定移除 ${file.name}？`)
       }
-    },
-    beforeUploadImage(file) {
-      // console.log('file', file)
-      const isJPG = file.type === 'image/jpeg'
-      const isPNG = file.type === 'image/png'
-      const self = this
-      var isOK = this.imgList.some(function(item) {
-        if (item.imageName === file.name) {
-          self.newDataImg.id = item.id
-        }
-        return item.imageName === file.name
-      })
-      if (!isJPG && !isPNG) {
-        this.$message.error(` ${file.name}格式错误！`)
-      }
-
-      return isJPG && isOK
-    },
-    onSuccessImage(res, file, fileList) {
-      // console.log('res', res)
-      // console.log('file', file)
-      // console.log('fileList', fileList)
-      this.imgList.map(item => {
-        if (item.imageName === file.name) {
-          item.imagePath = this.GLOBAL.BASE_URL + res.data
-          // item.imagePath = 'http://192.168.101.192:8888' + res.data
-        }
-      })
-      this.getList()
-    },
-    // 编辑替换移除图片
-    onRemoveImg(file, fileList) {
-      this.noneBtnImg = fileList.length >= this.limitCountImg
-    },
-    // 超过1张图片隐藏上传按钮，小于1张图片上传按钮显示
-    imgChange(file, fileList) {
-      this.noneBtnImg = fileList.length >= this.limitCountImg
-    },
-    // 编辑图片上传成功
-    onsucessImg(response, file, fileList) {
-      console.log('response', response)
-      console.log('file', file)
-      console.log('fileList', fileList)
-      this.editRow.imageFileUrl = file.name
-      this.getList()
-    },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url
-      this.dialogVisibleImg = true
     }
+
   }
 }
 </script>

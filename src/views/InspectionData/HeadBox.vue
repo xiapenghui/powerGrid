@@ -138,67 +138,25 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.rawMaterialSN')" width="150">
+      <el-table-column align="center" :label="$t('permission.rawMaterialOP')" width="150">
         <template slot-scope="scope">
-          {{ scope.row.rawMaterialSN }}
+          {{ scope.row.materialSN }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.ratedCurrent')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.ratedCurrent }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.pressureValueUn')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.pressureValueUn }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.pressureValue')" width="150">
+      <el-table-column align="center" :label="$t('permission.pressureValue')" width="120">
         <template slot-scope="scope">
           {{ scope.row.pressureValue }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.pressureTimeUn')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.pressureTimeUn }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.pressureTime')" width="150">
+      <el-table-column align="center" :label="$t('permission.pressureTime')" width="120">
         <template slot-scope="scope">
           {{ scope.row.pressureTime }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.dischargeUn')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.dischargeUn }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.dischargeA')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.dischargeA }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.dischargeB')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.dischargeB }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.dischargeC')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.dischargeC }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.inspectionReportFileDL')" width="150">
+      <el-table-column align="center" :label="$t('permission.inspectionReportFileCTH')" width="150">
         <template slot-scope="scope">
           {{ scope.row.inspectionReportFile }}
         </template>
@@ -234,11 +192,8 @@
               <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" :disabled="true" />
             </el-form-item>
 
-            <el-form-item label="一次额定电流(A)"><el-input v-model="ruleForm.ratedCurrent" /></el-form-item>
-            <el-form-item label="一次耐压值(kV)"><el-input v-model="ruleForm.pressureValue" /></el-form-item>
-            <el-form-item label="耐压持续时间(S)"><el-input v-model="ruleForm.pressureTime" /></el-form-item>
-            <el-form-item label="A相局放量(pC)"><el-input v-model="ruleForm.dischargeA" /></el-form-item>
-            <el-form-item label="C相局放量(pC)"><el-input v-model="ruleForm.dischargeC" /></el-form-item>
+            <el-form-item label="耐压值(kV)"><el-input v-model="ruleForm.pressureValue" /></el-form-item>
+            <el-form-item label="耐压持续时间(s)"><el-input v-model="ruleForm.pressureTime" /></el-form-item>
 
           </div>
           <div class="boxRight">
@@ -251,14 +206,12 @@
             <el-form-item label="告警项" prop="alarmItem" :rules="[{ required: isAlarmItem, message: '请输入告警项', trigger: 'blur' }]">
               <el-input v-model="ruleForm.alarmItem" />
             </el-form-item>
-            <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
-            <el-form-item label="CT出厂编号" prop="rawMaterialSN"><el-input v-model="ruleForm.rawMaterialSN" :disabled="true" /></el-form-item>
-            <el-form-item label="一次耐压额定值(kV)"><el-input v-model="ruleForm.pressureValueUn" /></el-form-item>
-            <el-form-item label="耐压持续额定时间(S)"><el-input v-model="ruleForm.pressureTimeUn" /></el-form-item>
-            <el-form-item label="额定局放量(pC)"><el-input v-model="ruleForm.dischargeUn" /></el-form-item>
-            <el-form-item label="B相局放量(pC)"><el-input v-model="ruleForm.dischargeB" /></el-form-item>
 
-            <el-form-item label="电流互感器附件">
+            <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
+
+            <el-form-item label="国网OP" prop="materialSN"><el-input v-model="ruleForm.mterialSN" :disabled="true" /></el-form-item>
+
+            <el-form-item label="触头盒附件">
               <el-upload
                 :class="{ disUoloadSty: noneBtnImg }"
                 :action="this.GLOBAL.BASE_URL + '/api/image/upload'"
@@ -375,39 +328,18 @@
               <el-form-item label="采集时间:">
                 <span>{{ props.row.requestBody.checkTime }}</span>
               </el-form-item>
-              <el-form-item label="CT出厂编号:">
-                <span>{{ props.row.requestBody.rawMaterialSN }}</span>
+
+              <el-form-item label="国网PO:">
+                <span>{{ props.row.requestBody.materialSN }}</span>
               </el-form-item>
 
-              <el-form-item label="一次额定电流(A):">
-                <span>{{ props.row.requestBody.ratedCurrent }}</span>
-              </el-form-item>
-              <el-form-item label="一次耐压额定值(kV):">
-                <span>{{ props.row.requestBody.pressureValueUn }}</span>
-              </el-form-item>
-              <el-form-item label="一次耐压值(kV):">
+              <el-form-item label="耐压值(kV):">
                 <span>{{ props.row.requestBody.pressureValue }}</span>
               </el-form-item>
-              <el-form-item label="耐压持续额定时间(S):">
-                <span>{{ props.row.requestBody.pressureTimeUn }}</span>
-              </el-form-item>
-              <el-form-item label="耐压持续时间(S):">
+              <el-form-item label="耐压持续时间(s):">
                 <span>{{ props.row.requestBody.pressureTime }}</span>
               </el-form-item>
-
-              <el-form-item label="额定局放量(pC):">
-                <span>{{ props.row.requestBody.dischargeUn }}</span>
-              </el-form-item>
-              <el-form-item label="A相局放量(pC):">
-                <span>{{ props.row.requestBody.dischargeA }}</span>
-              </el-form-item>
-              <el-form-item label="B相局放量(pC):">
-                <span>{{ props.row.requestBody.dischargeB }}</span>
-              </el-form-item>
-              <el-form-item label="C相局放量(pC):">
-                <span>{{ props.row.requestBody.dischargeC }}</span>
-              </el-form-item>
-              <el-form-item label="电流互感器附件:">
+              <el-form-item label="触头盒附件:">
                 <span>{{ props.row.requestBody.inspectionReportFile }}</span>
               </el-form-item>
             </el-form>
@@ -437,10 +369,11 @@ import '../../styles/commentBox.scss'
 import i18n from '@/lang'
 import { npList, npDellte, npEdit, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
+// import logDialog from '@/components/logDialog' // 日志封装
 import ImprotFile from '@/components/ImprotFile' // 文件上传文件封装
 const fixHeight = 270
 export default {
-  name: 'CurrentTransformer',
+  name: 'HeadBox',
   components: { Pagination, ImprotFile },
   data() {
     return {
@@ -481,8 +414,8 @@ export default {
       disabled: false,
       imgList: [], // 批量上传图片数组
       fileList: [],
-      newDataImg: { id: '', imagePath: '', modelName: '电流互感器' }, // 多个图片上传
-      oneDataImg: { id: '', imagePath: '', modelName: '电流互感器' }, // 单个图片上传或替换之前的图片
+      newDataImg: { id: '', imagePath: '', modelName: '触头盒' }, // 多个图片上传
+      oneDataImg: { id: '', imagePath: '', modelName: '触头盒' }, // 单个图片上传或替换之前的图片
       editRow: {},
       editFileList: [],
       noneBtnImg: false, // 隐藏上传按钮
@@ -549,7 +482,7 @@ export default {
         processType: [{ required: true, message: '请输入感知过程', trigger: 'blur' }],
         pdCode: [{ required: true, message: '请输入工序', trigger: 'blur' }],
         checkTime: [{ required: true, message: '请输入采集时间', trigger: 'blur' }],
-        rawMaterialSN: [{ required: true, message: '请输入PT出厂编号', trigger: 'blur' }]
+        materialSN: [{ required: true, message: '请输入国网PO', trigger: 'blur' }]
       }
     }
   },

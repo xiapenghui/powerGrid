@@ -10,6 +10,7 @@
           </el-col>
           <el-col :span="16"><el-input v-model="listQuery.supplierWorkNo" :placeholder="$t('permission.supplierWorkNo')" clearable /></el-col>
         </el-col>
+
         <el-col :span="8">
           <el-col :span="8">
             <el-tooltip class="item" effect="dark" content="创建时间" placement="top-start"><label class="radio-label">创建时间:</label></el-tooltip>
@@ -107,9 +108,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.isAlarmData')" width="150">
+      <el-table-column align="center" :label="$t('permission.isAlarmData')" width="130">
         <template slot-scope="scope">
-          {{ scope.row.isAlarmData }}
+          {{ scope.row.isAlarmData === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
@@ -119,13 +120,13 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.processType')" width="120">
+      <el-table-column align="center" :label="$t('permission.processTypeThree')" width="120">
         <template slot-scope="scope">
           {{ scope.row.processType }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.pdCodeOther')" width="120">
+      <el-table-column align="center" :label="$t('permission.pdCode')" width="150">
         <template slot-scope="scope">
           {{ scope.row.pdCode }}
         </template>
@@ -137,25 +138,19 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.putCenterTime')" width="150">
-        <template slot-scope="scope">
-          {{ scope.row.putCenterTime }}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" :label="$t('permission.RawMaterialSNOther')" width="120">
+      <el-table-column align="center" :label="$t('permission.rawMaterialSN')" width="150">
         <template slot-scope="scope">
           {{ scope.row.rawMaterialSN }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.ratedVoltage')" width="120">
+      <el-table-column align="center" :label="$t('permission.ratedVoltage')" width="150">
         <template slot-scope="scope">
           {{ scope.row.ratedVoltage }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.pressureValue')" width="120">
+      <el-table-column align="center" :label="$t('permission.pressureValue')" width="150">
         <template slot-scope="scope">
           {{ scope.row.pressureValue }}
         </template>
@@ -173,33 +168,33 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.dischargeUn')" width="120">
+      <el-table-column align="center" :label="$t('permission.dischargeUn')" width="150">
         <template slot-scope="scope">
           {{ scope.row.dischargeUn }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.dischargeA')" width="120">
+      <el-table-column align="center" :label="$t('permission.dischargeA')" width="150">
         <template slot-scope="scope">
           {{ scope.row.dischargeA }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.dischargeB')" width="120">
+      <el-table-column align="center" :label="$t('permission.dischargeB')" width="150">
         <template slot-scope="scope">
           {{ scope.row.dischargeB }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.dischargeC')" width="120">
+      <el-table-column align="center" :label="$t('permission.dischargeC')" width="150">
         <template slot-scope="scope">
           {{ scope.row.dischargeC }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.imageFileUrlOther')" width="180">
+      <el-table-column align="center" :label="$t('permission.inspectionReportFileDY')" width="150">
         <template slot-scope="scope">
-          {{ scope.row.imageFileUrl }}
+          {{ scope.row.inspectionReportFile }}
         </template>
       </el-table-column>
 
@@ -217,20 +212,42 @@
         <div class="bigUpBox">
           <div class="boxLeft">
             <el-form-item label="工厂名称" prop="saleOrg"><el-input v-model="ruleForm.saleOrg" :disabled="true" /></el-form-item>
-            <el-form-item label="供应商工单编号" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" /></el-form-item>
+            <el-form-item label="供应商工单编号" prop="supplierWorkNo"><el-input v-model="ruleForm.supplierWorkNo" :disabled="true" /></el-form-item>
             <el-form-item label="规格型号编码" prop="modelCode"><el-input v-model="ruleForm.modelCode" /></el-form-item>
-            <el-tooltip class="item" effect="dark" content="是否是告警问题数据" placement="top-start">
-              <el-form-item label="是否是告警问题数据"><el-input v-model="ruleForm.isAlarmData" /></el-form-item>
+
+            <el-tooltip class="item" content="是否是告警问题数据" placement="top-start">
+              <el-form-item label="是否是告警问题数据" prop="isAlarmData">
+                <el-select v-model="ruleForm.isAlarmData" placeholder="请选择">
+                  <el-option v-for="item in isAlarmDataList" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+              </el-form-item>
             </el-tooltip>
             <el-form-item label="感知过程" prop="processType"><el-input v-model="ruleForm.processType" /></el-form-item>
             <el-form-item label="采集时间" prop="checkTime">
-              <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+              <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" :disabled="true" />
             </el-form-item>
-            <el-form-item label="原材料出厂编号" prop="rawMaterialSN"><el-input v-model="ruleForm.rawMaterialSN" /></el-form-item>
-            <el-form-item label="一次耐压值(kV)"><el-input v-model="ruleForm.pressureValue" /></el-form-item>
-            <el-form-item label="耐压持续额定时间(s)"><el-input v-model="ruleForm.pressureTimeUn" /></el-form-item>
+            <el-form-item label="一次额定电压(kV)"><el-input v-model="ruleForm.ratedVoltage" /></el-form-item>
+            <el-form-item label="耐压持续额定时间(S)"><el-input v-model="ruleForm.pressureTimeUn" /></el-form-item>
             <el-form-item label="额定局放量(pC)"><el-input v-model="ruleForm.dischargeUn" /></el-form-item>
-            <el-form-item label="B相局放量"><el-input v-model="ruleForm.dischargeB" /></el-form-item>
+            <el-form-item label="B相局放量(pC)"><el-input v-model="ruleForm.dischargeB" /></el-form-item>
+            <el-form-item label="电压互感器附件">
+              <el-upload
+                :class="{ disUoloadSty: noneBtnImg }"
+                :action="this.GLOBAL.BASE_URL + '/api/image/upload'"
+                :data="this.oneDataImg"
+                :headers="this.myHeaders"
+                :limit="this.limitCountImg"
+                list-type="picture-card"
+                :file-list="editFileList"
+                :on-remove="onRemoveImg"
+                :on-success="onsucessImg"
+                :on-change="imgChange"
+                :on-preview="handlePictureCardPreview"
+              >
+                <i slot="default" class="el-icon-plus" />
+              </el-upload>
+              <el-dialog :visible.sync="dialogVisibleImg"><img width="100%" :src="dialogImageUrl" alt=""></el-dialog>
+            </el-form-item>
           </div>
           <div class="boxRight">
             <el-form-item label="采集规范版本号" prop="standardVersion"><el-input v-model="ruleForm.standardVersion" /></el-form-item>
@@ -238,38 +255,20 @@
               <el-form-item label="国网侧供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
             </el-tooltip>
             <el-form-item label="物资品类类型" prop="categoryType"><el-input v-model="ruleForm.categoryType" /></el-form-item>
-            <el-form-item label="告警项"><el-input v-model="ruleForm.alarmItem" /></el-form-item>
-            <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
-            <el-form-item label="入数采中心时间">
-              <el-date-picker v-model="ruleForm.putCenterTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+
+            <el-form-item label="告警项" prop="alarmItem" :rules="[{ required: isAlarmItem, message: '请输入告警项', trigger: 'blur' }]">
+              <el-input v-model="ruleForm.alarmItem" />
             </el-form-item>
-            <el-form-item label="一次额定电压(kV)"><el-input v-model="ruleForm.ratedVoltage" /></el-form-item>
-            <el-form-item label="耐压持续时间(s)"><el-input v-model="ruleForm.pressureTime" /></el-form-item>
-            <el-form-item label="A相局放量"><el-input v-model="ruleForm.dischargeA" /></el-form-item>
-            <el-form-item label="C相局放量"><el-input v-model="ruleForm.dischargeC" /></el-form-item>
+            <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
+            <el-form-item label="CT出厂编号" prop="rawMaterialSN"><el-input v-model="ruleForm.rawMaterialSN" :disabled="true" /></el-form-item>
+            <el-form-item label="一次耐压值(kV)"><el-input v-model="ruleForm.pressureValue" /></el-form-item>
+            <el-form-item label="耐压持续时间(S)"><el-input v-model="ruleForm.pressureTime" /></el-form-item>
+            <el-form-item label="A相局放量(pC)"><el-input v-model="ruleForm.dischargeA" /></el-form-item>
+            <el-form-item label="C相局放量(pC)"><el-input v-model="ruleForm.dischargeC" /></el-form-item>
+
           </div>
         </div>
-        <div class="bigDownBox">
-          <el-form-item label="电压附件">
-            <el-upload
-              :class="{ disUoloadSty: noneBtnImg }"
-              action="http://39.101.166.244/api/image/upload"
-              :data="this.oneDataImg"
-              :headers="this.myHeaders"
-              :limit="this.limitCountImg"
-              list-type="picture-card"
-              :file-list="editFileList"
-              :on-remove="onRemoveImg"
-              :on-success="onsucessImg"
-              :on-change="imgChange"
-              :on-preview="handlePictureCardPreview"
-            >
-              <i slot="default" class="el-icon-plus" />
-            </el-upload>
-
-            <el-dialog :visible.sync="dialogVisibleImg"><img width="100%" :src="dialogImageUrl" alt=""></el-dialog>
-          </el-form-item>
-        </div>
+        <!-- <div class="bigDownBox"></div> -->
       </el-form>
 
       <div slot="footer" class="dialog-footer">
@@ -278,35 +277,17 @@
       </div>
     </el-dialog>
 
-    <!-- 日志弹出框 -->
-    <log-dialog :is-show="dialogTableVisible" :log-total="logTotal" :pagination-log="paginationLog" :data="gridData" @pageChange="getLogList" @closeLog="closeLog" />
-
-    <!-- 上传文件弹窗 -->
-    <el-dialog title="导入文件" :close-on-click-modal="false" :visible.sync="dialogVisible" width="30%">
-      <el-upload
-        ref="upload"
-        class="upload-demo"
-        :action="this.GLOBAL.BASE_URL + '/api/kvsc/vt/import/file'"
-        :headers="this.myHeaders"
-        :limit="1"
-        :before-upload="beforeAvatarUpload"
-        :on-success="handleAvatarSuccess"
-        :on-error="handleAvatarError"
-        :auto-upload="true"
-      >
-        <el-button size="small" type="primary">{{ $t('table.clickUp') }}</el-button>
-        <div slot="tip" class="el-upload__tip">
-          {{ $t('table.onlyUpload') }}
-          <b>{{ $t('table.xls') }}</b>
-          {{ $t('table.or') }}
-          <b>{{ $t('table.xlsx') }}</b>
-          {{ $t('table.fileSize') }}
-        </div>
-      </el-upload>
-    </el-dialog>
+    <ImprotFile
+      :dialog-visible="dialogVisible"
+      :improt-loading="improtLoading"
+      :production-url="productionUrl"
+      @handleavatarsuccess="handleAvatarSuccess"
+      @beforeavatarupload="beforeAvatarUpload"
+      @fileClose="fileClose"
+    />
 
     <!-- //批量上传图片弹窗 -->
-    <el-dialog title="批量上传图片" :visible.sync="dialogVisibleAllImg" :close-on-click-modal="false" width="50%">
+    <el-dialog title="批量上传图片(仅支持png和jpg格式文件)" :visible.sync="dialogVisibleAllImg" :close-on-click-modal="false" width="50%">
       <div class="demo-image__error">
         <div v-for="(item, index) in imgList" :key="index" class="blockImg">
           <el-image style="width:80px; height: 80px" :src="item.imagePath === null ? '' : item.imagePath">
@@ -315,13 +296,12 @@
           <span class="demonstration">{{ item.imageName }}</span>
         </div>
       </div>
-
       <div class="uploadImg">
         <el-upload
           ref="uploadImage"
           style="margin-top: 30px"
           class="upload-demo"
-          action="http://39.101.166.244/api/image/upload"
+          :action="this.GLOBAL.BASE_URL + '/api/image/upload'"
           :data="this.newDataImg"
           :headers="this.myHeaders"
           :on-preview="handlePreview"
@@ -345,6 +325,95 @@
       </span>
     </el-dialog>
 
+    <!-- 日志弹出框 -->
+    <el-dialog title="日志信息" :visible.sync="dialogTableVisible">
+      <el-table border style="width: 100%" height="50vh" :data="gridData">
+        <el-table-column type="expand">
+          <template slot-scope="props">
+            <el-form label-position="left" inline class="demo-table-expand">
+              <el-form-item label="工厂:">
+                <span>{{ props.row.requestBody.saleOrg }}</span>
+              </el-form-item>
+              <el-form-item label="采集规范版本号:">
+                <span>{{ props.row.requestBody.standardVersion }}</span>
+              </el-form-item>
+              <el-form-item label="供应商工单编号:">
+                <span>{{ props.row.requestBody.supplierWorkNo }}</span>
+              </el-form-item>
+              <el-form-item label="国网侧供应商编码:">
+                <span>{{ props.row.requestBody.supplierCode }}</span>
+              </el-form-item>
+              <el-form-item label="规格型号编码:">
+                <span>{{ props.row.requestBody.modelCode }}</span>
+              </el-form-item>
+              <el-form-item label="物资品类类型:">
+                <span>{{ props.row.requestBody.categoryType }}</span>
+              </el-form-item>
+              <el-form-item label="是否是告警问题数据:">
+                <span>{{ props.row.requestBody.isAlarmData }}</span>
+              </el-form-item>
+              <el-form-item label="告警项:">
+                <span>{{ props.row.requestBody.alarmItem }}</span>
+              </el-form-item>
+              <el-form-item label="感知过程:">
+                <span>{{ props.row.requestBody.processType }}</span>
+              </el-form-item>
+              <el-form-item label="工序:">
+                <span>{{ props.row.requestBody.pdCode }}</span>
+              </el-form-item>
+              <el-form-item label="采集时间:">
+                <span>{{ props.row.requestBody.checkTime }}</span>
+              </el-form-item>
+              <el-form-item label="CT出厂编号:">
+                <span>{{ props.row.requestBody.rawMaterialSN }}</span>
+              </el-form-item>
+              <el-form-item label="一次额定电流(A):">
+                <span>{{ props.row.requestBody.ratedCurrent }}</span>
+              </el-form-item>
+              <el-form-item label="一次耐压额定值(kV):">
+                <span>{{ props.row.requestBody.pressureValueUn }}</span>
+              </el-form-item>
+              <el-form-item label="一次耐压值(kV):">
+                <span>{{ props.row.requestBody.pressureValue }}</span>
+              </el-form-item>
+              <el-form-item label="耐压持续额定时间(S):">
+                <span>{{ props.row.requestBody.pressureTimeUn }}</span>
+              </el-form-item>
+              <el-form-item label="耐压持续时间(S):">
+                <span>{{ props.row.requestBody.pressureTime }}</span>
+              </el-form-item>
+              <el-form-item label="额定局放量(pC):">
+                <span>{{ props.row.requestBody.dischargeUn }}</span>
+              </el-form-item>
+              <el-form-item label="A相局放量(pC):">
+                <span>{{ props.row.requestBody.dischargeA }}</span>
+              </el-form-item>
+              <el-form-item label="B相局放量(pC):">
+                <span>{{ props.row.requestBody.dischargeB }}</span>
+              </el-form-item>
+              <el-form-item label="C相局放量(pC):">
+                <span>{{ props.row.requestBody.dischargeC }}</span>
+              </el-form-item>
+              <el-form-item label="电压互感器附件:">
+                <span>{{ props.row.requestBody.inspectionReportFile }}</span>
+              </el-form-item>
+            </el-form>
+          </template>
+        </el-table-column>
+        <el-table-column label="创建时间" align="center" prop="createTime" width="150px" />
+        <el-table-column label="状态" align="center" prop="levelString" width="100px">
+          <template slot-scope="scope">
+            <el-tag :type="scope.row.levelString" :class="[scope.row.levelString === 'ERROR' ? 'classRed' : 'classGreen']">
+              {{ scope.row.levelString === 'ERROR' ? '错误' : '成功' }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column property="modelName" label="模块名称" align="center" width="150px" />
+        <el-table-column label="消息日志" align="center" prop="message" />
+      </el-table>
+      <pagination v-show="logTotal > 0" :total="logTotal" :current.sync="paginationLog.current" :size.sync="paginationLog.size" @pagination="getLogList" />
+    </el-dialog>
+
     <pagination v-show="total > 0" :total="total" :current.sync="pagination.current" :size.sync="pagination.size" @pagination="getList" />
   </div>
 </template>
@@ -353,18 +422,17 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { voltageList, voltageDellte, voltageEdit, allLogs } from '@/api/business'
+import { npList, npDellte, npEdit, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
-import logDialog from '@/components/logDialog' // 日志封装
+import ImprotFile from '@/components/ImprotFile' // 文件上传文件封装
 const fixHeight = 270
-import { getToken } from '@/utils/auth' // get token from cookie
-const hasToken = getToken()
 export default {
   name: 'VoltageTransformer',
-  components: { Pagination, logDialog },
+  components: { Pagination, ImprotFile },
   data() {
     return {
-      myHeaders: { Authorization: hasToken }, // 获取token
+      productionUrl: this.GLOBAL.BASE_URL + '/api/kvsc/np/import/file',
+      myHeaders: { Authorization: this.$store.getters.token }, // 获取token
       // 日志分页
       paginationLog: {
         current: 1,
@@ -387,6 +455,7 @@ export default {
       },
       listLoading: true,
       editLoading: false, // 编辑loading
+      improtLoading: false, // 导入文件进度loading
       total: 10,
       selectedData: [], // 批量删除新数组
       tableHeight: window.innerHeight - fixHeight, // 表格高度
@@ -405,7 +474,18 @@ export default {
       editFileList: [],
       noneBtnImg: false, // 隐藏上传按钮
       limitCountImg: 1, // 上传图片的最大数量
+      isAlarmItem: false,
       content1: this.$t('permission.supplierWorkNo'),
+      isAlarmDataList: [
+        {
+          value: 0,
+          label: '否'
+        },
+        {
+          value: 1,
+          label: '是'
+        }
+      ],
       pickerOptions: {
         shortcuts: [
           {
@@ -456,13 +536,23 @@ export default {
         processType: [{ required: true, message: '请输入感知过程', trigger: 'blur' }],
         pdCode: [{ required: true, message: '请输入工序', trigger: 'blur' }],
         checkTime: [{ required: true, message: '请输入采集时间', trigger: 'blur' }],
-        putCenterTime: [{ required: true, message: '请输入入数采中心时间', trigger: 'blur' }],
-        rawMaterialSN: [{ required: true, message: '请输入原材料出厂编号(Key)', trigger: 'blur' }]
+        rawMaterialSN: [{ required: true, message: '请输入PT出厂编号', trigger: 'blur' }]
       }
     }
   },
   computed: {},
   watch: {
+    // 监听警告0或1
+    'ruleForm.isAlarmData': {
+      handler(val) {
+        this.ruleForm.isAlarmData = val
+        if (val === 0) {
+          this.isAlarmItem = false
+        } else {
+          this.isAlarmItem = true
+        }
+      }
+    },
     // 监听表格高度
     tableHeight(val) {
       if (!this.timer) {
@@ -562,10 +652,6 @@ export default {
       this.paginationLog = val
       this.clickLogs(this.logId)
     },
-    //  关闭日志弹窗
-    closeLog() {
-      this.dialogTableVisible = false
-    },
 
     // 批量删除
     deleteAll() {
@@ -581,7 +667,7 @@ export default {
               const newFeatid = item.id
               idList.push(newFeatid)
             })
-            voltageDellte(idList).then(res => {
+            npDellte(idList).then(res => {
               if (res.code === 200) {
                 this.$message({
                   type: 'success',
@@ -602,7 +688,7 @@ export default {
     // 获取列表
     getList() {
       this.listLoading = true
-      voltageList(this.pagination, this.listQuery).then(res => {
+      npList(this.pagination, this.listQuery).then(res => {
         this.tableData = res.data.records
         this.total = res.data.total
         this.listLoading = false
@@ -620,20 +706,17 @@ export default {
     },
     // 编辑
     handleEdit(index, row) {
-      if (row.imageFileUrl === null) {
-        this.noneBtnImg = false
-      } else {
-        this.noneBtnImg = true
-      }
       this.editFileList = []
       this.oneDataImg.id = row.id
       this.editRow = row
       if (row.imagePath !== null) {
         this.editFileList.push({
           name: row.imageFileUrl,
-          url: 'http://39.101.166.244/api/image/' + row.imagePath
+          url: this.GLOBAL.BASE_URL + '/api/image/' + row.imagePath
+          // url: 'http://192.168.1.192:8888/api/image/' + row.imagePath
         })
       }
+      this.noneBtnImg = this.editFileList.length >= this.limitCountImg
       this.ruleForm = JSON.parse(JSON.stringify(row))
       this.dialogFormVisible = true
     },
@@ -642,7 +725,7 @@ export default {
       this.editLoading = true
       this.$refs[formName].validate(valid => {
         if (valid) {
-          voltageEdit(this.ruleForm).then(res => {
+          npEdit(this.ruleForm).then(res => {
             if (res.code === 200) {
               this.$message({
                 type: 'success',
@@ -667,18 +750,25 @@ export default {
     okImprot() {
       this.dialogVisible = true
     },
+    // 关闭导入文件弹窗
+    fileClose() {
+      this.dialogVisible = false
+    },
     // 成功
     handleAvatarSuccess(res, file) {
       if (res.code === 200) {
         if (res.data.length > 0) {
           this.$message.success(this.$t('table.upSuccess'))
           this.dialogVisible = false
-          this.$refs.upload.clearFiles()
           this.dialogVisibleAllImg = true
+          this.improtLoading = false
           this.imgList = res.data
           this.getList()
         } else {
+          this.$message.success(this.$t('table.upSuccess'))
+          this.dialogVisible = false
           this.dialogVisibleAllImg = false
+          this.improtLoading = false
           this.getList()
         }
       } else {
@@ -688,13 +778,7 @@ export default {
           duration: 5000
         })
         this.dialogVisible = false
-        this.$refs.upload.clearFiles()
-      }
-    },
-    // 失败
-    handleAvatarError(res, file) {
-      if (res.code === 500 && res.type === 'error') {
-        this.$message.error(this.$t('table.upError'))
+        this.improtLoading = false
       }
     },
     beforeAvatarUpload(file) {
@@ -707,6 +791,7 @@ export default {
       if (!isLt50M) {
         this.$message.error(this.$t('table.errorTwo'))
       }
+      this.improtLoading = true
       return isXLS && isLt50M
     },
 
@@ -752,7 +837,8 @@ export default {
       // console.log('fileList', fileList)
       this.imgList.map(item => {
         if (item.imageName === file.name) {
-          item.imagePath = 'http://39.101.166.244' + res.data
+          item.imagePath = this.GLOBAL.BASE_URL + res.data
+          // item.imagePath = 'http://192.168.101.192:8888' + res.data
         }
       })
       this.getList()

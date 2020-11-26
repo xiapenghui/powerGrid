@@ -40,6 +40,16 @@ export default {
     ElectricalInterlock: 'Electrical Interlock',
     ProductionList: 'Production Schedule',
     supplierMangemen: 'Supplier Mangemen',
+    HeadBox: 'Contact Box',
+    CabinetBush: 'Casing Cabinet',
+    ColumnInsulation: 'Post Insulator',
+    LightnArreste: 'Lightning Arrester',
+    DotDisplay: 'Charged Display',
+    FuseBox: 'Fuse Box',
+    LightImpulse: 'Lightning Impulse',
+    DischargeTest: 'Partial Discharge',
+    SupplyList: 'Supply List',
+
     // 截止
 
     icons: 'Icons',
