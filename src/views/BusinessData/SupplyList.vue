@@ -46,7 +46,7 @@
 
     <el-table
       v-loading="listLoading"
-      :header-cell-style="{ background: '#008284',color:'#ffffff' }"
+      :header-cell-style="{ background: '#008284', color: '#ffffff' }"
       :data="tableData"
       :height="tableHeight"
       style="width: 100%"
@@ -72,7 +72,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.purchaserHqCode')" width="120">
+      <el-table-column align="center" :label="$t('permission.purchaserHqCode')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.purchaserHqCode }}
         </template>
@@ -84,31 +84,31 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.supplyNo')" width="120">
+      <el-table-column align="center" :label="$t('permission.supplyNo')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.supplyNo }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.conType')" width="120">
+      <el-table-column align="center" :label="$t('permission.conType')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.conType }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.conCode')" width="120">
+      <el-table-column align="center" :label="$t('permission.conCode')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.conCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.sellerSignTime')" width="120">
+      <el-table-column align="center" :label="$t('permission.sellerSignTime')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.sellerSignTime }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.prjName')" width="120">
+      <el-table-column align="center" :label="$t('permission.prjName')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.prjName }}
         </template>
@@ -120,157 +120,157 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.sellerConCode')" width="120">
+      <el-table-column align="center" :label="$t('permission.sellerConCode')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.sellerConCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.matMaxCode')" width="150">
+      <el-table-column align="center" :label="$t('permission.matMaxCode')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.matMaxCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.matMedCode')" width="100">
+      <el-table-column align="center" :label="$t('permission.matMedCode')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.matMedCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.matMinCode')" width="120">
+      <el-table-column align="center" :label="$t('permission.matMinCode')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.matMinCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.matMaxName')" width="120">
+      <el-table-column align="center" :label="$t('permission.matMaxName')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.matMaxName }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.matMedName')" width="120">
+      <el-table-column align="center" :label="$t('permission.matMedName')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.matMedName }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.matMinName')" width="160">
+      <el-table-column align="center" :label="$t('permission.matMinName')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.matMinName }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.cargoName')" width="100">
+      <el-table-column align="center" :label="$t('permission.cargoName')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.cargoName }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.categoryCode')" width="100">
+      <el-table-column align="center" :label="$t('permission.categoryCode')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.categoryCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.subclassCode')" width="120">
+      <el-table-column align="center" :label="$t('permission.subclassCode')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.subclassCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.purchaseName')" width="150">
+      <el-table-column align="center" :label="$t('permission.purchaseName')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.purchaseName }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.purchaseCode')" width="100">
+      <el-table-column align="center" :label="$t('permission.purchaseCode')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.purchaseCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.poItemNoOther')" width="120">
+      <el-table-column align="center" :label="$t('permission.poItemNoOther')" width="120" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.poItemNo }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.receivedName')" width="120">
+      <el-table-column align="center" :label="$t('permission.receivedName')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.receivedName }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.materialCodeOther')" width="120">
+      <el-table-column align="center" :label="$t('permission.materialCodeOther')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.materialCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.materialDescOther')" width="120">
+      <el-table-column align="center" :label="$t('permission.materialDescOther')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.materialDesc }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.eipMaterialCode')" width="120">
+      <el-table-column align="center" :label="$t('permission.eipMaterialCode')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.eipMaterialCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.eipMaterialDesc')" width="120">
+      <el-table-column align="center" :label="$t('permission.eipMaterialDesc')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.eipMaterialDesc }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.amountOthers')" width="120">
+      <el-table-column align="center" :label="$t('permission.amountOthers')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.amount }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.measUnit')" width="120">
+      <el-table-column align="center" :label="$t('permission.measUnit')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.measUnit }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.dataSource')" width="120">
+      <el-table-column align="center" :label="$t('permission.dataSource')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.dataSource }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.dataSource')" width="120">
+      <el-table-column align="center" :label="$t('permission.dataSource')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.dataSource }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.dataSourceCreateTime')" width="120">
+      <el-table-column align="center" :label="$t('permission.dataSourceCreateTime')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.dataSourceCreateTime }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.remark')" width="120">
+      <el-table-column align="center" :label="$t('permission.remark')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.remark }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.ownerId')" width="120">
+      <el-table-column align="center" :label="$t('permission.ownerId')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.ownerId }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.openId')" width="120">
+      <el-table-column align="center" :label="$t('permission.openId')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.openId }}
         </template>
@@ -286,11 +286,7 @@
     </el-table>
 
     <!-- 编辑弹窗 -->
-    <el-dialog
-      title="编辑信息"
-      :close-on-click-modal="false"
-      :visible.sync="dialogFormVisible"
-    >
+    <el-dialog title="编辑信息" :close-on-click-modal="false" :visible.sync="dialogFormVisible">
       <el-form ref="ruleForm" v-loading="editLoading" :model="ruleForm" :rules="rules" label-width="130px" class="demo-ruleForm">
         <div class="bigUpBox">
           <div class="boxLeft">
@@ -307,15 +303,26 @@
             <el-form-item label="货物名称" prop="cargoName"><el-input v-model="ruleForm.cargoName" /></el-form-item>
             <el-form-item label="种类编码" prop="subclassCode"><el-input v-model="ruleForm.subclassCode" /></el-form-item>
             <el-form-item label="采购方公司编码"><el-input v-model="ruleForm.purchaseCode" /></el-form-item>
-            <el-form-item label="供货单行项目收货方公司名称" prop="receivedName"><el-input v-model="ruleForm.receivedName" /></el-form-item>
-            <el-form-item label="供货单行项目物料描述" prop="materialDesc"><el-input v-model="ruleForm.materialDesc" /></el-form-item>
-            <el-form-item label="供货单行项目国网侧物料描述"><el-input v-model="ruleForm.eipMaterialDesc" /></el-form-item>
-            <el-form-item label="供货单行项目计量单位" prop="measUnit"><el-input v-model="ruleForm.measUnit" /></el-form-item>
-            <el-form-item label="来源数据创建时间 " prop="dataSourceCreateTime">
-              <el-date-picker v-model="ruleForm.dataSourceCreateTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
-            </el-form-item>
-            <el-form-item label="数据拥有方"><el-input v-model="ruleForm.ownerId" /></el-form-item>
 
+            <el-tooltip class="itemrk" content="供货单行项目收货方公司名称" placement="top-start">
+              <el-form-item label="供货单行项目收货方公司名称" prop="receivedName"><el-input v-model="ruleForm.receivedName" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="itemrk" content="供货单行项目物料描述" placement="top-start">
+              <el-form-item label="供货单行项目物料描述" prop="materialDesc"><el-input v-model="ruleForm.materialDesc" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="itemrk" content="供货单行项目国网侧物料描述" placement="top-start">
+              <el-form-item label="供货单行项目国网侧物料描述"><el-input v-model="ruleForm.eipMaterialDesc" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="itemrk" content="供货单行项目计量单位" placement="top-start">
+              <el-form-item label="供货单行项目计量单位" prop="measUnit"><el-input v-model="ruleForm.measUnit" /></el-form-item>
+            </el-tooltip>
+            <el-tooltip class="itemrk" content="来源数据创建时间" placement="top-start">
+              <el-form-item label="来源数据创建时间 " prop="dataSourceCreateTime">
+                <el-date-picker v-model="ruleForm.dataSourceCreateTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" />
+              </el-form-item>
+            </el-tooltip>
+
+            <el-form-item label="数据拥有方"><el-input v-model="ruleForm.ownerId" /></el-form-item>
           </div>
           <div class="boxRight">
             <el-form-item label="采购方总部编码" prop="purchaserHqCode"><el-input v-model="ruleForm.purchaserHqCode" :disabled="true" /></el-form-item>
@@ -329,13 +336,22 @@
             <el-form-item label="品类编码" prop="categoryCode"><el-input v-model="ruleForm.categoryCode" /></el-form-item>
             <el-form-item label="采购方公司名称" prop="purchaseName"><el-input v-model="ruleForm.purchaseName" /></el-form-item>
             <el-form-item label="供货单项目号" prop="poItemNo"><el-input v-model="ruleForm.poItemNo" /></el-form-item>
-            <el-form-item label="供货单行项目供应商侧物料编码" prop="materialCode"><el-input v-model="ruleForm.materialCode" /></el-form-item>
-            <el-form-item label="供货单行项目国网侧物料编码"><el-input v-model="ruleForm.eipMaterialCode" /></el-form-item>
-            <el-form-item label="供货单行项目采购数量" prop="amount"><el-input v-model="ruleForm.amount" /></el-form-item>
+
+            <el-tooltip class="itemrk" content="供货单行项目供应商侧物料编码" placement="top-start">
+              <el-form-item label="供货单行项目供应商侧物料编码" prop="materialCode"><el-input v-model="ruleForm.materialCode" /></el-form-item>
+            </el-tooltip>
+
+            <el-tooltip class="itemrk" content="供货单行项目国网侧物料编码" placement="top-start">
+              <el-form-item label="供货单行项目国网侧物料编码"><el-input v-model="ruleForm.eipMaterialCode" /></el-form-item>
+            </el-tooltip>
+
+            <el-tooltip class="itemrk" content="供货单行项目采购数量" placement="top-start">
+              <el-form-item label="供货单行项目采购数量" prop="amount"><el-input v-model="ruleForm.amount" /></el-form-item>
+            </el-tooltip>
+
             <el-form-item label="数据来源" prop="dataSource"><el-input v-model="ruleForm.dataSource" /></el-form-item>
             <el-form-item label="备注"><el-input v-model="ruleForm.remark" /></el-form-item>
             <el-form-item label="数据可见方"><el-input v-model="ruleForm.openId" /></el-form-item>
-
           </div>
         </div>
       </el-form>
@@ -366,7 +382,7 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { saleList, saleDellte, saleEdit, saleUpload, allLogs } from '@/api/business'
+import { saList, saDellte, saEdit, saUpload, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import logDialog from '@/components/logDialog' // 日志封装
 import ImprotFile from '@/components/ImprotFile' // 文件上传文件封装
@@ -376,7 +392,7 @@ export default {
   components: { Pagination, logDialog, ImprotFile },
   data() {
     return {
-      productionUrl: this.GLOBAL.BASE_URL + '/api/eip/so/import/file',
+      productionUrl: this.GLOBAL.BASE_URL + '/api/eip/sa/import/file',
       // 日志分页
       paginationLog: {
         current: 1,
@@ -409,40 +425,43 @@ export default {
       dialogFormVisible: false, // 编辑弹出框
       content1: this.$t('permission.supplyNo'),
       pickerOptions: {
-        shortcuts: [{
-          text: '最近一周',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-            picker.$emit('pick', [start, end])
+        shortcuts: [
+          {
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近六个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 180)
+              picker.$emit('pick', [start, end])
+            }
           }
-        }, {
-          text: '最近一个月',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-            picker.$emit('pick', [start, end])
-          }
-        }, {
-          text: '最近三个月',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-            picker.$emit('pick', [start, end])
-          }
-        },
-        {
-          text: '最近六个月',
-          onClick(picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 180)
-            picker.$emit('pick', [start, end])
-          }
-        }
         ]
       },
       rules: {
@@ -581,7 +600,7 @@ export default {
               const newFeatid = item.id
               idList.push(newFeatid)
             })
-            saleDellte(idList).then(res => {
+            saDellte(idList).then(res => {
               if (res.code === 200) {
                 this.$message({
                   type: 'success',
@@ -603,7 +622,7 @@ export default {
     // 获取列表
     getList() {
       this.listLoading = true
-      saleList(this.pagination, this.listQuery).then(res => {
+      saList(this.pagination, this.listQuery).then(res => {
         this.tableData = res.data.records
         this.total = res.data.total
         this.listLoading = false
@@ -630,7 +649,7 @@ export default {
       this.editLoading = true
       this.$refs[formName].validate(valid => {
         if (valid) {
-          saleEdit(this.ruleForm).then(res => {
+          saEdit(this.ruleForm).then(res => {
             if (res.code === 200) {
               this.$message({
                 type: 'success',
@@ -654,7 +673,7 @@ export default {
     // 上传
     okUpload() {
       this.listLoading = true
-      saleUpload().then(res => {
+      saUpload().then(res => {
         if (res.code === 200) {
           this.$message({
             type: 'success',

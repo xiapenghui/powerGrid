@@ -58,7 +58,7 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" align="center" width="55" fixed />
-      <el-table-column align="center" label="创建时间" width="150">
+      <el-table-column align="center" label="创建时间" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.createTime }}
         </template>
@@ -72,7 +72,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.spareProductCode')" width="150">
+      <el-table-column align="center" :label="$t('permission.spareProductCode')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.spareProductCode }}
         </template>
@@ -84,19 +84,19 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.productAmounts')" width="150">
+      <el-table-column align="center" :label="$t('permission.productAmounts')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.productAmount }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.productUnits')" width="120">
+      <el-table-column align="center" :label="$t('permission.productUnits')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.productUnit }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.ItemProductLot')" width="120">
+      <el-table-column align="center" :label="$t('permission.ItemProductLot')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.ItemProductLot }}
         </template>
@@ -108,19 +108,19 @@
         </template>
       </el-table-column> -->
 
-      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
+      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.saleOrg }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.purchaserHqCode')" width="120">
+      <el-table-column align="center" :label="$t('permission.purchaserHqCode')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.purchaserHqCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.supplierCode')" width="120">
+      <el-table-column align="center" :label="$t('permission.supplierCode')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.supplierCode }}
         </template>
@@ -132,25 +132,25 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.dataSource')" width="120">
+      <el-table-column align="center" :label="$t('permission.dataSource')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.dataSource }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.dataSourceCreateTime')" width="150">
+      <el-table-column align="center" :label="$t('permission.dataSourceCreateTime')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.dataSourceCreateTime }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.ownerId')" width="120">
+      <el-table-column align="center" :label="$t('permission.ownerId')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.ownerId }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.openId')" width="120">
+      <el-table-column align="center" :label="$t('permission.openId')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.openId }}
         </template>
@@ -174,7 +174,7 @@
         </template>
       </el-table-column> -->
 
-      <el-table-column align="center" :label="$t('permission.operations')" fixed="right" width="150">
+      <el-table-column align="center" :label="$t('permission.operations')" fixed="right" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">{{ $t('table.edit') }}</el-button>
           <!-- <el-button type="danger" size="small" @click="handleDelete(scope.$index, scope.row)">{{ $t('table.delete') }}</el-button> -->

@@ -1,4 +1,4 @@
-// const newUrl = 'http://192.168.1.133:8888'
+// const newUrl = 'http://192.168.1.136:8888'
 const newUrl = 'http://39.101.166.244'
 import request from '@/utils/request'
 
@@ -234,6 +234,43 @@ export function piUpload() {
   })
 }
 
+// 供货单列表
+// 供货单列表接口
+export function saList(query, data) {
+  return request({
+    url: newUrl + '/api/eip/sa/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+// 供货单删除接口
+export function saDellte(data) {
+  return request({
+    url: newUrl + '/api/eip/sa/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 供货单保存接口
+export function saEdit(data) {
+  return request({
+    url: newUrl + '/api/eip/sa/update',
+    method: 'post',
+    data
+  })
+}
+
+// 供货单上传接口
+export function saUpload() {
+  return request({
+    url: newUrl + '/api/eip/sa/upload',
+    method: 'get'
+  })
+}
+
 // 采购订单信息列表
 //  采购订单信息列表接口
 export function poList(query, data) {
@@ -252,7 +289,6 @@ export function poDown() {
     method: 'get'
   })
 }
-
 // 表格解析接口
 export function analysis() {
   return request({
@@ -716,6 +752,64 @@ export function dctDellte(data) {
 export function dctEdit(data) {
   return request({
     url: newUrl + '/api/kvsc/dct/update',
+    method: 'post',
+    data
+  })
+}
+
+// 触头盒列表
+// 触头盒列表接口
+export function cthList(query, data) {
+  return request({
+    url: newUrl + '/api/kvsc/cth/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+// 触头盒删除接口
+export function cthDellte(data) {
+  return request({
+    url: newUrl + '/api/kvsc/cth/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 触头盒编辑保存接口
+export function cthEdit(data) {
+  return request({
+    url: newUrl + '/api/kvsc/cth/update',
+    method: 'post',
+    data
+  })
+}
+
+// 穿柜套管列表
+// 穿柜套管列表接口
+export function cgtgList(query, data) {
+  return request({
+    url: newUrl + '/api/kvsc/cgtg/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+// 穿柜套管删除接口
+export function cgtgDellte(data) {
+  return request({
+    url: newUrl + '/api/kvsc/cgtg/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 穿柜套管编辑保存接口
+export function cgtgEdit(data) {
+  return request({
+    url: newUrl + '/api/kvsc/cgtg/update',
     method: 'post',
     data
   })
