@@ -496,7 +496,7 @@ export default {
     cargoName: '货物名称',
     purchaseCode: '采购方公司编码',
     receivedName: '供货单行项目收货方公司名称',
-    poItemNoOther: '采购方公司编码',
+    poItemNoOther: '供货单项目号',
     materialCodeOther: '供货单行项目供应商侧物料编码',
     materialDescOther: '供货单行项目物料描述',
     eipMaterialCode: '供货单行项目国网侧物料编码',
@@ -551,7 +551,6 @@ export default {
     delete: '删除',
     cancel: '取 消',
     confirm: '确 定',
-
     editSuccess: '保存',
     deleteInfo: '此操作将永久删除数据, 是否继续?',
     deleteSuccess: '删除成功！',

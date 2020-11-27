@@ -30,9 +30,7 @@ export default {
     margin: 20% auto;
     font-size: 50px;
     font-weight: bold;
-    background: linear-gradient(to right, green, #007a59, #006569);
-    -webkit-background-clip: text;
-    color: transparent;
+    color: #007A59;
     letter-spacing: 3px;
     span {
       margin: 0 10px;
