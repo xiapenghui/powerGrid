@@ -298,7 +298,7 @@ export function analysis() {
 }
 
 // 电流互感器列表-分页接口
-export function electricCurrent(query, data) {
+export function ctList(query, data) {
   return request({
     url: newUrl + '/api/kvsc/ct/page',
     method: 'post',
@@ -308,7 +308,7 @@ export function electricCurrent(query, data) {
 }
 
 // 电流互感器删除接口
-export function electricDellte(data) {
+export function ctDellte(data) {
   return request({
     url: newUrl + '/api/kvsc/ct/delete/ids',
     method: 'post',
@@ -317,7 +317,7 @@ export function electricDellte(data) {
 }
 
 // 电流互感器编辑保存接口
-export function electricEdit(data) {
+export function ctEdit(data) {
   return request({
     url: newUrl + '/api/kvsc/ct/update',
     method: 'post',
@@ -327,7 +327,7 @@ export function electricEdit(data) {
 
 // 电压列表
 // 电压列表接口
-export function voltageList(query, data) {
+export function vtList(query, data) {
   return request({
     url: newUrl + '/api/kvsc/vt/page',
     method: 'post',
@@ -337,7 +337,7 @@ export function voltageList(query, data) {
 }
 
 // 电压删除接口
-export function voltageDellte(data) {
+export function vtDellte(data) {
   return request({
     url: newUrl + '/api/kvsc/vt/delete/ids',
     method: 'post',
@@ -346,7 +346,7 @@ export function voltageDellte(data) {
 }
 
 // 电压编辑保存接口
-export function voltageEdit(data) {
+export function vtEdit(data) {
   return request({
     url: newUrl + '/api/kvsc/vt/update',
     method: 'post',
@@ -810,6 +810,180 @@ export function cgtgDellte(data) {
 export function cgtgEdit(data) {
   return request({
     url: newUrl + '/api/kvsc/cgtg/update',
+    method: 'post',
+    data
+  })
+}
+
+// 支柱绝缘子列表
+// 支柱绝缘子列表接口
+export function zzjyzList(query, data) {
+  return request({
+    url: newUrl + '/api/kvsc/zzjyz/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+// 支柱绝缘子删除接口
+export function zzjyzDellte(data) {
+  return request({
+    url: newUrl + '/api/kvsc/zzjyz/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 支柱绝缘子编辑保存接口
+export function zzjyzEdit(data) {
+  return request({
+    url: newUrl + '/api/kvsc/zzjyz/update',
+    method: 'post',
+    data
+  })
+}
+
+// 支柱绝缘子列表
+// 支柱绝缘子列表接口
+export function blqList(query, data) {
+  return request({
+    url: newUrl + '/api/kvsc/blq/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+// 支柱绝缘子删除接口
+export function blqDellte(data) {
+  return request({
+    url: newUrl + '/api/kvsc/blq/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 支柱绝缘子编辑保存接口
+export function blqEdit(data) {
+  return request({
+    url: newUrl + '/api/kvsc/blq/update',
+    method: 'post',
+    data
+  })
+}
+
+// 带电显示器列表
+// 带电显示器列表接口
+export function ddxsqList(query, data) {
+  return request({
+    url: newUrl + '/api/kvsc/ddxsq/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+// 带电显示器删除接口
+export function ddxsqDellte(data) {
+  return request({
+    url: newUrl + '/api/kvsc/ddxsq/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 带电显示器编辑保存接口
+export function ddxsqEdit(data) {
+  return request({
+    url: newUrl + '/api/kvsc/ddxsq/update',
+    method: 'post',
+    data
+  })
+}
+
+// 熔断器列表
+// 熔断器列表接口
+export function rdqList(query, data) {
+  return request({
+    url: newUrl + '/api/kvsc/rdq/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+// 熔断器删除接口
+export function rdqDellte(data) {
+  return request({
+    url: newUrl + '/api/kvsc/rdq/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 熔断器编辑保存接口
+export function rdqEdit(data) {
+  return request({
+    url: newUrl + '/api/kvsc/rdq/update',
+    method: 'post',
+    data
+  })
+}
+
+// 雷电冲击电压试验列表
+// 雷电冲击电压试验列表接口
+export function ldcjdysyList(query, data) {
+  return request({
+    url: newUrl + '/api/kvsc/ldcjdysy/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+// 雷电冲击电压试验删除接口
+export function ldcjdysyDellte(data) {
+  return request({
+    url: newUrl + '/api/kvsc/ldcjdysy/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 雷电冲击电压试验编辑保存接口
+export function ldcjdysyEdit(data) {
+  return request({
+    url: newUrl + '/api/kvsc/ldcjdysy/update',
+    method: 'post',
+    data
+  })
+}
+
+// 整柜局部放电试验列表
+// 整柜局部放电试验列表接口
+export function zgjbfdsyList(query, data) {
+  return request({
+    url: newUrl + '/api/kvsc/zgjbfdsy/page',
+    method: 'post',
+    params: query,
+    data
+  })
+}
+
+// 整柜局部放电试验删除接口
+export function zgjbfdsyDellte(data) {
+  return request({
+    url: newUrl + '/api/kvsc/zgjbfdsy/delete/ids',
+    method: 'post',
+    data
+  })
+}
+
+// 整柜局部放电试验编辑保存接口
+export function zgjbfdsyEdit(data) {
+  return request({
+    url: newUrl + '/api/kvsc/zgjbfdsy/update',
     method: 'post',
     data
   })

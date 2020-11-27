@@ -430,36 +430,6 @@
     <log-dialog :is-show="dialogTableVisible" :log-total="logTotal" :pagination-log="paginationLog" :data="gridData" @pageChange="getLogList" @closeLog="closeLog" />
 
     <!-- 上传文件弹窗 -->
-    <!-- <el-dialog
-      title="导入文件"
-      :close-on-click-modal="false"
-      :visible.sync="dialogVisible"
-      width="30%"
-    >
-      <el-upload
-        ref="upload"
-        v-loading="improtLoading"
-        element-loading-text="请稍等,文件上传并解析中...."
-        element-loading-spinner="el-icon-loading"
-        class="upload-demo"
-        :action="this.GLOBAL.BASE_URL + '/api/eip/prod/import/file'"
-        :headers="this.myHeaders"
-        :limit="1"
-        :before-upload="beforeAvatarUpload"
-        :on-success="handleAvatarSuccess"
-        :on-error="handleAvatarError"
-        :auto-upload="true"
-      >
-        <el-button size="small" type="primary">{{ $t('table.clickUp') }}</el-button>
-        <div slot="tip" class="el-upload__tip">
-          {{ $t('table.onlyUpload') }}
-          <b>{{ $t('table.xls') }}</b>
-          {{ $t('table.or') }}
-          <b>{{ $t('table.xlsx') }}</b>
-          {{ $t('table.fileSize') }}
-        </div>
-      </el-upload>
-    </el-dialog> -->
     <ImprotFile
       :dialog-visible="dialogVisible"
       :improt-loading="improtLoading"

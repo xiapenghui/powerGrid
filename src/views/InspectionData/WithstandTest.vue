@@ -58,13 +58,13 @@
     >
       <el-table-column type="selection" align="center" width="55" fixed />
 
-      <el-table-column align="center" label="创建时间" width="150">
+      <el-table-column align="center" label="创建时间" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.createTime }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.upload')" width="150">
+      <el-table-column align="center" :label="$t('permission.upload')" width="100">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.isUpload === 0" class="classBlack">未上传</el-tag>
           <el-tag v-else-if="scope.row.isUpload === 2" class="classGreen">已上传</el-tag>
@@ -72,67 +72,67 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="150">
+      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.saleOrg }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.standardVersion')" width="120">
+      <el-table-column align="center" :label="$t('permission.standardVersion')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.standardVersion }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.supplierWorkNo')" width="150">
+      <el-table-column align="center" :label="$t('permission.supplierWorkNo')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.supplierWorkNo }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.supplierCodeOther')" width="150">
+      <el-table-column align="center" :label="$t('permission.supplierCodeOther')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.supplierCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.modelCode')" width="150">
+      <el-table-column align="center" :label="$t('permission.modelCode')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.modelCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.categoryType')" width="150">
+      <el-table-column align="center" :label="$t('permission.categoryType')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.categoryType }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.factoryCode')" width="150">
+      <el-table-column align="center" :label="$t('permission.factoryCode')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.factoryCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.supplierSupportId')" width="150">
+      <el-table-column align="center" :label="$t('permission.supplierSupportId')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.supplierSupportId }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.productModelOther')" width="150">
+      <el-table-column align="center" :label="$t('permission.productModelOther')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.productModel }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.equipmentName')" width="150">
+      <el-table-column align="center" :label="$t('permission.equipmentName')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.equipmentName }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.equipmentUniqueCode')" width="150">
+      <el-table-column align="center" :label="$t('permission.equipmentUniqueCode')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.equipmentUniqueCode }}
         </template>
@@ -144,31 +144,31 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.alarmItem')" width="200">
+      <el-table-column align="center" :label="$t('permission.alarmItem')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.alarmItem }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.processTypeThree')" width="200">
+      <el-table-column align="center" :label="$t('permission.processTypeThree')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.processType }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.pdCodeOther')" width="200">
+      <el-table-column align="center" :label="$t('permission.pdCodeOther')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.pdCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.checkTime')" width="200">
+      <el-table-column align="center" :label="$t('permission.checkTime')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.checkTime }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('putCenterTime')" width="200">
+      <el-table-column align="center" :label="$t('putCenterTime')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.putCenterTime }}
         </template>
@@ -180,25 +180,25 @@
         </template>
       </el-table-column> -->
 
-      <el-table-column align="center" :label="$t('permission.MaterialSNs')" width="200">
+      <el-table-column align="center" :label="$t('permission.MaterialSNs')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.materialSN }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.pressureValueUnOther')" width="200">
+      <el-table-column align="center" :label="$t('permission.pressureValueUnOther')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.pressureValueUn }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.pressureValueOther')" width="200">
+      <el-table-column align="center" :label="$t('permission.pressureValueOther')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.pressureValue }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.pressureTime')" width="200">
+      <el-table-column align="center" :label="$t('permission.pressureTime')" width="200" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.pressureTime }}
         </template>

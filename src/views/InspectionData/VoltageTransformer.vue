@@ -58,7 +58,7 @@
     >
       <el-table-column type="selection" align="center" width="55" fixed />
 
-      <el-table-column align="center" label="创建时间" width="150">
+      <el-table-column align="center" label="创建时间" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.createTime }}
         </template>
@@ -72,127 +72,127 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="100">
+      <el-table-column align="center" :label="$t('permission.SaleOrg')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.saleOrg }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.standardVersion')" width="120">
+      <el-table-column align="center" :label="$t('permission.standardVersion')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.standardVersion }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.supplierWorkNo')" width="120">
+      <el-table-column align="center" :label="$t('permission.supplierWorkNo')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.supplierWorkNo }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.supplierCodeOther')" width="120">
+      <el-table-column align="center" :label="$t('permission.supplierCodeOther')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.supplierCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.modelCode')" width="120">
+      <el-table-column align="center" :label="$t('permission.modelCode')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.modelCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.categoryType')" width="120">
+      <el-table-column align="center" :label="$t('permission.categoryType')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.categoryType }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.isAlarmData')" width="130">
+      <el-table-column align="center" :label="$t('permission.isAlarmData')" width="150">
         <template slot-scope="scope">
           {{ scope.row.isAlarmData === 1 ? '是' : '否' }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.alarmItem')" width="120">
+      <el-table-column align="center" :label="$t('permission.alarmItem')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.alarmItem }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.processTypeThree')" width="120">
+      <el-table-column align="center" :label="$t('permission.processTypeThree')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.processType }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.pdCode')" width="150">
+      <el-table-column align="center" :label="$t('permission.pdCode')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.pdCode }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.checkTime')" width="150">
+      <el-table-column align="center" :label="$t('permission.checkTime')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.checkTime }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.rawMaterialSN')" width="150">
+      <el-table-column align="center" :label="$t('permission.rawMaterialSN')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.rawMaterialSN }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.ratedVoltage')" width="150">
+      <el-table-column align="center" :label="$t('permission.ratedVoltage')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.ratedVoltage }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.pressureValue')" width="150">
+      <el-table-column align="center" :label="$t('permission.pressureValue')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.pressureValue }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.pressureTimeUn')" width="150">
+      <el-table-column align="center" :label="$t('permission.pressureTimeUn')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.pressureTimeUn }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.pressureTime')" width="150">
+      <el-table-column align="center" :label="$t('permission.pressureTime')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.pressureTime }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.dischargeUn')" width="150">
+      <el-table-column align="center" :label="$t('permission.dischargeUn')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.dischargeUn }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.dischargeA')" width="150">
+      <el-table-column align="center" :label="$t('permission.dischargeA')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.dischargeA }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.dischargeB')" width="150">
+      <el-table-column align="center" :label="$t('permission.dischargeB')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.dischargeB }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.dischargeC')" width="150">
+      <el-table-column align="center" :label="$t('permission.dischargeC')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.dischargeC }}
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('permission.inspectionReportFileDY')" width="150">
+      <el-table-column align="center" :label="$t('permission.inspectionReportFileDY')" width="150" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{ scope.row.inspectionReportFile }}
         </template>
@@ -422,7 +422,7 @@
 import '../../styles/scrollbar.css'
 import '../../styles/commentBox.scss'
 import i18n from '@/lang'
-import { npList, npDellte, npEdit, allLogs } from '@/api/business'
+import { vtList, vtDellte, vtEdit, allLogs } from '@/api/business'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination4
 import ImprotFile from '@/components/ImprotFile' // 文件上传文件封装
 const fixHeight = 270
@@ -431,7 +431,7 @@ export default {
   components: { Pagination, ImprotFile },
   data() {
     return {
-      productionUrl: this.GLOBAL.BASE_URL + '/api/kvsc/np/import/file',
+      productionUrl: this.GLOBAL.BASE_URL + '/api/kvsc/vt/import/file',
       myHeaders: { Authorization: this.$store.getters.token }, // 获取token
       // 日志分页
       paginationLog: {
@@ -667,7 +667,7 @@ export default {
               const newFeatid = item.id
               idList.push(newFeatid)
             })
-            npDellte(idList).then(res => {
+            vtDellte(idList).then(res => {
               if (res.code === 200) {
                 this.$message({
                   type: 'success',
@@ -688,7 +688,7 @@ export default {
     // 获取列表
     getList() {
       this.listLoading = true
-      npList(this.pagination, this.listQuery).then(res => {
+      vtList(this.pagination, this.listQuery).then(res => {
         this.tableData = res.data.records
         this.total = res.data.total
         this.listLoading = false
@@ -725,7 +725,7 @@ export default {
       this.editLoading = true
       this.$refs[formName].validate(valid => {
         if (valid) {
-          npEdit(this.ruleForm).then(res => {
+          vtEdit(this.ruleForm).then(res => {
             if (res.code === 200) {
               this.$message({
                 type: 'success',
