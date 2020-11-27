@@ -260,34 +260,6 @@
     </el-dialog>
 
     <!-- 上传文件弹窗 -->
-    <!-- <el-dialog
-      title="导入文件"
-      :close-on-click-modal="false"
-      :visible.sync="dialogVisible"
-      width="30%"
-    >
-      <el-upload
-        ref="upload"
-        class="upload-demo"
-        :action="this.GLOBAL.BASE_URL + '/api/kvsc/jct/import/file'"
-        :headers="this.myHeaders"
-        :limit="1"
-        :before-upload="beforeAvatarUpload"
-        :on-success="handleAvatarSuccess"
-        :on-error="handleAvatarError"
-        :auto-upload="true"
-      >
-        <el-button size="small" type="primary">{{ $t('table.clickUp') }}</el-button>
-        <div slot="tip" class="el-upload__tip">
-          {{ $t('table.onlyUpload') }}
-          <b>{{ $t('table.xls') }}</b>
-          {{ $t('table.or') }}
-          <b>{{ $t('table.xlsx') }}</b>
-          {{ $t('table.fileSize') }}
-        </div>
-      </el-upload>
-    </el-dialog> -->
-
     <ImprotFile
       :dialog-visible="dialogVisible"
       :improt-loading="improtLoading"

@@ -222,7 +222,7 @@
               <el-input v-model="ruleForm.alarmItem" />
             </el-form-item>
             <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
-            <el-form-item label="国网OP" prop="materialSN"><el-input v-model="ruleForm.mterialSN" :disabled="true" /></el-form-item>
+            <el-form-item label="国网OP" prop="materialSN"><el-input v-model="ruleForm.materialSN" :disabled="true" /></el-form-item>
             <el-form-item label="耐压持续时间(S)"><el-input v-model="ruleForm.pressureTime" /></el-form-item>
           </div>
         </div>

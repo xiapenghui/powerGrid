@@ -317,31 +317,31 @@ export const constantRoutes = [{
     meta: {
       title: 'DotDisplay'
     }
+  },
+  {
+    path: 'FuseBox',
+    component: () => import('@/views/InspectionData/FuseBox'),
+    name: 'FuseBox',
+    meta: {
+      title: 'FuseBox'
+    }
+  },
+  {
+    path: 'LightImpulse',
+    component: () => import('@/views/InspectionData/LightImpulse'),
+    name: 'LightImpulse',
+    meta: {
+      title: 'LightImpulse'
+    }
+  },
+  {
+    path: 'DischargeTest',
+    component: () => import('@/views/InspectionData/DischargeTest'),
+    name: 'DischargeTest',
+    meta: {
+      title: 'DischargeTest'
+    }
   }
-    // {
-    //   path: 'FuseBox',
-    //   component: () => import('@/views/InspectionData/FuseBox'),
-    //   name: 'FuseBox',
-    //   meta: {
-    //     title: 'FuseBox'
-    //   }
-    // },
-    // {
-    //   path: 'LightImpulse',
-    //   component: () => import('@/views/InspectionData/LightImpulse'),
-    //   name: 'LightImpulse',
-    //   meta: {
-    //     title: 'LightImpulse'
-    //   }
-    // },
-    // {
-    //   path: 'DischargeTest',
-    //   component: () => import('@/views/InspectionData/DischargeTest'),
-    //   name: 'DischargeTest',
-    //   meta: {
-    //     title: 'DischargeTest'
-    //   }
-    // }
 
   ]
 },

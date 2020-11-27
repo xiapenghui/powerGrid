@@ -209,22 +209,10 @@
             <el-form-item label="采集时间" prop="checkTime">
               <el-date-picker v-model="ruleForm.checkTime" type="datetime" value-format="yyyy-MM-dd hh:mm:ss" placeholder="选择日期时间" :disabled="true" />
             </el-form-item>
-
-          </div>
-          <div class="boxRight">
-            <el-form-item label="采集规范版本号" prop="standardVersion"><el-input v-model="ruleForm.standardVersion" /></el-form-item>
-            <el-tooltip class="item" effect="dark" content="国网侧供应商编码" placement="top-start">
-              <el-form-item label="国网侧供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
+            <el-form-item label="类型"><el-input v-model="ruleForm.voltageType" /></el-form-item>
+            <el-tooltip class="item" content="1mA直流参考电压(kV)" placement="top-start">
+              <el-form-item label="1mA直流参考电压(kV)"><el-input v-model="ruleForm.refDCVoltage" /></el-form-item>
             </el-tooltip>
-            <el-form-item label="物资品类类型" prop="categoryType"><el-input v-model="ruleForm.categoryType" /></el-form-item>
-
-            <el-form-item label="告警项" prop="alarmItem" :rules="[{ required: isAlarmItem, message: '请输入告警项', trigger: 'blur' }]">
-              <el-input v-model="ruleForm.alarmItem" />
-            </el-form-item>
-
-            <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
-
-            <el-form-item label="避雷器出厂编号" prop="rawMaterialBLQ"><el-input v-model="ruleForm.rawMaterialSN" :disabled="true" /></el-form-item>
 
             <el-form-item label="避雷器附件">
               <el-upload
@@ -244,6 +232,22 @@
               </el-upload>
               <el-dialog :visible.sync="dialogVisibleImg"><img width="100%" :src="dialogImageUrl" alt=""></el-dialog>
             </el-form-item>
+          </div>
+          <div class="boxRight">
+            <el-form-item label="采集规范版本号" prop="standardVersion"><el-input v-model="ruleForm.standardVersion" /></el-form-item>
+            <el-tooltip class="item" effect="dark" content="国网侧供应商编码" placement="top-start">
+              <el-form-item label="国网侧供应商编码" prop="supplierCode"><el-input v-model="ruleForm.supplierCode" /></el-form-item>
+            </el-tooltip>
+            <el-form-item label="物资品类类型" prop="categoryType"><el-input v-model="ruleForm.categoryType" /></el-form-item>
+            <el-form-item label="告警项" prop="alarmItem" :rules="[{ required: isAlarmItem, message: '请输入告警项', trigger: 'blur' }]">
+              <el-input v-model="ruleForm.alarmItem" />
+            </el-form-item>
+            <el-form-item label="工序" prop="pdCode"><el-input v-model="ruleForm.pdCode" /></el-form-item>
+            <el-form-item label="避雷器出厂编号" prop="rawMaterialBLQ"><el-input v-model="ruleForm.rawMaterialSN" :disabled="true" /></el-form-item>
+            <el-form-item label="额定电压(kV)"><el-input v-model="ruleForm.refDCVoltageUn" /></el-form-item>
+            <el-tooltip class="item" content="0.75倍直流参考电压时泄露电流(μA)" placement="top-start">
+              <el-form-item label="0.75倍直流参考电压时泄露电流(μA)"><el-input v-model="ruleForm.leakageCurrentDC" /></el-form-item>
+            </el-tooltip>
           </div>
         </div>
         <!-- <div class="bigDownBox"></div> -->
@@ -654,6 +658,7 @@ export default {
     getList() {
       this.listLoading = true
       blqList(this.pagination, this.listQuery).then(res => {
+        debugger
         this.tableData = res.data.records
         this.total = res.data.total
         this.listLoading = false
