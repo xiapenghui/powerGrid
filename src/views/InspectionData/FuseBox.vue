@@ -650,7 +650,6 @@ export default {
         this.editFileList.push({
           name: row.imageFileUrl,
           url: this.GLOBAL.BASE_URL + '/api/image/' + row.imagePath
-          // url: 'http://192.168.1.192:8888/api/image/' + row.imagePath
         })
       }
       this.noneBtnImg = this.editFileList.length >= this.limitCountImg
@@ -694,7 +693,7 @@ export default {
     // 成功
     handleAvatarSuccess(res, file) {
       if (res.code === 200) {
-        if (res.data.length > 0) {
+        if (res.data != null && res.data.length > 0) {
           this.$message.success(this.$t('table.upSuccess'))
           this.dialogVisible = false
           this.dialogVisibleAllImg = true

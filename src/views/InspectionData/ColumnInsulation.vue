@@ -695,7 +695,7 @@ export default {
     // 成功
     handleAvatarSuccess(res, file) {
       if (res.code === 200) {
-        if (res.data.length > 0) {
+        if (res.data != null && res.data.length > 0) {
           this.$message.success(this.$t('table.upSuccess'))
           this.dialogVisible = false
           this.dialogVisibleAllImg = true

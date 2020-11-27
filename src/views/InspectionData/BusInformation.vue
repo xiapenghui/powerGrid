@@ -303,31 +303,6 @@
     </el-dialog>
 
     <!-- 日志弹出框 -->
-    <!-- <log-dialog :is-show="dialogTableVisible" :log-total="logTotal" :pagination-log="paginationLog" :data="gridData" @pageChange="getLogList" @closeLog="closeLog" /> -->
-
-    <!-- 上传文件弹窗 -->
-    <!-- <el-dialog title="导入文件" :close-on-click-modal="false" :visible.sync="dialogVisible" width="30%">
-      <el-upload
-        ref="upload"
-        class="upload-demo"
-        :action="this.GLOBAL.BASE_URL + '/api/kvsc/np/import/file'"
-        :headers="this.myHeaders"
-        :limit="1"
-        :before-upload="beforeAvatarUpload"
-        :on-success="handleAvatarSuccess"
-        :on-error="handleAvatarError"
-        :auto-upload="true"
-      >
-        <el-button size="small" type="primary">{{ $t('table.clickUp') }}</el-button>
-        <div slot="tip" class="el-upload__tip">
-          {{ $t('table.onlyUpload') }}
-          <b>{{ $t('table.xls') }}</b>
-          {{ $t('table.or') }}
-          <b>{{ $t('table.xlsx') }}</b>
-          {{ $t('table.fileSize') }}
-        </div>
-      </el-upload>
-    </el-dialog> -->
     <ImprotFile
       :dialog-visible="dialogVisible"
       :improt-loading="improtLoading"
@@ -816,7 +791,7 @@ export default {
     // 成功
     handleAvatarSuccess(res, file) {
       if (res.code === 200) {
-        if (res.data.length > 0) {
+        if (res.data != null && res.data.length > 0) {
           this.$message.success(this.$t('table.upSuccess'))
           this.dialogVisible = false
           this.dialogVisibleAllImg = true

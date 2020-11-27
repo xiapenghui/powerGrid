@@ -726,7 +726,7 @@ export default {
     // 成功
     handleAvatarSuccess(res, file) {
       if (res.code === 200) {
-        if (res.data.length > 0) {
+        if (res.data != null && res.data.length > 0) {
           this.$message.success(this.$t('table.upSuccess'))
           this.dialogVisible = false
           this.dialogVisibleAllImg = true
@@ -801,13 +801,9 @@ export default {
       return isJPG && isOK
     },
     onSuccessImage(res, file, fileList) {
-      // console.log('res', res)
-      // console.log('file', file)
-      // console.log('fileList', fileList)
       this.imgList.map(item => {
         if (item.imageName === file.name) {
           item.imagePath = this.GLOBAL.BASE_URL + res.data
-          // item.imagePath = 'http://192.168.101.192:8888' + res.data
         }
       })
       this.getList()
